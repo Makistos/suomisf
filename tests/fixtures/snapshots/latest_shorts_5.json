@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -13,528 +13,388 @@
       {
         "authors": [
           {
-            "id": 3702,
-            "name": "Kisnanen, Natalia",
-            "alt_name": "Natalia Kisnanen",
-            "fullname": "",
+            "id": 8082,
+            "name": "Genberg, Kjell E.",
+            "alt_name": "Kjell E. Genberg",
+            "fullname": "Kjell Erling Genberg",
             "image_src": null,
-            "dob": null,
+            "dob": 1940,
             "dod": null,
             "nationality": {
-              "id": 4,
-              "name": "Suomi"
+              "id": 5,
+              "name": "Ruotsi"
             },
-            "workcount": 0,
+            "workcount": 1,
+            "storycount": 1,
+            "roles": [
+              "Kirjoittaja"
+            ],
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "qid": "",
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": {
+              "id": 7269,
+              "title": "Keskiyön kummitusjuttuja",
+              "orig_title": "",
+              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 8078,
+                    "name": "Johansson, Ewa Christina",
+                    "alt_name": "Ewa Christina Johansson"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8079,
+                    "name": "Ambjörnsson, Gunila",
+                    "alt_name": "Gunila Ambjörnsson"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8080,
+                    "name": "Norlin, Arne",
+                    "alt_name": "Arne Norlin"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8081,
+                    "name": "Persson, Åke",
+                    "alt_name": "Åke Persson"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8082,
+                    "name": "Genberg, Kjell E.",
+                    "alt_name": "Kjell E. Genberg"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [
+                    {
+                      "id": 195,
+                      "name": "Kolehmainen, Annukka",
+                      "alt_name": "Annukka Kolehmainen"
+                    },
+                    {
+                      "id": 8077,
+                      "name": "Antikainen, Hanna",
+                      "alt_name": "Hanna Antikainen"
+                    }
+                  ],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 8077,
+                        "name": "Antikainen, Hanna",
+                        "alt_name": "Hanna Antikainen"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 195,
+                        "name": "Kolehmainen, Annukka",
+                        "alt_name": "Annukka Kolehmainen"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 8083,
+                        "name": "Holländer, Milja",
+                        "alt_name": "Milja Holländer"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "id": 10270,
+                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 528,
+                    "name": "Kolibri"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10533,
+                  "title": "Keskiyön kummitusjuttuja",
+                  "subtitle": "",
+                  "pubyear": 2003,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "952-16-0586-3",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 127,
+                  "size": 18,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 10,
+                  "name": "Nuorten kauhu",
+                  "abbr": "nK"
+                }
+              ],
+              "bookseries": null,
+              "tags": [
+                {
+                  "id": 703,
+                  "name": "kummitukset",
+                  "type": {
+                    "id": 4,
+                    "name": "Toimija"
+                  }
+                }
+              ],
+              "language_name": {
+                "id": 19,
+                "name": "ruotsi"
+              },
+              "type": 2,
+              "subtitle": "",
+              "pubyear": 2003,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": null
+            },
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 8077,
+                  "name": "Antikainen, Hanna",
+                  "alt_name": "Hanna Antikainen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 195,
+                  "name": "Kolehmainen, Annukka",
+                  "alt_name": "Annukka Kolehmainen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 8083,
+                  "name": "Holländer, Milja",
+                  "alt_name": "Milja Holländer"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "id": 10270,
+                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 528,
+              "name": "Kolibri"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 10533,
+            "title": "Keskiyön kummitusjuttuja",
+            "subtitle": "",
+            "pubyear": 2003,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "952-16-0586-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 127,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 8082,
+              "name": "Genberg, Kjell E.",
+              "alt_name": "Kjell E. Genberg"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 8077,
+              "name": "Antikainen, Hanna",
+              "alt_name": "Hanna Antikainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 195,
+              "name": "Kolehmainen, Annukka",
+              "alt_name": "Annukka Kolehmainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 19,
+          "name": "ruotsi"
+        },
+        "id": 15758,
+        "title": "Hiljainen tyttö",
+        "orig_title": "Tysta flickan",
+        "pubyear": 2000,
+        "notes": ""
+      },
+      {
+        "authors": [
+          {
+            "id": 8078,
+            "name": "Johansson, Ewa Christina",
+            "alt_name": "Ewa Christina Johansson",
+            "fullname": "",
+            "image_src": null,
+            "dob": 1964,
+            "dod": null,
+            "nationality": {
+              "id": 5,
+              "name": "Ruotsi"
+            },
+            "workcount": 1,
             "storycount": 4,
             "roles": [
               "Kirjoittaja"
             ],
-            "other_names": null,
-            "first_name": "Natalia",
-            "last_name": "Kisnanen",
-            "image_attr": "",
-            "qid": null,
-            "bio": null,
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 5,
-          "name": "Raapale"
-        },
-        "issues": [],
-        "editions": [
-          {
-            "work": {
-              "id": 4034,
-              "title": "Hurtan koodeksi",
-              "orig_title": "Hurtan koodeksi",
-              "author_str": "Leinonen, Anne & Saloranta, Tuomas & Suntila, Shimo (toim.)",
-              "contributions": [
-                {
-                  "person": {
-                    "id": 2370,
-                    "name": "Leinonen, Anne",
-                    "alt_name": "Anne Leinonen"
-                  },
-                  "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 607,
-                    "name": "Saloranta, Tuomas",
-                    "alt_name": "Tuomas Saloranta"
-                  },
-                  "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 610,
-                    "name": "Suntila, Shimo",
-                    "alt_name": "Shimo Suntila"
-                  },
-                  "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "editions": [
-                {
-                  "editors": [
-                    {
-                      "id": 607,
-                      "name": "Saloranta, Tuomas",
-                      "alt_name": "Tuomas Saloranta"
-                    },
-                    {
-                      "id": 610,
-                      "name": "Suntila, Shimo",
-                      "alt_name": "Shimo Suntila"
-                    },
-                    {
-                      "id": 2370,
-                      "name": "Leinonen, Anne",
-                      "alt_name": "Anne Leinonen"
-                    }
-                  ],
-                  "translators": [],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 610,
-                        "name": "Suntila, Shimo",
-                        "alt_name": "Shimo Suntila"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2492,
-                        "name": "Lin, Lucilla",
-                        "alt_name": "Lucilla Lin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 4849,
-                        "name": "Rauhala, Anssi",
-                        "alt_name": "Anssi Rauhala"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2205,
-                        "name": "Zherbin, Arren",
-                        "alt_name": "Arren Zherbin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1863,
-                        "name": "Lintunen, Venla",
-                        "alt_name": "Venla Lintunen"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2370,
-                        "name": "Leinonen, Anne",
-                        "alt_name": "Anne Leinonen"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 607,
-                        "name": "Saloranta, Tuomas",
-                        "alt_name": "Tuomas Saloranta"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    }
-                  ],
-                  "images": [
-                    {
-                      "id": 64,
-                      "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
-                      "image_attr": null
-                    }
-                  ],
-                  "publisher": {
-                    "id": 305,
-                    "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
-                  },
-                  "owners": [],
-                  "wishlisted": [],
-                  "id": 4627,
-                  "title": "Hurtan koodeksi",
-                  "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-                  "pubyear": 2013,
-                  "editionnum": 1,
-                  "version": 1,
-                  "isbn": "978-952-67765-2-1",
-                  "printedin": null,
-                  "pubseriesnum": null,
-                  "coll_info": "",
-                  "pages": 199,
-                  "size": 21,
-                  "dustcover": 1,
-                  "coverimage": 1,
-                  "misc": null,
-                  "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
-                  "verified": false
-                }
-              ],
-              "genres": [
-                {
-                  "id": 2,
-                  "name": "Kauhu",
-                  "abbr": "K"
-                },
-                {
-                  "id": 16,
-                  "name": "Kokoelma",
-                  "abbr": "kok"
-                }
-              ],
-              "bookseries": null,
-              "tags": [],
-              "language_name": {
-                "id": 7,
-                "name": "suomi"
-              },
-              "type": 2,
-              "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-              "pubyear": 2013,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Maailmassa on käsikirjoituksia, joiden ei koskaan pidä päätyä kenenkään luettavaksi, saati kopiokoneiden monistettavaksi tai robottien skannattavaksi. Omalaatuiset kirjankeräilijät ovat valmiita kysenalaisiin tekoihin saadessaan vainun harvinaisesta teoksesta. Antikvariaateissa ja yksityisissä kirjastoissa liikkuu niin myyttisiä olentoja kuin menneisyyden haamuja.</p><p><em>Hurtan koodeksi</em> on kunnianosoitus Mörövuoren kauhukirjailijalle Boris Hurtalle, jolle on tullut taiteilijanuraa täyteen kokonainen neljännesvuosisata. Teoksen sivuilla kotimaiset kauhukirjallisuuden ja fantastisen kerronnan taitajat jatkavat Hurtan teoksista tuttujen hahmojen tarinoita ja luovat uusia legendoja.</p><p><strong>\"Kirja tulee kirjan luo\"</strong></p>",
-              "descr_attr": "Takakansi",
-              "imported_string": ""
-            },
-            "editors": [
-              {
-                "id": 607,
-                "name": "Saloranta, Tuomas",
-                "alt_name": "Tuomas Saloranta",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1977,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 18,
-                "storycount": 53,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Tuomas",
-                "last_name": "Saloranta",
-                "image_attr": "",
-                "qid": null,
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              },
-              {
-                "id": 610,
-                "name": "Suntila, Shimo",
-                "alt_name": "Shimo Suntila",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 28,
-                "storycount": 401,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Shimo",
-                "last_name": "Suntila",
-                "image_attr": "",
-                "qid": null,
-                "bio": "<p>Shimo Suntila (s. 1973) on turkulainen spekulatiivisen fiktion kirjoittaja, joka on tunnettu ennen kaikkea valtavasta lyhytproosatuotannostaan, erityisesti raapaleista eli sadan sanan tarinoista. Hän alkoi julkaista laajasti 2010-luvun alussa, ja yhden vuoden projektissa hän kirjoitti uuden raapaleen joka päivä, yhteensä 366 tarinaa, joista on koottu kokoelmia. Suntila kirjoittaa science fictionia, fantasiaa, kauhua ja muuta “kummaa”, ja hänen kokoelmiinsa, kuten <em>Sata kummaa kertomusta</em>, <em>Tähtiviima</em>, <em>Sadanpäämies</em> ja <em>Kalpean noidan naamio</em>, on koottu monipuolisia, usein humoristisia mutta myös synkkiä ja kokeilevia tekstejä.</p><p>Hänellä on vahva asema suomalaisessa fandomissa: Suntila on toiminut Turun science fiction -seuran ja Suomen tieteis- ja fantasiakirjoittajien puheenjohtajana, ollut perustamassa useita harrastajayhdistyksiä (mm. roolipeli- ja animepiirejä) sekä toimittanut kymmeniä numeroita eri scifi- ja fantasiapienlehtiä. Lisäksi hän toimii novellistina, antologioiden toimittajana ja kirjallisuuskriitikkona, arvostellen kirjoja ja sarjakuvia sekä kirjoittamalla esseitä ja arvosteluja alan lehtiin, mikä tekee hänestä yhden näkyvimmistä kotimaisen lyhyen spefin kasvoista.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              },
-              {
-                "id": 2370,
-                "name": "Leinonen, Anne",
-                "alt_name": "Anne Leinonen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 32,
-                "storycount": 189,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva",
-                  "Kuvittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Anne",
-                "last_name": "Leinonen",
-                "image_attr": "",
-                "qid": "Q11851673",
-                "bio": "<p>Anne Leinonen (s. 1973, Juva) on kirjailija, kustannustoimittaja ja kirjoittajaohjaaja, jonka ydinlaji on spekulatiivinen fiktio, realismia ja outoutta yhdistävä “reaalifantasia”. Hän asuu Etelä-Savon maaseudulla, mikä näkyy vahvana metsä- ja maaseutuympäristön kuvauksena hänen teoksissaan.</p><p>Leinosen tuotantoon kuuluu sekä aikuisten että nuorten romaaneja ja novelleja, esimerkiksi Viivamaalari, tieteisromaani Ilottomien ihmisten kylä sekä Eija Lappalaisen kanssa kirjoitettu tulevaisuustrilogia Routasisarukset. Lisäksi hän on kirjoittanut lasten tieteisromaanin (Holtiton masiina), nuorten kauhu- ja spefikirjoja (Elokuussa minä kuolen) sekä myyttistä, kansanperinteestä ammentavaa proosaa (Metsän äiti, Vaskinainen). </p><p>Leinonen on keskeinen toimija spefiyhteisössä: hän on toiminut kustannustoimittajana, käsikirjoituslukijana, Usva-verkkolehden toimittajana, kirjoittajakouluttajana ja kilpailujen tuomarina, tarjoten näkyvyyttä ja tukea uusille tekijöille. Hänen novellejaan on palkittu useilla Atorox- ja Portti-palkinnoilla, ja hänelle on myönnetty Etelä-Savon taidepalkinto, mikä osoittaa arvostusta niin lajifiktion sisällä kuin laajemmalla taidekentällä.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 610,
-                  "name": "Suntila, Shimo",
-                  "alt_name": "Shimo Suntila"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2492,
-                  "name": "Lin, Lucilla",
-                  "alt_name": "Lucilla Lin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 4849,
-                  "name": "Rauhala, Anssi",
-                  "alt_name": "Anssi Rauhala"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2205,
-                  "name": "Zherbin, Arren",
-                  "alt_name": "Arren Zherbin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 1863,
-                  "name": "Lintunen, Venla",
-                  "alt_name": "Venla Lintunen"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2370,
-                  "name": "Leinonen, Anne",
-                  "alt_name": "Anne Leinonen"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 607,
-                  "name": "Saloranta, Tuomas",
-                  "alt_name": "Tuomas Saloranta"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "id": 64,
-                "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 305,
-              "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 2,
-              "name": "Nidottu"
-            },
-            "id": 4627,
-            "title": "Hurtan koodeksi",
-            "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-            "pubyear": 2013,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-67765-2-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 199,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
-            "verified": false
-          }
-        ],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 3702,
-              "name": "Kisnanen, Natalia",
-              "alt_name": "Natalia Kisnanen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "id": 15680,
-        "title": "Sydännielu",
-        "orig_title": "",
-        "pubyear": 2013,
-        "notes": ""
-      },
-      {
-        "authors": [
-          {
-            "id": 3759,
-            "name": "Pohjamies, Antti",
-            "alt_name": "Antti Pohjamies",
-            "fullname": "",
-            "image_src": null,
-            "dob": null,
-            "dod": null,
-            "nationality": {
-              "id": 4,
-              "name": "Suomi"
-            },
-            "workcount": 0,
-            "storycount": 7,
-            "roles": [
-              "Kirjoittaja",
-              "Esiintyy"
-            ],
-            "other_names": null,
-            "first_name": "Antti",
-            "last_name": "Pohjamies",
-            "image_attr": "",
-            "qid": null,
-            "bio": null,
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "qid": "",
+            "bio": "",
             "bio_src": "",
             "imported_string": null
           }
@@ -547,103 +407,124 @@
         "editions": [
           {
             "work": {
-              "id": 4034,
-              "title": "Hurtan koodeksi",
-              "orig_title": "Hurtan koodeksi",
-              "author_str": "Leinonen, Anne & Saloranta, Tuomas & Suntila, Shimo (toim.)",
+              "id": 7269,
+              "title": "Keskiyön kummitusjuttuja",
+              "orig_title": "",
+              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
               "contributions": [
                 {
                   "person": {
-                    "id": 2370,
-                    "name": "Leinonen, Anne",
-                    "alt_name": "Anne Leinonen"
+                    "id": 8078,
+                    "name": "Johansson, Ewa Christina",
+                    "alt_name": "Ewa Christina Johansson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 607,
-                    "name": "Saloranta, Tuomas",
-                    "alt_name": "Tuomas Saloranta"
+                    "id": 8079,
+                    "name": "Ambjörnsson, Gunila",
+                    "alt_name": "Gunila Ambjörnsson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 610,
-                    "name": "Suntila, Shimo",
-                    "alt_name": "Shimo Suntila"
+                    "id": 8080,
+                    "name": "Norlin, Arne",
+                    "alt_name": "Arne Norlin"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8081,
+                    "name": "Persson, Åke",
+                    "alt_name": "Åke Persson"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8082,
+                    "name": "Genberg, Kjell E.",
+                    "alt_name": "Kjell E. Genberg"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
                   "real_person": null
                 }
               ],
               "editions": [
                 {
-                  "editors": [
+                  "editors": [],
+                  "translators": [
                     {
-                      "id": 607,
-                      "name": "Saloranta, Tuomas",
-                      "alt_name": "Tuomas Saloranta"
+                      "id": 195,
+                      "name": "Kolehmainen, Annukka",
+                      "alt_name": "Annukka Kolehmainen"
                     },
                     {
-                      "id": 610,
-                      "name": "Suntila, Shimo",
-                      "alt_name": "Shimo Suntila"
-                    },
-                    {
-                      "id": 2370,
-                      "name": "Leinonen, Anne",
-                      "alt_name": "Anne Leinonen"
+                      "id": 8077,
+                      "name": "Antikainen, Hanna",
+                      "alt_name": "Hanna Antikainen"
                     }
                   ],
-                  "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 610,
-                        "name": "Suntila, Shimo",
-                        "alt_name": "Shimo Suntila"
+                        "id": 8077,
+                        "name": "Antikainen, Hanna",
+                        "alt_name": "Hanna Antikainen"
                       },
                       "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2492,
-                        "name": "Lin, Lucilla",
-                        "alt_name": "Lucilla Lin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
+                        "id": 2,
+                        "name": "Kääntäjä"
                       },
                       "description": "",
                       "real_person": null
                     },
                     {
                       "person": {
-                        "id": 4849,
-                        "name": "Rauhala, Anssi",
-                        "alt_name": "Anssi Rauhala"
+                        "id": 195,
+                        "name": "Kolehmainen, Annukka",
+                        "alt_name": "Annukka Kolehmainen"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 8083,
+                        "name": "Holländer, Milja",
+                        "alt_name": "Milja Holländer"
                       },
                       "role": {
                         "id": 4,
@@ -651,241 +532,106 @@
                       },
                       "description": "",
                       "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2205,
-                        "name": "Zherbin, Arren",
-                        "alt_name": "Arren Zherbin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1863,
-                        "name": "Lintunen, Venla",
-                        "alt_name": "Venla Lintunen"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2370,
-                        "name": "Leinonen, Anne",
-                        "alt_name": "Anne Leinonen"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 607,
-                        "name": "Saloranta, Tuomas",
-                        "alt_name": "Tuomas Saloranta"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
                     }
                   ],
                   "images": [
                     {
-                      "id": 64,
-                      "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "id": 10270,
+                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 305,
-                    "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+                    "id": 528,
+                    "name": "Kolibri"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 4627,
-                  "title": "Hurtan koodeksi",
-                  "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-                  "pubyear": 2013,
+                  "id": 10533,
+                  "title": "Keskiyön kummitusjuttuja",
+                  "subtitle": "",
+                  "pubyear": 2003,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-952-67765-2-1",
+                  "isbn": "952-16-0586-3",
                   "printedin": null,
                   "pubseriesnum": null,
-                  "coll_info": "",
-                  "pages": 199,
-                  "size": 21,
+                  "coll_info": null,
+                  "pages": 127,
+                  "size": 18,
                   "dustcover": 1,
                   "coverimage": 1,
                   "misc": null,
-                  "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+                  "imported_string": null,
                   "verified": false
                 }
               ],
               "genres": [
                 {
-                  "id": 2,
-                  "name": "Kauhu",
-                  "abbr": "K"
-                },
-                {
-                  "id": 16,
-                  "name": "Kokoelma",
-                  "abbr": "kok"
+                  "id": 10,
+                  "name": "Nuorten kauhu",
+                  "abbr": "nK"
                 }
               ],
               "bookseries": null,
-              "tags": [],
+              "tags": [
+                {
+                  "id": 703,
+                  "name": "kummitukset",
+                  "type": {
+                    "id": 4,
+                    "name": "Toimija"
+                  }
+                }
+              ],
               "language_name": {
-                "id": 7,
-                "name": "suomi"
+                "id": 19,
+                "name": "ruotsi"
               },
               "type": 2,
-              "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-              "pubyear": 2013,
+              "subtitle": "",
+              "pubyear": 2003,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p>Maailmassa on käsikirjoituksia, joiden ei koskaan pidä päätyä kenenkään luettavaksi, saati kopiokoneiden monistettavaksi tai robottien skannattavaksi. Omalaatuiset kirjankeräilijät ovat valmiita kysenalaisiin tekoihin saadessaan vainun harvinaisesta teoksesta. Antikvariaateissa ja yksityisissä kirjastoissa liikkuu niin myyttisiä olentoja kuin menneisyyden haamuja.</p><p><em>Hurtan koodeksi</em> on kunnianosoitus Mörövuoren kauhukirjailijalle Boris Hurtalle, jolle on tullut taiteilijanuraa täyteen kokonainen neljännesvuosisata. Teoksen sivuilla kotimaiset kauhukirjallisuuden ja fantastisen kerronnan taitajat jatkavat Hurtan teoksista tuttujen hahmojen tarinoita ja luovat uusia legendoja.</p><p><strong>\"Kirja tulee kirjan luo\"</strong></p>",
+              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": null
             },
-            "editors": [
-              {
-                "id": 607,
-                "name": "Saloranta, Tuomas",
-                "alt_name": "Tuomas Saloranta",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1977,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 18,
-                "storycount": 53,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Tuomas",
-                "last_name": "Saloranta",
-                "image_attr": "",
-                "qid": null,
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              },
-              {
-                "id": 610,
-                "name": "Suntila, Shimo",
-                "alt_name": "Shimo Suntila",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 28,
-                "storycount": 401,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Shimo",
-                "last_name": "Suntila",
-                "image_attr": "",
-                "qid": null,
-                "bio": "<p>Shimo Suntila (s. 1973) on turkulainen spekulatiivisen fiktion kirjoittaja, joka on tunnettu ennen kaikkea valtavasta lyhytproosatuotannostaan, erityisesti raapaleista eli sadan sanan tarinoista. Hän alkoi julkaista laajasti 2010-luvun alussa, ja yhden vuoden projektissa hän kirjoitti uuden raapaleen joka päivä, yhteensä 366 tarinaa, joista on koottu kokoelmia. Suntila kirjoittaa science fictionia, fantasiaa, kauhua ja muuta “kummaa”, ja hänen kokoelmiinsa, kuten <em>Sata kummaa kertomusta</em>, <em>Tähtiviima</em>, <em>Sadanpäämies</em> ja <em>Kalpean noidan naamio</em>, on koottu monipuolisia, usein humoristisia mutta myös synkkiä ja kokeilevia tekstejä.</p><p>Hänellä on vahva asema suomalaisessa fandomissa: Suntila on toiminut Turun science fiction -seuran ja Suomen tieteis- ja fantasiakirjoittajien puheenjohtajana, ollut perustamassa useita harrastajayhdistyksiä (mm. roolipeli- ja animepiirejä) sekä toimittanut kymmeniä numeroita eri scifi- ja fantasiapienlehtiä. Lisäksi hän toimii novellistina, antologioiden toimittajana ja kirjallisuuskriitikkona, arvostellen kirjoja ja sarjakuvia sekä kirjoittamalla esseitä ja arvosteluja alan lehtiin, mikä tekee hänestä yhden näkyvimmistä kotimaisen lyhyen spefin kasvoista.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              },
-              {
-                "id": 2370,
-                "name": "Leinonen, Anne",
-                "alt_name": "Anne Leinonen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 32,
-                "storycount": 189,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva",
-                  "Kuvittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Anne",
-                "last_name": "Leinonen",
-                "image_attr": "",
-                "qid": "Q11851673",
-                "bio": "<p>Anne Leinonen (s. 1973, Juva) on kirjailija, kustannustoimittaja ja kirjoittajaohjaaja, jonka ydinlaji on spekulatiivinen fiktio, realismia ja outoutta yhdistävä “reaalifantasia”. Hän asuu Etelä-Savon maaseudulla, mikä näkyy vahvana metsä- ja maaseutuympäristön kuvauksena hänen teoksissaan.</p><p>Leinosen tuotantoon kuuluu sekä aikuisten että nuorten romaaneja ja novelleja, esimerkiksi Viivamaalari, tieteisromaani Ilottomien ihmisten kylä sekä Eija Lappalaisen kanssa kirjoitettu tulevaisuustrilogia Routasisarukset. Lisäksi hän on kirjoittanut lasten tieteisromaanin (Holtiton masiina), nuorten kauhu- ja spefikirjoja (Elokuussa minä kuolen) sekä myyttistä, kansanperinteestä ammentavaa proosaa (Metsän äiti, Vaskinainen). </p><p>Leinonen on keskeinen toimija spefiyhteisössä: hän on toiminut kustannustoimittajana, käsikirjoituslukijana, Usva-verkkolehden toimittajana, kirjoittajakouluttajana ja kilpailujen tuomarina, tarjoten näkyvyyttä ja tukea uusille tekijöille. Hänen novellejaan on palkittu useilla Atorox- ja Portti-palkinnoilla, ja hänelle on myönnetty Etelä-Savon taidepalkinto, mikä osoittaa arvostusta niin lajifiktion sisällä kuin laajemmalla taidekentällä.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              }
-            ],
+            "editors": [],
             "contributions": [
               {
                 "person": {
-                  "id": 610,
-                  "name": "Suntila, Shimo",
-                  "alt_name": "Shimo Suntila"
+                  "id": 8077,
+                  "name": "Antikainen, Hanna",
+                  "alt_name": "Hanna Antikainen"
                 },
                 "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2492,
-                  "name": "Lin, Lucilla",
-                  "alt_name": "Lucilla Lin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 2,
+                  "name": "Kääntäjä"
                 },
                 "description": "",
                 "real_person": null
               },
               {
                 "person": {
-                  "id": 4849,
-                  "name": "Rauhala, Anssi",
-                  "alt_name": "Anssi Rauhala"
+                  "id": 195,
+                  "name": "Kolehmainen, Annukka",
+                  "alt_name": "Annukka Kolehmainen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 8083,
+                  "name": "Holländer, Milja",
+                  "alt_name": "Milja Holländer"
                 },
                 "role": {
                   "id": 4,
@@ -893,70 +639,19 @@
                 },
                 "description": "",
                 "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2205,
-                  "name": "Zherbin, Arren",
-                  "alt_name": "Arren Zherbin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 1863,
-                  "name": "Lintunen, Venla",
-                  "alt_name": "Venla Lintunen"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2370,
-                  "name": "Leinonen, Anne",
-                  "alt_name": "Anne Leinonen"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 607,
-                  "name": "Saloranta, Tuomas",
-                  "alt_name": "Tuomas Saloranta"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
               }
             ],
             "images": [
               {
-                "id": 64,
-                "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "id": 10270,
+                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 305,
-              "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+              "id": 528,
+              "name": "Kolibri"
             },
             "owners": [],
             "wishlisted": [],
@@ -964,22 +659,22 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 4627,
-            "title": "Hurtan koodeksi",
-            "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-            "pubyear": 2013,
+            "id": 10533,
+            "title": "Keskiyön kummitusjuttuja",
+            "subtitle": "",
+            "pubyear": 2003,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-67765-2-1",
+            "isbn": "952-16-0586-3",
             "printedin": null,
             "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 199,
-            "size": 21,
+            "coll_info": null,
+            "pages": 127,
+            "size": 18,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
-            "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+            "imported_string": null,
             "verified": false
           }
         ],
@@ -987,9 +682,9 @@
         "contributors": [
           {
             "person": {
-              "id": 3759,
-              "name": "Pohjamies, Antti",
-              "alt_name": "Antti Pohjamies"
+              "id": 8078,
+              "name": "Johansson, Ewa Christina",
+              "alt_name": "Ewa Christina Johansson"
             },
             "role": {
               "id": 1,
@@ -997,43 +692,69 @@
             },
             "description": "",
             "real_person": null
+          },
+          {
+            "person": {
+              "id": 8077,
+              "name": "Antikainen, Hanna",
+              "alt_name": "Hanna Antikainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 195,
+              "name": "Kolehmainen, Annukka",
+              "alt_name": "Annukka Kolehmainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "lang": {
-          "id": 7,
-          "name": "suomi"
+          "id": 19,
+          "name": "ruotsi"
         },
-        "id": 15679,
-        "title": "Vielä nimetön, raakaversio",
+        "id": 15757,
+        "title": "Vahanukke",
         "orig_title": "",
-        "pubyear": 2013,
+        "pubyear": null,
         "notes": ""
       },
       {
         "authors": [
           {
-            "id": 3747,
-            "name": "Numminen, Helena",
-            "alt_name": "Helena Numminen",
+            "id": 8079,
+            "name": "Ambjörnsson, Gunila",
+            "alt_name": "Gunila Ambjörnsson",
             "fullname": "",
             "image_src": null,
-            "dob": null,
-            "dod": null,
+            "dob": 1938,
+            "dod": 2013,
             "nationality": {
-              "id": 4,
-              "name": "Suomi"
+              "id": 5,
+              "name": "Ruotsi"
             },
-            "workcount": 0,
-            "storycount": 8,
+            "workcount": 1,
+            "storycount": 2,
             "roles": [
               "Kirjoittaja"
             ],
-            "other_names": null,
-            "first_name": "Helena",
-            "last_name": "Numminen",
-            "image_attr": "",
-            "qid": null,
-            "bio": null,
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "qid": "",
+            "bio": "",
             "bio_src": "",
             "imported_string": null
           }
@@ -1046,103 +767,124 @@
         "editions": [
           {
             "work": {
-              "id": 4034,
-              "title": "Hurtan koodeksi",
-              "orig_title": "Hurtan koodeksi",
-              "author_str": "Leinonen, Anne & Saloranta, Tuomas & Suntila, Shimo (toim.)",
+              "id": 7269,
+              "title": "Keskiyön kummitusjuttuja",
+              "orig_title": "",
+              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
               "contributions": [
                 {
                   "person": {
-                    "id": 2370,
-                    "name": "Leinonen, Anne",
-                    "alt_name": "Anne Leinonen"
+                    "id": 8078,
+                    "name": "Johansson, Ewa Christina",
+                    "alt_name": "Ewa Christina Johansson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 607,
-                    "name": "Saloranta, Tuomas",
-                    "alt_name": "Tuomas Saloranta"
+                    "id": 8079,
+                    "name": "Ambjörnsson, Gunila",
+                    "alt_name": "Gunila Ambjörnsson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 610,
-                    "name": "Suntila, Shimo",
-                    "alt_name": "Shimo Suntila"
+                    "id": 8080,
+                    "name": "Norlin, Arne",
+                    "alt_name": "Arne Norlin"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8081,
+                    "name": "Persson, Åke",
+                    "alt_name": "Åke Persson"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8082,
+                    "name": "Genberg, Kjell E.",
+                    "alt_name": "Kjell E. Genberg"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
                   "real_person": null
                 }
               ],
               "editions": [
                 {
-                  "editors": [
+                  "editors": [],
+                  "translators": [
                     {
-                      "id": 607,
-                      "name": "Saloranta, Tuomas",
-                      "alt_name": "Tuomas Saloranta"
+                      "id": 195,
+                      "name": "Kolehmainen, Annukka",
+                      "alt_name": "Annukka Kolehmainen"
                     },
                     {
-                      "id": 610,
-                      "name": "Suntila, Shimo",
-                      "alt_name": "Shimo Suntila"
-                    },
-                    {
-                      "id": 2370,
-                      "name": "Leinonen, Anne",
-                      "alt_name": "Anne Leinonen"
+                      "id": 8077,
+                      "name": "Antikainen, Hanna",
+                      "alt_name": "Hanna Antikainen"
                     }
                   ],
-                  "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 610,
-                        "name": "Suntila, Shimo",
-                        "alt_name": "Shimo Suntila"
+                        "id": 8077,
+                        "name": "Antikainen, Hanna",
+                        "alt_name": "Hanna Antikainen"
                       },
                       "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2492,
-                        "name": "Lin, Lucilla",
-                        "alt_name": "Lucilla Lin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
+                        "id": 2,
+                        "name": "Kääntäjä"
                       },
                       "description": "",
                       "real_person": null
                     },
                     {
                       "person": {
-                        "id": 4849,
-                        "name": "Rauhala, Anssi",
-                        "alt_name": "Anssi Rauhala"
+                        "id": 195,
+                        "name": "Kolehmainen, Annukka",
+                        "alt_name": "Annukka Kolehmainen"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 8083,
+                        "name": "Holländer, Milja",
+                        "alt_name": "Milja Holländer"
                       },
                       "role": {
                         "id": 4,
@@ -1150,241 +892,106 @@
                       },
                       "description": "",
                       "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2205,
-                        "name": "Zherbin, Arren",
-                        "alt_name": "Arren Zherbin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1863,
-                        "name": "Lintunen, Venla",
-                        "alt_name": "Venla Lintunen"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2370,
-                        "name": "Leinonen, Anne",
-                        "alt_name": "Anne Leinonen"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 607,
-                        "name": "Saloranta, Tuomas",
-                        "alt_name": "Tuomas Saloranta"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
                     }
                   ],
                   "images": [
                     {
-                      "id": 64,
-                      "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "id": 10270,
+                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 305,
-                    "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+                    "id": 528,
+                    "name": "Kolibri"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 4627,
-                  "title": "Hurtan koodeksi",
-                  "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-                  "pubyear": 2013,
+                  "id": 10533,
+                  "title": "Keskiyön kummitusjuttuja",
+                  "subtitle": "",
+                  "pubyear": 2003,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-952-67765-2-1",
+                  "isbn": "952-16-0586-3",
                   "printedin": null,
                   "pubseriesnum": null,
-                  "coll_info": "",
-                  "pages": 199,
-                  "size": 21,
+                  "coll_info": null,
+                  "pages": 127,
+                  "size": 18,
                   "dustcover": 1,
                   "coverimage": 1,
                   "misc": null,
-                  "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+                  "imported_string": null,
                   "verified": false
                 }
               ],
               "genres": [
                 {
-                  "id": 2,
-                  "name": "Kauhu",
-                  "abbr": "K"
-                },
-                {
-                  "id": 16,
-                  "name": "Kokoelma",
-                  "abbr": "kok"
+                  "id": 10,
+                  "name": "Nuorten kauhu",
+                  "abbr": "nK"
                 }
               ],
               "bookseries": null,
-              "tags": [],
+              "tags": [
+                {
+                  "id": 703,
+                  "name": "kummitukset",
+                  "type": {
+                    "id": 4,
+                    "name": "Toimija"
+                  }
+                }
+              ],
               "language_name": {
-                "id": 7,
-                "name": "suomi"
+                "id": 19,
+                "name": "ruotsi"
               },
               "type": 2,
-              "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-              "pubyear": 2013,
+              "subtitle": "",
+              "pubyear": 2003,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p>Maailmassa on käsikirjoituksia, joiden ei koskaan pidä päätyä kenenkään luettavaksi, saati kopiokoneiden monistettavaksi tai robottien skannattavaksi. Omalaatuiset kirjankeräilijät ovat valmiita kysenalaisiin tekoihin saadessaan vainun harvinaisesta teoksesta. Antikvariaateissa ja yksityisissä kirjastoissa liikkuu niin myyttisiä olentoja kuin menneisyyden haamuja.</p><p><em>Hurtan koodeksi</em> on kunnianosoitus Mörövuoren kauhukirjailijalle Boris Hurtalle, jolle on tullut taiteilijanuraa täyteen kokonainen neljännesvuosisata. Teoksen sivuilla kotimaiset kauhukirjallisuuden ja fantastisen kerronnan taitajat jatkavat Hurtan teoksista tuttujen hahmojen tarinoita ja luovat uusia legendoja.</p><p><strong>\"Kirja tulee kirjan luo\"</strong></p>",
+              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": null
             },
-            "editors": [
-              {
-                "id": 607,
-                "name": "Saloranta, Tuomas",
-                "alt_name": "Tuomas Saloranta",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1977,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 18,
-                "storycount": 53,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Tuomas",
-                "last_name": "Saloranta",
-                "image_attr": "",
-                "qid": null,
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              },
-              {
-                "id": 610,
-                "name": "Suntila, Shimo",
-                "alt_name": "Shimo Suntila",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 28,
-                "storycount": 401,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Shimo",
-                "last_name": "Suntila",
-                "image_attr": "",
-                "qid": null,
-                "bio": "<p>Shimo Suntila (s. 1973) on turkulainen spekulatiivisen fiktion kirjoittaja, joka on tunnettu ennen kaikkea valtavasta lyhytproosatuotannostaan, erityisesti raapaleista eli sadan sanan tarinoista. Hän alkoi julkaista laajasti 2010-luvun alussa, ja yhden vuoden projektissa hän kirjoitti uuden raapaleen joka päivä, yhteensä 366 tarinaa, joista on koottu kokoelmia. Suntila kirjoittaa science fictionia, fantasiaa, kauhua ja muuta “kummaa”, ja hänen kokoelmiinsa, kuten <em>Sata kummaa kertomusta</em>, <em>Tähtiviima</em>, <em>Sadanpäämies</em> ja <em>Kalpean noidan naamio</em>, on koottu monipuolisia, usein humoristisia mutta myös synkkiä ja kokeilevia tekstejä.</p><p>Hänellä on vahva asema suomalaisessa fandomissa: Suntila on toiminut Turun science fiction -seuran ja Suomen tieteis- ja fantasiakirjoittajien puheenjohtajana, ollut perustamassa useita harrastajayhdistyksiä (mm. roolipeli- ja animepiirejä) sekä toimittanut kymmeniä numeroita eri scifi- ja fantasiapienlehtiä. Lisäksi hän toimii novellistina, antologioiden toimittajana ja kirjallisuuskriitikkona, arvostellen kirjoja ja sarjakuvia sekä kirjoittamalla esseitä ja arvosteluja alan lehtiin, mikä tekee hänestä yhden näkyvimmistä kotimaisen lyhyen spefin kasvoista.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              },
-              {
-                "id": 2370,
-                "name": "Leinonen, Anne",
-                "alt_name": "Anne Leinonen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 32,
-                "storycount": 189,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva",
-                  "Kuvittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Anne",
-                "last_name": "Leinonen",
-                "image_attr": "",
-                "qid": "Q11851673",
-                "bio": "<p>Anne Leinonen (s. 1973, Juva) on kirjailija, kustannustoimittaja ja kirjoittajaohjaaja, jonka ydinlaji on spekulatiivinen fiktio, realismia ja outoutta yhdistävä “reaalifantasia”. Hän asuu Etelä-Savon maaseudulla, mikä näkyy vahvana metsä- ja maaseutuympäristön kuvauksena hänen teoksissaan.</p><p>Leinosen tuotantoon kuuluu sekä aikuisten että nuorten romaaneja ja novelleja, esimerkiksi Viivamaalari, tieteisromaani Ilottomien ihmisten kylä sekä Eija Lappalaisen kanssa kirjoitettu tulevaisuustrilogia Routasisarukset. Lisäksi hän on kirjoittanut lasten tieteisromaanin (Holtiton masiina), nuorten kauhu- ja spefikirjoja (Elokuussa minä kuolen) sekä myyttistä, kansanperinteestä ammentavaa proosaa (Metsän äiti, Vaskinainen). </p><p>Leinonen on keskeinen toimija spefiyhteisössä: hän on toiminut kustannustoimittajana, käsikirjoituslukijana, Usva-verkkolehden toimittajana, kirjoittajakouluttajana ja kilpailujen tuomarina, tarjoten näkyvyyttä ja tukea uusille tekijöille. Hänen novellejaan on palkittu useilla Atorox- ja Portti-palkinnoilla, ja hänelle on myönnetty Etelä-Savon taidepalkinto, mikä osoittaa arvostusta niin lajifiktion sisällä kuin laajemmalla taidekentällä.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              }
-            ],
+            "editors": [],
             "contributions": [
               {
                 "person": {
-                  "id": 610,
-                  "name": "Suntila, Shimo",
-                  "alt_name": "Shimo Suntila"
+                  "id": 8077,
+                  "name": "Antikainen, Hanna",
+                  "alt_name": "Hanna Antikainen"
                 },
                 "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2492,
-                  "name": "Lin, Lucilla",
-                  "alt_name": "Lucilla Lin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 2,
+                  "name": "Kääntäjä"
                 },
                 "description": "",
                 "real_person": null
               },
               {
                 "person": {
-                  "id": 4849,
-                  "name": "Rauhala, Anssi",
-                  "alt_name": "Anssi Rauhala"
+                  "id": 195,
+                  "name": "Kolehmainen, Annukka",
+                  "alt_name": "Annukka Kolehmainen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 8083,
+                  "name": "Holländer, Milja",
+                  "alt_name": "Milja Holländer"
                 },
                 "role": {
                   "id": 4,
@@ -1392,70 +999,19 @@
                 },
                 "description": "",
                 "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2205,
-                  "name": "Zherbin, Arren",
-                  "alt_name": "Arren Zherbin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 1863,
-                  "name": "Lintunen, Venla",
-                  "alt_name": "Venla Lintunen"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2370,
-                  "name": "Leinonen, Anne",
-                  "alt_name": "Anne Leinonen"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 607,
-                  "name": "Saloranta, Tuomas",
-                  "alt_name": "Tuomas Saloranta"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
               }
             ],
             "images": [
               {
-                "id": 64,
-                "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "id": 10270,
+                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 305,
-              "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+              "id": 528,
+              "name": "Kolibri"
             },
             "owners": [],
             "wishlisted": [],
@@ -1463,22 +1019,22 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 4627,
-            "title": "Hurtan koodeksi",
-            "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-            "pubyear": 2013,
+            "id": 10533,
+            "title": "Keskiyön kummitusjuttuja",
+            "subtitle": "",
+            "pubyear": 2003,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-67765-2-1",
+            "isbn": "952-16-0586-3",
             "printedin": null,
             "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 199,
-            "size": 21,
+            "coll_info": null,
+            "pages": 127,
+            "size": 18,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
-            "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+            "imported_string": null,
             "verified": false
           }
         ],
@@ -1486,9 +1042,9 @@
         "contributors": [
           {
             "person": {
-              "id": 3747,
-              "name": "Numminen, Helena",
-              "alt_name": "Helena Numminen"
+              "id": 8079,
+              "name": "Ambjörnsson, Gunila",
+              "alt_name": "Gunila Ambjörnsson"
             },
             "role": {
               "id": 1,
@@ -1496,152 +1052,199 @@
             },
             "description": "",
             "real_person": null
+          },
+          {
+            "person": {
+              "id": 8077,
+              "name": "Antikainen, Hanna",
+              "alt_name": "Hanna Antikainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 195,
+              "name": "Kolehmainen, Annukka",
+              "alt_name": "Annukka Kolehmainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "lang": {
-          "id": 7,
-          "name": "suomi"
+          "id": 19,
+          "name": "ruotsi"
         },
-        "id": 15678,
-        "title": "Täyttymys",
+        "id": 15756,
+        "title": "Itkevä kissa",
         "orig_title": "",
-        "pubyear": 2013,
+        "pubyear": null,
         "notes": ""
       },
       {
         "authors": [
           {
-            "id": 4677,
-            "name": "Pajunen, Hannu",
-            "alt_name": "Hannu Pajunen",
+            "id": 8081,
+            "name": "Persson, Åke",
+            "alt_name": "Åke Persson",
             "fullname": "",
             "image_src": null,
-            "dob": null,
+            "dob": 1962,
             "dod": null,
             "nationality": {
-              "id": 4,
-              "name": "Suomi"
+              "id": 5,
+              "name": "Ruotsi"
             },
-            "workcount": 0,
-            "storycount": 8,
+            "workcount": 1,
+            "storycount": 1,
             "roles": [
               "Kirjoittaja"
             ],
-            "other_names": null,
-            "first_name": "Hannu",
-            "last_name": "Pajunen",
-            "image_attr": "",
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
             "qid": null,
-            "bio": null,
+            "bio": "",
             "bio_src": "",
             "imported_string": null
           }
         ],
         "type": {
-          "id": 4,
-          "name": "Runo"
+          "id": 1,
+          "name": "Novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": {
-              "id": 4034,
-              "title": "Hurtan koodeksi",
-              "orig_title": "Hurtan koodeksi",
-              "author_str": "Leinonen, Anne & Saloranta, Tuomas & Suntila, Shimo (toim.)",
+              "id": 7269,
+              "title": "Keskiyön kummitusjuttuja",
+              "orig_title": "",
+              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
               "contributions": [
                 {
                   "person": {
-                    "id": 2370,
-                    "name": "Leinonen, Anne",
-                    "alt_name": "Anne Leinonen"
+                    "id": 8078,
+                    "name": "Johansson, Ewa Christina",
+                    "alt_name": "Ewa Christina Johansson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 607,
-                    "name": "Saloranta, Tuomas",
-                    "alt_name": "Tuomas Saloranta"
+                    "id": 8079,
+                    "name": "Ambjörnsson, Gunila",
+                    "alt_name": "Gunila Ambjörnsson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 610,
-                    "name": "Suntila, Shimo",
-                    "alt_name": "Shimo Suntila"
+                    "id": 8080,
+                    "name": "Norlin, Arne",
+                    "alt_name": "Arne Norlin"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8081,
+                    "name": "Persson, Åke",
+                    "alt_name": "Åke Persson"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8082,
+                    "name": "Genberg, Kjell E.",
+                    "alt_name": "Kjell E. Genberg"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
                   "real_person": null
                 }
               ],
               "editions": [
                 {
-                  "editors": [
+                  "editors": [],
+                  "translators": [
                     {
-                      "id": 607,
-                      "name": "Saloranta, Tuomas",
-                      "alt_name": "Tuomas Saloranta"
+                      "id": 195,
+                      "name": "Kolehmainen, Annukka",
+                      "alt_name": "Annukka Kolehmainen"
                     },
                     {
-                      "id": 610,
-                      "name": "Suntila, Shimo",
-                      "alt_name": "Shimo Suntila"
-                    },
-                    {
-                      "id": 2370,
-                      "name": "Leinonen, Anne",
-                      "alt_name": "Anne Leinonen"
+                      "id": 8077,
+                      "name": "Antikainen, Hanna",
+                      "alt_name": "Hanna Antikainen"
                     }
                   ],
-                  "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 610,
-                        "name": "Suntila, Shimo",
-                        "alt_name": "Shimo Suntila"
+                        "id": 8077,
+                        "name": "Antikainen, Hanna",
+                        "alt_name": "Hanna Antikainen"
                       },
                       "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2492,
-                        "name": "Lin, Lucilla",
-                        "alt_name": "Lucilla Lin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
+                        "id": 2,
+                        "name": "Kääntäjä"
                       },
                       "description": "",
                       "real_person": null
                     },
                     {
                       "person": {
-                        "id": 4849,
-                        "name": "Rauhala, Anssi",
-                        "alt_name": "Anssi Rauhala"
+                        "id": 195,
+                        "name": "Kolehmainen, Annukka",
+                        "alt_name": "Annukka Kolehmainen"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 8083,
+                        "name": "Holländer, Milja",
+                        "alt_name": "Milja Holländer"
                       },
                       "role": {
                         "id": 4,
@@ -1649,241 +1252,106 @@
                       },
                       "description": "",
                       "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2205,
-                        "name": "Zherbin, Arren",
-                        "alt_name": "Arren Zherbin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1863,
-                        "name": "Lintunen, Venla",
-                        "alt_name": "Venla Lintunen"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2370,
-                        "name": "Leinonen, Anne",
-                        "alt_name": "Anne Leinonen"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 607,
-                        "name": "Saloranta, Tuomas",
-                        "alt_name": "Tuomas Saloranta"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
                     }
                   ],
                   "images": [
                     {
-                      "id": 64,
-                      "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "id": 10270,
+                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 305,
-                    "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+                    "id": 528,
+                    "name": "Kolibri"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 4627,
-                  "title": "Hurtan koodeksi",
-                  "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-                  "pubyear": 2013,
+                  "id": 10533,
+                  "title": "Keskiyön kummitusjuttuja",
+                  "subtitle": "",
+                  "pubyear": 2003,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-952-67765-2-1",
+                  "isbn": "952-16-0586-3",
                   "printedin": null,
                   "pubseriesnum": null,
-                  "coll_info": "",
-                  "pages": 199,
-                  "size": 21,
+                  "coll_info": null,
+                  "pages": 127,
+                  "size": 18,
                   "dustcover": 1,
                   "coverimage": 1,
                   "misc": null,
-                  "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+                  "imported_string": null,
                   "verified": false
                 }
               ],
               "genres": [
                 {
-                  "id": 2,
-                  "name": "Kauhu",
-                  "abbr": "K"
-                },
-                {
-                  "id": 16,
-                  "name": "Kokoelma",
-                  "abbr": "kok"
+                  "id": 10,
+                  "name": "Nuorten kauhu",
+                  "abbr": "nK"
                 }
               ],
               "bookseries": null,
-              "tags": [],
+              "tags": [
+                {
+                  "id": 703,
+                  "name": "kummitukset",
+                  "type": {
+                    "id": 4,
+                    "name": "Toimija"
+                  }
+                }
+              ],
               "language_name": {
-                "id": 7,
-                "name": "suomi"
+                "id": 19,
+                "name": "ruotsi"
               },
               "type": 2,
-              "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-              "pubyear": 2013,
+              "subtitle": "",
+              "pubyear": 2003,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p>Maailmassa on käsikirjoituksia, joiden ei koskaan pidä päätyä kenenkään luettavaksi, saati kopiokoneiden monistettavaksi tai robottien skannattavaksi. Omalaatuiset kirjankeräilijät ovat valmiita kysenalaisiin tekoihin saadessaan vainun harvinaisesta teoksesta. Antikvariaateissa ja yksityisissä kirjastoissa liikkuu niin myyttisiä olentoja kuin menneisyyden haamuja.</p><p><em>Hurtan koodeksi</em> on kunnianosoitus Mörövuoren kauhukirjailijalle Boris Hurtalle, jolle on tullut taiteilijanuraa täyteen kokonainen neljännesvuosisata. Teoksen sivuilla kotimaiset kauhukirjallisuuden ja fantastisen kerronnan taitajat jatkavat Hurtan teoksista tuttujen hahmojen tarinoita ja luovat uusia legendoja.</p><p><strong>\"Kirja tulee kirjan luo\"</strong></p>",
+              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": null
             },
-            "editors": [
-              {
-                "id": 607,
-                "name": "Saloranta, Tuomas",
-                "alt_name": "Tuomas Saloranta",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1977,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 18,
-                "storycount": 53,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Tuomas",
-                "last_name": "Saloranta",
-                "image_attr": "",
-                "qid": null,
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              },
-              {
-                "id": 610,
-                "name": "Suntila, Shimo",
-                "alt_name": "Shimo Suntila",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 28,
-                "storycount": 401,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Shimo",
-                "last_name": "Suntila",
-                "image_attr": "",
-                "qid": null,
-                "bio": "<p>Shimo Suntila (s. 1973) on turkulainen spekulatiivisen fiktion kirjoittaja, joka on tunnettu ennen kaikkea valtavasta lyhytproosatuotannostaan, erityisesti raapaleista eli sadan sanan tarinoista. Hän alkoi julkaista laajasti 2010-luvun alussa, ja yhden vuoden projektissa hän kirjoitti uuden raapaleen joka päivä, yhteensä 366 tarinaa, joista on koottu kokoelmia. Suntila kirjoittaa science fictionia, fantasiaa, kauhua ja muuta “kummaa”, ja hänen kokoelmiinsa, kuten <em>Sata kummaa kertomusta</em>, <em>Tähtiviima</em>, <em>Sadanpäämies</em> ja <em>Kalpean noidan naamio</em>, on koottu monipuolisia, usein humoristisia mutta myös synkkiä ja kokeilevia tekstejä.</p><p>Hänellä on vahva asema suomalaisessa fandomissa: Suntila on toiminut Turun science fiction -seuran ja Suomen tieteis- ja fantasiakirjoittajien puheenjohtajana, ollut perustamassa useita harrastajayhdistyksiä (mm. roolipeli- ja animepiirejä) sekä toimittanut kymmeniä numeroita eri scifi- ja fantasiapienlehtiä. Lisäksi hän toimii novellistina, antologioiden toimittajana ja kirjallisuuskriitikkona, arvostellen kirjoja ja sarjakuvia sekä kirjoittamalla esseitä ja arvosteluja alan lehtiin, mikä tekee hänestä yhden näkyvimmistä kotimaisen lyhyen spefin kasvoista.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              },
-              {
-                "id": 2370,
-                "name": "Leinonen, Anne",
-                "alt_name": "Anne Leinonen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 32,
-                "storycount": 189,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva",
-                  "Kuvittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Anne",
-                "last_name": "Leinonen",
-                "image_attr": "",
-                "qid": "Q11851673",
-                "bio": "<p>Anne Leinonen (s. 1973, Juva) on kirjailija, kustannustoimittaja ja kirjoittajaohjaaja, jonka ydinlaji on spekulatiivinen fiktio, realismia ja outoutta yhdistävä “reaalifantasia”. Hän asuu Etelä-Savon maaseudulla, mikä näkyy vahvana metsä- ja maaseutuympäristön kuvauksena hänen teoksissaan.</p><p>Leinosen tuotantoon kuuluu sekä aikuisten että nuorten romaaneja ja novelleja, esimerkiksi Viivamaalari, tieteisromaani Ilottomien ihmisten kylä sekä Eija Lappalaisen kanssa kirjoitettu tulevaisuustrilogia Routasisarukset. Lisäksi hän on kirjoittanut lasten tieteisromaanin (Holtiton masiina), nuorten kauhu- ja spefikirjoja (Elokuussa minä kuolen) sekä myyttistä, kansanperinteestä ammentavaa proosaa (Metsän äiti, Vaskinainen). </p><p>Leinonen on keskeinen toimija spefiyhteisössä: hän on toiminut kustannustoimittajana, käsikirjoituslukijana, Usva-verkkolehden toimittajana, kirjoittajakouluttajana ja kilpailujen tuomarina, tarjoten näkyvyyttä ja tukea uusille tekijöille. Hänen novellejaan on palkittu useilla Atorox- ja Portti-palkinnoilla, ja hänelle on myönnetty Etelä-Savon taidepalkinto, mikä osoittaa arvostusta niin lajifiktion sisällä kuin laajemmalla taidekentällä.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              }
-            ],
+            "editors": [],
             "contributions": [
               {
                 "person": {
-                  "id": 610,
-                  "name": "Suntila, Shimo",
-                  "alt_name": "Shimo Suntila"
+                  "id": 8077,
+                  "name": "Antikainen, Hanna",
+                  "alt_name": "Hanna Antikainen"
                 },
                 "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2492,
-                  "name": "Lin, Lucilla",
-                  "alt_name": "Lucilla Lin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 2,
+                  "name": "Kääntäjä"
                 },
                 "description": "",
                 "real_person": null
               },
               {
                 "person": {
-                  "id": 4849,
-                  "name": "Rauhala, Anssi",
-                  "alt_name": "Anssi Rauhala"
+                  "id": 195,
+                  "name": "Kolehmainen, Annukka",
+                  "alt_name": "Annukka Kolehmainen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 8083,
+                  "name": "Holländer, Milja",
+                  "alt_name": "Milja Holländer"
                 },
                 "role": {
                   "id": 4,
@@ -1891,70 +1359,19 @@
                 },
                 "description": "",
                 "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2205,
-                  "name": "Zherbin, Arren",
-                  "alt_name": "Arren Zherbin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 1863,
-                  "name": "Lintunen, Venla",
-                  "alt_name": "Venla Lintunen"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2370,
-                  "name": "Leinonen, Anne",
-                  "alt_name": "Anne Leinonen"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 607,
-                  "name": "Saloranta, Tuomas",
-                  "alt_name": "Tuomas Saloranta"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
               }
             ],
             "images": [
               {
-                "id": 64,
-                "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "id": 10270,
+                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 305,
-              "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+              "id": 528,
+              "name": "Kolibri"
             },
             "owners": [],
             "wishlisted": [],
@@ -1962,22 +1379,22 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 4627,
-            "title": "Hurtan koodeksi",
-            "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-            "pubyear": 2013,
+            "id": 10533,
+            "title": "Keskiyön kummitusjuttuja",
+            "subtitle": "",
+            "pubyear": 2003,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-67765-2-1",
+            "isbn": "952-16-0586-3",
             "printedin": null,
             "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 199,
-            "size": 21,
+            "coll_info": null,
+            "pages": 127,
+            "size": 18,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
-            "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+            "imported_string": null,
             "verified": false
           }
         ],
@@ -1985,9 +1402,9 @@
         "contributors": [
           {
             "person": {
-              "id": 4677,
-              "name": "Pajunen, Hannu",
-              "alt_name": "Hannu Pajunen"
+              "id": 8081,
+              "name": "Persson, Åke",
+              "alt_name": "Åke Persson"
             },
             "role": {
               "id": 1,
@@ -1995,154 +1412,199 @@
             },
             "description": "",
             "real_person": null
+          },
+          {
+            "person": {
+              "id": 8077,
+              "name": "Antikainen, Hanna",
+              "alt_name": "Hanna Antikainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 195,
+              "name": "Kolehmainen, Annukka",
+              "alt_name": "Annukka Kolehmainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "lang": {
-          "id": 7,
-          "name": "suomi"
+          "id": 19,
+          "name": "ruotsi"
         },
-        "id": 15677,
-        "title": "Hurtta (The Raven)",
+        "id": 15755,
+        "title": "Kuolleiden tunturi",
         "orig_title": "",
-        "pubyear": 2013,
-        "notes": "<p>Niilo Idmanin suomennoksen Edgar Allan Poen runosta mutiloinut ja sataan sanaan pakottanut Hannu Pajunen.</p>"
+        "pubyear": null,
+        "notes": ""
       },
       {
         "authors": [
           {
-            "id": 3779,
-            "name": "Saario, Mari",
-            "alt_name": "Mari Saario",
+            "id": 8078,
+            "name": "Johansson, Ewa Christina",
+            "alt_name": "Ewa Christina Johansson",
             "fullname": "",
             "image_src": null,
-            "dob": null,
+            "dob": 1964,
             "dod": null,
             "nationality": {
-              "id": 4,
-              "name": "Suomi"
+              "id": 5,
+              "name": "Ruotsi"
             },
-            "workcount": 0,
-            "storycount": 49,
+            "workcount": 1,
+            "storycount": 4,
             "roles": [
-              "Kirjoittaja",
-              "Kääntäjä",
-              "Esiintyy"
+              "Kirjoittaja"
             ],
-            "other_names": null,
-            "first_name": "Mari",
-            "last_name": "Saario",
-            "image_attr": "",
-            "qid": null,
-            "bio": null,
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "qid": "",
+            "bio": "",
             "bio_src": "",
             "imported_string": null
           }
         ],
         "type": {
-          "id": 5,
-          "name": "Raapale"
+          "id": 1,
+          "name": "Novelli"
         },
         "issues": [],
         "editions": [
           {
             "work": {
-              "id": 4034,
-              "title": "Hurtan koodeksi",
-              "orig_title": "Hurtan koodeksi",
-              "author_str": "Leinonen, Anne & Saloranta, Tuomas & Suntila, Shimo (toim.)",
+              "id": 7269,
+              "title": "Keskiyön kummitusjuttuja",
+              "orig_title": "",
+              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
               "contributions": [
                 {
                   "person": {
-                    "id": 2370,
-                    "name": "Leinonen, Anne",
-                    "alt_name": "Anne Leinonen"
+                    "id": 8078,
+                    "name": "Johansson, Ewa Christina",
+                    "alt_name": "Ewa Christina Johansson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 607,
-                    "name": "Saloranta, Tuomas",
-                    "alt_name": "Tuomas Saloranta"
+                    "id": 8079,
+                    "name": "Ambjörnsson, Gunila",
+                    "alt_name": "Gunila Ambjörnsson"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
                   "real_person": null
                 },
                 {
                   "person": {
-                    "id": 610,
-                    "name": "Suntila, Shimo",
-                    "alt_name": "Shimo Suntila"
+                    "id": 8080,
+                    "name": "Norlin, Arne",
+                    "alt_name": "Arne Norlin"
                   },
                   "role": {
-                    "id": 3,
-                    "name": "Toimittaja"
+                    "id": 1,
+                    "name": "Kirjoittaja"
                   },
-                  "description": null,
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8081,
+                    "name": "Persson, Åke",
+                    "alt_name": "Åke Persson"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 8082,
+                    "name": "Genberg, Kjell E.",
+                    "alt_name": "Kjell E. Genberg"
+                  },
+                  "role": {
+                    "id": 1,
+                    "name": "Kirjoittaja"
+                  },
+                  "description": "",
                   "real_person": null
                 }
               ],
               "editions": [
                 {
-                  "editors": [
+                  "editors": [],
+                  "translators": [
                     {
-                      "id": 607,
-                      "name": "Saloranta, Tuomas",
-                      "alt_name": "Tuomas Saloranta"
+                      "id": 195,
+                      "name": "Kolehmainen, Annukka",
+                      "alt_name": "Annukka Kolehmainen"
                     },
                     {
-                      "id": 610,
-                      "name": "Suntila, Shimo",
-                      "alt_name": "Shimo Suntila"
-                    },
-                    {
-                      "id": 2370,
-                      "name": "Leinonen, Anne",
-                      "alt_name": "Anne Leinonen"
+                      "id": 8077,
+                      "name": "Antikainen, Hanna",
+                      "alt_name": "Hanna Antikainen"
                     }
                   ],
-                  "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 610,
-                        "name": "Suntila, Shimo",
-                        "alt_name": "Shimo Suntila"
+                        "id": 8077,
+                        "name": "Antikainen, Hanna",
+                        "alt_name": "Hanna Antikainen"
                       },
                       "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2492,
-                        "name": "Lin, Lucilla",
-                        "alt_name": "Lucilla Lin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
+                        "id": 2,
+                        "name": "Kääntäjä"
                       },
                       "description": "",
                       "real_person": null
                     },
                     {
                       "person": {
-                        "id": 4849,
-                        "name": "Rauhala, Anssi",
-                        "alt_name": "Anssi Rauhala"
+                        "id": 195,
+                        "name": "Kolehmainen, Annukka",
+                        "alt_name": "Annukka Kolehmainen"
+                      },
+                      "role": {
+                        "id": 2,
+                        "name": "Kääntäjä"
+                      },
+                      "description": "",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 8083,
+                        "name": "Holländer, Milja",
+                        "alt_name": "Milja Holländer"
                       },
                       "role": {
                         "id": 4,
@@ -2150,241 +1612,106 @@
                       },
                       "description": "",
                       "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2205,
-                        "name": "Zherbin, Arren",
-                        "alt_name": "Arren Zherbin"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 1863,
-                        "name": "Lintunen, Venla",
-                        "alt_name": "Venla Lintunen"
-                      },
-                      "role": {
-                        "id": 5,
-                        "name": "Kuvittaja"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 2370,
-                        "name": "Leinonen, Anne",
-                        "alt_name": "Anne Leinonen"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 607,
-                        "name": "Saloranta, Tuomas",
-                        "alt_name": "Tuomas Saloranta"
-                      },
-                      "role": {
-                        "id": 3,
-                        "name": "Toimittaja"
-                      },
-                      "description": null,
-                      "real_person": null
                     }
                   ],
                   "images": [
                     {
-                      "id": 64,
-                      "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "id": 10270,
+                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 305,
-                    "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+                    "id": 528,
+                    "name": "Kolibri"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 4627,
-                  "title": "Hurtan koodeksi",
-                  "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-                  "pubyear": 2013,
+                  "id": 10533,
+                  "title": "Keskiyön kummitusjuttuja",
+                  "subtitle": "",
+                  "pubyear": 2003,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "978-952-67765-2-1",
+                  "isbn": "952-16-0586-3",
                   "printedin": null,
                   "pubseriesnum": null,
-                  "coll_info": "",
-                  "pages": 199,
-                  "size": 21,
+                  "coll_info": null,
+                  "pages": 127,
+                  "size": 18,
                   "dustcover": 1,
                   "coverimage": 1,
                   "misc": null,
-                  "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+                  "imported_string": null,
                   "verified": false
                 }
               ],
               "genres": [
                 {
-                  "id": 2,
-                  "name": "Kauhu",
-                  "abbr": "K"
-                },
-                {
-                  "id": 16,
-                  "name": "Kokoelma",
-                  "abbr": "kok"
+                  "id": 10,
+                  "name": "Nuorten kauhu",
+                  "abbr": "nK"
                 }
               ],
               "bookseries": null,
-              "tags": [],
+              "tags": [
+                {
+                  "id": 703,
+                  "name": "kummitukset",
+                  "type": {
+                    "id": 4,
+                    "name": "Toimija"
+                  }
+                }
+              ],
               "language_name": {
-                "id": 7,
-                "name": "suomi"
+                "id": 19,
+                "name": "ruotsi"
               },
               "type": 2,
-              "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-              "pubyear": 2013,
+              "subtitle": "",
+              "pubyear": 2003,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p>Maailmassa on käsikirjoituksia, joiden ei koskaan pidä päätyä kenenkään luettavaksi, saati kopiokoneiden monistettavaksi tai robottien skannattavaksi. Omalaatuiset kirjankeräilijät ovat valmiita kysenalaisiin tekoihin saadessaan vainun harvinaisesta teoksesta. Antikvariaateissa ja yksityisissä kirjastoissa liikkuu niin myyttisiä olentoja kuin menneisyyden haamuja.</p><p><em>Hurtan koodeksi</em> on kunnianosoitus Mörövuoren kauhukirjailijalle Boris Hurtalle, jolle on tullut taiteilijanuraa täyteen kokonainen neljännesvuosisata. Teoksen sivuilla kotimaiset kauhukirjallisuuden ja fantastisen kerronnan taitajat jatkavat Hurtan teoksista tuttujen hahmojen tarinoita ja luovat uusia legendoja.</p><p><strong>\"Kirja tulee kirjan luo\"</strong></p>",
+              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": null
             },
-            "editors": [
-              {
-                "id": 607,
-                "name": "Saloranta, Tuomas",
-                "alt_name": "Tuomas Saloranta",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1977,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 18,
-                "storycount": 53,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Tuomas",
-                "last_name": "Saloranta",
-                "image_attr": "",
-                "qid": null,
-                "bio": null,
-                "bio_src": "",
-                "imported_string": null
-              },
-              {
-                "id": 610,
-                "name": "Suntila, Shimo",
-                "alt_name": "Shimo Suntila",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 28,
-                "storycount": 401,
-                "roles": [
-                  "Kirjoittaja",
-                  "Kääntäjä",
-                  "Toimittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Shimo",
-                "last_name": "Suntila",
-                "image_attr": "",
-                "qid": null,
-                "bio": "<p>Shimo Suntila (s. 1973) on turkulainen spekulatiivisen fiktion kirjoittaja, joka on tunnettu ennen kaikkea valtavasta lyhytproosatuotannostaan, erityisesti raapaleista eli sadan sanan tarinoista. Hän alkoi julkaista laajasti 2010-luvun alussa, ja yhden vuoden projektissa hän kirjoitti uuden raapaleen joka päivä, yhteensä 366 tarinaa, joista on koottu kokoelmia. Suntila kirjoittaa science fictionia, fantasiaa, kauhua ja muuta “kummaa”, ja hänen kokoelmiinsa, kuten <em>Sata kummaa kertomusta</em>, <em>Tähtiviima</em>, <em>Sadanpäämies</em> ja <em>Kalpean noidan naamio</em>, on koottu monipuolisia, usein humoristisia mutta myös synkkiä ja kokeilevia tekstejä.</p><p>Hänellä on vahva asema suomalaisessa fandomissa: Suntila on toiminut Turun science fiction -seuran ja Suomen tieteis- ja fantasiakirjoittajien puheenjohtajana, ollut perustamassa useita harrastajayhdistyksiä (mm. roolipeli- ja animepiirejä) sekä toimittanut kymmeniä numeroita eri scifi- ja fantasiapienlehtiä. Lisäksi hän toimii novellistina, antologioiden toimittajana ja kirjallisuuskriitikkona, arvostellen kirjoja ja sarjakuvia sekä kirjoittamalla esseitä ja arvosteluja alan lehtiin, mikä tekee hänestä yhden näkyvimmistä kotimaisen lyhyen spefin kasvoista.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              },
-              {
-                "id": 2370,
-                "name": "Leinonen, Anne",
-                "alt_name": "Anne Leinonen",
-                "fullname": "",
-                "image_src": null,
-                "dob": 1973,
-                "dod": null,
-                "nationality": {
-                  "id": 4,
-                  "name": "Suomi"
-                },
-                "workcount": 32,
-                "storycount": 189,
-                "roles": [
-                  "Kirjoittaja",
-                  "Toimittaja",
-                  "Kansikuva",
-                  "Kuvittaja",
-                  "Esiintyy"
-                ],
-                "other_names": null,
-                "first_name": "Anne",
-                "last_name": "Leinonen",
-                "image_attr": "",
-                "qid": "Q11851673",
-                "bio": "<p>Anne Leinonen (s. 1973, Juva) on kirjailija, kustannustoimittaja ja kirjoittajaohjaaja, jonka ydinlaji on spekulatiivinen fiktio, realismia ja outoutta yhdistävä “reaalifantasia”. Hän asuu Etelä-Savon maaseudulla, mikä näkyy vahvana metsä- ja maaseutuympäristön kuvauksena hänen teoksissaan.</p><p>Leinosen tuotantoon kuuluu sekä aikuisten että nuorten romaaneja ja novelleja, esimerkiksi Viivamaalari, tieteisromaani Ilottomien ihmisten kylä sekä Eija Lappalaisen kanssa kirjoitettu tulevaisuustrilogia Routasisarukset. Lisäksi hän on kirjoittanut lasten tieteisromaanin (Holtiton masiina), nuorten kauhu- ja spefikirjoja (Elokuussa minä kuolen) sekä myyttistä, kansanperinteestä ammentavaa proosaa (Metsän äiti, Vaskinainen). </p><p>Leinonen on keskeinen toimija spefiyhteisössä: hän on toiminut kustannustoimittajana, käsikirjoituslukijana, Usva-verkkolehden toimittajana, kirjoittajakouluttajana ja kilpailujen tuomarina, tarjoten näkyvyyttä ja tukea uusille tekijöille. Hänen novellejaan on palkittu useilla Atorox- ja Portti-palkinnoilla, ja hänelle on myönnetty Etelä-Savon taidepalkinto, mikä osoittaa arvostusta niin lajifiktion sisällä kuin laajemmalla taidekentällä.</p>",
-                "bio_src": "Perplexity",
-                "imported_string": null
-              }
-            ],
+            "editors": [],
             "contributions": [
               {
                 "person": {
-                  "id": 610,
-                  "name": "Suntila, Shimo",
-                  "alt_name": "Shimo Suntila"
+                  "id": 8077,
+                  "name": "Antikainen, Hanna",
+                  "alt_name": "Hanna Antikainen"
                 },
                 "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2492,
-                  "name": "Lin, Lucilla",
-                  "alt_name": "Lucilla Lin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
+                  "id": 2,
+                  "name": "Kääntäjä"
                 },
                 "description": "",
                 "real_person": null
               },
               {
                 "person": {
-                  "id": 4849,
-                  "name": "Rauhala, Anssi",
-                  "alt_name": "Anssi Rauhala"
+                  "id": 195,
+                  "name": "Kolehmainen, Annukka",
+                  "alt_name": "Annukka Kolehmainen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 8083,
+                  "name": "Holländer, Milja",
+                  "alt_name": "Milja Holländer"
                 },
                 "role": {
                   "id": 4,
@@ -2392,70 +1719,19 @@
                 },
                 "description": "",
                 "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2205,
-                  "name": "Zherbin, Arren",
-                  "alt_name": "Arren Zherbin"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 1863,
-                  "name": "Lintunen, Venla",
-                  "alt_name": "Venla Lintunen"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 2370,
-                  "name": "Leinonen, Anne",
-                  "alt_name": "Anne Leinonen"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 607,
-                  "name": "Saloranta, Tuomas",
-                  "alt_name": "Tuomas Saloranta"
-                },
-                "role": {
-                  "id": 3,
-                  "name": "Toimittaja"
-                },
-                "description": null,
-                "real_person": null
               }
             ],
             "images": [
               {
-                "id": 64,
-                "image_src": "/static/images/books/Saloranta_suntila_Leinonen_HurtanKoodeksi_1p.jpg",
+                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "id": 10270,
+                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 305,
-              "name": "Suomen tieteis- ja fantasiakirjoittajat ry"
+              "id": 528,
+              "name": "Kolibri"
             },
             "owners": [],
             "wishlisted": [],
@@ -2463,22 +1739,22 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 4627,
-            "title": "Hurtan koodeksi",
-            "subtitle": "Boris Hurtan 25-vuotistaiteilijajuhlakirja",
-            "pubyear": 2013,
+            "id": 10533,
+            "title": "Keskiyön kummitusjuttuja",
+            "subtitle": "",
+            "pubyear": 2003,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-67765-2-1",
+            "isbn": "952-16-0586-3",
             "printedin": null,
             "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 199,
-            "size": 21,
+            "coll_info": null,
+            "pages": 127,
+            "size": 18,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
-            "imported_string": "<a href='\"novkok/lei-hk.htm\"'><b>Hurtan koodeksi</b></a>. Boris Hurtan 25-vuotistaiteilijajuhlakirja. Suomen tieteis- ja fantasiakirjoittajat ry 2013. [K,kok].",
+            "imported_string": null,
             "verified": false
           }
         ],
@@ -2486,9 +1762,9 @@
         "contributors": [
           {
             "person": {
-              "id": 3779,
-              "name": "Saario, Mari",
-              "alt_name": "Mari Saario"
+              "id": 8078,
+              "name": "Johansson, Ewa Christina",
+              "alt_name": "Ewa Christina Johansson"
             },
             "role": {
               "id": 1,
@@ -2496,16 +1772,42 @@
             },
             "description": "",
             "real_person": null
+          },
+          {
+            "person": {
+              "id": 8077,
+              "name": "Antikainen, Hanna",
+              "alt_name": "Hanna Antikainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 195,
+              "name": "Kolehmainen, Annukka",
+              "alt_name": "Annukka Kolehmainen"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "lang": {
-          "id": 7,
-          "name": "suomi"
+          "id": 19,
+          "name": "ruotsi"
         },
-        "id": 15676,
-        "title": "Pimeän kauhun vainu",
+        "id": 15754,
+        "title": "Magian käsikirja",
         "orig_title": "",
-        "pubyear": 2013,
+        "pubyear": null,
         "notes": ""
       }
     ],

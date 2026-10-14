@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/publishercounts",
@@ -15,37 +15,37 @@
         "name": "WSOY",
         "fullname": "Werner Söderström Oy",
         "genres": {
-          "F": 544,
+          "F": 545,
           "K": 93,
           "Paleof": 41,
           "PF": 45,
           "SF": 423,
           "VEH": 16,
           "Utopia": 5,
-          "nF": 454,
-          "nSF": 195,
+          "nF": 455,
+          "nSF": 190,
           "nK": 65,
-          "lSF": 7,
+          "lSF": 12,
           "satu": 1,
           "eiSF": 17,
-          "rajatap": 53,
+          "rajatap": 54,
           "lasten kuvakirja": 42,
           "kok": 124,
-          "lF": 409,
+          "lF": 410,
           "R": 8
         },
-        "total": 2237
+        "total": 2239
       },
       {
         "id": 318,
         "name": "Tammi",
         "fullname": "Tammi",
         "genres": {
-          "F": 212,
+          "F": 213,
           "K": 168,
           "Paleof": 4,
           "PF": 14,
-          "SF": 244,
+          "SF": 245,
           "VEH": 10,
           "nF": 326,
           "nSF": 62,
@@ -54,16 +54,16 @@
           "eiSF": 34,
           "rajatap": 21,
           "kok": 61,
-          "lF": 68
+          "lF": 69
         },
-        "total": 1143
+        "total": 1146
       },
       {
         "id": 227,
         "name": "Otava",
         "fullname": "Otava",
         "genres": {
-          "F": 334,
+          "F": 335,
           "K": 46,
           "Paleof": 3,
           "PF": 42,
@@ -71,7 +71,7 @@
           "VEH": 10,
           "nF": 275,
           "nSF": 75,
-          "nK": 35,
+          "nK": 36,
           "lSF": 2,
           "satu": 2,
           "eiSF": 1,
@@ -80,19 +80,19 @@
           "lF": 91,
           "R": 1
         },
-        "total": 1058
+        "total": 1060
       },
       {
         "id": 133,
         "name": "Karisto",
         "fullname": "Karisto Oy",
         "genres": {
-          "F": 360,
+          "F": 362,
           "K": 19,
           "Paleof": 2,
           "PF": 4,
           "SF": 119,
-          "nF": 73,
+          "nF": 75,
           "nSF": 29,
           "nK": 21,
           "lSF": 1,
@@ -102,7 +102,7 @@
           "kok": 24,
           "lF": 31
         },
-        "total": 687
+        "total": 691
       },
       {
         "id": 76,
@@ -164,17 +164,17 @@
         "name": "Books on Demand",
         "fullname": "Books on Demand",
         "genres": {
-          "F": 115,
-          "K": 22,
-          "SF": 83,
+          "F": 118,
+          "K": 23,
+          "SF": 82,
           "VEH": 1,
           "nF": 50,
           "nSF": 3,
           "lSF": 2,
           "kok": 9,
-          "lF": 1
+          "lF": 3
         },
-        "total": 274
+        "total": 279
       },
       {
         "id": 150,
@@ -216,26 +216,26 @@
         "name": "Muut",
         "fullname": null,
         "genres": {
-          "F": 1144,
-          "K": 501,
+          "F": 1163,
+          "K": 504,
           "Paleof": 28,
-          "PF": 39,
-          "SF": 1064,
-          "VEH": 47,
+          "PF": 40,
+          "SF": 1067,
+          "VEH": 48,
           "Utopia": 22,
-          "nF": 373,
+          "nF": 375,
           "nSF": 92,
-          "nK": 85,
+          "nK": 86,
           "lSF": 10,
-          "satu": 1,
+          "satu": 2,
           "rajatap": 58,
           "lasten kuvakirja": 9,
-          "kok": 470,
-          "lF": 173,
+          "kok": 471,
+          "lF": 178,
           "R": 31,
           "eiSF": 44
         },
-        "total": 3406
+        "total": 3438
       }
     ],
     "error": null

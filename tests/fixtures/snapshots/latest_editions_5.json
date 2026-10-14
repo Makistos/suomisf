@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/editions/5",
@@ -12,33 +12,394 @@
     "data": [
       {
         "work": {
-          "id": 7239,
-          "title": "Ulkomaisia kauhukirjailijoita",
-          "orig_title": "",
-          "author_str": "Halme, Jukka & Nummelin, Juri (toim.)",
+          "id": 5415,
+          "title": "Klara ja aurinko",
+          "orig_title": "Klara and the Sun",
+          "author_str": "Ishiguro, Kazuo",
           "contributions": [
             {
               "person": {
-                "id": 1857,
-                "name": "Halme, Jukka",
-                "alt_name": "Jukka Halme"
+                "id": 2106,
+                "name": "Ishiguro, Kazuo",
+                "alt_name": "Kazuo Ishiguro"
               },
               "role": {
-                "id": 3,
-                "name": "Toimittaja"
+                "id": 1,
+                "name": "Kirjoittaja"
               },
-              "description": "",
+              "description": null,
               "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 179,
+                  "name": "Bützow, Helene",
+                  "alt_name": "Helene Bützow"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 179,
+                    "name": "Bützow, Helene",
+                    "alt_name": "Helene Bützow"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 5468,
+                    "name": "Lyytinen, Laura",
+                    "alt_name": "Laura Lyytinen"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "Päällys",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_1p.jpg",
+                  "id": 2033,
+                  "image_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 318,
+                "name": "Tammi"
+              },
+              "owners": [
+                {
+                  "id": 2,
+                  "name": "mep"
+                },
+                {
+                  "id": 11,
+                  "name": "Kirjokerttu"
+                }
+              ],
+              "wishlisted": [],
+              "id": 6582,
+              "title": "Klara ja aurinko",
+              "subtitle": "",
+              "pubyear": 2021,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-952-04-2720-7",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 371,
+              "size": 21,
+              "dustcover": 3,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": true
             },
             {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 179,
+                  "name": "Bützow, Helene",
+                  "alt_name": "Helene Bützow"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 179,
+                    "name": "Bützow, Helene",
+                    "alt_name": "Helene Bützow"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 5468,
+                    "name": "Lyytinen, Laura",
+                    "alt_name": "Laura Lyytinen"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "Päällys",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_2p.jpg",
+                  "id": 2034,
+                  "image_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_2p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 318,
+                "name": "Tammi"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 6583,
+              "title": "Klara ja aurinko",
+              "subtitle": "",
+              "pubyear": 2022,
+              "editionnum": 2,
+              "version": 1,
+              "isbn": "978-952-04-4419-8",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 377,
+              "size": null,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 179,
+                  "name": "Bützow, Helene",
+                  "alt_name": "Helene Bützow"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 179,
+                    "name": "Bützow, Helene",
+                    "alt_name": "Helene Bützow"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
+                  "id": 10283,
+                  "image_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 318,
+                "name": "Tammi"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 10541,
+              "title": "Klara ja aurinko",
+              "subtitle": "",
+              "pubyear": 2026,
+              "editionnum": 3,
+              "version": 1,
+              "isbn": "978-952-04-8934-2",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 371,
+              "size": 18,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 5,
+              "name": "Science Fiction",
+              "abbr": "SF"
+            }
+          ],
+          "bookseries": null,
+          "tags": [
+            {
+              "id": 415,
+              "name": "robotit",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 419,
+              "name": "tekoäly",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 570,
+              "name": "unelmat",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 730,
+              "name": "ystävyys",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 866,
+              "name": "ihmisyys",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1091,
+              "name": "tulevaisuus",
+              "type": {
+                "id": 6,
+                "name": "Aika"
+              }
+            },
+            {
+              "id": 2016,
+              "name": "ironia",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 2017,
+              "name": "havainnointi",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 2018,
+              "name": "myymälät",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            }
+          ],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2021,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "Booker-palkintoehdokas 2021 (pitkälista), Locus-palkintoehdokas 2022, Andrew Carnegie -mitalin ehdokas 2022 (pitkälista).",
+          "description": "<p><strong>Ishiguron häikäisevä uutuus kysyy mitä on rakkaus, mitä ihmisyys.</strong></p><p>Lähitulevaisuuteen sijoittuva, ajatuksia herättävä <em>Klara ja aurinko</em> on kuin sisarteos suositulle <em>Ole luonani aina</em> -romaanille.</p><p>Klara on keinotekoinen ystävä, älykäs robotti, joka on olemassa auttaakseen ja tukeakseen nuoria vaikeaksi muuttuneessa maailmassa. Se odottaa tulevaa omistajaansa kärsivällisesti näyteikkunassa ja tarkkailee ohi kulkevia ihmisiä oppiakseen heistä lisää. Kun Klara lopulta ostetaan tulevaan kotiinsa, se paneutuu auliisti rooliinsa, mutta ihmisyyden polut ovat mutkikkaat, eikä inhimillisiä motiiveja ole helppo tulkita. Kaikista julmimmaksi ja kirkkaimmaksi osoittautuu kuitenkin rakkaus.</p>",
+          "descr_attr": null,
+          "imported_string": ""
+        },
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 179,
+              "name": "Bützow, Helene",
+              "alt_name": "Helene Bützow"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": null,
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
+            "id": 10283,
+            "image_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 318,
+          "name": "Tammi"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 10541,
+        "title": "Klara ja aurinko",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 3,
+        "version": 1,
+        "isbn": "978-952-04-8934-2",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 371,
+        "size": 18,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": "",
+        "imported_string": "",
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 7276,
+          "title": "Metsänkorva",
+          "orig_title": "",
+          "author_str": "Meresmaa, J. S.",
+          "contributions": [
+            {
               "person": {
-                "id": 939,
-                "name": "Nummelin, Juri",
-                "alt_name": "Juri Nummelin"
+                "id": 1204,
+                "name": "Meresmaa, J. S.",
+                "alt_name": "J. S. Meresmaa"
               },
               "role": {
-                "id": 3,
-                "name": "Toimittaja"
+                "id": 1,
+                "name": "Kirjoittaja"
               },
               "description": "",
               "real_person": null
@@ -51,9 +412,173 @@
               "contributions": [
                 {
                   "person": {
-                    "id": 4180,
-                    "name": "Murtosaari, Jukka",
-                    "alt_name": "Jukka Murtosaari"
+                    "id": 5400,
+                    "name": "Niemi, Karin",
+                    "alt_name": "Karin Niemi"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Meresmaa_JS_Metsankorva_1p.jpg",
+                  "id": 10277,
+                  "image_src": "/static/images/books/Meresmaa_JS_Metsankorva_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 208,
+                "name": "Myllylahti"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 10540,
+              "title": "Metsänkorva",
+              "subtitle": "",
+              "pubyear": 2026,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-952-356-728-3",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 333,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 3,
+              "misc": null,
+              "imported_string": null,
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 8,
+              "name": "Nuorten fantasia",
+              "abbr": "nF"
+            }
+          ],
+          "bookseries": null,
+          "tags": [],
+          "language_name": null,
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2026,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "",
+          "description": "<p><strong>Taianomaisen lumoava tarina vaarallisista salaisuuksista, rohkeudesta etsiä oma polkunsa ja rakkaudesta, joka löytyy sieltä, missä sitä vähiten odottaa.</strong></p><p>Meusalinan elämä Syväharjun raakkutilalla on ennalta määrätty, sillä hän on helmenkuiskaaja. Mutta Meusalinalla on salaisuus: helmenkuiskaaminen tuntuu hänestä vankilalta. Hänen sydämensä kaipaa vapautta – ja Neimosta, komeaa metsästäjää, joka ei edes huomaa häntä.</p><p>Metsässä Meusalina kohtaa tamminoidan ja kiinnostuu uudesta uramahdollisuudesta. Ulkoisten sattumusten paineesta hän yrittää taikuuden avulla herättää Neimoksen huomion, mutta taiat eivät aina toimi toivotusti, eikä sydäntä ohjailla tahdolla.</p><p>Puunhakkaajan hiljainen poika Kielmarius vaalii sekä synkeää salaisuutta että helliä tunteitaan Meusalinaa kohtaan. Kiel tietää metsän kätköissä puun, jonka rungossa kasvaa ihmisen korvan muotoinen pahka. Korvapuu kuuntelee kaiken, mitä Kiel sille kertoo.</p><p>Kun Meusalina joutuu vaaraan, Kiel rientää apuun. Mutta miten metsä vastaa, kun liikkeellä ovat arvaamattomat taikavoimat?</p>",
+          "descr_attr": "Myllylahti",
+          "imported_string": null
+        },
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 5400,
+              "name": "Niemi, Karin",
+              "alt_name": "Karin Niemi"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Meresmaa_JS_Metsankorva_1p.jpg",
+            "id": 10277,
+            "image_src": "/static/images/books/Meresmaa_JS_Metsankorva_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 208,
+          "name": "Myllylahti"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 3,
+          "name": "Sidottu"
+        },
+        "id": 10540,
+        "title": "Metsänkorva",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "978-952-356-728-3",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 333,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 3,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 7275,
+          "title": "Paha – Ei pakopaikkaa",
+          "orig_title": "Udyr: Ingen steder å gjemme seg",
+          "author_str": "Bjerkeland, Ingvild",
+          "contributions": [
+            {
+              "person": {
+                "id": 7339,
+                "name": "Bjerkeland, Ingvild",
+                "alt_name": "Ingvild Bjerkeland"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 2555,
+                  "name": "Joskitt-Pöyry, Jonna",
+                  "alt_name": "Jonna Joskitt-Pöyry"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 2555,
+                    "name": "Joskitt-Pöyry, Jonna",
+                    "alt_name": "Jonna Joskitt-Pöyry"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 5389,
+                    "name": "Lämsä, Perttu",
+                    "alt_name": "Perttu Lämsä"
                   },
                   "role": {
                     "id": 4,
@@ -65,31 +590,308 @@
               ],
               "images": [
                 {
-                  "id": 10198,
-                  "image_src": "/static/images/books/Halme_Nummelin_Ulkomaisiakauhukirjailijoita_1p.jpg",
+                  "thumb_src": "/static/images/books/Bjerkeland_Ingvild_Pahaeipakopaikkaa_1p.jpg",
+                  "id": 10276,
+                  "image_src": "/static/images/books/Bjerkeland_Ingvild_Pahaeipakopaikkaa_1p.jpg",
                   "image_attr": null
                 }
               ],
               "publisher": {
-                "id": 492,
-                "name": "BTJ Kirjastopalvelu"
+                "id": 227,
+                "name": "Otava"
               },
               "owners": [],
               "wishlisted": [],
-              "id": 10491,
-              "title": "Ulkomaisia kauhukirjailijoita",
+              "id": 10539,
+              "title": "Paha – Ei pakopaikkaa",
               "subtitle": "",
-              "pubyear": 2005,
+              "pubyear": 2026,
               "editionnum": 1,
               "version": 1,
-              "isbn": "951-692-595-2",
+              "isbn": "978-951-1-51114-4",
               "printedin": null,
               "pubseriesnum": null,
               "coll_info": null,
-              "pages": 300,
-              "size": 26,
+              "pages": 144,
+              "size": 19,
               "dustcover": 1,
-              "coverimage": 3,
+              "coverimage": 1,
+              "misc": null,
+              "imported_string": null,
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 10,
+              "name": "Nuorten kauhu",
+              "abbr": "nK"
+            }
+          ],
+          "bookseries": null,
+          "tags": [
+            {
+              "id": 521,
+              "name": "dystopia",
+              "type": {
+                "id": 2,
+                "name": "Alagenre"
+              }
+            }
+          ],
+          "language_name": {
+            "id": 16,
+            "name": "norja"
+          },
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2025,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "",
+          "description": "<p><strong>Voiko pahuudelta piiloutua?</strong></p><p>Abdin ja hänen pikkusiskonsa Alvan pakomatka maan vallanneilta, karmaisevilta pedoilta jatkuu.</p><p>Sisarukset ovat selvittäneet tiensä rannikolle ja lähtevät yhdessä kymmenien tuntemattomien kanssa kumiveneellä kohti Shetlandinsaaria. Sieltä he toivovat löytävänsä paitsi suojaa myös kadonneen isänsä.</p><p>Pakolaisleirissä he ovat hetken turvassa – ainakin pedoilta. Ei kuitenkaan ole helppoa olla lapsi keskellä romahtanutta sivilisaatiota. Pian käy myös selväksi, ettei Shetlanti olekaan niin kaukana mantereesta kuin voisi kuvitella…</p><p>Palkitun nuorten kauhuromaanin <em>”Paha”</em> hyytävän vangitseva jatko-osa.</p>",
+          "descr_attr": "Otava",
+          "imported_string": null
+        },
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 2555,
+              "name": "Joskitt-Pöyry, Jonna",
+              "alt_name": "Jonna Joskitt-Pöyry"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 5389,
+              "name": "Lämsä, Perttu",
+              "alt_name": "Perttu Lämsä"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "Kansi",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Bjerkeland_Ingvild_Pahaeipakopaikkaa_1p.jpg",
+            "id": 10276,
+            "image_src": "/static/images/books/Bjerkeland_Ingvild_Pahaeipakopaikkaa_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 227,
+          "name": "Otava"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 3,
+          "name": "Sidottu"
+        },
+        "id": 10539,
+        "title": "Paha – Ei pakopaikkaa",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "978-951-1-51114-4",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 144,
+        "size": 19,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 7274,
+          "title": "Nelvikan tyttäret",
+          "orig_title": "",
+          "author_str": "Carole, Maria",
+          "contributions": [
+            {
+              "person": {
+                "id": 2930,
+                "name": "Carole, Maria",
+                "alt_name": "Maria Carole"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [],
+              "contributions": [],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Carole_Maria_Nelvikantyttaret_1p.jpg",
+                  "id": 10275,
+                  "image_src": "/static/images/books/Carole_Maria_Nelvikantyttaret_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 529,
+                "name": "Jahka"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 10538,
+              "title": "Nelvikan tyttäret",
+              "subtitle": "",
+              "pubyear": 2026,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-2-9581710-1-8",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 632,
+              "size": 22,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": null,
+              "imported_string": null,
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 1,
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": null,
+          "tags": [],
+          "language_name": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "type": 6,
+          "subtitle": "",
+          "pubyear": 2026,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "",
+          "description": "<p><strong>Nelvikan tyttäriä kokoaa kaksi rakastettua fantasiaromaania yksiin kansiin.</strong></p><p><em>Tulen tyttäriä</em> on romanttista fantasiaa maailmassa, jossa jumalat elävät eristyksissä vuorellaan, ja jumalten jälkeläiset sekä ihmiset välttelevät toisiaan. Naarni on sotilas ja tulten sukua. Knameira, ei aivan jumala, muttei tavallinen nainenkaan. Naarni laskee vuosia palvelusaikansa loppumiseen, kunnes eräänä syysyönä kohtaa valolta tuoksuvan Emman ja lakkaa laskemasta.</p><p>Kehuttu esikoisteos keskittyy siihen, mikä elämässä on tärkeää silloinkin kun ympärillä kuohuu.</p><p><em>Sinisen talon noita</em> jatkaa Nelvikan naisten tarinaa. Auri on 17-vuotias ja kaupungin vahvimpia parantajia. Hänestä tulee aikanaan maimo, aivan kuten isoäidistään, jonka opissa hän on ollut pikkutytöstä lähtien. Tulevaisuus on selkeä, Auria varten piiretty polku. Nelvikan ulkopuolella kylät ja kaupungit täyttyvät pakolaisista, jotka sekoittavat arkea. Aurin arki sekoittuu kuitenkin pääasiassa miehestä, joka tuoksuu kuparilta ja sulavalta lumelta. Eikä Auri ole sinisessä talossa ainoa, jonka mieltä salaisuudet painavat.</p><p><em>Sinisen talon noita</em> on rakkaustarina ja kasvukertomus, jossa ihmisyys yhdistää enemmän kuin erottaa.</p><p><em>\"Tuoksuja, jotka sekoittuivat toisiinsa, loivat aivan uutta, juuri sopivaa. Yhdessä he olivat parasta kevättä, jään alta paljastuvaa.\"</em></p>",
+          "descr_attr": "Books on Demand",
+          "imported_string": null
+        },
+        "editors": [],
+        "contributions": [],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Carole_Maria_Nelvikantyttaret_1p.jpg",
+            "id": 10275,
+            "image_src": "/static/images/books/Carole_Maria_Nelvikantyttaret_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 529,
+          "name": "Jahka"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 10538,
+        "title": "Nelvikan tyttäret",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "978-2-9581710-1-8",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 632,
+        "size": 22,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 7273,
+          "title": "Maa, joka ei anna anteeksi",
+          "orig_title": "",
+          "author_str": "Lakkala, Henrik",
+          "contributions": [
+            {
+              "person": {
+                "id": 8085,
+                "name": "Lakkala, Henrik",
+                "alt_name": "Henrik Lakkala"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [],
+              "contributions": [],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Lakkala_Henrik_Maajokaeiannaanteeksi_1p.jpg",
+                  "id": 10274,
+                  "image_src": "/static/images/books/Lakkala_Henrik_Maajokaeiannaanteeksi_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 480,
+                "name": "Momentum Kirjat"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 10537,
+              "title": "Maa, joka ei anna anteeksi",
+              "subtitle": "",
+              "pubyear": 2026,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-952-417-404-6",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 106,
+              "size": 20,
+              "dustcover": 1,
+              "coverimage": 1,
               "misc": null,
               "imported_string": null,
               "verified": false
@@ -108,667 +910,51 @@
             "id": 7,
             "name": "suomi"
           },
-          "type": 4,
+          "type": 1,
           "subtitle": "",
-          "pubyear": 2005,
+          "pubyear": 2026,
           "bookseriesnum": "",
           "bookseriesorder": null,
           "misc": "",
-          "description": "<p><em>Ulkomaisia kauhukirjailijoita</em> -teos esittelee ensimmäistä kertaa 39 kauhukirjailijaa suomennettuine kirjoineen. Hyytävä esittely sisältää niin fyysisen, psykologisen kuin yliluonnollisenkin kauhun edustajia. Mukaan ovat päässeet alan tärkeimmät nimet aina Mary Shelleystä ja Edgar Allan Poesta 1900-luvun lopulla aloittaneisiin hurjiin splatterpunk-tekijöihin.</p><p>Laajassa katsannossa tulevat tutuksi vampyyrit, sarjamurhaajat, pahat henget ja oudot ilmiöt, joiden klassikot muodostavat tärkeän osan länsimaista kulttuuriperintöä. Tarinat ovat täynnä värisyttävää jännitystä, verta ja väkivaltaa. Kattavista bibliografioista löytyvät niin romaanit kuin novellikokoelmatkin. Kirjan teos-, henkilö- ja hahmohakemistot on laadittu sekä alan harrastajia että koulujen ja kirjastojen tiedonhakua varten.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": null
-        },
-        "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 4180,
-              "name": "Murtosaari, Jukka",
-              "alt_name": "Jukka Murtosaari"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "Kansi",
-            "real_person": null
-          }
-        ],
-        "images": [
-          {
-            "id": 10198,
-            "image_src": "/static/images/books/Halme_Nummelin_Ulkomaisiakauhukirjailijoita_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 492,
-          "name": "BTJ Kirjastopalvelu"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 3,
-          "name": "Sidottu"
-        },
-        "id": 10491,
-        "title": "Ulkomaisia kauhukirjailijoita",
-        "subtitle": "",
-        "pubyear": 2005,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "951-692-595-2",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 300,
-        "size": 26,
-        "dustcover": 1,
-        "coverimage": 3,
-        "misc": null,
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7238,
-          "title": "Zormammun paluu",
-          "orig_title": "",
-          "author_str": "Ronkainen, Jan M.",
-          "contributions": [
-            {
-              "person": {
-                "id": 8061,
-                "name": "Ronkainen, Jan M.",
-                "alt_name": "Jan M. Ronkainen"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [],
-              "images": [
-                {
-                  "id": 10197,
-                  "image_src": "/static/images/books/Ronkainen_Jan_M_Zormammunpaluu_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 220,
-                "name": "Omakustanne"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10490,
-              "title": "Zormammun paluu",
-              "subtitle": "outoja tarinoita",
-              "pubyear": 2021,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-952-94-5754-0",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 340,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 3,
-              "misc": "kuvitettu, karttoja",
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 1,
-              "name": "Fantasia",
-              "abbr": "F"
-            }
-          ],
-          "bookseries": null,
-          "tags": [],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 2,
-          "subtitle": "outoja tarinoita",
-          "pubyear": 2021,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "",
-          "description": "<p>Taumahtin maailman kahdessatoista valtakunnassa taikuus on totta. Kuun, Auringon, Luonnon ja Kaaoksen henget elävät rinnakkain ihmisten ja hirviöiden kanssa.</p><p>Sata vuotta sitten Numernan piirittäjät kaatoivat Kaargtolian hirmuvallan. Uerin kaupunkivaltiot itsenäistyivät, ja lohikäärmeillä ja traakeilla ratsastaneet valloittajat lensivät takaisin kotimaahansa Ilnornin valtakuntaan. Mutta Maailmannavan murtuminen aiheutti Karttakirouksen: yhdeksän valtakuntaa irtosivat toisistaan ja ne vaihtavat vuodenaikojen mukaan satunnaisesti paikkaa.</p><p>Groplopomin kaupungissa nuori Tihuum, sukupolvensa lahjakkain hiustaiteilija, joutuu kääntämään elämänsä suuntaa. Noita Kaotika tutkii Numernan raunioita Noitakuningatar Magoonan avustajana. Magoona etsii ikuisen nuoruuden salaisuutta. Tulilintujen Luostarissa Soturinunna Ziuupara siirretään uusiin tehtäviin. Kotikaupungissaan ja lomamatkalla Mestarietsivä Hooforn ratkoo rikoksia jäljittelemättömällä tyylillä.</p><p>Sata vuotta sitten valmistettiin taikakirja, jonka sisään vangittiin Kuudes Rienavalta. Se joka kutsuu kaaosmahdin takaisin, saa palkkioksi esittää yhden toivomuksen. Piirityksen jälkeen teos katosi vuosisadaksi. Nyt tuo opus on löydetty Orborbin kaupungissa. Moni on valmis tekemään - ja myös tekee - mitä tahansa saadakseen taikakirjan käsiinsä.</p><p>Sekalainen joukko sankareita loikkaa outojen tapahtumien virtaan.</p>",
-          "descr_attr": "taumaht.com",
+          "description": "<p>Ryhmä ritareita saa käskyn jakamaan ylemmän Herran tietoisuutta tuntemattomaan maahan. Yllättävä vihollisten hyökkäys saa retkikunnan vetäytymään luolaan, jossa he kohtaavat epäilyttävän muukalaisen. Perääntyminen on mahdotonta ja ainoa ulospääsy on jatkaa matkaa yhä syvemmälle luolaan kohti helvetin tulta ja pimeyden portteja. Tarina kertoo selviytymisestä ja omien syntien kohtaamisesta. Helvetti on täynnä demoneita ja voit kuulla kuiskauksia pimeydestä. Voiko muukalaiseen luottaa? Astukaa ikuiseen tuleen.</p><p>Henrik Lakkala (s. 1992) on Joensuussa vaikuttava kirjailija, joka työskentelee finanssialalla. Hänen esikoisteoksensa Maa, joka ei anna anteeksi käsittelee ihmisyyden pimeimpiä kerroksia ja selviytymistä sisäisen tuhon keskellä. Teos rakentaa armottoman maailman, jossa yksilö kohtaa oman rajallisuutensa ja hajoamisensa. Kirjailijan ilmaisua ovat muovanneet erityisesti Jon Nödtveidtin musiikilliset vaikutteet sekä oma sisäinen mielenmaisema. Hänen tuotantonsa tarkastelee, mitä jää jäljelle, kun ihminen kulkee läpi henkilökohtaisen infernonsa.</p>",
+          "descr_attr": "Momentum Kirjat",
           "imported_string": null
         },
         "editors": [],
         "contributions": [],
         "images": [
           {
-            "id": 10197,
-            "image_src": "/static/images/books/Ronkainen_Jan_M_Zormammunpaluu_1p.jpg",
+            "thumb_src": "/static/images/books/Lakkala_Henrik_Maajokaeiannaanteeksi_1p.jpg",
+            "id": 10274,
+            "image_src": "/static/images/books/Lakkala_Henrik_Maajokaeiannaanteeksi_1p.jpg",
             "image_attr": null
           }
         ],
         "publisher": {
-          "id": 220,
-          "name": "Omakustanne"
+          "id": 480,
+          "name": "Momentum Kirjat"
         },
         "owners": [],
         "wishlisted": [],
         "binding": {
-          "id": 3,
-          "name": "Sidottu"
+          "id": 2,
+          "name": "Nidottu"
         },
-        "id": 10490,
-        "title": "Zormammun paluu",
-        "subtitle": "outoja tarinoita",
-        "pubyear": 2021,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "978-952-94-5754-0",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 340,
-        "size": 21,
-        "dustcover": 1,
-        "coverimage": 3,
-        "misc": "kuvitettu, karttoja",
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7237,
-          "title": "Tarujen hevoset",
-          "orig_title": "",
-          "author_str": "Hjelt, Marjut",
-          "contributions": [
-            {
-              "person": {
-                "id": 8037,
-                "name": "Hjelt, Marjut",
-                "alt_name": "Marjut Hjelt"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 8060,
-                    "name": "Ulv, Daga",
-                    "alt_name": "Daga Ulv"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8060,
-                    "name": "Ulv, Daga",
-                    "alt_name": "Daga Ulv"
-                  },
-                  "role": {
-                    "id": 5,
-                    "name": "Kuvittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "id": 10196,
-                  "image_src": "/static/images/books/Hjelt_Marjut_Tarujenhevoset_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 133,
-                "name": "Karisto"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10489,
-              "title": "Tarujen hevoset",
-              "subtitle": "aavehevosesta yksisarvisiin",
-              "pubyear": 2019,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-951-23-6602-6",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 86,
-              "size": 25,
-              "dustcover": 1,
-              "coverimage": 3,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [],
-          "bookseries": null,
-          "tags": [
-            {
-              "id": 39,
-              "name": "mytologia",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            },
-            {
-              "id": 3189,
-              "name": "hevoset",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            }
-          ],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 4,
-          "subtitle": "aavehevosesta yksisarvisiin",
-          "pubyear": 2019,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "",
-          "description": "<p>Hevosten ystävien ja myyteistä kiinnostuneiden unelmakirja esittelee tarujen hevosia tiedon ja tarinoiden avulla. Teos käy läpi tuttuja ja tuntemattomia nelijalkaisia aina Pegasoksesta intiaanien värejä hohtaviin ratsuihin. Siivekkäistä taikaratsuista on kerrottu tarinoita esimerkiksi Kiinassa, viikinkien parissa sekä islamilaisessa maailmassa. Euroopan muinaiskulttuureista tunnetaan useita palvottuja hevosjumalattaria, kuten kelttien Epona sekä viikinkien Gna. Myös jumalilla, kuten kreikkalaisten auringon jumalalla Helioksella, on omat kuuluisat ratsunsa. Lisäksi kirjassa esitellään niin myyttisten kuin historiallistenkin sankareiden hevosia sekä klassikkokirjojen ratsuja Uljaasta Mustasta Hallavaharjaan. Tunnelmallinen kuvitus ja kiehtovat kertomukset avaavat oven vieraisiin kulttuureihin sekä hevosten historiaan.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": null
-        },
-        "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 8060,
-              "name": "Ulv, Daga",
-              "alt_name": "Daga Ulv"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "Kansi",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 8060,
-              "name": "Ulv, Daga",
-              "alt_name": "Daga Ulv"
-            },
-            "role": {
-              "id": 5,
-              "name": "Kuvittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "images": [
-          {
-            "id": 10196,
-            "image_src": "/static/images/books/Hjelt_Marjut_Tarujenhevoset_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 133,
-          "name": "Karisto"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 3,
-          "name": "Sidottu"
-        },
-        "id": 10489,
-        "title": "Tarujen hevoset",
-        "subtitle": "aavehevosesta yksisarvisiin",
-        "pubyear": 2019,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "978-951-23-6602-6",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 86,
-        "size": 25,
-        "dustcover": 1,
-        "coverimage": 3,
-        "misc": null,
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7236,
-          "title": "Veden valtiaat",
-          "orig_title": "",
-          "author_str": "Hjelt, Marjut",
-          "contributions": [
-            {
-              "person": {
-                "id": 8037,
-                "name": "Hjelt, Marjut",
-                "alt_name": "Marjut Hjelt"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 8059,
-                    "name": "Nuutinen, Christer",
-                    "alt_name": "Christer Nuutinen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8059,
-                    "name": "Nuutinen, Christer",
-                    "alt_name": "Christer Nuutinen"
-                  },
-                  "role": {
-                    "id": 5,
-                    "name": "Kuvittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "id": 10195,
-                  "image_src": "/static/images/books/Hjelt_Marjut_Vedenvaltiaat_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 300,
-                "name": "Suomalaisen kirjallisuuden seura"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10488,
-              "title": "Veden valtiaat",
-              "subtitle": "",
-              "pubyear": 2012,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-952-222-316-6",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 144,
-              "size": 27,
-              "dustcover": 1,
-              "coverimage": 3,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [],
-          "bookseries": null,
-          "tags": [
-            {
-              "id": 39,
-              "name": "mytologia",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            }
-          ],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 4,
-          "subtitle": "",
-          "pubyear": 2012,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "",
-          "description": "<p>VALLOITTAVA RETKI VEDENALAISEEN MAAILMAAN.</p><p><em>Veden valtiaat</em> kuvaa vedenalaisia valtakuntia ja niiden mytologisia asukkaita: veden jumalia, haltijoita, vedenneitoja ja hirviöitä. Millaisia nämä mytologiset olennot ovat, missä ne asuvat ja mitä ne tekevät? Runsaasti kuvitettu tietoteos esittelee mm. kreikkalaisen Poseidonin, intialaisen Varunan, egyptiläisen Hapin, japanilaisen Ningyon, Amazonin encantadot, venäläiset rusalkat ja suomalaisen Iku-Turson. Vedenväen tuntomerkit ovat peräisin eri maiden myyteistä ja kansanuskon tarinoista.</p><p>Teoksen on kirjoittanut kansanperinteen tutkija Marjut Hjelt ja kuvittanut sarjakuvataiteilija ja kuvittaja Christer Nuutinen.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": null
-        },
-        "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 8059,
-              "name": "Nuutinen, Christer",
-              "alt_name": "Christer Nuutinen"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 8059,
-              "name": "Nuutinen, Christer",
-              "alt_name": "Christer Nuutinen"
-            },
-            "role": {
-              "id": 5,
-              "name": "Kuvittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "images": [
-          {
-            "id": 10195,
-            "image_src": "/static/images/books/Hjelt_Marjut_Vedenvaltiaat_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 300,
-          "name": "Suomalaisen kirjallisuuden seura"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 3,
-          "name": "Sidottu"
-        },
-        "id": 10488,
-        "title": "Veden valtiaat",
+        "id": 10537,
+        "title": "Maa, joka ei anna anteeksi",
         "subtitle": "",
-        "pubyear": 2012,
+        "pubyear": 2026,
         "editionnum": 1,
         "version": 1,
-        "isbn": "978-952-222-316-6",
+        "isbn": "978-952-417-404-6",
         "printedin": null,
         "pubseriesnum": null,
         "coll_info": null,
-        "pages": 144,
-        "size": 27,
+        "pages": 106,
+        "size": 20,
         "dustcover": 1,
-        "coverimage": 3,
+        "coverimage": 1,
         "misc": null,
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7235,
-          "title": "Tietäjät, noidat, samaanit",
-          "orig_title": "",
-          "author_str": "Klemettinen, Pasi",
-          "contributions": [
-            {
-              "person": {
-                "id": 8058,
-                "name": "Klemettinen, Pasi",
-                "alt_name": "Pasi Klemettinen"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [],
-              "images": [
-                {
-                  "id": 10194,
-                  "image_src": "/static/images/books/Klemettinen_Pasi_Tietajatnoidatsamaanit_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 500,
-                "name": "SKS Kirjat"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10487,
-              "title": "Tietäjät, noidat, samaanit",
-              "subtitle": "kansanuskon maailmassa",
-              "pubyear": 2025,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-951-858-729-6",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 266,
-              "size": 22,
-              "dustcover": 1,
-              "coverimage": 3,
-              "misc": "16 numeroimatonta kuvasivua.",
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 13,
-              "name": "Ei SpeFiä",
-              "abbr": "eiSF"
-            }
-          ],
-          "bookseries": null,
-          "tags": [
-            {
-              "id": 1377,
-              "name": "kansanperinne",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            }
-          ],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 4,
-          "subtitle": "kansanuskon maailmassa",
-          "pubyear": 2025,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "",
-          "description": "<p><strong>Kiehtova matka suomalaisen kansanperinteen magiaan.</strong></p><p>Hammaskivun hoitoa kuivatuilla tikankielillä, naapurin kalaonnen turmelemista karmivilla sammakkoarkuilla – noidat, tietäjät ja samaanit olivat yhtäältä arkisia apureita, toisaalta parjattuja pahantekijöitä. Miksi noitia pelättiin, ja mistä heitä syytettiin käräjillä? Miten entisajan noidiksi ja tietäjiksi tultiin, ja millaisia apuvoimia ja taikakaluja heillä oli käytössään?</p><p>Esivanhempiemme tietäjäperinteessä parantaminen, loitsiminen ja taikuus olivat osa jokapäiväistä elämää. Ukonvaajat, päivännäkemättömät ja sammakkoarkut paljastavat, kuinka yliluonnollinen valjastettiin arjen ongelmien ratkaisemiseen. Noidat ja tietäjät paransivat sairaita ja selvittivät varkauksia, mutta kunnioittamisen lisäksi heitä pelättiin ja vainottiin. Syytöksiä magialla vahingoittamisesta käsiteltiin käräjillä pitkään noitavainojen ajan jälkeenkin.</p><p>Perinteentutkija Pasi Klemettinen kertoo kirjassaan noitien ja tietäjien merkityksestä kansanperinteessä sekä tutustuttaa lukijan kymmeneen noitaan ja tietäjään, joiden maine on säilynyt tähän päivään asti.</p>",
-          "descr_attr": "SKS Kirjat",
-          "imported_string": null
-        },
-        "editors": [],
-        "contributions": [],
-        "images": [
-          {
-            "id": 10194,
-            "image_src": "/static/images/books/Klemettinen_Pasi_Tietajatnoidatsamaanit_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 500,
-          "name": "SKS Kirjat"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 3,
-          "name": "Sidottu"
-        },
-        "id": 10487,
-        "title": "Tietäjät, noidat, samaanit",
-        "subtitle": "kansanuskon maailmassa",
-        "pubyear": 2025,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "978-951-858-729-6",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 266,
-        "size": 22,
-        "dustcover": 1,
-        "coverimage": 3,
-        "misc": "16 numeroimatonta kuvasivua.",
         "imported_string": null,
         "verified": false
       }

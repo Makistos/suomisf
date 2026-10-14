@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/issues/92",
@@ -285,6 +285,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -597,6 +598,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -895,6 +897,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -1183,6 +1186,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -1468,6 +1472,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -1768,6 +1773,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -2053,6 +2059,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -2127,7 +2134,7 @@
                 "name": "Suomi"
               },
               "workcount": 1,
-              "storycount": 21,
+              "storycount": 22,
               "roles": [
                 "Kirjoittaja",
                 "Toimittaja"
@@ -2352,6 +2359,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -2413,7 +2421,7 @@
                 "name": "Suomi"
               },
               "workcount": 7,
-              "storycount": 86,
+              "storycount": 89,
               "roles": [
                 "Kirjoittaja",
                 "Kääntäjä",
@@ -2641,6 +2649,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -2929,6 +2938,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -2990,7 +3000,7 @@
                 "name": "Suomi"
               },
               "workcount": 3,
-              "storycount": 18,
+              "storycount": 19,
               "roles": [
                 "Kirjoittaja",
                 "Toimittaja"
@@ -3215,6 +3225,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -3500,6 +3511,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -3785,6 +3797,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -4070,6 +4083,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -4355,6 +4369,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -4640,6 +4655,7 @@
               },
               "images": [
                 {
+                  "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
                   "id": 111,
                   "image_src": "/static/images/magazines/Alienisti_37.jpg",
                   "image_attr": null
@@ -4917,6 +4933,7 @@
       ],
       "images": [
         {
+          "thumb_src": "/static/images/magazines/Alienisti_37.jpg",
           "id": 111,
           "image_src": "/static/images/magazines/Alienisti_37.jpg",
           "image_attr": null

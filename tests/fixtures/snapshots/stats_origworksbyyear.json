@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/origworksbyyear",
@@ -408,7 +408,7 @@
       },
       {
         "year": 1871,
-        "count": 2,
+        "count": 3,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3894,7 +3894,7 @@
       },
       {
         "year": 2003,
-        "count": 5,
+        "count": 6,
         "language_id": 19,
         "language_name": "ruotsi"
       },
@@ -4002,7 +4002,7 @@
       },
       {
         "year": 2005,
-        "count": 89,
+        "count": 90,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4338,7 +4338,7 @@
       },
       {
         "year": 2011,
-        "count": 83,
+        "count": 84,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4416,7 +4416,7 @@
       },
       {
         "year": 2013,
-        "count": 69,
+        "count": 70,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4746,7 +4746,7 @@
       },
       {
         "year": 2018,
-        "count": 122,
+        "count": 124,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4872,7 +4872,7 @@
       },
       {
         "year": 2020,
-        "count": 123,
+        "count": 124,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4932,7 +4932,7 @@
       },
       {
         "year": 2021,
-        "count": 113,
+        "count": 116,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4986,7 +4986,7 @@
       },
       {
         "year": 2022,
-        "count": 134,
+        "count": 135,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -5040,7 +5040,7 @@
       },
       {
         "year": 2023,
-        "count": 133,
+        "count": 138,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -5070,19 +5070,25 @@
       },
       {
         "year": 2024,
+        "count": 1,
+        "language_id": 8,
+        "language_name": "ranska"
+      },
+      {
+        "year": 2024,
         "count": 5,
         "language_id": 19,
         "language_name": "ruotsi"
       },
       {
         "year": 2024,
-        "count": 127,
+        "count": 129,
         "language_id": 7,
         "language_name": "suomi"
       },
       {
         "year": 2025,
-        "count": 39,
+        "count": 40,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -5100,19 +5106,25 @@
       },
       {
         "year": 2025,
+        "count": 1,
+        "language_id": 16,
+        "language_name": "norja"
+      },
+      {
+        "year": 2025,
         "count": 2,
         "language_id": 19,
         "language_name": "ruotsi"
       },
       {
         "year": 2025,
-        "count": 114,
+        "count": 115,
         "language_id": 7,
         "language_name": "suomi"
       },
       {
         "year": 2026,
-        "count": 10,
+        "count": 11,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -5130,9 +5142,15 @@
       },
       {
         "year": 2026,
-        "count": 80,
+        "count": 92,
         "language_id": 7,
         "language_name": "suomi"
+      },
+      {
+        "year": 2026,
+        "count": 1,
+        "language_id": null,
+        "language_name": null
       }
     ],
     "error": null

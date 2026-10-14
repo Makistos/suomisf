@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/406",
@@ -202,6 +202,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Kauhutarinoita_1p.jpg",
                   "id": 4099,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Kauhutarinoita_1p.jpg",
                   "image_attr": null
@@ -357,6 +358,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                   "id": 411,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                   "image_attr": null
@@ -466,6 +468,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                   "id": 4086,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                   "image_attr": null
@@ -575,6 +578,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                   "id": 4087,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                   "image_attr": null
@@ -692,6 +696,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                   "id": 4088,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                   "image_attr": null
@@ -815,6 +820,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Kultakuoriainen_1p.jpg",
                   "id": 4100,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Kultakuoriainen_1p.jpg",
                   "image_attr": null
@@ -965,6 +971,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                   "id": 4097,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                   "image_attr": null
@@ -1226,6 +1233,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                   "id": 4098,
                   "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                   "image_attr": null
@@ -1352,6 +1360,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Kultakuoriainen_1p.jpg",
                     "id": 4100,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Kultakuoriainen_1p.jpg",
                     "image_attr": null
@@ -1450,6 +1459,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Kultakuoriainen_1p.jpg",
               "id": 4100,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Kultakuoriainen_1p.jpg",
               "image_attr": null
@@ -1567,6 +1577,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "id": 4097,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "image_attr": null
@@ -1828,6 +1839,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "id": 4098,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "image_attr": null
@@ -1930,6 +1942,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
               "id": 4097,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
               "image_attr": null
@@ -2047,6 +2060,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "id": 411,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "image_attr": null
@@ -2156,6 +2170,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "id": 4086,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "image_attr": null
@@ -2265,6 +2280,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "id": 4087,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "image_attr": null
@@ -2382,6 +2398,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "id": 4088,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "image_attr": null
@@ -2510,6 +2527,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
               "id": 4088,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
               "image_attr": null
@@ -2627,6 +2645,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "id": 411,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "image_attr": null
@@ -2736,6 +2755,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "id": 4086,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "image_attr": null
@@ -2845,6 +2865,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "id": 4087,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "image_attr": null
@@ -2962,6 +2983,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "id": 4088,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "image_attr": null
@@ -3064,6 +3086,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
               "id": 411,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
               "image_attr": null
@@ -3181,6 +3204,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "id": 4097,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "image_attr": null
@@ -3442,6 +3466,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "id": 4098,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "image_attr": null
@@ -3655,6 +3680,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "id": 411,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "image_attr": null
@@ -3764,6 +3790,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "id": 4086,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "image_attr": null
@@ -3873,6 +3900,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "id": 4087,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "image_attr": null
@@ -3990,6 +4018,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "id": 4088,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "image_attr": null
@@ -4105,6 +4134,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
               "id": 4086,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
               "image_attr": null
@@ -4271,6 +4301,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Kauhutarinoita_1p.jpg",
                     "id": 4099,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Kauhutarinoita_1p.jpg",
                     "image_attr": null
@@ -4426,6 +4457,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Kauhutarinoita_1p.jpg",
               "id": 4099,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Kauhutarinoita_1p.jpg",
               "image_attr": null
@@ -4548,6 +4580,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "id": 411,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_1p.jpg",
                     "image_attr": null
@@ -4657,6 +4690,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "id": 4086,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2p.jpg",
                     "image_attr": null
@@ -4766,6 +4800,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "id": 4087,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
                     "image_attr": null
@@ -4883,6 +4918,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "id": 4088,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_3p.jpg",
                     "image_attr": null
@@ -4998,6 +5034,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
               "id": 4087,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Korppijakultakuoriainen_2l1p.jpg",
               "image_attr": null
@@ -5115,6 +5152,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "id": 4097,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "image_attr": null
@@ -5376,6 +5414,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "id": 4098,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "image_attr": null
@@ -5589,6 +5628,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "id": 4097,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_1p.jpg",
                     "image_attr": null
@@ -5850,6 +5890,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "id": 4098,
                     "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
                     "image_attr": null
@@ -5952,6 +5993,7 @@
           ],
           "images": [
             {
+              "thumb_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
               "id": 4098,
               "image_src": "/static/images/books/Poe_Edgar_Allan_Novelleja_4p.jpg",
               "image_attr": null

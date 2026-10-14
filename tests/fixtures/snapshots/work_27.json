@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/27",
@@ -22,6 +22,7 @@
           },
           "images": [
             {
+              "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
               "id": 3212,
               "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
               "image_attr": null
@@ -70,6 +71,7 @@
                 ],
                 "images": [
                   {
+                    "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                     "id": 3212,
                     "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                     "image_attr": null
@@ -271,6 +273,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -347,6 +350,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -485,6 +489,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -561,6 +566,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -699,6 +705,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -775,6 +782,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -913,6 +921,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -989,6 +998,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -1127,6 +1137,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -1203,6 +1214,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -1341,6 +1353,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -1417,6 +1430,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -1555,6 +1569,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -1631,6 +1646,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -1769,6 +1785,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -1845,6 +1862,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -1983,6 +2001,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -2059,6 +2078,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -2197,6 +2217,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -2273,6 +2294,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -2411,6 +2433,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -2487,6 +2510,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null
@@ -2625,6 +2649,7 @@
                     ],
                     "images": [
                       {
+                        "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "id": 3212,
                         "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                         "image_attr": null
@@ -2701,6 +2726,7 @@
               ],
               "images": [
                 {
+                  "thumb_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "id": 3212,
                   "image_src": "/static/images/books/Vainonen_Jyrki_Yonjapaivantarinoita_1p.jpg",
                   "image_attr": null

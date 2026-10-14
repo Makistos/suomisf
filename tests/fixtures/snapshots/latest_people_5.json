@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -11,12 +11,116 @@
     "status_code": 200,
     "data": [
       {
-        "id": 8061,
-        "name": "Ronkainen, Jan M.",
-        "alt_name": "Jan M. Ronkainen",
+        "id": 8089,
+        "name": "Vos, Hubert",
+        "alt_name": "Hubert Vos",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1855,
+        "dod": 1935,
+        "nationality": {
+          "id": 51,
+          "name": "Alankomaat"
+        },
+        "workcount": 0,
+        "storycount": 0,
+        "roles": [
+          "Kansikuva"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 8088,
+        "name": "Kim, Na",
+        "alt_name": "Na Kim",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1986,
+        "dod": null,
+        "nationality": {
+          "id": 3,
+          "name": "Yhdysvallat"
+        },
+        "workcount": 0,
+        "storycount": 0,
+        "roles": [
+          "Kansikuva"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 8087,
+        "name": "Sipari, Matti",
+        "alt_name": "Matti Sipari",
         "fullname": "",
         "image_src": null,
         "dob": null,
+        "dod": null,
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 0,
+        "storycount": 0,
+        "roles": [
+          "Kansikuva"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 8086,
+        "name": "Astromujoff, Oscar",
+        "alt_name": "Oscar Astromujoff",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1950,
+        "dod": null,
+        "nationality": {
+          "id": 15,
+          "name": "Espanja"
+        },
+        "workcount": 0,
+        "storycount": 0,
+        "roles": [
+          "Kansikuva"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": null,
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 8085,
+        "name": "Lakkala, Henrik",
+        "alt_name": "Henrik Lakkala",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1992,
         "dod": null,
         "nationality": {
           "id": 4,
@@ -26,112 +130,6 @@
         "storycount": 0,
         "roles": [
           "Kirjoittaja"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8060,
-        "name": "Ulv, Daga",
-        "alt_name": "Daga Ulv",
-        "fullname": "",
-        "image_src": null,
-        "dob": null,
-        "dod": null,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 0,
-        "storycount": 0,
-        "roles": [
-          "Kansikuva",
-          "Kuvittaja"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8059,
-        "name": "Nuutinen, Christer",
-        "alt_name": "Christer Nuutinen",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1971,
-        "dod": null,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 0,
-        "storycount": 0,
-        "roles": [
-          "Kansikuva",
-          "Kuvittaja"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8058,
-        "name": "Klemettinen, Pasi",
-        "alt_name": "Pasi Klemettinen",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1963,
-        "dod": null,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 3,
-        "storycount": 0,
-        "roles": [
-          "Kirjoittaja"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8055,
-        "name": "Kylävaara, Keijo",
-        "alt_name": "Keijo Kylävaara",
-        "fullname": "Keijo Uolevi Kylävaara",
-        "image_src": null,
-        "dob": 1921,
-        "dod": 1994,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 0,
-        "storycount": 0,
-        "roles": [
-          "Kääntäjä"
         ],
         "other_names": "",
         "first_name": null,
