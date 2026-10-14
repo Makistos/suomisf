@@ -192,6 +192,35 @@ def test_read_status_flow(client, user_headers, user_id, clean_userwork):
     assert WORK_ID not in rows
 
 
+def test_read_status_description(client, user_headers, user_id,
+                                 clean_userwork):
+    """A note is saved, kept when only the opinion changes, cleared by
+    an empty string."""
+    def note():
+        rows = client.get(f'/api/works/read/{user_id}').get_json()
+        return {r['work_id']: r for r in rows}[WORK_ID]['description']
+
+    resp = client.post('/api/works/read', headers=user_headers,
+                       json={'work_id': WORK_ID, 'user_id': user_id,
+                             'opinion': 1, 'description': '  Hyvä kirja '})
+    assert resp.status_code == 200, resp.get_json()
+    assert note() == 'Hyvä kirja'
+
+    client.put('/api/works/read', headers=user_headers,
+               json={'work_id': WORK_ID, 'user_id': user_id, 'opinion': 0})
+    assert note() == 'Hyvä kirja'
+
+    client.put('/api/works/read', headers=user_headers,
+               json={'work_id': WORK_ID, 'user_id': user_id, 'opinion': 0,
+                     'description': ''})
+    assert note() is None
+
+    resp = client.put('/api/works/read', headers=user_headers,
+                      json={'work_id': WORK_ID, 'user_id': user_id,
+                            'description': 5})
+    assert resp.status_code == 400
+
+
 def test_read_status_rejects_bad_opinion(client, user_headers, user_id, clean_userwork):
     resp = client.post('/api/works/read', headers=user_headers,
                        json={'work_id': WORK_ID, 'user_id': user_id, 'opinion': 5})
