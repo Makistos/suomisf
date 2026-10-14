@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/covers/5",
@@ -14,221 +14,74 @@
         "edition": {
           "images": [
             {
-              "thumb_src": "/static/images/books/Vonnegut_Kurt_Mestarienaamiainen_2p.jpg",
-              "id": 10284,
-              "image_src": "/static/images/books/Vonnegut_Kurt_Mestarienaamiainen_2p.jpg",
+              "thumb_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
+              "id": 10289,
+              "image_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
               "image_attr": null
             }
           ],
           "work": {
-            "id": 154,
-            "title": "Mestarien aamiainen eli hyvästi masentava maanantai",
+            "id": 1578,
+            "title": "Kapteeni taivaassa",
             "subtitle": "",
-            "orig_title": "Breakfast of Champions, or Goodbye Blue Monday",
-            "pubyear": 1973,
+            "orig_title": "Report from Paradise",
+            "pubyear": 1952,
             "bookseriesnum": "",
             "bookseriesorder": null,
             "misc": "",
-            "description": null,
-            "descr_attr": null,
+            "description": "<p>KAPTEENI TAIVAASSA sisältää Amerikan suurimman humoristin kaksi satiiria, jotka aivan äskeisvuosiin asti olivat ainoastaan kirjailijan kaikkein lähimpien ystävien tiedossa.</p><p>Jos tämä raportti lukijaansa henkilökohtaisen loukkauksen lailla ärsyttää ja vihastuttaa tai tuntuu riistävän ihmiseltä elämän tärkeimmät keskeiset arvot, niin silloin on syytä kokeilla, miltä tuntuisi lukea kirja uudestaan. Jos teos jättää välinpitämättömäksi, niin silloin se on jäänyt lukematta, korkeintaan on tullut katselluksi sen kirjaimia. Vielä on sekin mahdollisuus, että »Kapteeni taivaassa» johdattaa lukijan teennäisyydet rikki ravistelevaan nauruun ja samalla syvään vakavuuteen ja uudistuneeseen elämäntuntoon. Silloin kunnon Mark Twain on kuin onkin löytänyt tärkeimmälle sanottavalleen yhden ymmärtäjän lisää.</p>",
+            "descr_attr": "Takakansi",
             "imported_string": "",
-            "author_str": "Vonnegut, Kurt"
+            "author_str": "Twain, Mark"
           },
           "owners": [],
           "wishlisted": [],
-          "id": 7187,
-          "title": "Mestarien aamiainen eli hyvästi masentava maanantai",
+          "id": 10546,
+          "title": "Kapteeni taivaassa",
           "subtitle": "",
-          "pubyear": 1994,
-          "editionnum": 2,
+          "pubyear": 1958,
+          "editionnum": 1,
           "version": 1,
-          "isbn": "951-30-2621-3",
+          "isbn": "",
           "printedin": null,
-          "pubseriesnum": 117,
-          "coll_info": null,
-          "pages": 275,
-          "size": 21,
+          "pubseriesnum": null,
+          "coll_info": "",
+          "pages": 106,
+          "size": 19,
           "dustcover": 3,
           "coverimage": 1,
           "misc": "",
-          "imported_string": "",
+          "imported_string": "<b>Kapteeni taivaassa</b>. (Report from Paradise, 1952). Suom Jorma Etto. Karisto 1958. [F].",
           "verified": false
         },
-        "thumb_src": "/static/images/books/Vonnegut_Kurt_Mestarienaamiainen_2p.jpg",
-        "id": 10284,
-        "image_src": "/static/images/books/Vonnegut_Kurt_Mestarienaamiainen_2p.jpg",
+        "thumb_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
+        "id": 10289,
+        "image_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
         "image_attr": null
       },
       {
         "edition": {
           "images": [
             {
-              "thumb_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
-              "id": 10283,
-              "image_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
+              "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+              "id": 10288,
+              "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
               "image_attr": null
             }
           ],
           "work": {
-            "id": 5415,
-            "title": "Klara ja aurinko",
+            "id": 7277,
+            "title": "Matka aamun maahan",
             "subtitle": "",
-            "orig_title": "Klara and the Sun",
-            "pubyear": 2021,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
-            "misc": "Booker-palkintoehdokas 2021 (pitkälista), Locus-palkintoehdokas 2022, Andrew Carnegie -mitalin ehdokas 2022 (pitkälista).",
-            "description": "<p><strong>Ishiguron häikäisevä uutuus kysyy mitä on rakkaus, mitä ihmisyys.</strong></p><p>Lähitulevaisuuteen sijoittuva, ajatuksia herättävä <em>Klara ja aurinko</em> on kuin sisarteos suositulle <em>Ole luonani aina</em> -romaanille.</p><p>Klara on keinotekoinen ystävä, älykäs robotti, joka on olemassa auttaakseen ja tukeakseen nuoria vaikeaksi muuttuneessa maailmassa. Se odottaa tulevaa omistajaansa kärsivällisesti näyteikkunassa ja tarkkailee ohi kulkevia ihmisiä oppiakseen heistä lisää. Kun Klara lopulta ostetaan tulevaan kotiinsa, se paneutuu auliisti rooliinsa, mutta ihmisyyden polut ovat mutkikkaat, eikä inhimillisiä motiiveja ole helppo tulkita. Kaikista julmimmaksi ja kirkkaimmaksi osoittautuu kuitenkin rakkaus.</p>",
-            "descr_attr": null,
-            "imported_string": "",
-            "author_str": "Ishiguro, Kazuo"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 10541,
-          "title": "Klara ja aurinko",
-          "subtitle": "",
-          "pubyear": 2026,
-          "editionnum": 3,
-          "version": 1,
-          "isbn": "978-952-04-8934-2",
-          "printedin": null,
-          "pubseriesnum": null,
-          "coll_info": null,
-          "pages": 371,
-          "size": 18,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": "",
-          "imported_string": "",
-          "verified": false
-        },
-        "thumb_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
-        "id": 10283,
-        "image_src": "/static/images/books/Ishiguro_Kazuo_Klarajaaurinko_3p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "thumb_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-              "id": 10281,
-              "image_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 3209,
-            "title": "Uljas uusi maailma",
-            "subtitle": "",
-            "orig_title": "Brave New World",
+            "orig_title": "Die Morgenlandfahrt",
             "pubyear": 1932,
             "bookseriesnum": "",
             "bookseriesorder": null,
-            "misc": "Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50 -listalle 2000.",
-            "description": "<p>Aldous Huxleyn vuonna 1932 ilmestynyt Uljas uusi maailma on George Orwellin Vuonna 1984 -teoksen ohella 1900-luvun tieteiskirjallisuuden kulmakiviä. Tieteen ja kulutusyhteiskunnan kehitys on pitänyt huolen siitä, että Huxleyn dystopia on yhä kutkuttavan ajankohtainen. </p><p> </p><p>Romaani sijoittuu tasapainon vuoteen 632 jälkeen herramme Henry Fordin, aikaan jolloin konekulttuuri on kehittynyt niin pitkälle, että ihmisen elämä syntymästä kuolemaan on tieteen keinoin valmiiksi kartoitettu. Lapset syntyvät koeputkissa, ja heti syntymänsä jälkeen heidät jaetaan eri luokkiin, joista kukin toteuttaa sille määrättyä tarkoitusta ja elintapaa. Kaikki on niin automatisoitua ja tarkoin suunniteltua, ettei minkäänlaista häiriötä voi syntyä eikä liioin kehityksen tarvetta ilmene. Jos tyytymättömyys jostain syystä sattuisikin heräämään, palauttaa onnelliseksi tekevä huume, soma, oitis tasapainon. Eräässä tämän maailman kolkassa on kuitenkin villi-ihmisten reservaatti, jossa elämäntaistelu, intohimo, syntymä ja kuolema ovat yhä todellisuutta.... </p>",
-            "descr_attr": null,
-            "imported_string": "",
-            "author_str": "Huxley, Aldous"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 7857,
-          "title": "Uljas uusi maailma",
-          "subtitle": "",
-          "pubyear": 1978,
-          "editionnum": 7,
-          "version": 1,
-          "isbn": "951-30-0617-4",
-          "printedin": null,
-          "pubseriesnum": 40,
-          "coll_info": "",
-          "pages": 260,
-          "size": 21,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": "",
-          "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3307472?sid=3557777495",
-          "verified": false
-        },
-        "thumb_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-        "id": 10281,
-        "image_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "thumb_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-              "id": 10280,
-              "image_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 3209,
-            "title": "Uljas uusi maailma",
-            "subtitle": "",
-            "orig_title": "Brave New World",
-            "pubyear": 1932,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
-            "misc": "Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50 -listalle 2000.",
-            "description": "<p>Aldous Huxleyn vuonna 1932 ilmestynyt Uljas uusi maailma on George Orwellin Vuonna 1984 -teoksen ohella 1900-luvun tieteiskirjallisuuden kulmakiviä. Tieteen ja kulutusyhteiskunnan kehitys on pitänyt huolen siitä, että Huxleyn dystopia on yhä kutkuttavan ajankohtainen. </p><p> </p><p>Romaani sijoittuu tasapainon vuoteen 632 jälkeen herramme Henry Fordin, aikaan jolloin konekulttuuri on kehittynyt niin pitkälle, että ihmisen elämä syntymästä kuolemaan on tieteen keinoin valmiiksi kartoitettu. Lapset syntyvät koeputkissa, ja heti syntymänsä jälkeen heidät jaetaan eri luokkiin, joista kukin toteuttaa sille määrättyä tarkoitusta ja elintapaa. Kaikki on niin automatisoitua ja tarkoin suunniteltua, ettei minkäänlaista häiriötä voi syntyä eikä liioin kehityksen tarvetta ilmene. Jos tyytymättömyys jostain syystä sattuisikin heräämään, palauttaa onnelliseksi tekevä huume, soma, oitis tasapainon. Eräässä tämän maailman kolkassa on kuitenkin villi-ihmisten reservaatti, jossa elämäntaistelu, intohimo, syntymä ja kuolema ovat yhä todellisuutta.... </p>",
-            "descr_attr": null,
-            "imported_string": "",
-            "author_str": "Huxley, Aldous"
-          },
-          "owners": [],
-          "wishlisted": [],
-          "id": 7854,
-          "title": "Uljas uusi maailma",
-          "subtitle": "",
-          "pubyear": 1971,
-          "editionnum": 4,
-          "version": 1,
-          "isbn": null,
-          "printedin": null,
-          "pubseriesnum": 40,
-          "coll_info": "",
-          "pages": 260,
-          "size": null,
-          "dustcover": 1,
-          "coverimage": 1,
-          "misc": "",
-          "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3398231?sid=3557777495",
-          "verified": false
-        },
-        "thumb_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-        "id": 10280,
-        "image_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_3p.jpg",
-        "image_attr": null
-      },
-      {
-        "edition": {
-          "images": [
-            {
-              "thumb_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_2p.jpg",
-              "id": 10279,
-              "image_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_2p.jpg",
-              "image_attr": null
-            }
-          ],
-          "work": {
-            "id": 3209,
-            "title": "Uljas uusi maailma",
-            "subtitle": "",
-            "orig_title": "Brave New World",
-            "pubyear": 1932,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
-            "misc": "Valittu Tähtivaeltaja-lehden 1900-luvun tieteiskirjallisuuden Top 50 -listalle 2000.",
-            "description": "<p>Aldous Huxleyn vuonna 1932 ilmestynyt Uljas uusi maailma on George Orwellin Vuonna 1984 -teoksen ohella 1900-luvun tieteiskirjallisuuden kulmakiviä. Tieteen ja kulutusyhteiskunnan kehitys on pitänyt huolen siitä, että Huxleyn dystopia on yhä kutkuttavan ajankohtainen. </p><p> </p><p>Romaani sijoittuu tasapainon vuoteen 632 jälkeen herramme Henry Fordin, aikaan jolloin konekulttuuri on kehittynyt niin pitkälle, että ihmisen elämä syntymästä kuolemaan on tieteen keinoin valmiiksi kartoitettu. Lapset syntyvät koeputkissa, ja heti syntymänsä jälkeen heidät jaetaan eri luokkiin, joista kukin toteuttaa sille määrättyä tarkoitusta ja elintapaa. Kaikki on niin automatisoitua ja tarkoin suunniteltua, ettei minkäänlaista häiriötä voi syntyä eikä liioin kehityksen tarvetta ilmene. Jos tyytymättömyys jostain syystä sattuisikin heräämään, palauttaa onnelliseksi tekevä huume, soma, oitis tasapainon. Eräässä tämän maailman kolkassa on kuitenkin villi-ihmisten reservaatti, jossa elämäntaistelu, intohimo, syntymä ja kuolema ovat yhä todellisuutta.... </p>",
-            "descr_attr": null,
-            "imported_string": "",
-            "author_str": "Huxley, Aldous"
+            "misc": "",
+            "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": null,
+            "author_str": "Hesse, Hermann"
           },
           "owners": [
             {
@@ -237,27 +90,179 @@
             }
           ],
           "wishlisted": [],
-          "id": 10130,
-          "title": "Uljas uusi maailma",
+          "id": 10545,
+          "title": "Matka aamun maahan",
           "subtitle": "",
-          "pubyear": 1962,
-          "editionnum": 2,
+          "pubyear": 1975,
+          "editionnum": 1,
           "version": 1,
-          "isbn": "",
+          "isbn": "951-26-1064-7",
           "printedin": null,
-          "pubseriesnum": 40,
-          "coll_info": "",
-          "pages": 266,
-          "size": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 88,
+          "size": 21,
           "dustcover": 3,
           "coverimage": 1,
-          "misc": "",
-          "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.3552594?sid=3557777495",
+          "misc": null,
+          "imported_string": null,
           "verified": false
         },
-        "thumb_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_2p.jpg",
-        "id": 10279,
-        "image_src": "/static/images/books/Huxley_Aldous_Uljasuusimaailma_2p.jpg",
+        "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+        "id": 10288,
+        "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+              "id": 10287,
+              "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 7277,
+            "title": "Matka aamun maahan",
+            "subtitle": "",
+            "orig_title": "Die Morgenlandfahrt",
+            "pubyear": 1932,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": null,
+            "author_str": "Hesse, Hermann"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 10544,
+          "title": "Matka aamun maahan",
+          "subtitle": "",
+          "pubyear": 1975,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "951-26-1063-9",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 88,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
+        "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+        "id": 10287,
+        "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+              "id": 10286,
+              "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 7277,
+            "title": "Matka aamun maahan",
+            "subtitle": "",
+            "orig_title": "Die Morgenlandfahrt",
+            "pubyear": 1932,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": null,
+            "author_str": "Hesse, Hermann"
+          },
+          "owners": [],
+          "wishlisted": [],
+          "id": 10543,
+          "title": "Matka aamun maahan",
+          "subtitle": "",
+          "pubyear": 1975,
+          "editionnum": 2,
+          "version": 1,
+          "isbn": "951-26-1064-7",
+          "printedin": null,
+          "pubseriesnum": null,
+          "coll_info": null,
+          "pages": 88,
+          "size": 21,
+          "dustcover": 3,
+          "coverimage": 1,
+          "misc": null,
+          "imported_string": null,
+          "verified": false
+        },
+        "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+        "id": 10286,
+        "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+        "image_attr": null
+      },
+      {
+        "edition": {
+          "images": [
+            {
+              "thumb_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
+              "id": 10285,
+              "image_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
+              "image_attr": null
+            }
+          ],
+          "work": {
+            "id": 4671,
+            "title": "Painajainen",
+            "subtitle": "",
+            "orig_title": "Something Wicked This Way Comes",
+            "pubyear": 1962,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "Horror Writer Association's Top 40 Horror Book of All Time. ",
+            "description": "<p>Amerikkalainen fantasia- ja tieteiskirjallisuuden mestari Ray Bradbury (s. 1920) on romaanissaan <em>Paha saapuu portin taa</em> lajityyppinsä ylittäen kuvannut ihmismielen horjumista pahan ja hyvän välillä. Intensiivisen suvereenisti Bradbury luo oman pelottavan maailmansa, joka palautuu jokaisessa ihmisessä uinuvaan epätoivoiseksi tuomittuun nostalgiapyrkimykseen; haluun elää maailmassa jota ei enää ole eikä koskaan ole ollutkaan olemassa.</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": "",
+            "author_str": "Bradbury, Ray"
+          },
+          "owners": [
+            {
+              "id": 11,
+              "name": "Kirjokerttu"
+            }
+          ],
+          "wishlisted": [],
+          "id": 10542,
+          "title": "Painajainen",
+          "subtitle": "",
+          "pubyear": 1964,
+          "editionnum": 1,
+          "version": 1,
+          "isbn": "",
+          "printedin": "Turku",
+          "pubseriesnum": 2,
+          "coll_info": "",
+          "pages": 333,
+          "size": 21,
+          "dustcover": 1,
+          "coverimage": 1,
+          "misc": "",
+          "imported_string": "",
+          "verified": false
+        },
+        "thumb_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
+        "id": 10285,
+        "image_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
         "image_attr": null
       }
     ],

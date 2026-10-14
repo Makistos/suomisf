@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/worksbyyear",
@@ -1386,7 +1386,7 @@
       },
       {
         "year": 1958,
-        "count": 12,
+        "count": 13,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -1572,7 +1572,7 @@
       },
       {
         "year": 1964,
-        "count": 8,
+        "count": 9,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -1968,7 +1968,7 @@
       },
       {
         "year": 1975,
-        "count": 17,
+        "count": 19,
         "language_id": 14,
         "language_name": "saksa"
       },

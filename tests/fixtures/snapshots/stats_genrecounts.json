@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/genrecounts",
@@ -21,11 +21,11 @@
       "nSF": 415,
       "nK": 197,
       "lSF": 44,
-      "satu": 6,
+      "satu": 7,
       "rajatap": 123,
       "lasten kuvakirja": 14,
       "kok": 663,
-      "lF": 463,
+      "lF": 464,
       "R": 37,
       "eiSF": 67
     },

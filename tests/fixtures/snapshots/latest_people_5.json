@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -11,16 +11,16 @@
     "status_code": 200,
     "data": [
       {
-        "id": 8089,
-        "name": "Vos, Hubert",
-        "alt_name": "Hubert Vos",
+        "id": 8093,
+        "name": "Vihinen, Reino",
+        "alt_name": "Reino Vihinen",
         "fullname": "",
         "image_src": null,
-        "dob": 1855,
-        "dod": 1935,
+        "dob": 1928,
+        "dod": 2018,
         "nationality": {
-          "id": 51,
-          "name": "Alankomaat"
+          "id": 4,
+          "name": "Suomi"
         },
         "workcount": 0,
         "storycount": 0,
@@ -37,35 +37,9 @@
         "imported_string": null
       },
       {
-        "id": 8088,
-        "name": "Kim, Na",
-        "alt_name": "Na Kim",
-        "fullname": "",
-        "image_src": null,
-        "dob": 1986,
-        "dod": null,
-        "nationality": {
-          "id": 3,
-          "name": "Yhdysvallat"
-        },
-        "workcount": 0,
-        "storycount": 0,
-        "roles": [
-          "Kansikuva"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8087,
-        "name": "Sipari, Matti",
-        "alt_name": "Matti Sipari",
+        "id": 8092,
+        "name": "Laiho, Katariina",
+        "alt_name": "Katariina Laiho",
         "fullname": "",
         "image_src": null,
         "dob": null,
@@ -89,16 +63,16 @@
         "imported_string": null
       },
       {
-        "id": 8086,
-        "name": "Astromujoff, Oscar",
-        "alt_name": "Oscar Astromujoff",
-        "fullname": "",
+        "id": 8091,
+        "name": "Mattas, Åke",
+        "alt_name": "Åke Mattas",
+        "fullname": "Åke Carl-Anders Mattas",
         "image_src": null,
-        "dob": 1950,
-        "dod": null,
+        "dob": 1920,
+        "dod": 1962,
         "nationality": {
-          "id": 15,
-          "name": "Espanja"
+          "id": 4,
+          "name": "Suomi"
         },
         "workcount": 0,
         "storycount": 0,
@@ -109,27 +83,53 @@
         "first_name": null,
         "last_name": null,
         "image_attr": null,
-        "qid": null,
+        "qid": "",
         "bio": "",
         "bio_src": "",
         "imported_string": null
       },
       {
-        "id": 8085,
-        "name": "Lakkala, Henrik",
-        "alt_name": "Henrik Lakkala",
+        "id": 8090,
+        "name": "Schatzlmayr, Franz",
+        "alt_name": "Franz Schatzlmayr",
         "fullname": "",
         "image_src": null,
-        "dob": 1992,
+        "dob": null,
         "dod": null,
         "nationality": {
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 1,
+        "workcount": 0,
         "storycount": 0,
         "roles": [
-          "Kirjoittaja"
+          "Kansikuva"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 8089,
+        "name": "Vos, Hubert",
+        "alt_name": "Hubert Vos",
+        "fullname": "",
+        "image_src": null,
+        "dob": 1855,
+        "dod": 1935,
+        "nationality": {
+          "id": 51,
+          "name": "Alankomaat"
+        },
+        "workcount": 0,
+        "storycount": 0,
+        "roles": [
+          "Kansikuva"
         ],
         "other_names": "",
         "first_name": null,

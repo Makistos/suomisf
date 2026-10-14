@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/works/5",
@@ -10,6 +10,263 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "id": 7277,
+        "title": "Matka aamun maahan",
+        "orig_title": "Die Morgenlandfahrt",
+        "author_str": "Hesse, Hermann",
+        "contributions": [
+          {
+            "person": {
+              "id": 1965,
+              "name": "Hesse, Hermann",
+              "alt_name": "Hermann Hesse"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [
+              {
+                "id": 258,
+                "name": "Kaila, Kai",
+                "alt_name": "Kai Kaila"
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 258,
+                  "name": "Kaila, Kai",
+                  "alt_name": "Kai Kaila"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 6300,
+                  "name": "Antikainen, Kosti",
+                  "alt_name": "Kosti Antikainen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                "id": 10287,
+                "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 150,
+              "name": "Kirjayhtymä"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10544,
+            "title": "Matka aamun maahan",
+            "subtitle": "",
+            "pubyear": 1975,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-26-1063-9",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 88,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          },
+          {
+            "editors": [],
+            "translators": [
+              {
+                "id": 258,
+                "name": "Kaila, Kai",
+                "alt_name": "Kai Kaila"
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 258,
+                  "name": "Kaila, Kai",
+                  "alt_name": "Kai Kaila"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 6300,
+                  "name": "Antikainen, Kosti",
+                  "alt_name": "Kosti Antikainen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                "id": 10288,
+                "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 150,
+              "name": "Kirjayhtymä"
+            },
+            "owners": [
+              {
+                "id": 11,
+                "name": "Kirjokerttu"
+              }
+            ],
+            "wishlisted": [],
+            "id": 10545,
+            "title": "Matka aamun maahan",
+            "subtitle": "",
+            "pubyear": 1975,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-26-1064-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 88,
+            "size": 21,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          },
+          {
+            "editors": [],
+            "translators": [
+              {
+                "id": 258,
+                "name": "Kaila, Kai",
+                "alt_name": "Kai Kaila"
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 258,
+                  "name": "Kaila, Kai",
+                  "alt_name": "Kai Kaila"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 6300,
+                  "name": "Antikainen, Kosti",
+                  "alt_name": "Kosti Antikainen"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                "id": 10286,
+                "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 150,
+              "name": "Kirjayhtymä"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10543,
+            "title": "Matka aamun maahan",
+            "subtitle": "",
+            "pubyear": 1975,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "951-26-1064-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 88,
+            "size": 21,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": null,
+        "tags": [],
+        "language_name": {
+          "id": 14,
+          "name": "saksa"
+        },
+        "type": 1,
+        "subtitle": "",
+        "pubyear": 1932,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
+        "descr_attr": "Takakansi",
+        "imported_string": null
+      },
       {
         "id": 7276,
         "title": "Metsänkorva",
@@ -384,87 +641,6 @@
         "bookseriesorder": null,
         "misc": "",
         "description": "<p>Ryhmä ritareita saa käskyn jakamaan ylemmän Herran tietoisuutta tuntemattomaan maahan. Yllättävä vihollisten hyökkäys saa retkikunnan vetäytymään luolaan, jossa he kohtaavat epäilyttävän muukalaisen. Perääntyminen on mahdotonta ja ainoa ulospääsy on jatkaa matkaa yhä syvemmälle luolaan kohti helvetin tulta ja pimeyden portteja. Tarina kertoo selviytymisestä ja omien syntien kohtaamisesta. Helvetti on täynnä demoneita ja voit kuulla kuiskauksia pimeydestä. Voiko muukalaiseen luottaa? Astukaa ikuiseen tuleen.</p><p>Henrik Lakkala (s. 1992) on Joensuussa vaikuttava kirjailija, joka työskentelee finanssialalla. Hänen esikoisteoksensa Maa, joka ei anna anteeksi käsittelee ihmisyyden pimeimpiä kerroksia ja selviytymistä sisäisen tuhon keskellä. Teos rakentaa armottoman maailman, jossa yksilö kohtaa oman rajallisuutensa ja hajoamisensa. Kirjailijan ilmaisua ovat muovanneet erityisesti Jon Nödtveidtin musiikilliset vaikutteet sekä oma sisäinen mielenmaisema. Hänen tuotantonsa tarkastelee, mitä jää jäljelle, kun ihminen kulkee läpi henkilökohtaisen infernonsa.</p>",
-        "descr_attr": "Momentum Kirjat",
-        "imported_string": null
-      },
-      {
-        "id": 7272,
-        "title": "Noitarumpu",
-        "orig_title": "",
-        "author_str": "Pennala, Jarmo",
-        "contributions": [
-          {
-            "person": {
-              "id": 8084,
-              "name": "Pennala, Jarmo",
-              "alt_name": "Jarmo Pennala"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Pennala_Jarmo_Noitarumpu_1p.jpg",
-                "id": 10273,
-                "image_src": "/static/images/books/Pennala_Jarmo_Noitarumpu_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 480,
-              "name": "Momentum Kirjat"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10536,
-            "title": "Noitarumpu",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-417-389-6 ",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 229,
-            "size": null,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p>Taistelussa väsyneet viikingit saapuvat Aurajoelle ja haluavat päästä eroon shamaaninoidasta, jonka he vangitsivat mukaansa ryöstöretkeltä. Noita on tuonut heille vain huonoa onnea, mutta viikingit eivät uskalla tappaa tätä kirouksen pelossa. Niinpä he päättävät teljetä noidan luolaan rumpuineen.</p><p>Tuhat vuotta myöhemmin eläkkeellä oleva, yksinäinen merimies Perttu lähtee sieneen ja löytää luolan. Paniikissa taikauskoinen merimies nappaa rummun luolasta ja vie sen kotiinsa. Yöllä rumpu herää henkiin.</p><p>Perttu ja tämän paras ystävä Paavo kuvittelevat osaavansa hyödyntää aitoa, ikivanhaa shamaanirumpua, mutta rumpu pistää vastaan. Entisen omistajan voimat ja henget eivät ole heidän hallittavissaan.</p><p><em>Noitarumpu </em>on tarina ikiaikaisesta ystävyydestä, toisaalta yksinäisyydestä ja rakkaudestakin. Seikkailu, joka muuttaa jokaisen sille mukaan lähtevän. Humoristinen romaani käsittelee ihmiselämän merkitystä ja pureutuu samalla shamanismiin ja noituuteen.</p>",
         "descr_attr": "Momentum Kirjat",
         "imported_string": null
       }

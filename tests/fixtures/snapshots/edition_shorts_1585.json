@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/1585/shorts",
@@ -3092,7 +3092,7 @@
           },
           {
             "id": 3300,
-            "name": "Ranta, Matilda ",
+            "name": "Ranta, Matilda",
             "alt_name": "Matilda  Ranta",
             "fullname": "",
             "image_src": null,
@@ -3853,7 +3853,7 @@
           {
             "person": {
               "id": 3300,
-              "name": "Ranta, Matilda ",
+              "name": "Ranta, Matilda",
               "alt_name": "Matilda  Ranta"
             },
             "role": {
@@ -15160,7 +15160,7 @@
           },
           {
             "id": 3299,
-            "name": "Ranta, Matias ",
+            "name": "Ranta, Matias",
             "alt_name": "Matias  Ranta",
             "fullname": "",
             "image_src": null,
@@ -16662,7 +16662,7 @@
           {
             "person": {
               "id": 3299,
-              "name": "Ranta, Matias ",
+              "name": "Ranta, Matias",
               "alt_name": "Matias  Ranta"
             },
             "role": {
@@ -22120,7 +22120,7 @@
           },
           {
             "id": 3299,
-            "name": "Ranta, Matias ",
+            "name": "Ranta, Matias",
             "alt_name": "Matias  Ranta",
             "fullname": "",
             "image_src": null,
@@ -23609,7 +23609,7 @@
           {
             "person": {
               "id": 3299,
-              "name": "Ranta, Matias ",
+              "name": "Ranta, Matias",
               "alt_name": "Matias  Ranta"
             },
             "role": {

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/pubseries",
@@ -5211,49 +5211,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Garcia_Marquez_Gabriel_Sadanvuodenyksinaisyys_15p.jpg",
-                "id": 4745,
-                "image_src": "/static/images/books/Garcia_Marquez_Gabriel_Sadanvuodenyksinaisyys_15p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2592,
-              "title": "Sadan vuoden yksinäisyys",
-              "subtitle": "",
-              "orig_title": "Cien anos de soledad",
-              "pubyear": 1967,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Suuren kolumbialaisen kertojan, vuoden 1982 Nobelin palkinnon saajan pääteos ilmestyi 1967, mutta sillä on jo legendaarinen maine. Macondo on huohottavan viidakon keskellä torkkuva kolumbialainen kyläpahanen, pienoismaailma, jonka ihmisten ja vaiheiden läpi García Márquez sanoo sanottavansa. <em>Sadan vuoden yksinäisyys</em> on sukukronikka, kertomus merkillisestä Buendíojen suvusta, yksinäisyyteen tuomituista väkevistä persoonallisuuksista, joiden mukana Macondo syntyy, kasvaa, kokee kukoistuksensa ja kuolee, liukenee neljä vuotta kestävään sateeseen. Värikkään fantasiaryöpyn keskeltä erottuvat Kolumbian lähihistorian ääriviivat, pitkä sisällissota, uuskolonialismin mukanaan tuomien ulkomaisten liikeyritysten esiinmarssi, banaanikuume, työläisten joukkomurhat ja yleinen moraalinen rappeutuminen.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Garcia Márquez, Gabriel"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 2976,
-            "title": "Sadan vuoden yksinäisyys",
-            "subtitle": "",
-            "pubyear": 1988,
-            "editionnum": 15,
-            "version": 1,
-            "isbn": "951-0-15278-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 413,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "15.painos: Best seller. WSOY 1988.",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Hotakainen_Kari_Bronks_3p.jpg",
                 "id": 2616,
                 "image_src": "/static/images/books/Hotakainen_Kari_Bronks_3p.jpg",
@@ -5543,6 +5500,92 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
+                "id": 7667,
+                "image_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1072,
+              "title": "Tuomiopäivän salaliitto",
+              "subtitle": "",
+              "orig_title": "The Doomsday Conspiracy",
+              "pubyear": 1991,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><strong>Jenkkiupseeri salaliiton tappolistalla</strong></p><p>Laivaston tiedustelupalvelun upseeri, komentaja Robert Bellamy on mahdottomalta tuntuvan tehtävän edessä. Hänen on löydettävä tuntematon joukko turisteja, jotka sattumalta näkivät säähavaintopallon putoavan Sveitsin Alpeille. Yksi kerrallaan Bellamy löytää tapauksen silminnäkijät eri puolilta maailmaa ja saa kuulla heiltä merkillisiä asioita. Pian hänelle valkenee, ettei pudonnut esine ollutkaan säähavaintopallo vaan jotakin aivan muuta - jotakin, josta voi riippua koko ihmiskunnan tulevaisuus.</p><p>Mutta Bellamy ei ole yksin etsinnöissään. Joku tai jokin seuraa häntä tiiviisti ja vaientaa löydetyt silminnäkijät yhden toisensa jälkeen. Kun Bellamy saa tiedon jälkeensä jättämästään murhattujen vanasta, on jo liian myöhäistä: hän itse on seuraavana maailmanlaajuisen salaliiton tappolistalla. Alkaa kiivas ajojahti, jonka aikana Bellamylle selviää ettei hän voi enää luottaa keneenkään eikä mihinkään...</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n<b>Tuomiopäivän salaliitto</b>. (The Doomsday Conspiracy, 1991). Suom Anja Meripirtti. WSOY 1991. [SF].",
+              "author_str": "Sheldon, Sidney"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8708,
+            "title": "Tuomiopäivän salaliitto",
+            "subtitle": "",
+            "pubyear": 1994,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "951-0-19302-X",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 353,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Garcia_Marquez_Gabriel_Sadanvuodenyksinaisyys_15p.jpg",
+                "id": 4745,
+                "image_src": "/static/images/books/Garcia_Marquez_Gabriel_Sadanvuodenyksinaisyys_15p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2592,
+              "title": "Sadan vuoden yksinäisyys",
+              "subtitle": "",
+              "orig_title": "Cien anos de soledad",
+              "pubyear": 1967,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Suuren kolumbialaisen kertojan, vuoden 1982 Nobelin palkinnon saajan pääteos ilmestyi 1967, mutta sillä on jo legendaarinen maine. Macondo on huohottavan viidakon keskellä torkkuva kolumbialainen kyläpahanen, pienoismaailma, jonka ihmisten ja vaiheiden läpi García Márquez sanoo sanottavansa. <em>Sadan vuoden yksinäisyys</em> on sukukronikka, kertomus merkillisestä Buendíojen suvusta, yksinäisyyteen tuomituista väkevistä persoonallisuuksista, joiden mukana Macondo syntyy, kasvaa, kokee kukoistuksensa ja kuolee, liukenee neljä vuotta kestävään sateeseen. Värikkään fantasiaryöpyn keskeltä erottuvat Kolumbian lähihistorian ääriviivat, pitkä sisällissota, uuskolonialismin mukanaan tuomien ulkomaisten liikeyritysten esiinmarssi, banaanikuume, työläisten joukkomurhat ja yleinen moraalinen rappeutuminen.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Garcia Márquez, Gabriel"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 2976,
+            "title": "Sadan vuoden yksinäisyys",
+            "subtitle": "",
+            "pubyear": 1988,
+            "editionnum": 15,
+            "version": 1,
+            "isbn": "951-0-15278-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 413,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "15.painos: Best seller. WSOY 1988.",
             "verified": false
           },
           {
@@ -6191,6 +6234,49 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
+                "id": 7668,
+                "image_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1072,
+              "title": "Tuomiopäivän salaliitto",
+              "subtitle": "",
+              "orig_title": "The Doomsday Conspiracy",
+              "pubyear": 1991,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><strong>Jenkkiupseeri salaliiton tappolistalla</strong></p><p>Laivaston tiedustelupalvelun upseeri, komentaja Robert Bellamy on mahdottomalta tuntuvan tehtävän edessä. Hänen on löydettävä tuntematon joukko turisteja, jotka sattumalta näkivät säähavaintopallon putoavan Sveitsin Alpeille. Yksi kerrallaan Bellamy löytää tapauksen silminnäkijät eri puolilta maailmaa ja saa kuulla heiltä merkillisiä asioita. Pian hänelle valkenee, ettei pudonnut esine ollutkaan säähavaintopallo vaan jotakin aivan muuta - jotakin, josta voi riippua koko ihmiskunnan tulevaisuus.</p><p>Mutta Bellamy ei ole yksin etsinnöissään. Joku tai jokin seuraa häntä tiiviisti ja vaientaa löydetyt silminnäkijät yhden toisensa jälkeen. Kun Bellamy saa tiedon jälkeensä jättämästään murhattujen vanasta, on jo liian myöhäistä: hän itse on seuraavana maailmanlaajuisen salaliiton tappolistalla. Alkaa kiivas ajojahti, jonka aikana Bellamylle selviää ettei hän voi enää luottaa keneenkään eikä mihinkään...</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n<b>Tuomiopäivän salaliitto</b>. (The Doomsday Conspiracy, 1991). Suom Anja Meripirtti. WSOY 1991. [SF].",
+              "author_str": "Sheldon, Sidney"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8709,
+            "title": "Tuomiopäivän salaliitto",
+            "subtitle": "",
+            "pubyear": 1998,
+            "editionnum": 6,
+            "version": 1,
+            "isbn": "951-0-19302-X",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 353,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/Adams_Richard_Ruohometsankansa_3p.jpg",
                 "id": 1733,
                 "image_src": "/static/images/books/Adams_Richard_Ruohometsankansa_3p.jpg",
@@ -6525,92 +6611,6 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 571,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
-                "id": 7667,
-                "image_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1072,
-              "title": "Tuomiopäivän salaliitto",
-              "subtitle": "",
-              "orig_title": "The Doomsday Conspiracy",
-              "pubyear": 1991,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p><strong>Jenkkiupseeri salaliiton tappolistalla</strong></p><p>Laivaston tiedustelupalvelun upseeri, komentaja Robert Bellamy on mahdottomalta tuntuvan tehtävän edessä. Hänen on löydettävä tuntematon joukko turisteja, jotka sattumalta näkivät säähavaintopallon putoavan Sveitsin Alpeille. Yksi kerrallaan Bellamy löytää tapauksen silminnäkijät eri puolilta maailmaa ja saa kuulla heiltä merkillisiä asioita. Pian hänelle valkenee, ettei pudonnut esine ollutkaan säähavaintopallo vaan jotakin aivan muuta - jotakin, josta voi riippua koko ihmiskunnan tulevaisuus.</p><p>Mutta Bellamy ei ole yksin etsinnöissään. Joku tai jokin seuraa häntä tiiviisti ja vaientaa löydetyt silminnäkijät yhden toisensa jälkeen. Kun Bellamy saa tiedon jälkeensä jättämästään murhattujen vanasta, on jo liian myöhäistä: hän itse on seuraavana maailmanlaajuisen salaliiton tappolistalla. Alkaa kiivas ajojahti, jonka aikana Bellamylle selviää ettei hän voi enää luottaa keneenkään eikä mihinkään...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n<b>Tuomiopäivän salaliitto</b>. (The Doomsday Conspiracy, 1991). Suom Anja Meripirtti. WSOY 1991. [SF].",
-              "author_str": "Sheldon, Sidney"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8708,
-            "title": "Tuomiopäivän salaliitto",
-            "subtitle": "",
-            "pubyear": 1994,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": "951-0-19302-X",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 353,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
-                "id": 7668,
-                "image_src": "/static/images/books/Sheldon_Sidney_Tuomiopaivansalaliitto_3p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1072,
-              "title": "Tuomiopäivän salaliitto",
-              "subtitle": "",
-              "orig_title": "The Doomsday Conspiracy",
-              "pubyear": 1991,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p><strong>Jenkkiupseeri salaliiton tappolistalla</strong></p><p>Laivaston tiedustelupalvelun upseeri, komentaja Robert Bellamy on mahdottomalta tuntuvan tehtävän edessä. Hänen on löydettävä tuntematon joukko turisteja, jotka sattumalta näkivät säähavaintopallon putoavan Sveitsin Alpeille. Yksi kerrallaan Bellamy löytää tapauksen silminnäkijät eri puolilta maailmaa ja saa kuulla heiltä merkillisiä asioita. Pian hänelle valkenee, ettei pudonnut esine ollutkaan säähavaintopallo vaan jotakin aivan muuta - jotakin, josta voi riippua koko ihmiskunnan tulevaisuus.</p><p>Mutta Bellamy ei ole yksin etsinnöissään. Joku tai jokin seuraa häntä tiiviisti ja vaientaa löydetyt silminnäkijät yhden toisensa jälkeen. Kun Bellamy saa tiedon jälkeensä jättämästään murhattujen vanasta, on jo liian myöhäistä: hän itse on seuraavana maailmanlaajuisen salaliiton tappolistalla. Alkaa kiivas ajojahti, jonka aikana Bellamylle selviää ettei hän voi enää luottaa keneenkään eikä mihinkään...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n<b>Tuomiopäivän salaliitto</b>. (The Doomsday Conspiracy, 1991). Suom Anja Meripirtti. WSOY 1991. [SF].",
-              "author_str": "Sheldon, Sidney"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8709,
-            "title": "Tuomiopäivän salaliitto",
-            "subtitle": "",
-            "pubyear": 1998,
-            "editionnum": 6,
-            "version": 1,
-            "isbn": "951-0-19302-X",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 353,
             "size": 20,
             "dustcover": 1,
             "coverimage": 1,
@@ -10052,7 +10052,7 @@
             ],
             "work": {
               "id": 408,
-              "title": "Pieni kauhukirja ",
+              "title": "Pieni kauhukirja",
               "subtitle": "55 lyhyenlyhyttä kauhupalaa",
               "orig_title": "The Little Book of Horrors: Tiny Tales of Terror",
               "pubyear": 1992,
@@ -30123,6 +30123,49 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Murakami_SputnikRakastettuni_p2.jpg",
+                "id": 2387,
+                "image_src": "/static/images/books/Murakami_SputnikRakastettuni_p2.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 5455,
+              "title": "Sputnik-rakastettuni",
+              "subtitle": "",
+              "orig_title": "Supuutoniku no koibito",
+              "pubyear": 1999,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Sputnik-rakastettuni on eräänlainen kolmiodraama. Kertoja, K, joka on opettaja, on rakastunut opiskelutoveriinsa Sumireen. Sumiren rakkauden kohde on puolestaan salaperäinen nainen nimeltä Miu. Naiset lähtevät yhdessä matkalle ja päätyvät lopulta saarelle Kreikan rannikolle. Siellä Sumire katoaa jättäen jälkeensä vain haipuvia vihjeitä kohtalostaan. K osallistuu hänen etsintäänsä. Oudot, aavemaiset näyt johtavat hänet takaisin Japaniin, missä hän oppii vihdoin ymmärtämään Sputnik-rakastettuaan.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Murakami, Haruki"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 6675,
+            "title": "Sputnik-rakastettuni",
+            "subtitle": "",
+            "pubyear": 2011,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-952-04-7435-5",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 252,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/Ishiguro_Kazuo_Haudattujattilainen_3p.jpg",
                 "id": 2029,
                 "image_src": "/static/images/books/Ishiguro_Kazuo_Haudattujattilainen_3p.jpg",
@@ -30381,49 +30424,6 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4101254",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Murakami_SputnikRakastettuni_p2.jpg",
-                "id": 2387,
-                "image_src": "/static/images/books/Murakami_SputnikRakastettuni_p2.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 5455,
-              "title": "Sputnik-rakastettuni",
-              "subtitle": "",
-              "orig_title": "Supuutoniku no koibito",
-              "pubyear": 1999,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Sputnik-rakastettuni on eräänlainen kolmiodraama. Kertoja, K, joka on opettaja, on rakastunut opiskelutoveriinsa Sumireen. Sumiren rakkauden kohde on puolestaan salaperäinen nainen nimeltä Miu. Naiset lähtevät yhdessä matkalle ja päätyvät lopulta saarelle Kreikan rannikolle. Siellä Sumire katoaa jättäen jälkeensä vain haipuvia vihjeitä kohtalostaan. K osallistuu hänen etsintäänsä. Oudot, aavemaiset näyt johtavat hänet takaisin Japaniin, missä hän oppii vihdoin ymmärtämään Sputnik-rakastettuaan.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Murakami, Haruki"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 6675,
-            "title": "Sputnik-rakastettuni",
-            "subtitle": "",
-            "pubyear": 2011,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "97951-31-6297-9",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 252,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4149431",
             "verified": false
           },
           {
@@ -35803,6 +35803,49 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Hesse_Hermann_Arosusi_7p.jpg",
+                "id": 7077,
+                "image_src": "/static/images/books/Hesse_Hermann_Arosusi_7p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2957,
+              "title": "Arosusi",
+              "subtitle": "",
+              "orig_title": "Der Steppenwolf",
+              "pubyear": 1927,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p>Arosusi on aikamme klassikko, kestävä taideteos, nerokas analyysi vuosisatamme ihmisestä ja hänen sielunkriisistään. Arosuden ytimenä on ihmisen luonteessa piilevä kaksinaisuus, vietin ja hengen välinen ristiriita, jonka taiteilija-tiedemies Harry Haller, romaanin päähenkilö, tuntee kohtalokkaalla tavalla vaikuttavan elämässään. 1920-luvulla kirjoitettu Arosusi on merkillisen kiehtova, suorastaan suggeroiva teos, jonka maailma tempaa mukaansa yhä uusia lukijapolvia.</p><p>\"<em>Hienoimmat modernit kulttuuriongelmat näyttävät vyyhteytyvän tässä merkillisessä, nerokkaassa, vaarallisessa kirjassa. Siinä on hiven pirandellolaista persoonallisuuden hajaantumista, siinä on gideläinen jännitys täyteläisen rohkean elämisen ja porvarillisen uneliaan puolinaisuuden välillä, siinä on huxleylainen ristiriita hedelmättömäksi muuttuneen henkisyyden ja lämpimän välittömyyden välillä</em>.\" - Lauri Viljanen Hermann Hessen 60-vuotispäivänä julkaistussa esseessä.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n<b>Arosusi</b>. (Der Steppenwolf, 1927). Suom Eeva-Liisa Manner. WSOY 1952. [F].",
+              "author_str": "Hesse, Hermann"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8504,
+            "title": "Arosusi",
+            "subtitle": "",
+            "pubyear": 1981,
+            "editionnum": 7,
+            "version": 1,
+            "isbn": null,
+            "printedin": null,
+            "pubseriesnum": 12,
+            "coll_info": "",
+            "pages": 277,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/Hesse_Hermann_Arosusi_2p.jpg",
                 "id": 7073,
                 "image_src": "/static/images/books/Hesse_Hermann_Arosusi_2p.jpg",
@@ -35846,9 +35889,9 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Hesse_Hermann_Arosusi_7p.jpg",
-                "id": 7077,
-                "image_src": "/static/images/books/Hesse_Hermann_Arosusi_7p.jpg",
+                "thumb_src": "/static/images/books/Hesse_Hermann_Arosusi_2p.jpg",
+                "id": 7074,
+                "image_src": "/static/images/books/Hesse_Hermann_Arosusi_2p.jpg",
                 "image_attr": null
               }
             ],
@@ -35868,11 +35911,11 @@
             },
             "owners": [],
             "wishlisted": [],
-            "id": 8504,
+            "id": 8501,
             "title": "Arosusi",
             "subtitle": "",
-            "pubyear": 1981,
-            "editionnum": 7,
+            "pubyear": 1971,
+            "editionnum": 3,
             "version": 1,
             "isbn": null,
             "printedin": null,
@@ -35918,49 +35961,6 @@
             "editionnum": 4,
             "version": 1,
             "isbn": "951-0-01776-0",
-            "printedin": null,
-            "pubseriesnum": 12,
-            "coll_info": "",
-            "pages": 277,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Hesse_Hermann_Arosusi_2p.jpg",
-                "id": 7074,
-                "image_src": "/static/images/books/Hesse_Hermann_Arosusi_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2957,
-              "title": "Arosusi",
-              "subtitle": "",
-              "orig_title": "Der Steppenwolf",
-              "pubyear": 1927,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p>Arosusi on aikamme klassikko, kestävä taideteos, nerokas analyysi vuosisatamme ihmisestä ja hänen sielunkriisistään. Arosuden ytimenä on ihmisen luonteessa piilevä kaksinaisuus, vietin ja hengen välinen ristiriita, jonka taiteilija-tiedemies Harry Haller, romaanin päähenkilö, tuntee kohtalokkaalla tavalla vaikuttavan elämässään. 1920-luvulla kirjoitettu Arosusi on merkillisen kiehtova, suorastaan suggeroiva teos, jonka maailma tempaa mukaansa yhä uusia lukijapolvia.</p><p>\"<em>Hienoimmat modernit kulttuuriongelmat näyttävät vyyhteytyvän tässä merkillisessä, nerokkaassa, vaarallisessa kirjassa. Siinä on hiven pirandellolaista persoonallisuuden hajaantumista, siinä on gideläinen jännitys täyteläisen rohkean elämisen ja porvarillisen uneliaan puolinaisuuden välillä, siinä on huxleylainen ristiriita hedelmättömäksi muuttuneen henkisyyden ja lämpimän välittömyyden välillä</em>.\" - Lauri Viljanen Hermann Hessen 60-vuotispäivänä julkaistussa esseessä.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n<b>Arosusi</b>. (Der Steppenwolf, 1927). Suom Eeva-Liisa Manner. WSOY 1952. [F].",
-              "author_str": "Hesse, Hermann"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8501,
-            "title": "Arosusi",
-            "subtitle": "",
-            "pubyear": 1971,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": null,
             "printedin": null,
             "pubseriesnum": 12,
             "coll_info": "",
@@ -36097,49 +36097,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Stewart_Mary_Kristalliluola_2p.jpg",
-                "id": 2821,
-                "image_src": "/static/images/books/Stewart_Mary_Kristalliluola_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1251,
-              "title": "Kristalliluola",
-              "subtitle": "",
-              "orig_title": "The Crystal Cave",
-              "pubyear": 1970,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Menneiden aikojen mystinen ja romanttinen ilmapiiri henkii voimakkaana tässä teoksessa, joka kertoo kuningas Arthurin hovin tarunomaisen tietäjän Merlinin elämästä. Kuninkaan poika, joka joutui elämään lapsuutensa pelossa ja syrjittynä, vain merkillisten näkyjensä ohjaamana, tulee mieheksi kasvaessaan yhä tietoisemmaksi sielussaan piilevistä poikkeuksellisista voimista. Tulen loimussa, salaperäisen Kristalliluolan punervissa heijastuksissa hän näkee asioita, jotka tekevät hänestä kuninkaiden neuvonantajan ja kansansa henkisen johtajan. Merlinin ympärillä kuohuu ritariajan romanttinen ja väkivaltainen ilmapiiri, kuninkaiden kapinat, värikäs elämä palatseissa ja sotilaskentillä. Hän ohjaa kansaansa pystyttämään Stonehengen mahtavat kivipatsaat, jotka vielä tänäänkin ovat yksi maailman suurista ihmeistä. Tietäjä Merlinin tarunomainen hahmo tulee vielä nytkin, yli tuhannen vuoden kuluttua, tässä teoksessa omalaatuisen eläväksi.</p><p>Mary Stewart on englantilainen kirjailija, jonka jännitys- ja historialliset romaanit ovat tulleet suursuosituiksi useissa Euroopan maissa. Yhtä aikaa tämän romaanin kanssa häneltä ilmestyy suomeksi viehättävä lasten saturomaani <em>'Pikku noitaluuta</em>'</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "",
-              "author_str": "Stewart, Mary"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 1448,
-            "title": "Kristalliluola",
-            "subtitle": "",
-            "pubyear": 1972,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "951-30-2183-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 380,
-            "size": null,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": "Irtopäällyksessä: Kolibri-kirjasto.",
-            "imported_string": "2.painos: irtopäällyksessä: Kolibri-kirjasto. Tammi 1972.",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/du_Maurier_Daphne_Linnut_3p.jpg",
                 "id": 3824,
                 "image_src": "/static/images/books/du_Maurier_Daphne_Linnut_3p.jpg",
@@ -36178,6 +36135,49 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Stewart_Mary_Kristalliluola_2p.jpg",
+                "id": 2821,
+                "image_src": "/static/images/books/Stewart_Mary_Kristalliluola_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1251,
+              "title": "Kristalliluola",
+              "subtitle": "",
+              "orig_title": "The Crystal Cave",
+              "pubyear": 1970,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Menneiden aikojen mystinen ja romanttinen ilmapiiri henkii voimakkaana tässä teoksessa, joka kertoo kuningas Arthurin hovin tarunomaisen tietäjän Merlinin elämästä. Kuninkaan poika, joka joutui elämään lapsuutensa pelossa ja syrjittynä, vain merkillisten näkyjensä ohjaamana, tulee mieheksi kasvaessaan yhä tietoisemmaksi sielussaan piilevistä poikkeuksellisista voimista. Tulen loimussa, salaperäisen Kristalliluolan punervissa heijastuksissa hän näkee asioita, jotka tekevät hänestä kuninkaiden neuvonantajan ja kansansa henkisen johtajan. Merlinin ympärillä kuohuu ritariajan romanttinen ja väkivaltainen ilmapiiri, kuninkaiden kapinat, värikäs elämä palatseissa ja sotilaskentillä. Hän ohjaa kansaansa pystyttämään Stonehengen mahtavat kivipatsaat, jotka vielä tänäänkin ovat yksi maailman suurista ihmeistä. Tietäjä Merlinin tarunomainen hahmo tulee vielä nytkin, yli tuhannen vuoden kuluttua, tässä teoksessa omalaatuisen eläväksi.</p><p>Mary Stewart on englantilainen kirjailija, jonka jännitys- ja historialliset romaanit ovat tulleet suursuosituiksi useissa Euroopan maissa. Yhtä aikaa tämän romaanin kanssa häneltä ilmestyy suomeksi viehättävä lasten saturomaani <em>'Pikku noitaluuta</em>'</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "",
+              "author_str": "Stewart, Mary"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 1448,
+            "title": "Kristalliluola",
+            "subtitle": "",
+            "pubyear": 1972,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "951-30-2183-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 380,
+            "size": null,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": "Irtopäällyksessä: Kolibri-kirjasto.",
+            "imported_string": "2.painos: irtopäällyksessä: Kolibri-kirjasto. Tammi 1972.",
             "verified": false
           }
         ],
@@ -44671,102 +44671,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Gluhovski_Metro2035_p2.jpg",
-                "id": 2168,
-                "image_src": "/static/images/books/Gluhovski_Metro2035_p2.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2633,
-              "title": "Metro 2035",
-              "subtitle": "",
-              "orig_title": "Metro 2035",
-              "pubyear": 2015,
-              "bookseriesnum": "3",
-              "bookseriesorder": 3,
-              "misc": "",
-              "description": "<p>Kolmas maailmansota tuhosi maapallon, joka on nyt tyhjillään. Eloonjääneet yrittävät selviytyä maan alla, Moskovan metrotunneleissa. Metroasemista on tullut kaupunkivaltioita, joiden asukkaat taistelevat keskenään vedestä, ilmasta ja tilasta. Itsepäisimmät heistä pitävät yllä unelmaa: he uskovat, että ydinaseiden aiheuttama säteily lopulta vähenee, ja he voivat palata takaisin maanpinnalle.</p>\r\n\r\n<p>Yksi heistä etsii selviytyneitä entisistä kaupungeista ja kylistä, jotka ovat nyt pelkkää tuhkaa ja muisto. Hänen nimensä on Artyom. Hän antaisi mitä tahansa, jos voisi johtaa väkensä tunneleista takaisin pinnalle. Trilogian päätösosa paljastaa, onko unelmointi ollut sittenkin turhaa.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Gluhovski, Dmitri"
-            },
-            "owners": [
-              {
-                "id": 2,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 3021,
-            "title": "Metro 2035",
-            "subtitle": "",
-            "pubyear": 2018,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-952-01-1798-6",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 618,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Anderson_Rovin_Liekkiennakijat_2p.jpg",
-                "id": 1598,
-                "image_src": "/static/images/books/Anderson_Rovin_Liekkiennakijat_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4383,
-              "title": "Liekkien näkijät",
-              "subtitle": "",
-              "orig_title": "A Vision of Fire",
-              "pubyear": 2014,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Lastenpsykiatri Caitlin O'Haralla on edessään uransa haastavin tapaus. Intian YK-suurlähettilään tytär on omaksunut vieraan hahmon identiteetin ja alkaa nähdä painajaismaisia näkyjä. Samaan aikaan nuoret eri puolilla maailmaa alkavat oirehtia samalla tavalla. Caitlin huomaa päätyneensä keskelle yliluonnollisia tapahtumia, joihin tuntuu liittyvän epävakaa maailmanpoliittinen tilanne ja tuntematon, vuosituhansien takainen sivilisaatio.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Anderson, Gillian & Rovin, Jeff"
-            },
-            "owners": [
-              {
-                "id": 2,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 5017,
-            "title": "Liekkien näkijät",
-            "subtitle": "",
-            "pubyear": 2016,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-952-01-1398-8",
-            "printedin": "Keuruu",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 330,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Dick_LiesInc_p2.jpg",
                 "id": 817,
                 "image_src": "/static/images/books/Dick_LiesInc_p2.jpg",
@@ -44848,6 +44752,140 @@
             "pubseriesnum": null,
             "coll_info": null,
             "pages": 407,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": true
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Gluhovski_Metro2033_p2.jpg",
+                "id": 2162,
+                "image_src": "/static/images/books/Gluhovski_Metro2033_p2.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2631,
+              "title": "Metro 2033",
+              "subtitle": "",
+              "orig_title": "Metro 2033",
+              "pubyear": 2007,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
+              "misc": "",
+              "description": "<p>Ylhäälläkin oli elämää, muttei siinä merkityksessä kuin ihminen sen yleensä ymmärtää.</p>\r\n\r\n<p>Vuosi 2033. Ydinsodan jälkeisessä maailmassa ihmiskunnan rippeet elävät Moskovan synkeissä metrotunneleissa. He taistelevat olemassaolostaan pimeydessä kehittyviä uhkia vastaan, ja kilpailevat metroasemat käyvät kamppailua linjojen hallinnasta.</p>\r\n\r\n<p>Maanpäällinen sivilisaatio on menneisyyttä, muistoissa elävä myyttien ja legendojen rakennusaine. Radioaktiivinen säteily on kiihdyttänyt evoluutiota ja synnyttänyt uusia organismeja. Uuden maailman ravintoketjussa ihminen ei ole enää luomakunnan kruunu, vaan selviytymisvaistoonsa tukeutuva tunnelirotta.</p>\r\n\r\n<p>Hajaannuksessa elävää pakolaisten maanalaista valtakuntaa uhkaa tuho. Nuori Artjom ymmärtää kauhukseen, että ihmiskunnan kohtalo on tullut hänen kannettavakseen.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Gluhovski, Dmitri"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 3017,
+            "title": "Metro 2033",
+            "subtitle": "",
+            "pubyear": 2012,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "978-952-01-0886-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 591,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Karttoja.",
+            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4168591",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Gluhovski_Metro2034_p2.jpg",
+                "id": 2165,
+                "image_src": "/static/images/books/Gluhovski_Metro2034_p2.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2632,
+              "title": "Metro 2034",
+              "subtitle": "",
+              "orig_title": "Metro 2034",
+              "pubyear": 2009,
+              "bookseriesnum": "2",
+              "bookseriesorder": 2,
+              "misc": "",
+              "description": "<p><strong>Ihmisen oli turha haaveillakaan revanssista.</strong></p><p>Ydinsota on ohi. Ihminen on paennut radioaktiivista säteilyä ja sen synnyttämiä uusia organismeja syvälle maan alle, Moskovan kolkkoihin metrotunneleihin. Piinaavassa selviytymiskamppailussa ihmiskunnan suojelijaksi noussut eliittisotilas Hunter on kadonnut. Mitä Hunterille oikein tapahtui? Metro 2033:n hurja menestystarina saa jatkoa.</p><p>\"<em>Metro 2033 pitää lujasti otteessaan</em>\" - Helsingin Sanomat</p><p><br></p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "",
+              "author_str": "Gluhovski, Dmitri"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 3019,
+            "title": "Metro 2034",
+            "subtitle": "",
+            "pubyear": 2013,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-952-01-0973-8",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 367,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Gluhovski_Metro2035_p2.jpg",
+                "id": 2168,
+                "image_src": "/static/images/books/Gluhovski_Metro2035_p2.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2633,
+              "title": "Metro 2035",
+              "subtitle": "",
+              "orig_title": "Metro 2035",
+              "pubyear": 2015,
+              "bookseriesnum": "3",
+              "bookseriesorder": 3,
+              "misc": "",
+              "description": "<p>Kolmas maailmansota tuhosi maapallon, joka on nyt tyhjillään. Eloonjääneet yrittävät selviytyä maan alla, Moskovan metrotunneleissa. Metroasemista on tullut kaupunkivaltioita, joiden asukkaat taistelevat keskenään vedestä, ilmasta ja tilasta. Itsepäisimmät heistä pitävät yllä unelmaa: he uskovat, että ydinaseiden aiheuttama säteily lopulta vähenee, ja he voivat palata takaisin maanpinnalle.</p>\r\n\r\n<p>Yksi heistä etsii selviytyneitä entisistä kaupungeista ja kylistä, jotka ovat nyt pelkkää tuhkaa ja muisto. Hänen nimensä on Artyom. Hän antaisi mitä tahansa, jos voisi johtaa väkensä tunneleista takaisin pinnalle. Trilogian päätösosa paljastaa, onko unelmointi ollut sittenkin turhaa.</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Gluhovski, Dmitri"
+            },
+            "owners": [
+              {
+                "id": 2,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 3021,
+            "title": "Metro 2035",
+            "subtitle": "",
+            "pubyear": 2018,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-952-01-1798-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 618,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
@@ -45804,49 +45842,6 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "\n\n2.painos: Like-pokkari. Like 2014.",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Gluhovski_Metro2033_p2.jpg",
-                "id": 2162,
-                "image_src": "/static/images/books/Gluhovski_Metro2033_p2.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2631,
-              "title": "Metro 2033",
-              "subtitle": "",
-              "orig_title": "Metro 2033",
-              "pubyear": 2007,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "",
-              "description": "<p>Ylhäälläkin oli elämää, muttei siinä merkityksessä kuin ihminen sen yleensä ymmärtää.</p>\r\n\r\n<p>Vuosi 2033. Ydinsodan jälkeisessä maailmassa ihmiskunnan rippeet elävät Moskovan synkeissä metrotunneleissa. He taistelevat olemassaolostaan pimeydessä kehittyviä uhkia vastaan, ja kilpailevat metroasemat käyvät kamppailua linjojen hallinnasta.</p>\r\n\r\n<p>Maanpäällinen sivilisaatio on menneisyyttä, muistoissa elävä myyttien ja legendojen rakennusaine. Radioaktiivinen säteily on kiihdyttänyt evoluutiota ja synnyttänyt uusia organismeja. Uuden maailman ravintoketjussa ihminen ei ole enää luomakunnan kruunu, vaan selviytymisvaistoonsa tukeutuva tunnelirotta.</p>\r\n\r\n<p>Hajaannuksessa elävää pakolaisten maanalaista valtakuntaa uhkaa tuho. Nuori Artjom ymmärtää kauhukseen, että ihmiskunnan kohtalo on tullut hänen kannettavakseen.</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Gluhovski, Dmitri"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 3017,
-            "title": "Metro 2033",
-            "subtitle": "",
-            "pubyear": 2012,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": "978-952-01-0886-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 591,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Karttoja.",
-            "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4168591",
             "verified": false
           },
           {
@@ -47324,45 +47319,50 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Gluhovski_Metro2034_p2.jpg",
-                "id": 2165,
-                "image_src": "/static/images/books/Gluhovski_Metro2034_p2.jpg",
+                "thumb_src": "/static/images/books/Anderson_Rovin_Liekkiennakijat_2p.jpg",
+                "id": 1598,
+                "image_src": "/static/images/books/Anderson_Rovin_Liekkiennakijat_2p.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 2632,
-              "title": "Metro 2034",
+              "id": 4383,
+              "title": "Liekkien näkijät",
               "subtitle": "",
-              "orig_title": "Metro 2034",
-              "pubyear": 2009,
-              "bookseriesnum": "2",
-              "bookseriesorder": 2,
+              "orig_title": "A Vision of Fire",
+              "pubyear": 2014,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Ihmisen oli turha haaveillakaan revanssista.</strong></p><p>Ydinsota on ohi. Ihminen on paennut radioaktiivista säteilyä ja sen synnyttämiä uusia organismeja syvälle maan alle, Moskovan kolkkoihin metrotunneleihin. Piinaavassa selviytymiskamppailussa ihmiskunnan suojelijaksi noussut eliittisotilas Hunter on kadonnut. Mitä Hunterille oikein tapahtui? Metro 2033:n hurja menestystarina saa jatkoa.</p><p>\"<em>Metro 2033 pitää lujasti otteessaan</em>\" - Helsingin Sanomat</p><p><br></p>",
-              "descr_attr": "Takakansi",
+              "description": "<p>Lastenpsykiatri Caitlin O'Haralla on edessään uransa haastavin tapaus. Intian YK-suurlähettilään tytär on omaksunut vieraan hahmon identiteetin ja alkaa nähdä painajaismaisia näkyjä. Samaan aikaan nuoret eri puolilla maailmaa alkavat oirehtia samalla tavalla. Caitlin huomaa päätyneensä keskelle yliluonnollisia tapahtumia, joihin tuntuu liittyvän epävakaa maailmanpoliittinen tilanne ja tuntematon, vuosituhansien takainen sivilisaatio.</p>",
+              "descr_attr": null,
               "imported_string": "",
-              "author_str": "Gluhovski, Dmitri"
+              "author_str": "Anderson, Gillian & Rovin, Jeff"
             },
-            "owners": [],
+            "owners": [
+              {
+                "id": 2,
+                "name": "mep"
+              }
+            ],
             "wishlisted": [],
-            "id": 3019,
-            "title": "Metro 2034",
+            "id": 5017,
+            "title": "Liekkien näkijät",
             "subtitle": "",
-            "pubyear": 2013,
+            "pubyear": 2016,
             "editionnum": 2,
             "version": 1,
-            "isbn": "978-952-01-0973-8",
-            "printedin": null,
+            "isbn": "978-952-01-1398-8",
+            "printedin": "Keuruu",
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 367,
+            "pages": 330,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
-            "misc": null,
+            "misc": "",
             "imported_string": "",
-            "verified": false
+            "verified": true
           }
         ],
         "id": 109,
@@ -54727,6 +54727,54 @@
             "images": [
               {
                 "thumb_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
+                "id": 10285,
+                "image_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4671,
+              "title": "Painajainen",
+              "subtitle": "",
+              "orig_title": "Something Wicked This Way Comes",
+              "pubyear": 1962,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "Horror Writer Association's Top 40 Horror Book of All Time. ",
+              "description": "<p>Amerikkalainen fantasia- ja tieteiskirjallisuuden mestari Ray Bradbury (s. 1920) on romaanissaan <em>Paha saapuu portin taa</em> lajityyppinsä ylittäen kuvannut ihmismielen horjumista pahan ja hyvän välillä. Intensiivisen suvereenisti Bradbury luo oman pelottavan maailmansa, joka palautuu jokaisessa ihmisessä uinuvaan epätoivoiseksi tuomittuun nostalgiapyrkimykseen; haluun elää maailmassa jota ei enää ole eikä koskaan ole ollutkaan olemassa.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "",
+              "author_str": "Bradbury, Ray"
+            },
+            "owners": [
+              {
+                "id": 11,
+                "name": "Kirjokerttu"
+              }
+            ],
+            "wishlisted": [],
+            "id": 10542,
+            "title": "Painajainen",
+            "subtitle": "",
+            "pubyear": 1964,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "",
+            "printedin": "Turku",
+            "pubseriesnum": 2,
+            "coll_info": "",
+            "pages": 333,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
                 "id": 327,
                 "image_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
                 "image_attr": null
@@ -54750,10 +54798,6 @@
               {
                 "id": 2,
                 "name": "mep"
-              },
-              {
-                "id": 11,
-                "name": "Kirjokerttu"
               }
             ],
             "wishlisted": [],
@@ -54915,8 +54959,8 @@
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": null,
-              "descr_attr": null,
+              "description": "<p>Kaupungin taivaalla paistaa vesimeloniaurinko joka päivä eri värisenä. Kaupungin nähtävyyksiin kuuluvat Tiikerin ajasta kertovat muistomerkit, Peilipatsas, Baseball-kenttä ja Taimenenviljelylaitos. Kaupunkia ympäröivät vesimelonivainiot ja sen laitamilla sijaitsee lankkuja sekä lamppuöljyä tuottava vesimelonitehdas - ja tietenkin iDEATH, hyvä paikka. Tämän yhteisön idylliä varjostaa Hylätyillä kaivoksilla lymyävä rosvojoukko, jonka johtajana on häijy inBOIL.</p><p>Richard Brautiganin toinen suomennettu kirja on paikoin proosarunoa, paikoin kaskuilua, paikoin viisaita pikku tutkielmia. Se on amerikkalaisen pikkukaupungin erikoislaatuinen kuvaus, satu menneistä ajoista ja painajaiskuva nykyisistä, kertomus rakkaudesta ja petoksesta.</p>",
+              "descr_attr": "Takakansi",
               "imported_string": "",
               "author_str": "Brautigan, Richard"
             },
@@ -55427,6 +55471,49 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Weis_Hickman_Kaaoksenkasi_1p.jpg",
+                "id": 4010,
+                "image_src": "/static/images/books/Weis_Hickman_Kaaoksenkasi_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 277,
+              "title": "Kaaoksen käsi",
+              "subtitle": "",
+              "orig_title": "The Hand of Chaos. The Death Gate Cycle, volume 5",
+              "pubyear": 1993,
+              "bookseriesnum": "5",
+              "bookseriesorder": 5,
+              "misc": "",
+              "description": "<p>Aikojen alkuhämärissä mahtavat sartanit aiheuttivat maailman eriytymisen tulen, kiven, ilman ja veden valtakunniksi. Nexuksen valtias haluaa valtaansa koko universumin. Nyt hänen palvelijansa Haplo on käynyt jokaisessa neljässä maailmassa ja päässyt selville kansaansa uhkaavasta vaarasta. Petolliset lohikäärmeliskot aikovat tuhota koko universumin.</p><p>Haplon on palattava Nexukseen varoittamaan herraansa. Mutta mitä tapahtuu, kun hän saa selville, että hirviömäiset lohikäärmeliskot ovat onnistuneet pakenemaan Kuolemanportin kautta?</p><p>Margaret Weis ja Tracy Hickman aloittivat uransa fantasiapelien suunnittelijoina. Heidän seitsenosaisen KUOLEMANPORTTI-sarjansa kirjat ovat Yhdysvaltain myyntilistojen kärkeä. Aiemmin suomennetut neljä osaa ovat <em>Lohikäärmeen siipi</em>, <em>Haltioiden tähti,</em> <em>Tulimeri </em>ja <em>Käärmemaagi</em>.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "",
+              "author_str": "Weis, Margaret & Hickman, Tracy"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 366,
+            "title": "Kaaoksen käsi",
+            "subtitle": "",
+            "pubyear": 1999,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-1-15858-9",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 528,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/Weis_Hickman_Haltioidentahti_1p.jpg",
                 "id": 4006,
                 "image_src": "/static/images/books/Weis_Hickman_Haltioidentahti_1p.jpg",
@@ -55465,49 +55552,6 @@
             "coverimage": 3,
             "misc": "",
             "imported_string": "<b>Haltioiden tähti</b>. Kuolemanportti 2. (Elven Star. The Death Gate Cycle, volume 2, 1990). Suom Tero Kuittinen. Otava 1998. [F].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Weis_Hickman_Kaaoksenkasi_1p.jpg",
-                "id": 4010,
-                "image_src": "/static/images/books/Weis_Hickman_Kaaoksenkasi_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 277,
-              "title": "Kaaoksen käsi",
-              "subtitle": "",
-              "orig_title": "The Hand of Chaos. The Death Gate Cycle, volume 5",
-              "pubyear": 1993,
-              "bookseriesnum": "5",
-              "bookseriesorder": 5,
-              "misc": "",
-              "description": "<p>Aikojen alkuhämärissä mahtavat sartanit aiheuttivat maailman eriytymisen tulen, kiven, ilman ja veden valtakunniksi. Nexuksen valtias haluaa valtaansa koko universumin. Nyt hänen palvelijansa Haplo on käynyt jokaisessa neljässä maailmassa ja päässyt selville kansaansa uhkaavasta vaarasta. Petolliset lohikäärmeliskot aikovat tuhota koko universumin.</p><p>Haplon on palattava Nexukseen varoittamaan herraansa. Mutta mitä tapahtuu, kun hän saa selville, että hirviömäiset lohikäärmeliskot ovat onnistuneet pakenemaan Kuolemanportin kautta?</p><p>Margaret Weis ja Tracy Hickman aloittivat uransa fantasiapelien suunnittelijoina. Heidän seitsenosaisen KUOLEMANPORTTI-sarjansa kirjat ovat Yhdysvaltain myyntilistojen kärkeä. Aiemmin suomennetut neljä osaa ovat <em>Lohikäärmeen siipi</em>, <em>Haltioiden tähti,</em> <em>Tulimeri </em>ja <em>Käärmemaagi</em>.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "",
-              "author_str": "Weis, Margaret & Hickman, Tracy"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 366,
-            "title": "Kaaoksen käsi",
-            "subtitle": "",
-            "pubyear": 1999,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-1-15417-6",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 528,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "",
-            "imported_string": "<b>Kaaoksen käsi</b>. Kuolemanportti 5. (The Hand of Chaos. The Death Gate Cycle, volume 5, 1993). Suom Jukka Nyman. Otava 1999. [F].",
             "verified": false
           },
           {
@@ -55814,6 +55858,49 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Gaiman_Neil_Neverwhere_1p.jpg",
+                "id": 1622,
+                "image_src": "/static/images/books/Gaiman_Neil_Neverwhere_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2573,
+              "title": "Neverwhere - maanalainen Lontoo",
+              "subtitle": "",
+              "orig_title": "Neverwhere",
+              "pubyear": 1996,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "Julia Verlanger -palkinto (Ranska), paras fantasia- tai science fiction -kirja vuonna 1999. Mythopoeic-palkintoehdokas 1998.",
+              "description": "<p>HYVIN HAUSKA.</p><p> HYVIN JÄNNITTÄVÄ.</p><p> HYVIN OUTO.</p><p>Lontoon katujen alta löytyy maailma jonkalaista monet eivät pystyisi kuvittelemaan edes unissaan. Siellä on kaupunki täynnä hirviöitä ja pyhimyksiä, murhaajia ja enkeleitä, puhuvia rottia, ritareita haarniskoissaan ja kalpeita mustaan samettiin pukeutuneita tyttöjä. Tässä Lontoossa asuvat ne, jotka ovat pudonneet tavallisen maailman raoista pohjalle asti.</p><p>Richard Mayhew on menestyvä nuori mies, joka joutuu vastoin tahtoaan tutustumaan tähän toiseen Lontooseen. Nuoren tytön pelastaminen kadulta koituu Richardille kohtalokkaaksi: teko riuhtaisee hänet pois turavallisesta ja ennaltamäärätystä elämästä maailmaan, joka on samalla oudon tuttu ja äärimmäisen kummallinen.</p><p>Tyttö on nimeltään Door, ja hän pakenee verenhimoisia murhaajia. Hänen kanssaan Richard joutuu keskelle mieletöntä seikkailua Alapuolisen Lontoon hylättyihin metrotunneleihin ja katakombeihin, joita asuttavat toinen toistaan merkillisemmät henkilöt. Door haluaa jatkaa isänsä työtä ja avata oven Ylä- ja Alapuolisen Lontoon välille, mutta hänen mahtava vastustajansa on eri mieltä...</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Gaiman, Neil"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 2950,
+            "title": "Neverwhere - maanalainen Lontoo",
+            "subtitle": "",
+            "pubyear": 1998,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "951-1-14857-5",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 315,
+            "size": 22,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "Kansien sisäpuolella Lontoon maanalaisen kartta.",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/McCaffrey_Anne_Lohikaarmeenlento_1p.jpg",
                 "id": 756,
                 "image_src": "/static/images/books/McCaffrey_Anne_Lohikaarmeenlento_1p.jpg",
@@ -56024,49 +56111,6 @@
             "coverimage": 3,
             "misc": "",
             "imported_string": "<b>Kuolleet kaupungit</b>. Gaealian tarustoa 1. Otavan fantasiaromaani -sarja. Otava 1996. [nF].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Gaiman_Neil_Neverwhere_1p.jpg",
-                "id": 1622,
-                "image_src": "/static/images/books/Gaiman_Neil_Neverwhere_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2573,
-              "title": "Neverwhere - maanalainen Lontoo",
-              "subtitle": "",
-              "orig_title": "Neverwhere",
-              "pubyear": 1996,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "Julia Verlanger -palkinto (Ranska), paras fantasia- tai science fiction -kirja vuonna 1999. Mythopoeic-palkintoehdokas 1998.",
-              "description": "<p>HYVIN HAUSKA.</p><p> HYVIN JÄNNITTÄVÄ.</p><p> HYVIN OUTO.</p><p>Lontoon katujen alta löytyy maailma jonkalaista monet eivät pystyisi kuvittelemaan edes unissaan. Siellä on kaupunki täynnä hirviöitä ja pyhimyksiä, murhaajia ja enkeleitä, puhuvia rottia, ritareita haarniskoissaan ja kalpeita mustaan samettiin pukeutuneita tyttöjä. Tässä Lontoossa asuvat ne, jotka ovat pudonneet tavallisen maailman raoista pohjalle asti.</p><p>Richard Mayhew on menestyvä nuori mies, joka joutuu vastoin tahtoaan tutustumaan tähän toiseen Lontooseen. Nuoren tytön pelastaminen kadulta koituu Richardille kohtalokkaaksi: teko riuhtaisee hänet pois turavallisesta ja ennaltamäärätystä elämästä maailmaan, joka on samalla oudon tuttu ja äärimmäisen kummallinen.</p><p>Tyttö on nimeltään Door, ja hän pakenee verenhimoisia murhaajia. Hänen kanssaan Richard joutuu keskelle mieletöntä seikkailua Alapuolisen Lontoon hylättyihin metrotunneleihin ja katakombeihin, joita asuttavat toinen toistaan merkillisemmät henkilöt. Door haluaa jatkaa isänsä työtä ja avata oven Ylä- ja Alapuolisen Lontoon välille, mutta hänen mahtava vastustajansa on eri mieltä...</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Gaiman, Neil"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 2950,
-            "title": "Neverwhere - maanalainen Lontoo",
-            "subtitle": "",
-            "pubyear": 1998,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-1-14857-5",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 315,
-            "size": 22,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "Kansien sisäpuolella Lontoon maanalaisen kartta.",
-            "imported_string": "",
             "verified": false
           },
           {
@@ -69519,7 +69563,7 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 263,
-            "size": null,
+            "size": 21,
             "dustcover": 3,
             "coverimage": 1,
             "misc": null,
@@ -69567,7 +69611,7 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 286,
-            "size": null,
+            "size": 21,
             "dustcover": 3,
             "coverimage": 1,
             "misc": null,
@@ -71985,54 +72029,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Wernstrom_AvaruuslaivanArvoitus_p1.jpg",
-                "id": 6396,
-                "image_src": "/static/images/books/Wernstrom_AvaruuslaivanArvoitus_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 338,
-              "title": "Avaruuslaivan arvoitus",
-              "subtitle": "",
-              "orig_title": "Rymdskeppets gåta",
-              "pubyear": 1968,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p>Venuksen asukkailla näytti olevan loisto-oltavat. </p><p>Näin ajattelevat Ralle, Boris ja Ana, kolme avaruusaluksen sieppaamaa Maan nuorta. Mutta vähitellen heidän epäilyksensä heräävät. Paetessaan Orzon tietokoneita Venuksen viidakkoon he pääsevät selville työtätekevien ”eläinten” salaisuudesta...</p>",
-              "descr_attr": null,
-              "imported_string": "\n<b>Avaruuslaivan arvoitus</b>. (Rymdskeppets gåta, 1968). Suom Inkeri Pitkänen. Tam tam -kirja. Tammi 1972. [nSF].",
-              "author_str": "Wernström, Sven"
-            },
-            "owners": [
-              {
-                "id": 2,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 435,
-            "title": "Avaruuslaivan arvoitus",
-            "subtitle": "",
-            "pubyear": 1972,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-30-2200-5",
-            "printedin": "Helsinki",
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 125,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": true
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Wernstrom_Sven_Matkatuntemattomallaplaneetalla_1p.jpg",
                 "id": 5410,
                 "image_src": "/static/images/books/Wernstrom_Sven_Matkatuntemattomallaplaneetalla_1p.jpg",
@@ -72120,6 +72116,49 @@
             "misc": "",
             "imported_string": "",
             "verified": true
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Sisatto_Vesa_Kummitustenluokka_1p.jpg",
+                "id": 1257,
+                "image_src": "/static/images/books/Sisatto_Vesa_Kummitustenluokka_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1139,
+              "title": "Kummitusten luokka",
+              "subtitle": "11 kolkkoa kauhutarinaa",
+              "orig_title": "Kummitusten luokka",
+              "pubyear": 2007,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><em>- Minä voin kyllä auttaa sinua, köyryselkäinen mummo vakuutti Annelle. - Mutta sillä on hintansa.</em></p><p><em>- Miten sinä minua voisit auttaa? Anne kysyi epäuskoisena. - Sitä paitsi minulla ei ole paljonkaan rahaa säästössä.</em></p><p><em>- Hintana ei ole raha. Haluan viisi vuotta elämästäsi. Maksat kuitenkin vain siinä tapauksessa, että todella käytät taikakeinoani. Lopullisen päätöksen saat tehdä itse.</em></p><p>Tarinassa <em>Kaupat noidan kanssa</em> selviää, mihin ratkaisuun Anne päätyy. Kirjan muutkin nuoret kokevat toinen toistaan oudompia sattumuksia: Heidi kohtaa poltergeistin ja Aleksi kokonaisen aaverykmentin. Oskari ja Antti yöpyvät syyslomalla vanhan kartanon Sinisessä kamarissa, jossa tunnetusti kummittelee. Ville joutuu vahingossa kammottaville nettisivuille, ja Juulin kotibileissä päädytään pelaamaan vaarallista peliä. Nimikertomuksessa Kummitusten luokka Santerin koulun historiasta paljastuu hirvittävä tapaus...</p><p>Vesa Sisättö on espoolainen toimittaja, kirjailija, kriitikko ja kolumnisti.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n<b>Kummitusten luokka - 11 kolkkoa kauhutarinaa</b>. Tammi 2007. [nK,kok].",
+              "author_str": "Sisättö, Vesa"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 1327,
+            "title": "Kummitusten luokka",
+            "subtitle": "11 kolkkoa kauhutarinaa",
+            "pubyear": 2007,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-31-3801-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 154,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "<b>Kummitusten luokka - 11 kolkkoa kauhutarinaa</b>. Tammi 2007. [nK,kok].",
+            "verified": false
           },
           {
             "images": [
@@ -72425,6 +72464,92 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Shan_Darren_Kuolemankoetukset_2p.jpg",
+                "id": 7627,
+                "image_src": "/static/images/books/Shan_Darren_Kuolemankoetukset_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1042,
+              "title": "Kuoleman koetukset",
+              "subtitle": "",
+              "orig_title": "Trials of Death",
+              "pubyear": 2001,
+              "bookseriesnum": "5",
+              "bookseriesorder": 5,
+              "misc": "",
+              "description": "<p><strong>LUE JA PELKÄÄ!</strong></p><p>Darren Shanin on läpäistävä viisi kuolemanvaarallista koetta todistaakseen olevansa kelpo vampyyri. Hän ei voi kieltäytyä eikä epäonnistua - ainoa vaihtoehto on kuolema. Koettuaan vesilabyrintin, neulapolun ja lieskasalin kauhut Darren on kehnossa kunnossa. Ennen kuin viides koetus ennättää edes alkaa, tielle osuu äkkiarvaamatta ylimääräisiä hankaluuksia: petturi, joka väittää olevansa pelastaja, kuumeinen pakomatka Vampyyrivuoren uumenissa ja violetti-ihoisten vihollisten kohtaaminen...</p><p>Karmivan jännittävän nuorten sarjan viides osa.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n\n<b>Kuoleman koetukset</b> (Trials of Death, 2001). Suom Kaijamari Sivill. Tammi 2006. [nF].",
+              "author_str": "Shan, Darren"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8696,
+            "title": "Kuoleman koetukset",
+            "subtitle": "",
+            "pubyear": 2007,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "951-31-4130-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 164,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Shan_Darren_Vampyyrivuori_3p.jpg",
+                "id": 7629,
+                "image_src": "/static/images/books/Shan_Darren_Vampyyrivuori_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1048,
+              "title": "Vampyyrivuori",
+              "subtitle": "",
+              "orig_title": "Vampire Mountain",
+              "pubyear": 2001,
+              "bookseriesnum": "4",
+              "bookseriesorder": 4,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Vampyyrivuori</b> (Vampire Mountain, 2001). Suom Kaijamari Sivill. Tammi 2004. [nF].",
+              "author_str": "Shan, Darren"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8697,
+            "title": "Vampyyrivuori",
+            "subtitle": "",
+            "pubyear": 2009,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "978-951-31-4769-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 156,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/Hoffman_Mary_Kukkienkaupunki_2p.jpg",
                 "id": 2787,
                 "image_src": "/static/images/books/Hoffman_Mary_Kukkienkaupunki_2p.jpg",
@@ -72516,6 +72641,49 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Shan_Darren_Kauhuntunneleissa_3p.jpg",
+                "id": 7633,
+                "image_src": "/static/images/books/Shan_Darren_Kauhuntunneleissa_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1040,
+              "title": "Kauhun tunneleissa",
+              "subtitle": "",
+              "orig_title": "Tunnels of Blood",
+              "pubyear": 2000,
+              "bookseriesnum": "3",
+              "bookseriesorder": 3,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Kauhun tunneleissa</b> (Tunnels of Blood, 2000). Suom Kaijamari Sivill. Tammi 2003. [nF].",
+              "author_str": "Shan, Darren"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8700,
+            "title": "Kauhun tunneleissa",
+            "subtitle": "",
+            "pubyear": 2009,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "978-951-31-4768-6",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 176,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/Lundgren_Max_Kultafarkut_1p.jpg",
                 "id": 6079,
                 "image_src": "/static/images/books/Lundgren_Max_Kultafarkut_1p.jpg",
@@ -72554,6 +72722,49 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "\n<b>Kultafarkut</b>. (Pojken med guldbyxorna, 1967). Suom Pirkko Talvio-Jaatinen. Tam Tam -kirjat. Tammi 1974. [nF].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Shan_Darren_Vampyyrinoppipoika_3p.jpg",
+                "id": 7635,
+                "image_src": "/static/images/books/Shan_Darren_Vampyyrinoppipoika_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1046,
+              "title": "Vampyyrin oppipoika",
+              "subtitle": "",
+              "orig_title": "The Vampire's Assistant",
+              "pubyear": 2000,
+              "bookseriesnum": "2",
+              "bookseriesorder": 2,
+              "misc": "",
+              "description": "<p>Darren Shanin elämä tavallisena koululaisena on ohi. Hänestä on tullut vampyyri Larten Crepsleyn oppipoika, puolivampyyri! Kiertolaiselämä päivisin nukkuvan Crepsleyn kanssa on uutta ja outoa, mutta myös melko yksinäistä. Niinpä mestari ja hänen oppipoikansa päättävät palata Friikkisirkukseen. Siellä Darren ystävystyy käärmepoika Evran kanssa ja saa tehdä työtä omalaatuisessa kummajaisten yhteisössä. Mutta ratkaisematta on vielä elämän ja kuoleman kysymys: Darren ei pysy kauan hengissä, jos hän ei juo ihmisen verta. Voiko hän ottaa tuon kammottavan askelen kohti vampyyrien maailmaa?</p><p>Darren Shanin tie vampyyrin oppipojaksi selviää kirjasta Friikkisirkus.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n\n<b>Vampyyrin oppipoika</b> (The Vampire's Assistant, 2000). Suom Kaijamari Sivill. Tammi 2002. [nF].",
+              "author_str": "Shan, Darren"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8702,
+            "title": "Vampyyrin oppipoika",
+            "subtitle": "",
+            "pubyear": 2008,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "978-951-31-4404-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 195,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
             "verified": false
           },
           {
@@ -72678,6 +72889,49 @@
             "pubseriesnum": null,
             "coll_info": null,
             "pages": 261,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Shan_Darren_Friikkisirkus_3p.jpg",
+                "id": 7637,
+                "image_src": "/static/images/books/Shan_Darren_Friikkisirkus_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1039,
+              "title": "Friikkisirkus",
+              "subtitle": "",
+              "orig_title": "Cirque du Freak",
+              "pubyear": 2000,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
+              "misc": "",
+              "description": "<p>Darren Shan ja hänen ystävänsä Steve pääsevät katsomaan kielletyn friikkisirkuksen esitystä. Ohjelmanumerot ovat toinen toistaan hurjempia, mutta vaikuttavin on Larten Crepsley ja hänen myrkkyhämähäkkinsä Madam Octa. Darren ei saa silmiään irti kammottavan ihmeellisestä hämähäkistä, mutta Steve kiinnittää huomionsa arpinaamaiseen, kalpeaan mieheen, joka ohjailee hämähäkkiä ajatusten voimalla. Kukaan friikkisirkuksen esiintyjistä ei ole tavallinen ihminen, mutta Larten Crepsley ei ole edes ihminen... Ilta sirkuksessa muuttaa poikien elämän - painajaisuneksi.</p><p>Friikkisirkus on karmivan jännittävän kirjasarjan ensimmäinen osa.</p><p>LUE JA PELKÄÄ!</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n<b>Friikkisirkus</b> (Cirque du Freak, 2000). Suom Kaijamari Sivill. Tammi 2001. [nF].",
+              "author_str": "Shan, Darren"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8704,
+            "title": "Friikkisirkus",
+            "subtitle": "",
+            "pubyear": 2008,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "978-951-31-4255-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 212,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
@@ -73161,221 +73415,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Rees_Celia_Noitalapsi_2p.jpg",
-                "id": 6839,
-                "image_src": "/static/images/books/Rees_Celia_Noitalapsi_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 515,
-              "title": "Noitalapsi",
-              "subtitle": "",
-              "orig_title": "Witch Child",
-              "pubyear": 2000,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "",
-              "description": "<p>MITÄ MARYLLE TAPAHTUI KOLMESATAA VUOTTA SITTEN?</p><p>Käsinkirjoitettuja paperiarkkeja tilkkutäkin vuoren alla. Tilkkutäkki johon kukaan ei ole koskenut yli kolmeensataan vuoteen. Kunnes eräänä päivänä täkkiä ryhdytään varovasti puhdistamaan ja sen sisältä paljastuu henkeäsalpaavan jännittävä tarina. Maryn tarina.</p><p>Mary Newburyn isoäiti on joutunut syytteeseen noituudesta ja tuomittu kuolemaan. Mary pakenee ennakkoluuloja ja noitavainoja Amerikkaan. Valitettavasti Amerikka ei osoittaudu sen vapaamielisemmäksi kuin Englantikaan, ja kun Mary samoilee itsekseen metsissä ja ystävystyy intiaanipojan kanssa, on ahdasmielisen yhteisön mitta täynnä.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n<b>Noitalapsi</b>. (Witch Child, 2000). Suom Paula Herranen. Tammi 2004. [F].",
-              "author_str": "Rees, Celia"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8436,
-            "title": "Noitalapsi",
-            "subtitle": "",
-            "pubyear": 2009,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-951-31-5067-9",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 249,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Shan_Darren_Kuolemankoetukset_2p.jpg",
-                "id": 7627,
-                "image_src": "/static/images/books/Shan_Darren_Kuolemankoetukset_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1042,
-              "title": "Kuoleman koetukset",
-              "subtitle": "",
-              "orig_title": "Trials of Death",
-              "pubyear": 2001,
-              "bookseriesnum": "5",
-              "bookseriesorder": 5,
-              "misc": "",
-              "description": "<p><strong>LUE JA PELKÄÄ!</strong></p><p>Darren Shanin on läpäistävä viisi kuolemanvaarallista koetta todistaakseen olevansa kelpo vampyyri. Hän ei voi kieltäytyä eikä epäonnistua - ainoa vaihtoehto on kuolema. Koettuaan vesilabyrintin, neulapolun ja lieskasalin kauhut Darren on kehnossa kunnossa. Ennen kuin viides koetus ennättää edes alkaa, tielle osuu äkkiarvaamatta ylimääräisiä hankaluuksia: petturi, joka väittää olevansa pelastaja, kuumeinen pakomatka Vampyyrivuoren uumenissa ja violetti-ihoisten vihollisten kohtaaminen...</p><p>Karmivan jännittävän nuorten sarjan viides osa.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n\n<b>Kuoleman koetukset</b> (Trials of Death, 2001). Suom Kaijamari Sivill. Tammi 2006. [nF].",
-              "author_str": "Shan, Darren"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8696,
-            "title": "Kuoleman koetukset",
-            "subtitle": "",
-            "pubyear": 2007,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "951-31-4130-6",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 164,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Shan_Darren_Vampyyrivuori_3p.jpg",
-                "id": 7629,
-                "image_src": "/static/images/books/Shan_Darren_Vampyyrivuori_3p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1048,
-              "title": "Vampyyrivuori",
-              "subtitle": "",
-              "orig_title": "Vampire Mountain",
-              "pubyear": 2001,
-              "bookseriesnum": "4",
-              "bookseriesorder": 4,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Vampyyrivuori</b> (Vampire Mountain, 2001). Suom Kaijamari Sivill. Tammi 2004. [nF].",
-              "author_str": "Shan, Darren"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8697,
-            "title": "Vampyyrivuori",
-            "subtitle": "",
-            "pubyear": 2009,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": "978-951-31-4769-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 156,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Shan_Darren_Kauhuntunneleissa_3p.jpg",
-                "id": 7633,
-                "image_src": "/static/images/books/Shan_Darren_Kauhuntunneleissa_3p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1040,
-              "title": "Kauhun tunneleissa",
-              "subtitle": "",
-              "orig_title": "Tunnels of Blood",
-              "pubyear": 2000,
-              "bookseriesnum": "3",
-              "bookseriesorder": 3,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Kauhun tunneleissa</b> (Tunnels of Blood, 2000). Suom Kaijamari Sivill. Tammi 2003. [nF].",
-              "author_str": "Shan, Darren"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8700,
-            "title": "Kauhun tunneleissa",
-            "subtitle": "",
-            "pubyear": 2009,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": "978-951-31-4768-6",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 176,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Shan_Darren_Vampyyrinoppipoika_3p.jpg",
-                "id": 7635,
-                "image_src": "/static/images/books/Shan_Darren_Vampyyrinoppipoika_3p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1046,
-              "title": "Vampyyrin oppipoika",
-              "subtitle": "",
-              "orig_title": "The Vampire's Assistant",
-              "pubyear": 2000,
-              "bookseriesnum": "2",
-              "bookseriesorder": 2,
-              "misc": "",
-              "description": "<p>Darren Shanin elämä tavallisena koululaisena on ohi. Hänestä on tullut vampyyri Larten Crepsleyn oppipoika, puolivampyyri! Kiertolaiselämä päivisin nukkuvan Crepsleyn kanssa on uutta ja outoa, mutta myös melko yksinäistä. Niinpä mestari ja hänen oppipoikansa päättävät palata Friikkisirkukseen. Siellä Darren ystävystyy käärmepoika Evran kanssa ja saa tehdä työtä omalaatuisessa kummajaisten yhteisössä. Mutta ratkaisematta on vielä elämän ja kuoleman kysymys: Darren ei pysy kauan hengissä, jos hän ei juo ihmisen verta. Voiko hän ottaa tuon kammottavan askelen kohti vampyyrien maailmaa?</p><p>Darren Shanin tie vampyyrin oppipojaksi selviää kirjasta Friikkisirkus.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n\n<b>Vampyyrin oppipoika</b> (The Vampire's Assistant, 2000). Suom Kaijamari Sivill. Tammi 2002. [nF].",
-              "author_str": "Shan, Darren"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8702,
-            "title": "Vampyyrin oppipoika",
-            "subtitle": "",
-            "pubyear": 2008,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": "978-951-31-4404-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 195,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Raustela_Lasse_Noitakellot_1p.jpg",
                 "id": 6835,
                 "image_src": "/static/images/books/Raustela_Lasse_Noitakellot_1p.jpg",
@@ -73419,39 +73458,39 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Shan_Darren_Friikkisirkus_3p.jpg",
-                "id": 7637,
-                "image_src": "/static/images/books/Shan_Darren_Friikkisirkus_3p.jpg",
+                "thumb_src": "/static/images/books/Rees_Celia_Noitalapsi_2p.jpg",
+                "id": 6839,
+                "image_src": "/static/images/books/Rees_Celia_Noitalapsi_2p.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 1039,
-              "title": "Friikkisirkus",
+              "id": 515,
+              "title": "Noitalapsi",
               "subtitle": "",
-              "orig_title": "Cirque du Freak",
+              "orig_title": "Witch Child",
               "pubyear": 2000,
               "bookseriesnum": "1",
               "bookseriesorder": 1,
               "misc": "",
-              "description": "<p>Darren Shan ja hänen ystävänsä Steve pääsevät katsomaan kielletyn friikkisirkuksen esitystä. Ohjelmanumerot ovat toinen toistaan hurjempia, mutta vaikuttavin on Larten Crepsley ja hänen myrkkyhämähäkkinsä Madam Octa. Darren ei saa silmiään irti kammottavan ihmeellisestä hämähäkistä, mutta Steve kiinnittää huomionsa arpinaamaiseen, kalpeaan mieheen, joka ohjailee hämähäkkiä ajatusten voimalla. Kukaan friikkisirkuksen esiintyjistä ei ole tavallinen ihminen, mutta Larten Crepsley ei ole edes ihminen... Ilta sirkuksessa muuttaa poikien elämän - painajaisuneksi.</p><p>Friikkisirkus on karmivan jännittävän kirjasarjan ensimmäinen osa.</p><p>LUE JA PELKÄÄ!</p>",
+              "description": "<p>MITÄ MARYLLE TAPAHTUI KOLMESATAA VUOTTA SITTEN?</p><p>Käsinkirjoitettuja paperiarkkeja tilkkutäkin vuoren alla. Tilkkutäkki johon kukaan ei ole koskenut yli kolmeensataan vuoteen. Kunnes eräänä päivänä täkkiä ryhdytään varovasti puhdistamaan ja sen sisältä paljastuu henkeäsalpaavan jännittävä tarina. Maryn tarina.</p><p>Mary Newburyn isoäiti on joutunut syytteeseen noituudesta ja tuomittu kuolemaan. Mary pakenee ennakkoluuloja ja noitavainoja Amerikkaan. Valitettavasti Amerikka ei osoittaudu sen vapaamielisemmäksi kuin Englantikaan, ja kun Mary samoilee itsekseen metsissä ja ystävystyy intiaanipojan kanssa, on ahdasmielisen yhteisön mitta täynnä.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<b>Friikkisirkus</b> (Cirque du Freak, 2000). Suom Kaijamari Sivill. Tammi 2001. [nF].",
-              "author_str": "Shan, Darren"
+              "imported_string": "\n<b>Noitalapsi</b>. (Witch Child, 2000). Suom Paula Herranen. Tammi 2004. [F].",
+              "author_str": "Rees, Celia"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 8704,
-            "title": "Friikkisirkus",
+            "id": 8436,
+            "title": "Noitalapsi",
             "subtitle": "",
-            "pubyear": 2008,
-            "editionnum": 3,
+            "pubyear": 2009,
+            "editionnum": 2,
             "version": 1,
-            "isbn": "978-951-31-4255-1",
+            "isbn": "978-951-31-5067-9",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 212,
+            "pages": 249,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
@@ -73505,45 +73544,50 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Sisatto_Vesa_Kummitustenluokka_1p.jpg",
-                "id": 1257,
-                "image_src": "/static/images/books/Sisatto_Vesa_Kummitustenluokka_1p.jpg",
+                "thumb_src": "/static/images/books/Wernstrom_AvaruuslaivanArvoitus_p1.jpg",
+                "id": 6396,
+                "image_src": "/static/images/books/Wernstrom_AvaruuslaivanArvoitus_p1.jpg",
                 "image_attr": null
               }
             ],
             "work": {
-              "id": 1139,
-              "title": "Kummitusten luokka",
-              "subtitle": "11 kolkkoa kauhutarinaa",
-              "orig_title": "Kummitusten luokka",
-              "pubyear": 2007,
+              "id": 338,
+              "title": "Avaruuslaivan arvoitus",
+              "subtitle": "",
+              "orig_title": "Rymdskeppets gåta",
+              "pubyear": 1968,
               "bookseriesnum": "",
               "bookseriesorder": 0,
               "misc": "",
-              "description": "<p><em>- Minä voin kyllä auttaa sinua, köyryselkäinen mummo vakuutti Annelle. - Mutta sillä on hintansa.</em></p><p><em>- Miten sinä minua voisit auttaa? Anne kysyi epäuskoisena. - Sitä paitsi minulla ei ole paljonkaan rahaa säästössä.</em></p><p><em>- Hintana ei ole raha. Haluan viisi vuotta elämästäsi. Maksat kuitenkin vain siinä tapauksessa, että todella käytät taikakeinoani. Lopullisen päätöksen saat tehdä itse.</em></p><p>Tarinassa <em>Kaupat noidan kanssa</em> selviää, mihin ratkaisuun Anne päätyy. Kirjan muutkin nuoret kokevat toinen toistaan oudompia sattumuksia: Heidi kohtaa poltergeistin ja Aleksi kokonaisen aaverykmentin. Oskari ja Antti yöpyvät syyslomalla vanhan kartanon Sinisessä kamarissa, jossa tunnetusti kummittelee. Ville joutuu vahingossa kammottaville nettisivuille, ja Juulin kotibileissä päädytään pelaamaan vaarallista peliä. Nimikertomuksessa Kummitusten luokka Santerin koulun historiasta paljastuu hirvittävä tapaus...</p><p>Vesa Sisättö on espoolainen toimittaja, kirjailija, kriitikko ja kolumnisti.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n<b>Kummitusten luokka - 11 kolkkoa kauhutarinaa</b>. Tammi 2007. [nK,kok].",
-              "author_str": "Sisättö, Vesa"
+              "description": "<p>Venuksen asukkailla näytti olevan loisto-oltavat. </p><p>Näin ajattelevat Ralle, Boris ja Ana, kolme avaruusaluksen sieppaamaa Maan nuorta. Mutta vähitellen heidän epäilyksensä heräävät. Paetessaan Orzon tietokoneita Venuksen viidakkoon he pääsevät selville työtätekevien ”eläinten” salaisuudesta...</p>",
+              "descr_attr": null,
+              "imported_string": "\n<b>Avaruuslaivan arvoitus</b>. (Rymdskeppets gåta, 1968). Suom Inkeri Pitkänen. Tam tam -kirja. Tammi 1972. [nSF].",
+              "author_str": "Wernström, Sven"
             },
-            "owners": [],
+            "owners": [
+              {
+                "id": 2,
+                "name": "mep"
+              }
+            ],
             "wishlisted": [],
-            "id": 1327,
-            "title": "Kummitusten luokka",
-            "subtitle": "11 kolkkoa kauhutarinaa",
-            "pubyear": 2007,
+            "id": 435,
+            "title": "Avaruuslaivan arvoitus",
+            "subtitle": "",
+            "pubyear": 1972,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-951-31-3801-1",
-            "printedin": null,
+            "isbn": "951-30-2200-5",
+            "printedin": "Helsinki",
             "pubseriesnum": null,
             "coll_info": "",
-            "pages": 154,
-            "size": 18,
+            "pages": 125,
+            "size": 19,
             "dustcover": 1,
             "coverimage": 1,
             "misc": "",
-            "imported_string": "<b>Kummitusten luokka - 11 kolkkoa kauhutarinaa</b>. Tammi 2007. [nK,kok].",
-            "verified": false
+            "imported_string": "",
+            "verified": true
           }
         ],
         "id": 209,
@@ -78335,49 +78379,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Collins_Suzanne_Nalkapeli_3p.jpg",
-                "id": 3647,
-                "image_src": "/static/images/books/Collins_Suzanne_Nalkapeli_3p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 5012,
-              "title": "Nälkäpeli",
-              "subtitle": "",
-              "orig_title": "The Hunger Games",
-              "pubyear": 2008,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "",
-              "description": "<p>TÄLTÄKÖ NÄYTTÄÄ TULEVAISUUDEN MAAILMA?</p><p>Luonnonkatastrofit, kuivuus, myrskyt, tulipalot ja tulvat nielivät suuren osan Pohjois-Amerikasta. Loput hävitti jäljelle jääneestä ruoasta käyty sota. Raunioista syntyi Panem. Sen kansalaiset nousivat kapinaan hallitsijoitaan vastaan, mutta hävisivät taistelun. Rangaistukseksi kehitettiin nälkäpeli. Siinä nuoret pakotetaan vaativiin olosuhteisiin luonnonalueelle, jossa heidän on tapettava toisensa. Viimeinen hengissä selviytyjä on pelin voittaja.</p><p><em>Nälkäpeli</em>-trilogian ensimmäisessä osassa 16-vuotiaan Katniss Everdeenin kyvyt joutuvat koetukselle. Hän ilmoittautuu peliin vapaaehtoiseksi pelastaakseen pikkusiskonsa, jonka epäonneksi arpa lankeaa...</p><p><em>Nälkäpeli on suurenmoinen</em>. - Stephenie Meyer</p><p><em>Nälkäpeli koukuttaa.</em> - Stephen King</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "",
-              "author_str": "Collins, Suzanne"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 5800,
-            "title": "Nälkäpeli",
-            "subtitle": "",
-            "pubyear": 2009,
-            "editionnum": 3,
-            "version": 1,
-            "isbn": "978-951-0-35986-0",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 389,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "3.painos: WSOY pokkari. WSOY 2009. ",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Herbert_Frank_Dyyni_ensimmainenosa_4p.jpg",
                 "id": 9604,
                 "image_src": "/static/images/books/Herbert_Frank_Dyyni_ensimmainenosa_4p.jpg",
@@ -78416,6 +78417,49 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "4.painos: WSOY-pokkari. WSOY 2010. https://kansalliskirjasto.finna.fi/Record/fikka.4116873",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Collins_Suzanne_Nalkapeli_3p.jpg",
+                "id": 3647,
+                "image_src": "/static/images/books/Collins_Suzanne_Nalkapeli_3p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 5012,
+              "title": "Nälkäpeli",
+              "subtitle": "",
+              "orig_title": "The Hunger Games",
+              "pubyear": 2008,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
+              "misc": "",
+              "description": "<p>TÄLTÄKÖ NÄYTTÄÄ TULEVAISUUDEN MAAILMA?</p><p>Luonnonkatastrofit, kuivuus, myrskyt, tulipalot ja tulvat nielivät suuren osan Pohjois-Amerikasta. Loput hävitti jäljelle jääneestä ruoasta käyty sota. Raunioista syntyi Panem. Sen kansalaiset nousivat kapinaan hallitsijoitaan vastaan, mutta hävisivät taistelun. Rangaistukseksi kehitettiin nälkäpeli. Siinä nuoret pakotetaan vaativiin olosuhteisiin luonnonalueelle, jossa heidän on tapettava toisensa. Viimeinen hengissä selviytyjä on pelin voittaja.</p><p><em>Nälkäpeli</em>-trilogian ensimmäisessä osassa 16-vuotiaan Katniss Everdeenin kyvyt joutuvat koetukselle. Hän ilmoittautuu peliin vapaaehtoiseksi pelastaakseen pikkusiskonsa, jonka epäonneksi arpa lankeaa...</p><p><em>Nälkäpeli on suurenmoinen</em>. - Stephenie Meyer</p><p><em>Nälkäpeli koukuttaa.</em> - Stephen King</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "",
+              "author_str": "Collins, Suzanne"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 5800,
+            "title": "Nälkäpeli",
+            "subtitle": "",
+            "pubyear": 2009,
+            "editionnum": 3,
+            "version": 1,
+            "isbn": "978-951-0-35986-0",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 389,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "3.painos: WSOY pokkari. WSOY 2009. ",
             "verified": false
           },
           {
@@ -84477,49 +84521,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/King_Stephen_Kirjoittamisesta_2p.jpg",
-                "id": 7584,
-                "image_src": "/static/images/books/King_Stephen_Kirjoittamisesta_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3661,
-              "title": "Kirjoittamisesta",
-              "subtitle": "muistelmia leipätyöstä",
-              "orig_title": "On Writing. A Memoir of the Craft",
-              "pubyear": 2000,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Kirjoittamisesta</b>. (On Writing. A Memoir of the Craft, 2000). Suom Ilkka Rekiaro. Runot suom Riku Juuti. Tammi 2000. [eiSF].",
-              "author_str": "King, Stephen"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8684,
-            "title": "Kirjoittamisesta",
-            "subtitle": "muistelmia leipätyöstä",
-            "pubyear": 2006,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "952-459-693-8",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 272,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "Runot suom Riku Juuti.",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Tolkien_JRR_Sormuksenritarit_2l2p.jpg",
                 "id": 3073,
                 "image_src": "/static/images/books/Tolkien_JRR_Sormuksenritarit_2l2p.jpg",
@@ -84906,6 +84907,49 @@
             "dustcover": 1,
             "coverimage": 1,
             "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/King_Stephen_Kirjoittamisesta_2p.jpg",
+                "id": 7584,
+                "image_src": "/static/images/books/King_Stephen_Kirjoittamisesta_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3661,
+              "title": "Kirjoittamisesta",
+              "subtitle": "muistelmia leipätyöstä",
+              "orig_title": "On Writing. A Memoir of the Craft",
+              "pubyear": 2000,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Kirjoittamisesta</b>. (On Writing. A Memoir of the Craft, 2000). Suom Ilkka Rekiaro. Runot suom Riku Juuti. Tammi 2000. [eiSF].",
+              "author_str": "King, Stephen"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8684,
+            "title": "Kirjoittamisesta",
+            "subtitle": "muistelmia leipätyöstä",
+            "pubyear": 2006,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "952-459-693-8",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 272,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "Runot suom Riku Juuti.",
             "imported_string": "",
             "verified": false
           },
@@ -85580,6 +85624,49 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Golding_William_Karpastenherra_2000.jpg",
+                "id": 7428,
+                "image_src": "/static/images/books/Golding_William_Karpastenherra_2000.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2648,
+              "title": "Kärpästen herra",
+              "subtitle": "",
+              "orig_title": "Lord of the Flies",
+              "pubyear": 1954,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><strong>Nobelistin kuvaus ihmisen julmuudesta</strong></p><p>Toisen maailmansodan aikana joukko englantilaisia koulupoikia pelastuu alasammutusta lentokoneesta autiolle Tyynen meren saarelle. Kun sivistyksen pinta alkaa murentua, hyvinkasvatetut koulupojat muuttuvat villi-ihmisiksi, joiden maailmaa hallitsevat väkivalta ja pelko.</p><p>Sir William Goldingin klassinen romaani ilmestyi vuonna 1954 ja on Nobelin kirjallisuudenpalkinnon saaneen kirjailijan tuotannon huippu.</p>",
+              "descr_attr": null,
+              "imported_string": "\n<b>Kärpästen herra</b>. (Lord of the Flies, 1954). Suom Juhana Perkki. Moderneja kirjailijoita -sarja. Otava 1960. [SF,rajatap].",
+              "author_str": "Golding, William"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 3051,
+            "title": "Kärpästen herra",
+            "subtitle": "",
+            "pubyear": 2000,
+            "editionnum": null,
+            "version": 1,
+            "isbn": "951-1-16871-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 264,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "\n\n?.painos: Seven -sarja. Otava 2000.",
             "verified": false
           },
           {
@@ -88405,49 +88492,6 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "2.painos: Seven. Otava 2003.",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Golding_William_Karpastenherra_2000.jpg",
-                "id": 7428,
-                "image_src": "/static/images/books/Golding_William_Karpastenherra_2000.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2648,
-              "title": "Kärpästen herra",
-              "subtitle": "",
-              "orig_title": "Lord of the Flies",
-              "pubyear": 1954,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p><strong>Nobelistin kuvaus ihmisen julmuudesta</strong></p><p>Toisen maailmansodan aikana joukko englantilaisia koulupoikia pelastuu alasammutusta lentokoneesta autiolle Tyynen meren saarelle. Kun sivistyksen pinta alkaa murentua, hyvinkasvatetut koulupojat muuttuvat villi-ihmisiksi, joiden maailmaa hallitsevat väkivalta ja pelko.</p><p>Sir William Goldingin klassinen romaani ilmestyi vuonna 1954 ja on Nobelin kirjallisuudenpalkinnon saaneen kirjailijan tuotannon huippu.</p>",
-              "descr_attr": null,
-              "imported_string": "\n<b>Kärpästen herra</b>. (Lord of the Flies, 1954). Suom Juhana Perkki. Moderneja kirjailijoita -sarja. Otava 1960. [SF,rajatap].",
-              "author_str": "Golding, William"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 3051,
-            "title": "Kärpästen herra",
-            "subtitle": "",
-            "pubyear": 2000,
-            "editionnum": null,
-            "version": 1,
-            "isbn": "951-1-16871-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 264,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "\n\n?.painos: Seven -sarja. Otava 2000.",
             "verified": false
           },
           {
@@ -93102,49 +93146,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Sisatto_Vesa_Matkapostimerkkienmaahan_1p.jpg",
-                "id": 1258,
-                "image_src": "/static/images/books/Sisatto_Vesa_Matkapostimerkkienmaahan_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1140,
-              "title": "Matka Postimerkkien maahan",
-              "subtitle": "",
-              "orig_title": "Matka Postimerkkien maahan",
-              "pubyear": 2010,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p><strong>Kotibileet vai kriisipalaveri toisessa ulottuvuudessa?</strong></p><p>15-vuotiaalla Juholla on ongelma: kuinka valloittaa luokan ihanin tyttö, Noora? Toistaiseksi ujohko poika on tyytynyt hiomaan hurmausstrategiaa ja haaveilemaan ihastuksestaan kotona postimerkkiensä ääressä.</p><p>Kun Juho perii vanhan postimerkkikansion ja suurennuslasin, hän löytää itsensä yhtäkkiä Filatelikasta, Postimerkkien maasta. Samalla pojalle lankeaa tehtävä. Hänen täytyy pelastaa Filatelika tuhoisalta sumulta, joka uhkaa koko sen olemassaoloa.</p><p>Sankaritekojen sijaan Juho haluaisi keskittyä kotibileisiin, jotka hän on luvannut järjestää tehdäkseen Nooraan vaikutuksen. Kesken juhlien Juhon on kuitenkin pakko lähteä pelastusretkelle oikukkaiden hallitsijoiden ja vaarallisten petojen täyttämään maahan. Onneksi mukaan lähtee myös Juhon lapsuudenystävä Emmi.</p><p>Vesa Sisättö on aiemmin kirjoittanut tietokirjoja ja kokoelman nuorten kummitustarinoita. <em>Matka Postimerkkien maahan</em> on hänen esikoisromaaninsa, jossa postimerkkeilyharrastus toden totta avaa ovia uusiin maailmoihin.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n\n<b>Matka Postimerkkien maahan</b>. Tammi 2010. [nF].",
-              "author_str": "Sisättö, Vesa"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 1328,
-            "title": "Matka Postimerkkien maahan",
-            "subtitle": "",
-            "pubyear": 2010,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-951-31-5694-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 198,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "",
-            "imported_string": "<b>Matka Postimerkkien maahan</b>. Tammi 2010. [nF].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Hirvonen_Hannu_Tuonenkehraajat_1p.jpg",
                 "id": 3637,
                 "image_src": "/static/images/books/Hirvonen_Hannu_Tuonenkehraajat_1p.jpg",
@@ -93183,6 +93184,49 @@
             "coverimage": 3,
             "misc": null,
             "imported_string": "<b>Tuonenkehrääjät</b>. Tammi 2010. [nF].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Sisatto_Vesa_Matkapostimerkkienmaahan_1p.jpg",
+                "id": 1258,
+                "image_src": "/static/images/books/Sisatto_Vesa_Matkapostimerkkienmaahan_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1140,
+              "title": "Matka Postimerkkien maahan",
+              "subtitle": "",
+              "orig_title": "Matka Postimerkkien maahan",
+              "pubyear": 2010,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><strong>Kotibileet vai kriisipalaveri toisessa ulottuvuudessa?</strong></p><p>15-vuotiaalla Juholla on ongelma: kuinka valloittaa luokan ihanin tyttö, Noora? Toistaiseksi ujohko poika on tyytynyt hiomaan hurmausstrategiaa ja haaveilemaan ihastuksestaan kotona postimerkkiensä ääressä.</p><p>Kun Juho perii vanhan postimerkkikansion ja suurennuslasin, hän löytää itsensä yhtäkkiä Filatelikasta, Postimerkkien maasta. Samalla pojalle lankeaa tehtävä. Hänen täytyy pelastaa Filatelika tuhoisalta sumulta, joka uhkaa koko sen olemassaoloa.</p><p>Sankaritekojen sijaan Juho haluaisi keskittyä kotibileisiin, jotka hän on luvannut järjestää tehdäkseen Nooraan vaikutuksen. Kesken juhlien Juhon on kuitenkin pakko lähteä pelastusretkelle oikukkaiden hallitsijoiden ja vaarallisten petojen täyttämään maahan. Onneksi mukaan lähtee myös Juhon lapsuudenystävä Emmi.</p><p>Vesa Sisättö on aiemmin kirjoittanut tietokirjoja ja kokoelman nuorten kummitustarinoita. <em>Matka Postimerkkien maahan</em> on hänen esikoisromaaninsa, jossa postimerkkeilyharrastus toden totta avaa ovia uusiin maailmoihin.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n\n<b>Matka Postimerkkien maahan</b>. Tammi 2010. [nF].",
+              "author_str": "Sisättö, Vesa"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 1328,
+            "title": "Matka Postimerkkien maahan",
+            "subtitle": "",
+            "pubyear": 2010,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-31-5694-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 198,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
+            "imported_string": "<b>Matka Postimerkkien maahan</b>. Tammi 2010. [nF].",
             "verified": false
           },
           {
@@ -103711,49 +103755,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Gaiman_Neil_Aarteitajamuistoesineita_1p.jpg",
-                "id": 1617,
-                "image_src": "/static/images/books/Gaiman_Neil_Aarteitajamuistoesineita_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2569,
-              "title": "Aarteita ja muistoesineitä",
-              "subtitle": "",
-              "orig_title": "Valikoima alkuteoksesta Fragile Things",
-              "pubyear": 2006,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p>Neil Gaiman on tarinankerronnan mestari, jonka mielikuvitus luo toinen toistaan kummallisempia visioita arkipäivän keskelle. Hugo-palkittu salapoliisitarina Suurista Muinaisista, salakapakassa kerrottu hätkähdyttävä kummitustarina, akateemisten konferenssien kustannuksella pilaileva zombikertomus ja <em>Unohdettujen jumalien</em> maailmaan sijoittuva myyttinen pienoisromaani ovat vain esimerkkejä tarinoiden monipuolisuudesta. Yhdistävä tekijä on mukaansatempaavuus – kuten Stephen King asian ilmaisi: \"Gaiman on tarinoiden aarreaitta\".</p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "author_str": "Gaiman, Neil"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 2945,
-            "title": "Aarteita ja muistoesineitä",
-            "subtitle": "",
-            "pubyear": 2007,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-99268-9-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 213,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Waldrop_MusiikkiaMiesaanille_p1.jpg",
                 "id": 8515,
                 "image_src": "/static/images/books/Waldrop_MusiikkiaMiesaanille_p1.jpg",
@@ -103802,6 +103803,49 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "\n<a href='\"novkok/wal-mm.htm\"'>\n<b>Musiikkia miesäänille ja lentäville lautasille</b></a>. (Valikoima alkuteoksista Howard Who, 1986 ja All About Strange Monsters of the Recent Past, 1987). Suom Jan Hlinovsky. Kustannusosakeyhtiö Kirjava 2007. [SF,kok].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Gaiman_Neil_Aarteitajamuistoesineita_1p.jpg",
+                "id": 1617,
+                "image_src": "/static/images/books/Gaiman_Neil_Aarteitajamuistoesineita_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2569,
+              "title": "Aarteita ja muistoesineitä",
+              "subtitle": "",
+              "orig_title": "Valikoima alkuteoksesta Fragile Things",
+              "pubyear": 2006,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p>Neil Gaiman on tarinankerronnan mestari, jonka mielikuvitus luo toinen toistaan kummallisempia visioita arkipäivän keskelle. Hugo-palkittu salapoliisitarina Suurista Muinaisista, salakapakassa kerrottu hätkähdyttävä kummitustarina, akateemisten konferenssien kustannuksella pilaileva zombikertomus ja <em>Unohdettujen jumalien</em> maailmaan sijoittuva myyttinen pienoisromaani ovat vain esimerkkejä tarinoiden monipuolisuudesta. Yhdistävä tekijä on mukaansatempaavuus – kuten Stephen King asian ilmaisi: \"Gaiman on tarinoiden aarreaitta\".</p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "author_str": "Gaiman, Neil"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 2945,
+            "title": "Aarteita ja muistoesineitä",
+            "subtitle": "",
+            "pubyear": 2007,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-99268-9-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 213,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": "",
             "verified": false
           },
           {

@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/nationalitycounts",
@@ -160,7 +160,7 @@
         "nationality": "Iso-Britannia",
         "genres": {
           "F": {
-            "Kirjoittaja": 158,
+            "Kirjoittaja": 157,
             "Toimittaja": 3,
             "Esiintyy": 4
           },
@@ -200,7 +200,7 @@
             "Kirjoittaja": 4
           },
           "satu": {
-            "Kirjoittaja": 4
+            "Kirjoittaja": 5
           },
           "eiSF": {
             "Kirjoittaja": 4,
@@ -217,7 +217,7 @@
             "Toimittaja": 3
           },
           "lF": {
-            "Kirjoittaja": 39,
+            "Kirjoittaja": 40,
             "Toimittaja": 2
           },
           "R": {

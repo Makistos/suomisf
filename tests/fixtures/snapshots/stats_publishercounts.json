@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/publishercounts",
@@ -96,13 +96,13 @@
           "nSF": 29,
           "nK": 21,
           "lSF": 1,
-          "satu": 1,
+          "satu": 2,
           "eiSF": 28,
           "rajatap": 17,
           "kok": 24,
-          "lF": 31
+          "lF": 32
         },
-        "total": 691
+        "total": 692
       },
       {
         "id": 76,
@@ -181,7 +181,7 @@
         "name": "Kirjayhtymä",
         "fullname": "Kirjayhtymä",
         "genres": {
-          "F": 32,
+          "F": 35,
           "K": 2,
           "PF": 4,
           "SF": 103,
@@ -192,7 +192,7 @@
           "rajatap": 4,
           "kok": 20
         },
-        "total": 150
+        "total": 153
       },
       {
         "id": 19,
@@ -216,8 +216,8 @@
         "name": "Muut",
         "fullname": null,
         "genres": {
-          "F": 1163,
-          "K": 504,
+          "F": 1162,
+          "K": 505,
           "Paleof": 28,
           "PF": 40,
           "SF": 1067,
@@ -227,15 +227,15 @@
           "nSF": 92,
           "nK": 86,
           "lSF": 10,
-          "satu": 2,
+          "satu": 4,
           "rajatap": 58,
           "lasten kuvakirja": 9,
           "kok": 471,
-          "lF": 178,
+          "lF": 180,
           "R": 31,
           "eiSF": 44
         },
-        "total": 3438
+        "total": 3439
       }
     ],
     "error": null

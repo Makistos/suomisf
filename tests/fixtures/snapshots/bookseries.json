@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-13T20:27:44.247968+00:00",
+    "generated_at": "2026-10-14T21:08:34.705434+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/bookseries",
@@ -7875,7 +7875,7 @@
           },
           {
             "id": 1296,
-            "title": "Mitä mielessä, muumio? ",
+            "title": "Mitä mielessä, muumio?",
             "subtitle": "",
             "orig_title": "Goosebumps HorrorLand #6, Who's Your Mummy?",
             "pubyear": 2008,
@@ -13229,20 +13229,6 @@
             "author_str": "Le Guin, Ursula K."
           },
           {
-            "id": 3974,
-            "title": "Maameren tarinat 1-3",
-            "subtitle": "",
-            "orig_title": "A Wizard of Earthsea, 1968; The Tombs of Atuan, 1971; The Farthest Shore",
-            "pubyear": 1972,
-            "bookseriesnum": "",
-            "bookseriesorder": null,
-            "misc": "",
-            "description": "<p><strong>Maameri... velhojen ja varjojen sirpaleinen saaristo... lohikäärmeiden ja labyrinttien sokkeloinen maailma</strong></p><p>Alkuperäinen <em>Maameri</em>-trilogia taas saatavana, kokonaisena yksissä kansissa!</p><p>Nuori Varpushaukka vihitään aikuiseksi ja hänestä tulee Ged, Maameren velho. Ged joutuu suuren haasteen eteen taistellessaan irtipäästämäänsä pahan varjoa vastaan.</p><p>TENAR, Nimettömien nuori ylipapitar, vartioi Atuanin Holvihautojen koskemattomuutta. Vain hän voi johdattaa Gedin labyrintin kolkkojen käytävien läpi Erreth-Akben renkaan luokse.</p><p>Kun Enladin prinssi ARREN tuo hälyttäviä uutisia läntisten velhojen hiipuvista taikavoimista, Maameren velhon on lähdettävä pitkälle purjehdukselle kohti Kaukaisinta rantaa.</p><p>URSULA K. LE GUIN on moninkertainen Hugo- ja Nebula-palkintojen voittaja. Vuosina 1968-1972 julkaistua Maameri-trilogiaa on verrattu fantasiakirjallisuuden ehdottomiin huippuihin, mm. J. R. R. Tolkienin <em>Taruun Sormusten Herrasta</em> ja C. S. Lewisin <em>Narnia</em>-tarinoihin.</p>",
-            "descr_attr": "Takakansi",
-            "imported_string": "",
-            "author_str": "Le Guin, Ursula K."
-          },
-          {
             "id": 3976,
             "title": "Maameren tarinat 5-6",
             "subtitle": "",
@@ -13266,6 +13252,20 @@
             "bookseriesorder": null,
             "misc": "",
             "description": "<p>MAAMERI... VELHOJEN JA VARJOJEN SIRPALEINEN SAARISTO... LOHIKÄÄRMEIDEN JA LABYRINTTIEN SOKKELOINEN MAAILMA</p><p>Maameren tarinoiden ensimmäisessä osassa <em>Maameren velhossa</em> nuori Varpushaukka vihitään aikuiseksi ja hänestä tulee Ged, yksi Maameren saariston mahtavista velhoista. Ged joutuu suuren haasteen eteen taistellessaan irtipäästämäänsä pahan varjoa vastaan.</p><p>Tarinoiden toinen osa <em>Atuanin Holvihaudat</em> kertoo Tenarista, Nimettömien nuoresta ylipapittaresta, joka vartioi Atuanin pyhien hautojen koskemattomuutta. Vain hän voi johdattaa Gedin labyrintin kolkkojen käytävien läpi.</p><p>Kolmannessa osassa, <em>Kaukaisin ranta,</em> Enladin prinssi Arren tuo hälyttäviä uutisia läntisten velhojen hiipuvista taikavoimista, ja arkkimaagi Gedin on lähdettävä Arrenin kanssa pitkälle purjehdukselle etsimään syytä taikuuden katoon.</p><p>Neljäs osa <em>Tehanu </em>jatkaa Gedin ja Tenarin tarinaa vuosia myöhemmin. Tenarin on autettava paitsi taikavoimansa menettänyttä Gediä myös pahan vainoamaa tyttöä, jonka tulevaisuudella on tärkeä rooli Maameren historiassa.</p><p>URSULA K. LE GUININ taianomaisen, syvää viisautta tihkuvan fantasiasarjan neljä ensimmäistä osaa on nyt koottu yksiin kansiin. Näihin kertomuksiin pohjautuva Maameren tarinat -piirroselokuva saapuu Suomeen syksyllä 2007. Palkitun Hayao Miyazakin Ghibli-studion tuottama ja Goro Miyazakin ohjaama animaatio sai Japanin-ensi-iltansa heinäkuussa 2006. Maameren tarinat oli kotimaansa katsotuin elokuva viiden viikon ajan.</p>",
+            "descr_attr": "Takakansi",
+            "imported_string": "",
+            "author_str": "Le Guin, Ursula K."
+          },
+          {
+            "id": 3974,
+            "title": "Maameren tarinat 1-3",
+            "subtitle": "",
+            "orig_title": "A Wizard of Earthsea, 1968; The Tombs of Atuan, 1971; The Farthest Shore",
+            "pubyear": 1972,
+            "bookseriesnum": "",
+            "bookseriesorder": null,
+            "misc": "",
+            "description": "<p><strong>Maameri... velhojen ja varjojen sirpaleinen saaristo... lohikäärmeiden ja labyrinttien sokkeloinen maailma</strong></p><p>Alkuperäinen <em>Maameri</em>-trilogia taas saatavana, kokonaisena yksissä kansissa!</p><p>Nuori Varpushaukka vihitään aikuiseksi ja hänestä tulee Ged, Maameren velho. Ged joutuu suuren haasteen eteen taistellessaan irtipäästämäänsä pahan varjoa vastaan.</p><p>TENAR, Nimettömien nuori ylipapitar, vartioi Atuanin Holvihautojen koskemattomuutta. Vain hän voi johdattaa Gedin labyrintin kolkkojen käytävien läpi Erreth-Akben renkaan luokse.</p><p>Kun Enladin prinssi ARREN tuo hälyttäviä uutisia läntisten velhojen hiipuvista taikavoimista, Maameren velhon on lähdettävä pitkälle purjehdukselle kohti Kaukaisinta rantaa.</p><p>URSULA K. LE GUIN on moninkertainen Hugo- ja Nebula-palkintojen voittaja. Vuosina 1968-1972 julkaistua Maameri-trilogiaa on verrattu fantasiakirjallisuuden ehdottomiin huippuihin, mm. J. R. R. Tolkienin <em>Taruun Sormusten Herrasta</em> ja C. S. Lewisin <em>Narnia</em>-tarinoihin.</p>",
             "descr_attr": "Takakansi",
             "imported_string": "",
             "author_str": "Le Guin, Ursula K."
@@ -16043,6 +16043,60 @@
       {
         "works": [
           {
+            "id": 5740,
+            "title": "Poika joka käveli vetten päällä",
+            "subtitle": "",
+            "orig_title": "Poika joka käveli vetten päällä",
+            "pubyear": 2022,
+            "bookseriesnum": "1",
+            "bookseriesorder": 1,
+            "misc": "",
+            "description": "<p><strong>Myytteihin kiedottu synkkä kasvutarina</strong></p><p>Amerikkalaisessa Saltvillen pikkukaupungissa 90-luvulla, aikana ennen älypuhelimia¨ja internetin valtakautta, lapset viettävät lomansa kesäleireillä. Niin myös 14-vuotias Daniel. Pian hänelle selviää, ettei hänen leirinsä ole mikään tavallinen kesäleiri: leirivanhemmat uskovat olevansa jumalia ja osanottajilla alkaa paljastua yliluonnollisia voimia.</p><p>Leirin päätteeksi järjestetään tulikoe, johon poikia valmistellaan lihaskunto-, itsepuolustus- ja meditaatioharjoituksin, joiden avulla he oppivat pääsemään toiseen tietoisuuteen. Siellä Daniel tapaa Dark-nimisen olion, joka ilmoittaa olevansa hänen yliluonnollisten voimiensa lähde. Hänelle alkaa valjeta, ettei heitä kouluteta puolustamaan itseään vaan hyökkäämään. Pakeneminen vaikuttaa mahdottomalta. Jopa pojalle, joka osaa kävellä veden päällä.</p><p><em>Poika joka käveli vetten päällä</em> on synkkä ja tunnelmallinen kasvutarina pojasta, joka kamppailee hallitakseen sisälleen kätkettyjä pahuuden voimia. Jännityskertomuksen tavoin etenevän tarinan keskiössä on myyttien ja mysteerien värittämä rinnakkaistodellisuus. Se on ensimmäinen osa <em>Daniel Dark</em> -trilogiassa, joka ammentaa amerikkalaisen kauhu- ja fantasiakirjallisuuden rikkaasta perinteestä.</p>",
+            "descr_attr": null,
+            "imported_string": "",
+            "author_str": "Ahnberg, Niklas"
+          },
+          {
+            "id": 5902,
+            "title": "Poika joka paransi haavat",
+            "subtitle": "",
+            "orig_title": "Poika joka paransi haavat",
+            "pubyear": 2023,
+            "bookseriesnum": "2",
+            "bookseriesorder": 2,
+            "misc": "",
+            "description": "<p><em>”Tämä ei tule menemään kuten luulet Daniel.”</em></p><p>Paettuaan Saltvillen leiriltä Daniel aloittaa uuden elämän Japanin Osakassa. Hän viettää kaksi vuotta turvallisten rutiinien ja japanin kielen opiskelun parissa. Leiriläiset ovat kuitenkin hänen perässään. Eri puolilla maailmaa tehdään tuhoisia terrori-iskuja, ja epävarmuus ja kaaos leviävät myös Japaniin.</p><p>Daniel aloittaa taistelukoulutuksen adoptioisänsä Ojiisanin ohjauksessa. Samalla hän tutustuu tämän lapsenlapsiin ja tuntee ensimmäistä kertaa kuuluvansa oikeaan perheeseen. Vanhan elämän haamut eivät kuitenkaan suostu päästämään irti Danielista, ja lopulta hänen on kohdattava omat pelkonsa ja pimeys niiden takana.</p><p><em>Poika joka paransi haavat</em> on <em>Daniel Dark</em> -trilogian toinen osa.</p><p>Niklas Ahnberg on pelialalla työskentelevä espoolainen kirjailija. Nuorena hän söi kokonaisen vuoden pelkillä syömäpuikoilla ja suostui katsomaan telkkarista vain japanilaista animea ja lukemaan mangaa. <em>Poika joka paransi haavat</em> -teos on kirjoitettu osin Osakan Matsubarassa.</p>",
+            "descr_attr": null,
+            "imported_string": "",
+            "author_str": "Ahnberg, Niklas"
+          },
+          {
+            "id": 6348,
+            "title": "Poika joka nousi kuolleista",
+            "subtitle": "",
+            "orig_title": "",
+            "pubyear": 2024,
+            "bookseriesnum": "3",
+            "bookseriesorder": 3,
+            "misc": "",
+            "description": "<p><strong><em>“Luulin, ettet enää voi satuttaa minua enempää, mutta olin väärässä.”</em></strong></p><p>Danielin kuoleman jälkeen Sage Walter on yrittänyt jatkaa elämää. Muistot kahden vuoden takaisesta verilöylystä eivät kuitenkaan jätä häntä rauhaan. Myös Danielin vanhat ystävät tuntevat patriarkan puhdistuskirkon uhan entistä painokkaampana. Mitä enemmän he pyristelevät lahkoa vastaan, sitä tiukemmin sen lonkerot kietoutuvat heidän ympärilleen.</p><p>Kun Theron eräänä päivänä törmää Danieliin ilmielävänä, tajuaa hän kohdanneensa kuolleista nousseen messiaan. Ylösnoussut Daniel näyttää vanhoille ystävilleen kuolemanjälkeisessä maailmassa kulkemansa tien. Sitä seuraten he voivat kukistaa pahuuden, hän vakuuttaa. Taistelutaitojen lisäksi heidän on kuitenkin opittava luottamaan taikuudesta väkevimpään: ystävyyden voimaan.</p><p><em>Poika joka nousi kuolleista</em> on <em>Daniel Dark -trilogian</em> päätösosa. Sarjan kaksi ensimmäistä osaa, <em>Poika joka käveli vetten päällä</em> ja <em>Poika joka paransi haavat</em>, ovat kirvoittaneet innostusta vahvojen fantasiatarinoiden ja kauhuelementtien ystävissä.</p><p>Niklas Ahnberg on vuonna 1983 syntynyt helsinkiläinen kirjailija, jonka leipätyö on pelialalla. Daniel Dark -trilogian edelliset osat ovat <em>Poika joka käveli vetten päällä</em> ja <em>Poika joka paransi haavat</em>.</p>",
+            "descr_attr": "",
+            "imported_string": null,
+            "author_str": "Ahnberg, Niklas"
+          }
+        ],
+        "partof": null,
+        "id": 600,
+        "name": "Daniel Dark -trilogia",
+        "orig_name": "Daniel Dark  -trilogia",
+        "description": null,
+        "important": false,
+        "image_src": null,
+        "image_attr": null
+      },
+      {
+        "works": [
+          {
             "id": 5291,
             "title": "Myrskynvartijan saari",
             "subtitle": "",
@@ -16051,8 +16105,8 @@
             "bookseriesnum": "1",
             "bookseriesorder": 1,
             "misc": "",
-            "description": null,
-            "descr_attr": null,
+            "description": "<p><em>Taianomaisen Myrskynvartija-sarjan ensimmäinen osa</em></p><p>On tavattoman vaikea uskoa taikavoimiin ennen kuin ne tarttuvat kiinni hartioista ja ravistelevat hereille.</p><p>Kerran sukupolvessa Arranmoren saari valitsee itselleen uuden Myrskynvartijan, jonka tehtävänä on käyttää saaren voimaa ja suojella sen taikaa vihollisilta. Fionnin salamyhkäisen isoisän on tullut aika luopua tehtävästään. Pian saari saisi uuden Vartijan.</p><p>Kun maan päällä kamppaillaan saaren herruudesta, pinnan alla heräilevät synkät taikavoimat, jotka pyrkivät lietsomaan muinaisen sodan uuteen liekkiin.</p><p>SAARI, joka ei koskaan unohda. TARINA, jonka muistat ikuisesti.</p>",
+            "descr_attr": "Takakansi",
             "imported_string": "",
             "author_str": "Doyle, Catherine"
           },
@@ -20495,8 +20549,8 @@
             "bookseriesnum": "2",
             "bookseriesorder": 2,
             "misc": "",
-            "description": null,
-            "descr_attr": null,
+            "description": "<p>Maailma on tarina. Sillä on alku ja loppu. Se on kaikkeuden laulu, jota vanhat mahdit vartioivat. Sinä olet muuttanut tarinaa, mutta et niin, etteivätkö mahdit sitä pystyisi paikkaamaan. Sinä olet vain pieni harha-ajatus yhdellä sivulla, huomaamaton väärä sävel tässä laulussa.</p><p>Helena Waris loihtii maagisesti eloon muinaissuomalaisen maiseman, jota hallitsevat vanhat mahdit ja ikiaikainen rakkaus.</p>",
+            "descr_attr": "Takakansi",
             "imported_string": "",
             "author_str": "Waris, Helena"
           },
@@ -31708,7 +31762,7 @@
             "title": "Taikaruusun maa",
             "subtitle": "",
             "orig_title": "W.I.T.C.H. - Den oprindelige rose",
-            "pubyear": 2007,
+            "pubyear": 2006,
             "bookseriesnum": "16",
             "bookseriesorder": 16,
             "misc": "",
@@ -33834,7 +33888,7 @@
         "works": [
           {
             "id": 5384,
-            "title": " Viides vuodenaika",
+            "title": "Viides vuodenaika",
             "subtitle": "",
             "orig_title": "The Fifth Season",
             "pubyear": 2015,
@@ -36670,7 +36724,7 @@
         "works": [
           {
             "id": 5656,
-            "title": " Be cool",
+            "title": "Be cool",
             "subtitle": "",
             "orig_title": " Be cool",
             "pubyear": 2020,
@@ -36806,7 +36860,7 @@
           },
           {
             "id": 5681,
-            "title": " Isadora Kuu retkeilee",
+            "title": "Isadora Kuu retkeilee",
             "subtitle": "",
             "orig_title": "Isadora Moon Goes Camping",
             "pubyear": 2016,
@@ -39413,60 +39467,6 @@
       {
         "works": [
           {
-            "id": 5740,
-            "title": "Poika joka käveli vetten päällä",
-            "subtitle": "",
-            "orig_title": "Poika joka käveli vetten päällä",
-            "pubyear": 2022,
-            "bookseriesnum": "1",
-            "bookseriesorder": 1,
-            "misc": "",
-            "description": "<p><strong>Myytteihin kiedottu synkkä kasvutarina</strong></p><p>Amerikkalaisessa Saltvillen pikkukaupungissa 90-luvulla, aikana ennen älypuhelimia¨ja internetin valtakautta, lapset viettävät lomansa kesäleireillä. Niin myös 14-vuotias Daniel. Pian hänelle selviää, ettei hänen leirinsä ole mikään tavallinen kesäleiri: leirivanhemmat uskovat olevansa jumalia ja osanottajilla alkaa paljastua yliluonnollisia voimia.</p><p>Leirin päätteeksi järjestetään tulikoe, johon poikia valmistellaan lihaskunto-, itsepuolustus- ja meditaatioharjoituksin, joiden avulla he oppivat pääsemään toiseen tietoisuuteen. Siellä Daniel tapaa Dark-nimisen olion, joka ilmoittaa olevansa hänen yliluonnollisten voimiensa lähde. Hänelle alkaa valjeta, ettei heitä kouluteta puolustamaan itseään vaan hyökkäämään. Pakeneminen vaikuttaa mahdottomalta. Jopa pojalle, joka osaa kävellä veden päällä.</p><p><em>Poika joka käveli vetten päällä</em> on synkkä ja tunnelmallinen kasvutarina pojasta, joka kamppailee hallitakseen sisälleen kätkettyjä pahuuden voimia. Jännityskertomuksen tavoin etenevän tarinan keskiössä on myyttien ja mysteerien värittämä rinnakkaistodellisuus. Se on ensimmäinen osa <em>Daniel Dark</em> -trilogiassa, joka ammentaa amerikkalaisen kauhu- ja fantasiakirjallisuuden rikkaasta perinteestä.</p>",
-            "descr_attr": null,
-            "imported_string": "",
-            "author_str": "Ahnberg, Niklas"
-          },
-          {
-            "id": 5902,
-            "title": "Poika joka paransi haavat",
-            "subtitle": "",
-            "orig_title": "Poika joka paransi haavat",
-            "pubyear": 2023,
-            "bookseriesnum": "2",
-            "bookseriesorder": 2,
-            "misc": "",
-            "description": "<p><em>”Tämä ei tule menemään kuten luulet Daniel.”</em></p><p>Paettuaan Saltvillen leiriltä Daniel aloittaa uuden elämän Japanin Osakassa. Hän viettää kaksi vuotta turvallisten rutiinien ja japanin kielen opiskelun parissa. Leiriläiset ovat kuitenkin hänen perässään. Eri puolilla maailmaa tehdään tuhoisia terrori-iskuja, ja epävarmuus ja kaaos leviävät myös Japaniin.</p><p>Daniel aloittaa taistelukoulutuksen adoptioisänsä Ojiisanin ohjauksessa. Samalla hän tutustuu tämän lapsenlapsiin ja tuntee ensimmäistä kertaa kuuluvansa oikeaan perheeseen. Vanhan elämän haamut eivät kuitenkaan suostu päästämään irti Danielista, ja lopulta hänen on kohdattava omat pelkonsa ja pimeys niiden takana.</p><p><em>Poika joka paransi haavat</em> on <em>Daniel Dark</em> -trilogian toinen osa.</p><p>Niklas Ahnberg on pelialalla työskentelevä espoolainen kirjailija. Nuorena hän söi kokonaisen vuoden pelkillä syömäpuikoilla ja suostui katsomaan telkkarista vain japanilaista animea ja lukemaan mangaa. <em>Poika joka paransi haavat</em> -teos on kirjoitettu osin Osakan Matsubarassa.</p>",
-            "descr_attr": null,
-            "imported_string": "",
-            "author_str": "Ahnberg, Niklas"
-          },
-          {
-            "id": 6348,
-            "title": "Poika  joka nousi kuolleista",
-            "subtitle": "",
-            "orig_title": "",
-            "pubyear": 2024,
-            "bookseriesnum": "3",
-            "bookseriesorder": 3,
-            "misc": "",
-            "description": "<p><strong><em>“Luulin, ettet enää voi satuttaa minua enempää, mutta olin väärässä.”</em></strong></p><p>Danielin kuoleman jälkeen Sage Walter on yrittänyt jatkaa elämää. Muistot kahden vuoden takaisesta verilöylystä eivät kuitenkaan jätä häntä rauhaan. Myös Danielin vanhat ystävät tuntevat patriarkan puhdistuskirkon uhan entistä painokkaampana. Mitä enemmän he pyristelevät lahkoa vastaan, sitä tiukemmin sen lonkerot kietoutuvat heidän ympärilleen.</p><p>Kun Theron eräänä päivänä törmää Danieliin ilmielävänä, tajuaa hän kohdanneensa kuolleista nousseen messiaan. Ylösnoussut Daniel näyttää vanhoille ystävilleen kuolemanjälkeisessä maailmassa kulkemansa tien. Sitä seuraten he voivat kukistaa pahuuden, hän vakuuttaa. Taistelutaitojen lisäksi heidän on kuitenkin opittava luottamaan taikuudesta väkevimpään: ystävyyden voimaan.</p><p><em>Poika joka nousi kuolleista</em> on <em>Daniel Dark -trilogian</em> päätösosa. Sarjan kaksi ensimmäistä osaa, <em>Poika joka käveli vetten päällä</em> ja <em>Poika joka paransi haavat</em>, ovat kirvoittaneet innostusta vahvojen fantasiatarinoiden ja kauhuelementtien ystävissä.</p><p>Niklas Ahnberg on vuonna 1983 syntynyt helsinkiläinen kirjailija, jonka leipätyö on pelialalla. Daniel Dark -trilogian edelliset osat ovat <em>Poika joka käveli vetten päällä</em> ja <em>Poika joka paransi haavat</em>.</p>",
-            "descr_attr": "",
-            "imported_string": null,
-            "author_str": "Ahnberg, Niklas"
-          }
-        ],
-        "partof": null,
-        "id": 600,
-        "name": "Daniel Dark  -trilogia",
-        "orig_name": "Daniel Dark  -trilogia",
-        "description": null,
-        "important": false,
-        "image_src": null,
-        "image_attr": null
-      },
-      {
-        "works": [
-          {
             "id": 5905,
             "title": "Candoran sauva",
             "subtitle": "",
@@ -41324,8 +41324,8 @@
             "bookseriesnum": "2",
             "bookseriesorder": 2,
             "misc": "",
-            "description": "",
-            "descr_attr": "",
+            "description": "<p><span style=\"color: rgb(40, 40, 40); background-color: rgb(255, 255, 255);\">Elämä on seikkailu. Kaikki on maailmassa mahdollista, kun on tahtoa ja onnea, mehevä porkkana, tarkka nenä ja ripaus hullunrohkeutta! </span></p><p><span style=\"color: rgb(40, 40, 40); background-color: rgb(255, 255, 255);\">Pikkuruinen Sulo Ruskeahäntä on ylpeä Lontoon kuninkaallisten kanien jäsenyydestään. Järjestön, joka asuu Buckinghamin palatsin alla ja taistelee pahaa vastaan ympäri maailman. Mutta ylhäällä Lontoon kuuluisassa pilvenpiirtäjässä kammottavat Ratsit juonivat pahojaan aiheuttaakseen kaaoksen Yhdysvaltain presidentin vierailun aikana. Kun Sulo kidnapataan, näyttää siltä kuin ne onnistuisivat! Pääseekö Sulo ajoissa pakoon pelastaakseen vierailun?</span></p><p><em style=\"color: rgb(40, 40, 40); background-color: rgb(255, 255, 255);\">Hobitti, Ruohometsän kansa</em><span style=\"color: rgb(40, 40, 40); background-color: rgb(255, 255, 255);\"> ja </span><em style=\"color: rgb(40, 40, 40); background-color: rgb(255, 255, 255);\">Fantastic Mr. Fox</em><span style=\"color: rgb(40, 40, 40); background-color: rgb(255, 255, 255);\"> yhdistyvät tässä hurmaavassa sadussa, joka todistaa, että pienin kani voi olla suurin sankari. Kirjan on kuvittanut Kate Hindley.</span></p>",
+            "descr_attr": "Sitruuna Kustannus",
             "imported_string": null,
             "author_str": "Montefiore, Santa & Sebag Montefiore, Simon"
           },
@@ -41352,8 +41352,8 @@
             "bookseriesnum": "4",
             "bookseriesorder": 4,
             "misc": "",
-            "description": "",
-            "descr_attr": "",
+            "description": "<p><span style=\"background-color: rgb(255, 255, 255); color: rgb(40, 40, 40);\">Sulo Ruskeahännän elämä Lontoon kuninkaallisten kanien jäsenenä on täynnä seikkailuja, mutta koti-ikävä vaivaa välillä. Siispä Sulo lähtee käymään kotipesässä, kun tilaisuus siihen tulee. Kun Sulo saapuu kotiin, se huomaa jotain outoa olevan meneillään. Salaperäinen Harlekiiniksi kutsuttu kaninuorukainen on maatilalla. Harlekiini haluaa Kultaisen porkkanan, joka muinaisen legendan mukaan antaa omistajalleen yli-inhimillisiä ja -eläimellisiä voimia. Harlekiini uskoo porkkanan olevan maatilalla. Sulo joutuu pohtimaan, onko Kultaisen porkkanan metsästys vain hauska peli vai juoniiko Harlekiini maailman valloitusta.</span></p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(40, 40, 40);\">Kun porkkanan metsästys muuttuu vaaralliseksi, Sulo kutsuu avuksi Lontoon kuninkaalliset kanit. Pystyvätkö ne pysäyttämään Harlekiinin? Ja kuka löytää Kultaisen porkkanan ensin?</span></p><p><em style=\"background-color: rgb(255, 255, 255); color: rgb(40, 40, 40);\">Kultaisen porkkanan metsästys</em><span style=\"background-color: rgb(255, 255, 255); color: rgb(40, 40, 40);\"> on Lontoon kuninkaalliset kanit -sarjan neljäs osa.</span></p><p><br></p>",
+            "descr_attr": "Sitruuna Kustannus",
             "imported_string": null,
             "author_str": "Montefiore, Santa & Sebag Montefiore, Simon"
           }
@@ -41432,10 +41432,10 @@
             "bookseriesnum": "2",
             "bookseriesorder": 2,
             "misc": "",
-            "description": "",
-            "descr_attr": "",
+            "description": "<p>Uusi <em>Lemmikkifrendit </em>-sarja jatkuu rinnakkain <em>Pet Agents</em> -kirjojen ohessa.</p><p>Omasta koiranpennusta haaveilevan Kati-en elämä menee raiteiltaan, kun pikku eläinkauppa, jossa hän on käynyt auttamassa, lopettaa toimintansa. Niinpä Kati-e päättää perustaa oman lemmikkipalvelun, jonka tehtävistä yksi mullistaa kaiken – hän päätyy neljän koiranpennun hoivaajaksi!</p><p><em>Lemmikkifrendit </em>on <em>Pet Agentsin</em> helppolukuisempi rinnakkaissarja, joka kertoo miten Kati-en ja Ti-botin agenttikaksikko sai alkunsa ja ratkaisi ensimmäiset tehtävänsä.</p>",
+            "descr_attr": "Tammi",
             "imported_string": null,
-            "author_str": "Vacklin, Anders & Kaarla, Sami & Kaarla, Riina"
+            "author_str": "Vacklin, Anders & Kaarla, Riina & Kaarla, Sami"
           },
           {
             "id": 6094,
@@ -41446,10 +41446,10 @@
             "bookseriesnum": "3",
             "bookseriesorder": 3,
             "misc": "",
-            "description": "",
-            "descr_attr": "",
+            "description": "<p><em>Lemmikkifrendit</em>-sarja jatkuu rinnakkain <em>Pet Agents</em> -kirjojen ohessa.</p><p>Kolmannessa Lemmikkifrendit-kirjassa lapset ja Mi-bot-robotti etsivät koteja Kati-en hoitokoiranpennuille. Siinä sivussa he törmäävät karanneeseen papukaijaan, jonka muistisairaat omistajat hädin tuskin muistavat sen olemassaoloa. Onneksi vanhukset itsekin ymmärtävät, että Papu-kakadu ansaitsisi huolehtivaisemman kodin – ja näin Kati-en lauma kasvaa jälleen uudella lemmikkiystävällä!</p><p><em>Lemmikkifrendit </em>on <em>Pet Agentsin</em> helppolukuisempi rinnakkaissarja, joka kertoo miten Kati-en ja Ti-botin agenttikaksikko sai alkunsa ja ratkaisi ensimmäiset tehtävänsä.</p>",
+            "descr_attr": "Tammi",
             "imported_string": null,
-            "author_str": "Vacklin, Anders & Kaarla, Sami & Kaarla, Riina"
+            "author_str": "Kaarla, Riina & Kaarla, Sami & Vacklin, Anders"
           },
           {
             "id": 6095,
