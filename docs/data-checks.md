@@ -20,6 +20,7 @@ The script reads `DATABASE_URL` from `.env`, as the app does.
 
 - `--only KEY…` runs some checks; `--all` prints every row instead of the
   first 10 (`--rows N` sets another number).
+- `--format markdown` writes Markdown tables instead of plain text.
 - `--sql KEY` prints a check's query, ready to paste into `psql` against
   production, for example to confirm a row is still wrong there.
 - The script exits with 1 when any check found rows and 0 when all are
@@ -27,13 +28,16 @@ The script reads `DATABASE_URL` from `.env`, as the app does.
 
 ## Results in git
 
-The latest full results are kept in `docs/data-check-results.txt`.
+The latest full results are kept in `docs/data-check-results.md`: a
+summary table of every check, then a table of rows for each check that
+found something.
 Regenerate them after each refresh and commit them; `git diff` then shows
 what was fixed and what is new:
 
 ```sh
-.venv/bin/python scripts/check_data.py --all > docs/data-check-results.txt
-git diff docs/data-check-results.txt
+.venv/bin/python scripts/check_data.py --format markdown --all \
+    > docs/data-check-results.md
+git diff docs/data-check-results.md
 ```
 
 ## False positives
@@ -73,7 +77,7 @@ it below.
 ## Workflow
 
 1. Refresh the dev database from production.
-2. Regenerate `docs/data-check-results.txt` (above) and look at the
+2. Regenerate `docs/data-check-results.md` (above) and look at the
    diff and the summary line at the end ("N of 34 checks found
    something").
 3. For each check with rows, decide whether the rows are errors (see the

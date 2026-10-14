@@ -12,6 +12,8 @@ Usage:
     python scripts/check_data.py --only edition_pages person_unused
     python scripts/check_data.py --list       # list the checks
     python scripts/check_data.py --sql edition_pages   # print the query
+    python scripts/check_data.py --format markdown --all \\
+        > docs/data-check-results.md
 
 Confirmed false positives go in scripts/check_data_ignore.txt.
 """
@@ -19,7 +21,8 @@ import argparse
 import os
 import sys
 from datetime import date
-from typing import Any, Dict, List, NamedTuple, Sequence, Set, Tuple
+from typing import (Any, Dict, List, NamedTuple, Optional, Sequence, Set,
+                    Tuple)
 
 import dotenv
 from sqlalchemy import create_engine, text
@@ -106,7 +109,7 @@ CHECKS: List[Check] = [
                 OR dob > extract(year FROM now())"""),
     Check('issue_year', 'Wrong values',
           'Magazine issues with a missing or impossible year',
-          """SELECT i.id, m.name, i.number, i.year
+          """SELECT i.id, m.name AS magazine, i.number, i.year
              FROM issue i JOIN magazine m ON m.id = i.magazine_id
              WHERE i.year IS NULL OR i.year < 1850
                 OR i.year > extract(year FROM now()) + 1"""),
@@ -124,9 +127,12 @@ CHECKS: List[Check] = [
           'number. Allowed: a paperback and a hardback of the same '
           'year. "same" marks pairs with equal publisher, year, ISBN '
           'and binding: almost certainly one book entered twice',
-          f"""SELECT a.id, b.id, a.title, a.editionnum,
-                    a.pubyear, b.pubyear,
-                    a.binding_id, b.binding_id,
+          f"""SELECT a.id AS id_a, b.id AS id_b, a.title, a.editionnum,
+                    a.pubyear AS year_a, b.pubyear AS year_b,
+                    (SELECT name FROM bindingtype WHERE id = a.binding_id)
+                        AS binding_a,
+                    (SELECT name FROM bindingtype WHERE id = b.binding_id)
+                        AS binding_b,
                     coalesce(a.isbn, '') AS isbn_a,
                     coalesce(b.isbn, '') AS isbn_b,
                     CASE WHEN a.publisher_id = b.publisher_id
@@ -162,8 +168,10 @@ CHECKS: List[Check] = [
           'Translated short stories with the same title, original '
           'title, authors and translators',
           """WITH s AS (
-                 SELECT s.id, lower(btrim(s.title)) AS title,
-                        lower(btrim(s.orig_title)) AS orig,
+                 SELECT s.id, lower(btrim(s.title)) AS title_key,
+                        s.title,
+                        lower(btrim(s.orig_title)) AS orig_key,
+                        btrim(s.orig_title) AS orig,
                         (SELECT string_agg(c.person_id::text, ','
                                            ORDER BY c.person_id)
                          FROM storycontributor c
@@ -173,13 +181,25 @@ CHECKS: List[Check] = [
                                            ORDER BY c.person_id)
                          FROM storycontributor c
                          WHERE c.shortstory_id = s.id
-                           AND c.role_id = 2) AS translators
+                           AND c.role_id = 2) AS translators,
+                        (SELECT string_agg(p.name, '; ' ORDER BY p.name)
+                         FROM storycontributor c
+                         JOIN person p ON p.id = c.person_id
+                         WHERE c.shortstory_id = s.id
+                           AND c.role_id = 1) AS author_names,
+                        (SELECT string_agg(p.name, '; ' ORDER BY p.name)
+                         FROM storycontributor c
+                         JOIN person p ON p.id = c.person_id
+                         WHERE c.shortstory_id = s.id
+                           AND c.role_id = 2) AS translator_names
                  FROM shortstory s
                  WHERE coalesce(btrim(s.orig_title), '') <> '')
              SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
-                    title, orig, authors, translators
-             FROM s GROUP BY title, orig, authors, translators
-             HAVING count(*) > 1 ORDER BY title"""),
+                    min(title) AS title, min(orig) AS orig,
+                    min(author_names) AS authors,
+                    min(translator_names) AS translators
+             FROM s GROUP BY title_key, orig_key, authors, translators
+             HAVING count(*) > 1 ORDER BY title_key"""),
     Check('tag_name', 'Probable duplicates',
           'Tags with the same name (ignoring case and spaces)',
           """SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
@@ -309,7 +329,7 @@ CHECKS: List[Check] = [
                                WHERE i.magazine_id = m.id)"""),
     Check('issue_empty', 'Unused records',
           'Magazine issues with no contents',
-          """SELECT i.id, m.name, i.year, i.number
+          """SELECT i.id, m.name AS magazine, i.year, i.number
              FROM issue i JOIN magazine m ON m.id = i.magazine_id
              WHERE NOT EXISTS (SELECT 1 FROM issuecontent c
                                WHERE c.issue_id = i.id)
@@ -318,23 +338,23 @@ CHECKS: List[Check] = [
     # --- Whitespace -----------------------------------------------------
     Check('spaces_person', 'Whitespace',
           'Person names with extra spaces',
-          f"""SELECT id, '[' || name || ']' FROM person
+          f"""SELECT id, '[' || name || ']' AS name FROM person
               WHERE {_SPACES.format(col='name')}"""),
     Check('spaces_work', 'Whitespace',
           'Work titles with extra spaces',
-          f"""SELECT id, '[' || title || ']' FROM work
+          f"""SELECT id, '[' || title || ']' AS title FROM work
               WHERE {_SPACES.format(col='title')}"""),
     Check('spaces_edition', 'Whitespace',
           'Edition titles with extra spaces',
-          f"""SELECT id, '[' || title || ']' FROM edition
+          f"""SELECT id, '[' || title || ']' AS title FROM edition
               WHERE {_SPACES.format(col='title')}"""),
     Check('spaces_story', 'Whitespace',
           'Short story titles with extra spaces',
-          f"""SELECT id, '[' || title || ']' FROM shortstory
+          f"""SELECT id, '[' || title || ']' AS title FROM shortstory
               WHERE {_SPACES.format(col='title')}"""),
     Check('spaces_other', 'Whitespace',
           'Publisher, series, tag and magazine names with extra spaces',
-          f"""SELECT 'publisher' AS kind, id, '[' || name || ']'
+          f"""SELECT 'publisher' AS kind, id, '[' || name || ']' AS name
               FROM publisher WHERE {_SPACES.format(col='name')}
               UNION ALL
               SELECT 'pubseries', id, '[' || name || ']'
@@ -397,6 +417,8 @@ def main() -> int:
     parser.add_argument('--ignore', metavar='FILE', default=IGNORE_FILE,
                         help='false positives to leave out (default '
                              'scripts/check_data_ignore.txt)')
+    parser.add_argument('--format', choices=('text', 'markdown'),
+                        default='text', help='output format (default text)')
     parser.add_argument('--show-ignored', action='store_true',
                         help='print ignored rows too, marked IGNORED')
     args = parser.parse_args()
@@ -426,49 +448,129 @@ def main() -> int:
         print('DATABASE_URL is not set (.env).', file=sys.stderr)
         return 2
     engine = create_engine(db_url)
-    found = 0
+    results: List[Result] = []
     used: Set[Tuple[str, str]] = set()
-    group = None
-    print(f'Data checks {date.today().isoformat()}')
     with engine.connect() as conn:
         conn.execute(text('SET search_path = suomisf'))
         for c in checks:
-            if c.group != group:
-                group = c.group
-                print(f'\n=== {group} ===')
-            rows = conn.execute(text(c.sql)).fetchall()
-            kept, skipped = [], []
-            for row in rows:
+            res = conn.execute(text(c.sql))
+            result = Result(c, list(res.keys()), [], [])
+            for row in res.fetchall():
                 ident = (c.key, row_id(c, row))
                 if ident in ignores:
                     used.add(ident)
-                    skipped.append(row)
+                    result.ignored.append(
+                        (row_id(c, row), ignores[ident]))
                 else:
-                    kept.append(row)
-            found += bool(kept)
-            note = f' ({len(skipped)} ignored)' if skipped else ''
-            print(f'\n[{c.key}] {c.title}: {len(kept)}{note}')
-            shown = kept if args.all else kept[:args.rows]
-            for row in shown:
-                print('    ' + ' | '.join(
-                    '' if v is None else str(v) for v in row))
-            if len(shown) < len(kept):
-                print(f'    … {len(kept) - len(shown)} more '
-                      f'(--only {c.key} --all)')
-            if args.show_ignored:
-                for row in skipped:
-                    reason = ignores[(c.key, row_id(c, row))]
-                    print(f'    IGNORED {row_id(c, row)}: {reason}')
+                    result.rows.append(tuple(row))
+            results.append(result)
 
     # Ignore entries that matched nothing: fixed, or the id is wrong.
     ran = {c.key for c in checks}
     stale = sorted(k for k in ignores if k[0] in ran and k not in used)
+    limit = None if args.all else args.rows
+    if args.format == 'markdown':
+        write_markdown(results, stale, limit, args.show_ignored)
+    else:
+        write_text(results, stale, limit, args.show_ignored)
+    return 1 if any(r.rows for r in results) else 0
+
+
+class Result(NamedTuple):
+    check: Check
+    columns: List[str]
+    rows: List[Tuple[Any, ...]]
+    # (row id, reason) of the rows left out by the ignore list
+    ignored: List[Tuple[str, str]]
+
+
+def _cell(value: Any) -> str:
+    return '' if value is None else str(value)
+
+
+def write_text(results: List[Result], stale: List[Tuple[str, str]],
+               limit: Optional[int], show_ignored: bool) -> None:
+    """Plain text: one block per check, rows separated by |."""
+    print(f'Data checks {date.today().isoformat()}')
+    group = None
+    for r in results:
+        c = r.check
+        if c.group != group:
+            group = c.group
+            print(f'\n=== {group} ===')
+        note = f' ({len(r.ignored)} ignored)' if r.ignored else ''
+        print(f'\n[{c.key}] {c.title}: {len(r.rows)}{note}')
+        shown = r.rows[:limit]
+        for row in shown:
+            print('    ' + ' | '.join(_cell(v) for v in row))
+        if len(shown) < len(r.rows):
+            print(f'    … {len(r.rows) - len(shown)} more '
+                  f'(--only {c.key} --all)')
+        if show_ignored:
+            for ident, reason in r.ignored:
+                print(f'    IGNORED {ident}: {reason}')
     if stale:
         print('\nIgnore entries that matched no row (remove them):')
         for key, ident in stale:
             print(f'    {key} {ident}')
-    print(f'\n{found} of {len(checks)} checks found something.')
-    return 1 if found else 0
+    found = sum(bool(r.rows) for r in results)
+    print(f'\n{found} of {len(results)} checks found something.')
+
+
+def _md(value: Any) -> str:
+    """A table cell: pipes escaped; text showing spaces in code."""
+    cell = _cell(value).replace('|', '\\|').replace('\n', ' ')
+    if cell.startswith('[') and cell.endswith(']'):
+        return f'`{cell}`'
+    return cell
+
+
+def write_markdown(results: List[Result], stale: List[Tuple[str, str]],
+                   limit: Optional[int], show_ignored: bool) -> None:
+    """Markdown: a summary table, then a table per check with rows."""
+    found = sum(bool(r.rows) for r in results)
+    print(f'# Data checks {date.today().isoformat()}\n')
+    print('Generated by `scripts/check_data.py --format markdown --all`; '
+          'see `docs/data-checks.md` for how to read the checks. '
+          f'{found} of {len(results)} checks found something.\n')
+    print('| Group | Check | Rows | Ignored |')
+    print('|---|---|--:|--:|')
+    for r in results:
+        key = r.check.key
+        name = f'[{key}](#{key})' if r.rows else key
+        print(f'| {r.check.group} | {name} | {len(r.rows)} | '
+              f'{len(r.ignored) or ""} |')
+    if stale:
+        print('\n## Stale ignore entries\n')
+        print('These entries in `scripts/check_data_ignore.txt` matched '
+              'no row; remove them.\n')
+        for key, ident in stale:
+            print(f'- `{key} {ident}`')
+    group = None
+    for r in results:
+        if not r.rows and not (show_ignored and r.ignored):
+            continue
+        c = r.check
+        if c.group != group:
+            group = c.group
+            print(f'\n## {group}')
+        print(f'\n### {c.key}\n')
+        print(f'{c.title}. **{len(r.rows)}** rows'
+              + (f', {len(r.ignored)} ignored.' if r.ignored else '.'))
+        if r.rows:
+            print()
+            print('| ' + ' | '.join(r.columns) + ' |')
+            print('|' + '---|' * len(r.columns))
+            shown = r.rows[:limit]
+            for row in shown:
+                print('| ' + ' | '.join(_md(v) for v in row) + ' |')
+            if len(shown) < len(r.rows):
+                print(f'\n… {len(r.rows) - len(shown)} more '
+                      f'(`--only {c.key} --all`).')
+        if show_ignored and r.ignored:
+            print('\nIgnored:\n')
+            for ident, reason in r.ignored:
+                print(f'- `{ident}`: {reason}')
 
 
 if __name__ == '__main__':
