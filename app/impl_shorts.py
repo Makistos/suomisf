@@ -8,7 +8,7 @@ import bleach
 from app.impl import (ResponseType, check_int, get_join_changes,
                       add_language)
 from app.impl_helpers import str_differ
-from app.impl_logs import log_changes
+from app.impl_logs import log_changes, log_tag_change
 from app.route_helpers import new_session
 from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType, Tag,
                           StoryGenre,
@@ -342,6 +342,8 @@ def story_add(data: Any) -> ResponseType:
 
     try:
         session.add(story)
+        log_changes(session=session, obj=story, name_field='title',
+                    action='Uusi')
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
@@ -375,7 +377,6 @@ def story_add(data: Any) -> ResponseType:
         return ResponseType(f'Tietokantavirhe: {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    app.logger.error(f'story: {story.id}')
     return ResponseType(str(story.id), HttpResponseCode.CREATED.value)
 
 
@@ -601,6 +602,8 @@ def story_delete(short_id: int) -> ResponseType:
         .filter(EditionShortStory.shortstory_id == short_id)\
         .delete()
 
+    log_changes(session=session, obj=story, name_field='title',
+                action='Poisto', old_values={'Nimi': story.title})
     session.delete(story)
 
     try:
@@ -642,6 +645,7 @@ def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
         short_tag.shortstory_id = short_id
         short_tag.tag_id = tag_id
         session.add(short_tag)
+        log_tag_change(session, short, tag_id, True, name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -683,8 +687,12 @@ def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
                                 'Tagia ei löydy novellilta. '
                                 f'short_id={short_id}, tag_id={tag_id}.',
                                 HttpResponseCode.BAD_REQUEST.value)
-        tag_name = short_tag.name
+        tag = session.query(Tag).filter(Tag.id == tag_id).first()
+        tag_name = tag.name if tag else str(tag_id)
+        short = session.query(ShortStory).filter(
+            ShortStory.id == short_id).first()
         session.delete(short_tag)
+        log_tag_change(session, short, tag_id, False, name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(f'story_tag_remove():  {exp}.')
@@ -692,8 +700,6 @@ def story_tag_remove(short_id: int, tag_id: int) -> ResponseType:
                             short_id={short_id}, tag_id={tag_id}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    short = session.query(ShortStory).filter(
-        ShortStory.id == short_id).first()
     return ResponseType(
         f'Asiasana {tag_name} poistettu novellilta {short.title}.',
         HttpResponseCode.OK.value)

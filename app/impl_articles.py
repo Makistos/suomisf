@@ -2,6 +2,7 @@
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl import (ResponseType)
+from app.impl_logs import log_tag_change
 from app.orm_decl import (Article, ArticleTag, Tag)
 from app.model import (ArticleSchema, TagBriefSchema)
 from app.route_helpers import new_session
@@ -101,6 +102,7 @@ def article_tag_add(article_id: int, tag_id: int) -> ResponseType:
         article_tag.article_id = article_id
         article_tag.tag_id = tag_id
         session.add(article_tag)
+        log_tag_change(session, article, tag_id, True, name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
@@ -142,6 +144,9 @@ def article_tag_remove(article_id: int, tag_id: int) -> ResponseType:
                                 tag_id={tag_id}.',
                                 HttpResponseCode.BAD_REQUEST.value)
         session.delete(article_tag)
+        article = session.query(Article)\
+            .filter(Article.id == article_id).first()
+        log_tag_change(session, article, tag_id, False, name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()

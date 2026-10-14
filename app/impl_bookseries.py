@@ -3,7 +3,7 @@ from typing import Any, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl_links import links_have_changed
-from app.impl_logs import log_changes
+from app.impl_logs import log_and_commit, log_changes
 
 from app.orm_decl import (Bookseries, BookseriesLink, Work)
 from app.model import (BookseriesSchema, BookseriesBriefSchema)
@@ -194,7 +194,7 @@ def bookseries_create(params: Any) -> ResponseType:
             return ResponseType('Tietokantavirhe.',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    log_changes(session, obj=bookseries, action='Uusi')
+    log_and_commit(session, obj=bookseries, action='Uusi')
 
     return ResponseType(str(bookseries.id), HttpResponseCode.CREATED.value)
 
@@ -316,12 +316,12 @@ def bookseries_update(params: Any) -> ResponseType:
                 return ResponseType(
                     'BookseriesUpdate: Tietokantavirhe.',
                     HttpResponseCode.INTERNAL_SERVER_ERROR.value)
-    log_id = log_changes(session,
-                         obj=bookseries,
-                         old_values=old_values,
-                         action='Päivitys')
+    log_id = log_and_commit(session,
+                            obj=bookseries,
+                            old_values=old_values,
+                            action='Päivitys')
 
-    if log_id == 0:
+    if old_values and log_id == 0:
         app.logger.error('BookseriesUpdate: Failed to log changes.')
 
     return ResponseType('OK', HttpResponseCode.OK.value)
@@ -402,6 +402,7 @@ def add_bookseries(name: str) -> Union[int, None]:
     try:
         bs = Bookseries(name=name)
         session.add(bs)
+        log_changes(session, obj=bs, action='Uusi')
         session.commit()
         return bs.id
     except SQLAlchemyError as exp:

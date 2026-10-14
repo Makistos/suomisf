@@ -3,10 +3,11 @@ from typing import Any, Dict, Union, List
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.orm_decl import (
-    Edition, EditionContributor,
+    Edition, EditionContributor, Issue,
     IssueContributor, StoryContributor, WorkContributor
 )
 from app.impl import check_int, ResponseType
+from app.impl_logs import log_changes
 from app import app
 from app.orm_decl import Person
 from app.types import ContributorType, ContributorTarget, HttpResponseCode
@@ -34,6 +35,7 @@ def _create_new_person(session: Any, contrib: Any) -> Union[Person, None]:
     person.alt_name = contrib['person']
     session.add(person)
     try:
+        log_changes(session, obj=person, action='Uusi')
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('_createNewPerson: ' + str(exp))
@@ -442,7 +444,8 @@ def has_contribution_role(contributors: List[Any], role_id: int) -> bool:
 def update_issue_contributors(
         session: Any,
         issue_id: int,
-        contributors: Any) -> bool:
+        contributors: Any,
+        log: bool = True) -> bool:
     """
     Updates the contributors for the given issue in the database.
 
@@ -458,6 +461,7 @@ def update_issue_contributors(
                 This dictionary should have the following keys:
                 - 'id': The ID of the role in the database.
             - 'description': A string describing the contribution.
+        log: Whether to log the change (not needed for a new issue).
 
     Returns:
         bool: True if contributors were updated or no changes were made, False
@@ -474,6 +478,13 @@ def update_issue_contributors(
         # Check if contributors have changed
         if not contributors_have_changed(current_contributors, contributors):
             return True
+
+        if log:
+            issue = session.query(Issue).filter(Issue.id == issue_id).first()
+            if issue:
+                log_changes(session, obj=issue, old_values={
+                    'Tekijät': get_contributors_string(
+                        current_contributors, ContributorTarget.SHORT)})
 
         # Remove existing contributors for this issue
         session.query(IssueContributor)\

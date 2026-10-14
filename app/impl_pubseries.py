@@ -9,7 +9,7 @@ from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
 from app.impl_links import links_have_changed
-from app.impl_logs import log_changes
+from app.impl_logs import log_and_commit, log_changes
 from app.route_helpers import get_join_changes
 from app.orm_decl import PubseriesLink
 
@@ -183,7 +183,7 @@ def pubseries_create(params: Any) -> ResponseType:
             return ResponseType('Tietokantavirhe.',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    log_changes(session, obj=pubseries, action='Uusi')
+    log_and_commit(session, obj=pubseries, action='Uusi')
 
     return ResponseType(str(pubseries.id), HttpResponseCode.CREATED.value)
 
@@ -279,12 +279,12 @@ def pubseries_update(params: Any) -> ResponseType:
                     'PubseriesUpdate: Tietokantavirhe.',
                     HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    log_id = log_changes(session,
-                         obj=pubseries,
-                         old_values=old_values,
-                         action='Päivitys')
+    log_id = log_and_commit(session,
+                            obj=pubseries,
+                            old_values=old_values,
+                            action='Päivitys')
 
-    if log_id == 0:
+    if old_values and log_id == 0:
         app.logger.error('PubseriesUpdate: Failed to log changes.')
 
     return ResponseType('OK', HttpResponseCode.OK.value)
@@ -307,6 +307,8 @@ def pubseries_delete(pubseries_id: int) -> ResponseType:
     if pubseries is None:
         return ResponseType(f'Sarjaa ei löydy: {pubseries_id}',
                             HttpResponseCode.NOT_FOUND.value)
+    log_changes(session, obj=pubseries, action='Poisto',
+                old_values={'Nimi': pubseries.name})
     session.delete(pubseries)
     session.commit()
     return ResponseType('OK', HttpResponseCode.OK.value)
@@ -329,6 +331,7 @@ def add_pubseries(name: str, publisher_id: int) -> Union[int, None]:
     try:
         pubseries = Pubseries(name=name, publisher_id=publisher_id)
         session.add(pubseries)
+        log_changes(session, obj=pubseries, action='Uusi')
         session.commit()
         return pubseries.id
     except SQLAlchemyError as exp:

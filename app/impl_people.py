@@ -8,7 +8,7 @@ from sqlalchemy import func, or_
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
-from app.impl_logs import log_changes
+from app.impl_logs import log_changes, log_tag_change
 
 from app.route_helpers import new_session
 from app.model import (ArticleSchema, IssueSchema, LogSchema,
@@ -612,6 +612,7 @@ def person_add(params: Any) -> ResponseType:
 
     try:
         session.add(person)
+        log_changes(session, obj=person, action='Uusi')
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in person_add: ' + str(exp))
@@ -798,7 +799,7 @@ def person_update(params: Any) -> ResponseType:
                     description=link['description'])
                 session.add(pl)
             old_values['Linkit'] = ' -'.join([str(x) for x in to_add])
-            old_values['Linkit'] = ' +' + \
+            old_values['Linkit'] += ' +' + \
                 ' -'.join([str(x) for x in to_remove])
 
     if 'aliases' in data:
@@ -1053,6 +1054,7 @@ def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
         person_tag.person_id = person_id
         person_tag.tag_id = tag_id
         session.add(person_tag)
+        log_tag_change(session, person, tag_id, True)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -1092,6 +1094,8 @@ def person_tag_remove(person_id: int, tag_id: int) -> ResponseType:
                                 person_id={person_id}, tag_id={tag_id}.',
                                 HttpResponseCode.BAD_REQUEST.value)
         session.delete(person_tag)
+        person = session.query(Person).filter(Person.id == person_id).first()
+        log_tag_change(session, person, tag_id, False)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -1333,12 +1337,16 @@ def person_image_add(
                 f'Henkilöä ei löydy. person_id={person_id}.',
                 HttpResponseCode.BAD_REQUEST.value)
 
-        if qid is not None:
+        old_values = {}
+        if qid is not None and (qid or None) != person.qid:
+            old_values['QID'] = person.qid
             person.qid = qid or None
 
         pis = session.query(PersonImage).filter(
             PersonImage.person_id == person_id
         ).all()
+        old_values['Kuva'] = ', '.join(x.src for x in pis if x.src) \
+            or 'Lisätty: ' + src
         for image in pis:
             session.delete(image)
 
@@ -1350,6 +1358,7 @@ def person_image_add(
         session.add(image)
         session.flush()
         new_id = image.id
+        log_changes(session, obj=person, old_values=old_values)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -1395,6 +1404,8 @@ def person_link_add(
             PersonLink.person_id == person_id,
             PersonLink.description == description
         ).all()
+        old_value = ', '.join(x.link for x in existing) \
+            or 'Lisätty: ' + link
         if existing:
             # Only have one link with same description per person, replace
             # existing one
@@ -1408,6 +1419,7 @@ def person_link_add(
         session.add(pl)
         session.flush()
         new_id = pl.id
+        log_changes(session, obj=person, old_values={'Linkit': old_value})
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(

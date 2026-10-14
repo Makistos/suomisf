@@ -10,6 +10,7 @@ from app.orm_decl import (Tag, ArticleTag, IssueTag, Bookseries, Edition,
 from app.model import (TagBriefSchema, TagSchema, TagTypeSchema)
 from app.route_helpers import new_session
 from app.impl import ResponseType
+from app.impl_logs import log_changes
 from app import app
 from app.types import HttpResponseCode
 
@@ -368,6 +369,7 @@ def tag_create(name: str) -> ResponseType:
     tag.name = name
     tag.type_id = 1
     session.add(tag)
+    log_changes(session, obj=tag, action='Uusi')
     session.commit()
 
     return ResponseType({'id': tag.id}, HttpResponseCode.CREATED.value)
@@ -401,10 +403,18 @@ def tag_update(params: Any) -> ResponseType:
             return ResponseType('Asiasana on jo olemassa',
                                 HttpResponseCode.BAD_REQUEST.value)
 
+    old_values = {}
+    if name != tag.name:
+        old_values['Nimi'] = tag.name
+    if str(type_id) != str(tag.type_id):
+        old_values['Tyyppi'] = tag.type_id
+    if (description or None) != (tag.description or None):
+        old_values['Kuvaus'] = tag.description
     tag.name = name
     tag.type_id = type_id
     tag.description = description
     session.add(tag)
+    log_changes(session, obj=tag, old_values=old_values)
     session.commit()
 
     return ResponseType(tag_id, HttpResponseCode.OK.value)
@@ -463,6 +473,8 @@ def tag_delete(tag_id: int) -> ResponseType:
             app.logger.error(f'TagDelete: Tag not found. id = {tag_id}.')
             return ResponseType('Asiasanan tunnistetta ei löydy',
                                 HttpResponseCode.NOT_FOUND.value)
+        log_changes(session, obj=tag, action='Poisto',
+                    old_values={'Nimi': tag.name})
         session.delete(tag)
         session.commit()
     except SQLAlchemyError as exp:
@@ -511,7 +523,7 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
             .filter(ArticleTag.tag_id == id_from)\
             .filter(ArticleTag.article_id.notin_(
                 [x.article_id for x in to_tags]))\
-            .update({ArticleTag.article_id: id_to}, synchronize_session=False)
+            .update({ArticleTag.tag_id: id_to}, synchronize_session=False)
 
         session.query(ArticleTag)\
             .filter(ArticleTag.tag_id == id_from)\
@@ -526,7 +538,7 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
             .filter(StoryTag.tag_id == id_from)\
             .filter(StoryTag.shortstory_id.notin_(
                 [x.shortstory_id for x in to_tags]))\
-            .update({StoryTag.shortstory_id: id_to}, synchronize_session=False)
+            .update({StoryTag.tag_id: id_to}, synchronize_session=False)
 
         session.query(StoryTag)\
             .filter(StoryTag.tag_id == id_from)\
@@ -540,7 +552,7 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
         session.query(IssueTag)\
             .filter(IssueTag.tag_id == id_from)\
             .filter(IssueTag.issue_id.notin_([x.issue_id for x in to_tags]))\
-            .update({IssueTag.issue_id: id_to}, synchronize_session=False)
+            .update({IssueTag.tag_id: id_to}, synchronize_session=False)
 
         session.query(IssueTag)\
             .filter(IssueTag.tag_id == id_from)\
@@ -555,7 +567,7 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
             .filter(PersonTag.tag_id == id_from)\
             .filter(PersonTag.person_id.notin_(
                 [x.person_id for x in to_tags]))\
-            .update({PersonTag.person_id: id_to},
+            .update({PersonTag.tag_id: id_to},
                     synchronize_session=False)
 
         session.query(PersonTag)\
@@ -576,6 +588,10 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
             .filter(WorkTag.tag_id == id_from)\
             .delete()
 
+        log_changes(session, obj=tag_to,
+                    old_values={'Yhdistetty': tag_from.name})
+        log_changes(session, obj=tag_from, action='Poisto',
+                    old_values={'Nimi': tag_from.name})
         session.query(Tag)\
             .filter(Tag.id == id_from)\
             .delete()
