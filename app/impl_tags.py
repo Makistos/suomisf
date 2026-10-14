@@ -488,6 +488,12 @@ def tag_delete(tag_id: int) -> ResponseType:
 def tag_merge(id_to: int, id_from: int) -> ResponseType:
     """ See api_tagMerge in api.py. """
     retval = ResponseType('', HttpResponseCode.OK.value)
+    # Merging a tag into itself would delete every link to it and then
+    # the tag itself.
+    if id_to == id_from:
+        app.logger.error(f'TagMerge: Tag {id_to} merged with itself.')
+        return ResponseType('Asiasanaa ei voi yhdistää itseensä.',
+                            HttpResponseCode.BAD_REQUEST.value)
     session = new_session()
 
     try:

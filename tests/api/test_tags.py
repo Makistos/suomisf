@@ -146,6 +146,18 @@ class TestTagMerge(BaseAPITest):
         # Should return error for nonexistent tags
         assert response.status_code == 404
 
+    def test_merge_with_itself(self, admin_client):
+        """Merging a tag into itself is refused and deletes nothing."""
+        before = admin_client.get(f'/api/tags/{BASIC_TAG_ID}')
+        assert before.status_code == 200
+        response = admin_client.post(
+            f'/api/tags/{BASIC_TAG_ID}/merge/{BASIC_TAG_ID}'
+        )
+        assert response.status_code == 400
+        after = admin_client.get(f'/api/tags/{BASIC_TAG_ID}')
+        assert after.status_code == 200
+        assert after.data == before.data
+
 
 class TestTagCRUDLifecycle(BaseAPITest):
     """Full CRUD lifecycle test for tags including merge."""
