@@ -14,8 +14,8 @@ from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
 from app.orm_decl import (
-    User, Work, WorkGenre, Genre, UserWork, Language, WorkType, Edition,
-    Publisher, EditionShortStory
+    User, Work, WorkGenre, Genre, UserBook, UserWork, Language, WorkType,
+    Edition, Publisher, EditionShortStory
 )
 from app.model import (UserSchema)
 from app.impl import ResponseType
@@ -345,29 +345,48 @@ def get_user(user_id: int) -> ResponseType:
 
 def list_users() -> ResponseType:
     """
-    Retrieves a list of all users from the database.
+    Lists all users with the size of their collection and reading list.
+
+    Email addresses are left out: the list is public.
 
     Returns:
-        ResponseType: The response object containing the list of users if
-                      successful, or an error message and status code if an
-                      error occurs.
+        ResponseType: A list of dicts with id, name, is_admin, owned (owned
+                      editions), wishlist (wished editions) and read (read
+                      works), sorted by name; or an error message and status
+                      code if an error occurs.
     """
     session = new_session()
 
+    def per_user(column, *conditions):
+        return session.query(column.label('user_id'),
+                             func.count().label('count'))\
+            .filter(*conditions)\
+            .group_by(column)\
+            .subquery()
+
+    owned = per_user(UserBook.user_id, UserBook.condition_id.between(1, 5))
+    wished = per_user(UserBook.user_id, UserBook.condition_id == 6)
+    read = per_user(UserWork.user_id)
+
     try:
-        users = session.query(User).all()
+        rows = session.query(
+            User.id, User.name, User.is_admin,
+            func.coalesce(owned.c.count, 0),
+            func.coalesce(wished.c.count, 0),
+            func.coalesce(read.c.count, 0))\
+            .outerjoin(owned, owned.c.user_id == User.id)\
+            .outerjoin(wished, wished.c.user_id == User.id)\
+            .outerjoin(read, read.c.user_id == User.id)\
+            .order_by(func.lower(User.name))\
+            .all()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in ListUsers: ' + str(exp))
         return ResponseType('ListUsers: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    try:
-        schema = UserSchema(many=True)
-        retval = schema.dump(users)
-    except exceptions.MarshmallowError as exp:
-        app.logger.error('ListUsers schema error: ' + str(exp))
-        return ResponseType('ListUsers: Skeemavirhe.',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    retval = [{'id': row[0], 'name': row[1], 'is_admin': bool(row[2]),
+               'owned': row[3], 'wishlist': row[4], 'read': row[5]}
+              for row in rows]
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 

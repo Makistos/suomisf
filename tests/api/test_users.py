@@ -60,6 +60,22 @@ class TestUserList(BaseAPITest):
             assert 'id' in user, "User missing 'id'"
             assert 'name' in user, "User missing 'name'"
 
+    def test_users_list_has_stats_and_no_email(self, api_client):
+        """The list shows each user's collection and reading counts and
+        whether they are an admin, but not their email address."""
+        response = api_client.get('/api/users')
+        response.assert_success()
+        assert response.data, 'No users'
+        for user in response.data:
+            assert set(user) == {'id', 'name', 'is_admin', 'owned',
+                                 'wishlist', 'read'}
+            assert isinstance(user['is_admin'], bool)
+            for key in ('owned', 'wishlist', 'read'):
+                assert isinstance(user[key], int) and user[key] >= 0
+        admin = next(u for u in response.data
+                      if u['name'] == TEST_ADMIN_NAME)
+        assert admin['is_admin'] is True
+
 
 # -------------------------------------------------------------------
 # User Get Tests
