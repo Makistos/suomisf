@@ -11,6 +11,7 @@ from app.route_helpers import get_join_changes, new_session
 from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
+from app.names import clean_name
 
 
 def filter_bookseries(query: str) -> ResponseType:
@@ -131,7 +132,7 @@ def bookseries_create(params: Any) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     bs = session.query(Bookseries)\
-        .filter(Bookseries.name == data['name']).first()
+        .filter(Bookseries.name == clean_name(data['name'])).first()
     if bs:
         app.logger.error('BookseriesCreate: Name already exists.')
         return ResponseType('BookseriesCreate: Nimi on jo olemassa.',
@@ -237,11 +238,12 @@ def bookseries_update(params: Any) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     if 'name' in data:
-        if data['name'] == '':
+        if clean_name(data['name']) == '':
             app.logger.error('BookseriesUpdate: Name cannot be empty.')
             return ResponseType('BookseriesUpdate: Nimi ei voi olla tyhjä.',
                                 400)
-        bs = session.query(Bookseries).filter(Bookseries.name == data['name'])\
+        bs = session.query(Bookseries)\
+            .filter(Bookseries.name == clean_name(data['name']))\
             .filter(Bookseries.id != bookseries_id)\
             .first()
         if bs:
@@ -395,7 +397,7 @@ def add_bookseries(name: str) -> Union[int, None]:
     """
     session = new_session()
     existing = session.query(Bookseries)\
-        .filter(Bookseries.name == name)\
+        .filter(Bookseries.name == clean_name(name))\
         .first()
     if existing:
         return existing.id

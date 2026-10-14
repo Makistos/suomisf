@@ -142,6 +142,9 @@ it below.
 ### Whitespace
 
 `spaces_*` finds names and titles with leading, trailing or double spaces.
+Since 2026-10-15 the backend cleans these fields whenever they are set
+(`app/names.py`, hooked into the models in `app/orm_decl.py`), so new
+rows should not show up here; the check remains for older data.
 They break sorting and exact searches. `scripts/trim_names.py` fixes them
 all: it strips leading and trailing spaces and collapses runs of spaces,
 and logs every change in the change log under the given user.

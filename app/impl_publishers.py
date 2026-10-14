@@ -15,6 +15,7 @@ from app.model import (PublisherBriefSchema,
 from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
+from app.names import clean_name
 
 
 def _save_links(
@@ -200,7 +201,7 @@ def publisher_add(params: Any) -> ResponseType:
         return ResponseType('Kustantajan koko nimi puuttuu',
                             HttpResponseCode.BAD_REQUEST.value)
     similar = session.query(Publisher) \
-        .filter(or_(Publisher.name == data['name'],
+        .filter(or_(Publisher.name == clean_name(data['name']),
                     Publisher.fullname == data['fullname']))\
         .all()
     if len(similar) > 0:
@@ -291,7 +292,7 @@ def publisher_update(params: Any) -> ResponseType:
             return ResponseType('Nimi on pakollinen tieto',
                                 HttpResponseCode.BAD_REQUEST.value)
         similar = session.query(Publisher).filter(
-            Publisher.name == data['name'],
+            Publisher.name == clean_name(data['name']),
             Publisher.id != publisher_id).all()
         if len(similar) > 0:
             app.logger.error('Name must be unique.')
@@ -413,7 +414,8 @@ def add_publisher(session: Any, name: str) -> Union[int, None]:
         if an exception occurs.
     """
 
-    publisher = session.query(Publisher).filter(Publisher.name == name).first()
+    publisher = session.query(Publisher).filter(
+        Publisher.name == clean_name(name)).first()
     if publisher:
         return publisher.id
 

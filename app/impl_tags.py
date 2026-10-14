@@ -13,6 +13,7 @@ from app.impl import ResponseType
 from app.impl_logs import log_changes
 from app import app
 from app.types import HttpResponseCode
+from app.names import clean_name
 
 
 def tags_have_changed(old_values: List[Any], new_values: List[Any]) -> bool:
@@ -334,7 +335,7 @@ def _tag_exists(session: Any, name: str) -> bool:
 
     try:
         count = session.query(Tag)\
-            .filter(Tag.name.ilike(name))\
+            .filter(Tag.name.ilike(clean_name(name)))\
             .count()
     except SQLAlchemyError as exp:
         app.logger.error(

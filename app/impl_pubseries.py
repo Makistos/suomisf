@@ -12,6 +12,7 @@ from app.impl_links import links_have_changed
 from app.impl_logs import log_and_commit, log_changes
 from app.route_helpers import get_join_changes
 from app.orm_decl import PubseriesLink
+from app.names import clean_name
 
 
 def filter_pubseries(query: str) -> ResponseType:
@@ -141,7 +142,7 @@ def pubseries_create(params: Any) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     ps = session.query(Pubseries)\
-        .filter(Pubseries.name == data['name']).first()
+        .filter(Pubseries.name == clean_name(data['name'])).first()
     if ps:
         app.logger.error('PubseriesCreate: Name already exists.')
         return ResponseType('PubseriesCreate: Nimi on jo olemassa.',
@@ -219,11 +220,12 @@ def pubseries_update(params: Any) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     if 'name' in data:
-        if data['name'] == '':
+        if clean_name(data['name']) == '':
             app.logger.error('PubseriesUpdate: Name cannot be empty.')
             return ResponseType('PubseriesUpdate: Nimi ei voi olla tyhjä.',
                                 HttpResponseCode.BAD_REQUEST.value)
-        ps = session.query(Pubseries).filter(Pubseries.name == data['name'])\
+        ps = session.query(Pubseries)\
+            .filter(Pubseries.name == clean_name(data['name']))\
             .filter(Pubseries.id != pubseries_id)\
             .first()
         if ps:

@@ -9,12 +9,14 @@ from sqlalchemy import (Column, ForeignKey, Integer, MetaData, Numeric,
                         String, Boolean, Date, DateTime, Text, Table)
 from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy import event
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.pool import NullPool
 from sqlalchemy import create_engine
 import jwt
 from app import db_url, login, jwt_secret_key
+from app.names import clean_name
 # from app.route_helpers import new_session
 # from flask_sqlalchemy.record_queries import get_recorded_queries
 
@@ -1857,6 +1859,19 @@ def load_user(user_id: Any) -> Any:
     from app.route_helpers import new_session
     session = new_session()
     return session.get(User, int(user_id))
+
+
+# Names and titles are saved without leading, trailing or doubled
+# spaces, whichever code path sets them (see check_data.py spaces_*).
+def _clean_on_set(_target: Any, value: Any, _old: Any,
+                  _initiator: Any) -> Any:
+    return clean_name(value)
+
+
+for _attr in (Person.name, Work.title, Edition.title, ShortStory.title,
+              Publisher.name, Pubseries.name, Bookseries.name, Tag.name,
+              Magazine.name):
+    event.listen(_attr, 'set', _clean_on_set, retval=True)
 
 
 engine = create_engine(db_url, poolclass=NullPool, echo=False)

@@ -13,6 +13,7 @@ from app.orm_decl import Tag, TagImportOmit, TagImportReplace, Work, WorkTag
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 from app import app
+from app.names import clean_name
 
 ALLOWED_HOST = "www.kirjasampo.fi"
 _HEADERS = {
@@ -137,7 +138,7 @@ def _find_or_create_tag(session: Any, name: str) -> Tag:
     """Return existing tag by name (case-insensitive) or create one."""
     tag = (
         session.query(Tag)
-        .filter(Tag.name.ilike(name))
+        .filter(Tag.name.ilike(clean_name(name)))
         .first()
     )
     if not tag:

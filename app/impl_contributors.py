@@ -11,6 +11,7 @@ from app.impl_logs import log_changes
 from app import app
 from app.orm_decl import Person
 from app.types import ContributorType, ContributorTarget, HttpResponseCode
+from app.names import clean_name
 
 
 def _create_new_person(session: Any, contrib: Any) -> Union[Person, None]:
@@ -25,7 +26,7 @@ def _create_new_person(session: Any, contrib: Any) -> Union[Person, None]:
     # Check if this person already exists somehow
     try:
         existing_person: Person = session.query(Person)\
-            .filter(Person.name == contrib['person']).first()
+            .filter(Person.name == clean_name(contrib['person'])).first()
     except SQLAlchemyError as exp:
         app.logger.error('_createNewPerson: ' + str(exp))
         return None

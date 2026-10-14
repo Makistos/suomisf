@@ -36,6 +36,7 @@ from app.impl_bookseries import add_bookseries
 from app.types import ContributorTarget, HttpResponseCode
 
 from app import app
+from app.names import clean_name
 
 
 def _set_bookseries(
@@ -111,7 +112,7 @@ def _set_tags(
             for tag in tags:
                 if tag['id'] == 0:
                     already_exists = session.query(Tag)\
-                        .filter(Tag.name == tag['name'])\
+                        .filter(Tag.name == clean_name(tag['name']))\
                         .first()
                     if not already_exists:
                         new_tag = Tag(name=tag['name'], type_id=1)
