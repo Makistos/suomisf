@@ -13,7 +13,7 @@ from app.impl_logs import log_changes
 from app.model import (AwardBriefSchema, AwardCategorySchema,
                        AwardSchema, AwardedSchema)
 from app.orm_decl import (Award, AwardCategories, AwardCategory, AwardLink,
-                          Awarded, ShortStory, StoryContributor,
+                          Awarded, Person, ShortStory, StoryContributor,
                           WorkContributor, Work)
 from app.types import HttpResponseCode
 
@@ -330,6 +330,43 @@ def get_awards_for_type(award_type: str) -> ResponseType:
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
+def _awards_string(session: Any, condition: Any) -> str:
+    """ The awards matching condition as text, for the change log. """
+    rows = session.query(Award.name, AwardCategory.name, Awarded.year)\
+        .select_from(Awarded)\
+        .join(Award, Award.id == Awarded.award_id)\
+        .outerjoin(AwardCategory, AwardCategory.id == Awarded.category_id)\
+        .filter(condition)\
+        .order_by(Awarded.year, Award.name, Awarded.id)\
+        .all()
+    return '; '.join(
+        ' '.join(str(x) for x in row if x is not None) for row in rows)
+
+
+# Item types of save_awarded (0 person, 1 work, 2 story): class, the
+# Awarded column and the attribute holding the item's name.
+_AWARD_ITEMS = {
+    'person': (Person, Awarded.person_id, 'name'),
+    'work': (Work, Awarded.work_id, 'title'),
+    'story': (ShortStory, Awarded.story_id, 'title'),
+}
+
+
+def _log_awards(session: Any, item_type: str, item_id: Any,
+                old_awards: str) -> None:
+    """ Log changed awards of a person, work or story.
+
+    Call after the changes have been added to the session.
+    """
+    model, column, name_field = _AWARD_ITEMS[item_type]
+    if _awards_string(session, column == item_id) == old_awards:
+        return
+    item = session.query(model).filter(model.id == item_id).first()
+    if item:
+        log_changes(session, obj=item, name_field=name_field,
+                    old_values={'Palkinnot': old_awards})
+
+
 def save_work_awards(params: any) -> ResponseType:
     """
     Save the awards for a work.
@@ -372,6 +409,7 @@ def save_work_awards(params: any) -> ResponseType:
 
     # Save changes
     try:
+        old_text = _awards_string(session, Awarded.work_id == work_id)
         for award in old_awards:
             session.delete(award)
         for award in awards:
@@ -381,6 +419,7 @@ def save_work_awards(params: any) -> ResponseType:
             new.category_id = award['category_id']
             new.work_id = award['work_id']
             session.add(new)
+        _log_awards(session, 'work', work_id, old_text)
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
@@ -433,6 +472,7 @@ def save_person_awards(params: any) -> ResponseType:
 
     # Save changes
     try:
+        old_text = _awards_string(session, Awarded.person_id == person_id)
         for award in old_awards:
             session.delete(award)
         for award in awards:
@@ -442,6 +482,7 @@ def save_person_awards(params: any) -> ResponseType:
             new.category_id = award['category_id']
             new.person_id = award['person_id']
             session.add(new)
+        _log_awards(session, 'person', person_id, old_text)
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
@@ -469,6 +510,9 @@ def save_awarded(params: any):
         return ResponseType('save_awarded: Tuntematon palkintotyyppi.',
                             HttpResponseCode.BAD_REQUEST.value)
 
+    old_text = _awards_string(session,
+                              _AWARD_ITEMS[itemType][1] == itemId)
+
     try:
         for award in awards:
             # Check if award field is a string, if it is, create a new award
@@ -480,6 +524,7 @@ def save_awarded(params: any):
 
                 session.add(new_award)
                 session.flush()
+                log_changes(session, obj=new_award, action='Uusi')
                 # Select categories for this award
                 # Give the new award the categories for this kind of item
                 # (0 person, 1 work, 2 story).
@@ -573,6 +618,7 @@ def save_awarded(params: any):
                     existing.work_id = award['work']['id']
                 elif itemType == 'story':
                     existing.story_id = award['story']['id']
+        _log_awards(session, itemType, itemId, old_text)
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error(f'save_awarded: Tietokantavirhe. {exp}.')

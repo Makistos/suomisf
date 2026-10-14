@@ -359,6 +359,7 @@ def api_updateissuecontributors(issueid: str) -> Response:
     try:
         success = update_issue_contributors(session, int_id, params)
         if success:
+            session.commit()
             response = ResponseType(
                 'Kontribuuttorien päivitys onnistui.',
                 status=HttpResponseCode.OK.value)

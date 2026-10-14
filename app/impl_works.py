@@ -9,7 +9,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import aliased, selectinload
 from marshmallow import exceptions
 from app.impl_helpers import objects_differ, str_differ
-from app.impl_logs import log_changes
+from app.impl_logs import log_changes, log_list_change, log_tag_change
 from app.route_helpers import new_session
 from app.impl import (ResponseType, set_language, check_int,
                       get_join_changes)
@@ -117,6 +117,7 @@ def _set_tags(
                         new_tag = Tag(name=tag['name'], type_id=1)
                         session.add(new_tag)
                         session.flush()
+                        log_changes(session, obj=new_tag, action='Uusi')
                         tag['id'] = new_tag.id
                     else:
                         tag['id'] = already_exists.id
@@ -843,6 +844,7 @@ def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
         work_tag.work_id = work_id
         work_tag.tag_id = tag_id
         session.add(work_tag)
+        log_tag_change(session, work, tag_id, True, name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -881,6 +883,8 @@ def work_tag_remove(work_id: int, tag_id: int) -> ResponseType:
                                 work_id={work_id}, tag_id={tag_id}.',
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
         session.delete(work_tag)
+        work = session.query(Work).filter(Work.id == work_id).first()
+        log_tag_change(session, work, tag_id, False, name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -1063,6 +1067,7 @@ def work_add(params: Any) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     log_changes(session, obj=work, action='Uusi')
+    log_changes(session, obj=new_edition, action='Uusi')
     session.commit()
     return ResponseType(str(work.id), HttpResponseCode.CREATED.value)
 
@@ -1457,6 +1462,12 @@ def save_work_shorts(params: Any) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     try:
+        # The list before the change, from the work's first edition.
+        old_ids = [row[0] for row in
+                   session.query(EditionShortStory.shortstory_id)
+                   .filter(EditionShortStory.edition_id.in_(
+                       work_edition_ids[:1]))
+                   .order_by(EditionShortStory.order_num).all()]
         # Full replacement: delete all EditionShortStory for all
         # editions of this work, then re-add the new list
         if work_edition_ids:
@@ -1481,6 +1492,11 @@ def save_work_shorts(params: Any) -> ResponseType:
                     shortstory_id=short_id,
                     order_num=order_num)
                 session.add(ess)
+        work = session.query(Work).filter(Work.id == work_id).first()
+        if work:
+            log_list_change(session, work, 'Novellit', old_ids,
+                            new_shorts_list, ShortStory,
+                            name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()

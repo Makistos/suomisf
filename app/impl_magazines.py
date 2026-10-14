@@ -4,7 +4,7 @@ from typing import Any, Dict, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.impl_helpers import str_differ
-from app.impl_logs import log_changes
+from app.impl_logs import log_and_commit, log_changes
 from app.impl_tags import tags_have_changed
 from app.route_helpers import new_session
 from app.orm_decl import (Magazine, MagazineTag, MagazineType, Publisher, Tag)
@@ -79,6 +79,7 @@ def _set_tags(
                         new_tag = Tag(name=tag['name'], type_id=1)
                         session.add(new_tag)
                         session.flush()
+                        log_changes(session, obj=new_tag, action='Uusi')
                         tag['id'] = new_tag.id
                     else:
                         tag['id'] = already_exists.id
@@ -88,7 +89,7 @@ def _set_tags(
                                 HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
         existing_tags = session.query(MagazineTag)\
-            .filter(MagazineTag.work_id == magazine.id)\
+            .filter(MagazineTag.magazine_id == magazine.id)\
             .all()
         # (to_add, to_remove) = get_join_changes(
         #     [x.tag_id for x in existing_tags],
@@ -246,7 +247,7 @@ def add_magazine(params: Dict[str, Any]) -> ResponseType:
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    log_changes(session, obj=new_magazine, action="Uusi")
+    log_and_commit(session, obj=new_magazine, action="Uusi")
 
     return ResponseType(str(new_magazine.id), HttpResponseCode.CREATED.value)
 
@@ -299,7 +300,7 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if 'name' in magazine_data and magazine_data['name'] != magazine.name:
-        old_values['name'] = magazine.name
+        old_values['Nimi'] = magazine.name
         magazine.name = magazine_data['name']
     if 'publisher' in magazine_data:
         # The form sends publisher: null for a magazine without one.
@@ -307,7 +308,7 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
         pub_id_raw = pub.get('id') if isinstance(pub, dict) else None
         if not pub_id_raw:
             if magazine.publisher_id is not None:
-                old_values['publisher'] = magazine.publisher.name \
+                old_values['Kustantaja'] = magazine.publisher.name \
                     if magazine.publisher else ''
                 magazine.publisher_id = None
         elif pub_id_raw != magazine.publisher_id:
@@ -327,8 +328,9 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
                 return ResponseType('Tietokantavirhe.',
                                     HttpResponseCode.INTERNAL_SERVER_ERROR.value)
             if publisher:
+                old_values['Kustantaja'] = magazine.publisher.name \
+                    if magazine.publisher else ''
                 magazine.publisher_id = pub_id
-                old_values['publisher'] = publisher.name
             else:
                 app.logger.error(f'Publisher {pub_id} not found.')
                 return ResponseType(f'Kustantajaa {pub_id} ei loydy.',
@@ -339,9 +341,11 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
             return result
     if 'link' in magazine_data and str_differ(magazine_data['link'],
                                               magazine.link):
+        old_values['Linkki'] = magazine.link
         magazine.link = magazine_data['link']
     if 'issn' in magazine_data and str_differ(magazine_data['issn'],
                                               magazine.issn):
+        old_values['ISSN'] = magazine.issn
         magazine.issn = magazine_data['issn']
     if 'type' in magazine_data and isinstance(magazine_data['type'], dict) \
             and magazine_data['type'].get('id') != magazine.type_id:
@@ -353,6 +357,7 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
             return ResponseType('Tyyppi on virheellinen: '
                                 f'{magazine_data["type"]}.',
                                 HttpResponseCode.BAD_REQUEST.value)
+        old_values['Tyyppi'] = magazine.type_id
         magazine.type_id = type_int
 
     if 'tags' in magazine_data:
@@ -361,6 +366,8 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
         if result:
             return result
 
+    log_changes(session, obj=magazine, old_values=old_values)
+
     try:
         session.commit()
     except SQLAlchemyError as exp:
@@ -368,8 +375,6 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
         app.logger.error(exp)
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.BAD_REQUEST.value)
-
-    log_changes(session, obj=magazine, action="Paivitys")
 
     return ResponseType('OK', HttpResponseCode.OK.value)
 
@@ -390,6 +395,11 @@ def delete_magazine(magazine_id: int) -> ResponseType:
     """
     session = new_session()
     try:
+        magazine = session.query(Magazine)\
+            .filter(Magazine.id == magazine_id).first()
+        if magazine:
+            log_changes(session, obj=magazine, action='Poisto',
+                        old_values={'Nimi': magazine.name})
         session.query(Magazine).filter(Magazine.id == magazine_id).delete()
         session.commit()
     except SQLAlchemyError as exp:

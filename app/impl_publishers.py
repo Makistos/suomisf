@@ -239,6 +239,7 @@ def publisher_add(params: Any) -> ResponseType:
         session.rollback()
         return ResponseType('Virhe linkkejä tallentaessa',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    log_changes(session=session, obj=publisher, action='Uusi')
     try:
         session.commit()
     except SQLAlchemyError as exp:
@@ -382,6 +383,8 @@ def publisher_delete(pub_id: int) -> ResponseType:
 
     if publisher:
         try:
+            log_changes(session=session, obj=publisher, action='Poisto',
+                        old_values={'Nimi': publisher.name})
             session.delete(publisher)
             session.commit()
         except SQLAlchemyError as exp:
@@ -422,5 +425,6 @@ def add_publisher(session: Any, name: str) -> Union[int, None]:
         session.rollback()
         app.logger.error(f'Exception in AddPublisher: {exp}.')
         return None
+    log_changes(session=session, obj=publisher, action='Uusi')
 
     return publisher.id

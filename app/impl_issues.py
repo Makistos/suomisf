@@ -8,7 +8,7 @@ from werkzeug.utils import secure_filename
 from app.api_helpers import allowed_image
 from app.impl import ResponseType, check_int
 from app.impl_contributors import update_issue_contributors
-from app.impl_logs import log_changes
+from app.impl_logs import log_changes, log_list_change, log_tag_change
 from app.route_helpers import new_session
 from app.orm_decl import (Article, Issue, IssueContent, IssueEditor, IssueImage,
                           IssueTag, PublicationSize, ShortStory, Tag)
@@ -168,7 +168,8 @@ def issue_add(params: Dict[str, Any]) -> ResponseType:
     if 'contributors' in issue:
         contributors_result = update_issue_contributors(session,
                                                         new_issue.id,
-                                                        issue['contributors'])
+                                                        issue['contributors'],
+                                                        log=False)
         if not contributors_result:
             session.rollback()
             return ResponseType('NOK',
@@ -336,6 +337,9 @@ def issue_delete(issue_id: int) -> ResponseType:
             session.delete(tag)
 
         issue = session.query(Issue).filter(Issue.id == issue_id).first()
+        if issue:
+            log_changes(session, obj=issue, action='Poisto',
+                        old_values={'Nimi': issue.name})
         session.delete(issue)
         session.commit()
     except SQLAlchemyError as exp:
@@ -404,6 +408,7 @@ def issue_shorts_save(params: Any) -> ResponseType:
             .filter(IssueContent.shortstory_id.isnot(None))\
             .all()
 
+        old_ids = [x.shortstory_id for x in old_stories_list]
         for story in old_stories_list:
             session.delete(story)
         session.flush()
@@ -413,6 +418,11 @@ def issue_shorts_save(params: Any) -> ResponseType:
             content.issue_id = params['issue_id']
             content.shortstory_id = story
             session.add(content)
+        issue = session.query(Issue)\
+            .filter(Issue.id == params['issue_id']).first()
+        if issue:
+            log_list_change(session, issue, 'Novellit', old_ids,
+                            params['shorts'], ShortStory)
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
@@ -479,6 +489,7 @@ def issue_articles_save(params: Any) -> ResponseType:
             .filter(IssueContent.article_id.isnot(None))\
             .all()
 
+        old_ids = [x.article_id for x in old_articles_list]
         for article in old_articles_list:
             session.delete(article)
         session.flush()
@@ -488,6 +499,11 @@ def issue_articles_save(params: Any) -> ResponseType:
             content.issue_id = params['issue_id']
             content.article_id = article
             session.add(content)
+        issue = session.query(Issue)\
+            .filter(Issue.id == params['issue_id']).first()
+        if issue:
+            log_list_change(session, issue, 'Artikkelit', old_ids,
+                            params['articles'], Article)
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
@@ -558,6 +574,7 @@ def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
         issue_tag.issue_id = issue_id
         issue_tag.tag_id = tag_id
         session.add(issue_tag)
+        log_tag_change(session, short, tag_id, True)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -600,6 +617,8 @@ def issue_tag_remove(issue_id: int, tag_id: int) -> ResponseType:
                                 f'issue_id={issue_id}, tag_id={tag_id}.',
                                 HttpResponseCode.BAD_REQUEST.value)
         session.delete(issue_tag)
+        issue = session.query(Issue).filter(Issue.id == issue_id).first()
+        log_tag_change(session, issue, tag_id, False)
         session.commit()
     except SQLAlchemyError as exp:
         app.logger.error(
@@ -710,7 +729,8 @@ def issue_image_delete(issue_id: int, image_id: int) -> ResponseType:
 
     issue = session.query(Issue).filter(Issue.id == issue_id).first()
     old_values = {'Kansikuva': issue_image.image_src}
-    log_changes(session=session, obj=issue, action='Poisto',
+    # The issue itself stays, so this is an update, not a deletion.
+    log_changes(session=session, obj=issue, action='Päivitys',
                 old_values=old_values)
 
     try:

@@ -34,6 +34,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from app import app
 from app.impl import ResponseType
+from app.impl_logs import log_changes
 from app.route_helpers import new_session
 from app.orm_decl import (Award, AwardCategory, AwardImportSource, Awarded,
                           Person, ShortStory, StoryContributor, Work,
@@ -1516,6 +1517,9 @@ def save_import(award_id: int, params: Any) -> ResponseType:
             session.add(awarded)
             created += 1
 
+        if created:
+            log_changes(session, obj=award, old_values={
+                'Palkitut': f'Tuotu: {created}'})
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()

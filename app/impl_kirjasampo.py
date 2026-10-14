@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.impl import ResponseType
+from app.impl_logs import log_changes
 from app.orm_decl import Tag, TagImportOmit, TagImportReplace, Work, WorkTag
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
@@ -145,6 +146,7 @@ def _find_or_create_tag(session: Any, name: str) -> Tag:
         tag.type_id = 1
         session.add(tag)
         session.flush()  # get tag.id without committing
+        log_changes(session, obj=tag, action='Uusi')
     return tag
 
 
@@ -205,6 +207,7 @@ def work_import_tags(
             )
 
         results = []
+        old_tags = ','.join(sorted(t.name for t in work.tags))
 
         for item in items:
             name: str = item.get("name", "").strip().lower()
@@ -334,6 +337,9 @@ def work_import_tags(
                     "status": "omitted",
                 })
 
+        if any(r.get("status") == "added" for r in results):
+            log_changes(session, obj=work, name_field='title',
+                        old_values={'Asiasanat': old_tags})
         session.commit()
         return ResponseType(results, HttpResponseCode.OK)
 

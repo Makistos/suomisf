@@ -9,7 +9,7 @@ from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
 from app.api_helpers import allowed_image
 from app.impl_helpers import objects_differ, str_differ
-from app.impl_logs import log_changes
+from app.impl_logs import log_changes, log_list_change
 from app.impl_publishers import add_publisher
 from app.isbn import check_isbn  # type: ignore
 from app.orm_decl import (
@@ -28,7 +28,6 @@ from app.orm_decl import (
     EditionLink,
     EditionPrice,
     ShortStory,
-    Log,
     UserBook,
     WorkContributor
 )
@@ -808,14 +807,12 @@ def edition_delete(edition_id: str) -> ResponseType:
     old_values["Painos"] = (
         "-Painos: " + str(edition.editionnum) + ", Laitos: " + version
     )
-    log_id = log_changes(
+    log_changes(
         session=session, obj=edition, action="Poisto", old_values=old_values
     )
     success = delete_edition(session, int_id)  # type: ignore
     if not success:
-        if log_id != 0:
-            # Delete invalid Log line
-            session.query(Log).filter(Log.id == log_id).delete()
+        # Also drops the log rows, which are in the same transaction.
         session.rollback()
         app.logger.error("Exception in edition_delete, id={edition_id}")
         return ResponseType("edition_delete: Tietokantavirhe.",
@@ -911,8 +908,9 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
 
     old_values = {}
     old_values["Kansikuva"] = edition_image.image_src
+    # The edition itself stays, so this is an update, not a deletion.
     log_id = log_changes(
-        session=session, obj=edition, action="Poisto", old_values=old_values
+        session=session, obj=edition, action="Päivitys", old_values=old_values
     )
     if log_id == 0:
         app.logger.error('edition_image_delete: Failed to log changes.')
@@ -922,9 +920,6 @@ def edition_image_delete(editionid: str, imageid: str) -> ResponseType:
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
-        if log_id != 0:
-            # Delete invalid Log line
-            session.query(Log).filter(Log.id == log_id).delete()
         app.logger.error(f"edition_image_delete: {exp}")
         return ResponseType("edition_image_delete: Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
@@ -997,6 +992,10 @@ def save_edition_shorts(edition_id: int, short_ids: list[int]) -> ResponseType:
         )
 
     try:
+        old_ids = [row[0] for row in
+                   session.query(EditionShortStory.shortstory_id)
+                   .filter(EditionShortStory.edition_id == edition_id)
+                   .order_by(EditionShortStory.order_num).all()]
         session.query(EditionShortStory)\
             .filter(EditionShortStory.edition_id == edition_id)\
             .delete(synchronize_session='fetch')
@@ -1016,6 +1015,8 @@ def save_edition_shorts(edition_id: int, short_ids: list[int]) -> ResponseType:
                 order_num=order_num,
             )
             session.add(ess)
+        log_list_change(session, edition, 'Novellit', old_ids, short_ids,
+                        ShortStory)
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()
@@ -1791,6 +1792,7 @@ def copy_edition(edition_id: int) -> ResponseType:
             )
             session.add(new_price)
 
+        log_changes(session, obj=new_edition, action='Uusi')
         session.commit()
         return ResponseType(new_edition.id,
                             HttpResponseCode.OK.value)
