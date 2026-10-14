@@ -142,16 +142,20 @@ it below.
 ### Whitespace
 
 `spaces_*` finds names and titles with leading, trailing or double spaces.
-They break sorting and exact searches. One statement per table fixes them,
-for example:
+They break sorting and exact searches. `scripts/trim_names.py` fixes them
+all: it strips leading and trailing spaces and collapses runs of spaces,
+and logs every change in the change log under the given user.
 
-```sql
-UPDATE suomisf.person
-SET name = btrim(regexp_replace(name, '\s+', ' ', 'g'))
-WHERE name <> btrim(regexp_replace(name, '\s+', ' ', 'g'));
+```sh
+.venv/bin/python scripts/trim_names.py                     # dry run
+.venv/bin/python scripts/trim_names.py --apply --user mep  # write
+.venv/bin/python scripts/trim_names.py --prod --apply --user mep
 ```
 
-Use `title` instead of `name` for `work`, `edition` and `shortstory`.
+Without `--apply` it only lists the changes. `--prod` and `--db URL`
+work as in `check_data.py`. A person or publisher whose trimmed name
+already belongs to another row is skipped and reported: those names are
+unique, so the two rows are probably one person or publisher to merge.
 
 ## Adding a check
 
