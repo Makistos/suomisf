@@ -179,7 +179,7 @@ CHECKS: List[Check] = [
                         AND least(a.binding_id, b.binding_id) = {PAPERBACK}
                         AND greatest(a.binding_id, b.binding_id)
                             = {HARDBACK})
-             ORDER BY verdict DESC, a.title""", 2,
+             ORDER BY verdict DESC, a.title, a.id, b.id""", 2,
           links={'id_a': 'editions', 'id_b': 'editions'}),
     Check('isbn_shared', 'Probable duplicates',
           'One ISBN on editions of different works (copy-paste errors, '
@@ -189,7 +189,7 @@ CHECKS: List[Check] = [
              WHERE e.isbn IN (SELECT isbn FROM edition WHERE isbn <> ''
                               GROUP BY isbn
                               HAVING count(DISTINCT work_id) > 1)
-             ORDER BY e.isbn""",
+             ORDER BY e.isbn, e.id""",
           links={'id': 'editions', 'work_id': 'works'}),
     Check('person_name', 'Probable duplicates',
           'People with the same name (ignoring case and spaces)',
@@ -315,7 +315,7 @@ CHECKS: List[Check] = [
     Check('person_unused', 'Unused records',
           'People who take part in nothing',
           f"""SELECT p.id, p.name, p.dob, p.dod FROM person p
-              WHERE {_PERSON_UNUSED} ORDER BY p.name""",
+              WHERE {_PERSON_UNUSED} ORDER BY p.name, p.id""",
           links={'id': 'people'}),
     Check('publisher_unused', 'Unused records',
           'Publishers with no editions, magazines or publisher series',
