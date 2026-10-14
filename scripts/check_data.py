@@ -40,6 +40,20 @@ class Check(NamedTuple):
     sql: str
     # How many leading columns identify a row (for the ignore list).
     id_cols: int = 1
+    # Columns holding ids, by the site path of their pages (KIND: the
+    # path comes from the row's kind column). Markdown links them.
+    links: Optional[Dict[str, str]] = None
+
+
+# Links of id columns whose page depends on the row's kind column.
+KIND = 'kind'
+KIND_PATHS = {
+    'person': 'people', 'work': 'works', 'edition': 'editions',
+    'story': 'shorts', 'publisher': 'publishers',
+    'pubseries': 'pubseries', 'bookseries': 'bookseries',
+    'tag': 'tags', 'magazine': 'magazines',
+}
+SITE_URL = 'https://www.sf-bibliografia.fi'
 
 
 # Binding types (bindingtype table).
@@ -78,48 +92,56 @@ CHECKS: List[Check] = [
              FROM edition e LEFT JOIN publisher p ON p.id = e.publisher_id
              WHERE e.pubyear IS NULL OR e.pubyear < 1850
                 OR e.pubyear > extract(year FROM now()) + 1
-             ORDER BY e.pubyear"""),
+             ORDER BY e.pubyear""",
+          links={'id': 'editions'}),
     Check('edition_pages', 'Wrong values',
           'Editions with fewer than 10 or more than 2000 pages (often a '
           'year typed as pages)',
           """SELECT id, title, pubyear, pages FROM edition
-             WHERE pages < 10 OR pages > 2000 ORDER BY pages"""),
+             WHERE pages < 10 OR pages > 2000 ORDER BY pages""",
+          links={'id': 'editions'}),
     Check('edition_before_work', 'Wrong values',
           'Editions published before the original work',
           """SELECT e.id, e.title, e.pubyear, w.id AS work_id,
                     w.pubyear AS work_year
              FROM edition e JOIN work w ON w.id = e.work_id
-             WHERE e.pubyear < w.pubyear"""),
+             WHERE e.pubyear < w.pubyear""",
+          links={'id': 'editions', 'work_id': 'works'}),
     Check('work_year', 'Wrong values',
           'Works with an impossible original year',
           """SELECT id, title, pubyear FROM work
              WHERE pubyear < -1000
-                OR pubyear > extract(year FROM now()) + 1"""),
+                OR pubyear > extract(year FROM now()) + 1""",
+          links={'id': 'works'}),
     Check('isbn_format', 'Wrong values',
           'ISBNs without 10 or 13 digits',
           """SELECT id, title, isbn FROM edition
              WHERE isbn <> ''
                AND length(regexp_replace(isbn, '[^0-9Xx]', '', 'g'))
-                   NOT IN (10, 13)"""),
+                   NOT IN (10, 13)""",
+          links={'id': 'editions'}),
     Check('person_dates', 'Wrong values',
           'People who died before they were born, lived over 110 '
           'years or are born in the future',
           """SELECT id, name, dob, dod FROM person
              WHERE dod < dob OR dod - dob > 110
-                OR dob > extract(year FROM now())"""),
+                OR dob > extract(year FROM now())""",
+          links={'id': 'people'}),
     Check('issue_year', 'Wrong values',
           'Magazine issues with a missing or impossible year',
           """SELECT i.id, m.name AS magazine, i.number, i.year
              FROM issue i JOIN magazine m ON m.id = i.magazine_id
              WHERE i.year IS NULL OR i.year < 1850
-                OR i.year > extract(year FROM now()) + 1"""),
+                OR i.year > extract(year FROM now()) + 1""",
+          links={'id': 'issues'}),
     Check('lookup_ids', 'Wrong values',
           'Editions pointing to a binding, format or size that does '
           'not exist',
           """SELECT id, title, binding_id, format_id, size FROM edition
              WHERE binding_id NOT IN (SELECT id FROM bindingtype)
                 OR format_id NOT IN (SELECT id FROM format)
-                OR size NOT IN (SELECT id FROM publicationsize)"""),
+                OR size NOT IN (SELECT id FROM publicationsize)""",
+          links={'id': 'editions'}),
 
     # --- Probable duplicates --------------------------------------------
     Check('edition_number', 'Probable duplicates',
@@ -149,7 +171,8 @@ CHECKS: List[Check] = [
                         AND least(a.binding_id, b.binding_id) = {PAPERBACK}
                         AND greatest(a.binding_id, b.binding_id)
                             = {HARDBACK})
-             ORDER BY verdict DESC, a.title""", 2),
+             ORDER BY verdict DESC, a.title""", 2,
+          links={'id_a': 'editions', 'id_b': 'editions'}),
     Check('isbn_shared', 'Probable duplicates',
           'One ISBN on editions of different works (copy-paste errors, '
           'or a set sold under one ISBN)',
@@ -158,12 +181,14 @@ CHECKS: List[Check] = [
              WHERE e.isbn IN (SELECT isbn FROM edition WHERE isbn <> ''
                               GROUP BY isbn
                               HAVING count(DISTINCT work_id) > 1)
-             ORDER BY e.isbn"""),
+             ORDER BY e.isbn""",
+          links={'id': 'editions', 'work_id': 'works'}),
     Check('person_name', 'Probable duplicates',
           'People with the same name (ignoring case and spaces)',
           """SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
                     lower(btrim(name)) AS name
-             FROM person GROUP BY 2 HAVING count(*) > 1"""),
+             FROM person GROUP BY 2 HAVING count(*) > 1""",
+          links={'ids': 'people'}),
     Check('story_title', 'Probable duplicates',
           'Translated short stories with the same title, original '
           'title, authors and translators',
@@ -199,17 +224,20 @@ CHECKS: List[Check] = [
                     min(author_names) AS authors,
                     min(translator_names) AS translators
              FROM s GROUP BY title_key, orig_key, authors, translators
-             HAVING count(*) > 1 ORDER BY title_key"""),
+             HAVING count(*) > 1 ORDER BY title_key""",
+          links={'ids': 'shorts'}),
     Check('tag_name', 'Probable duplicates',
           'Tags with the same name (ignoring case and spaces)',
           """SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
                     lower(btrim(name)) AS name
-             FROM tag GROUP BY 2 HAVING count(*) > 1"""),
+             FROM tag GROUP BY 2 HAVING count(*) > 1""",
+          links={'ids': 'tags'}),
     Check('publisher_name', 'Probable duplicates',
           'Publishers with the same name (ignoring case and spaces)',
           """SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
                     lower(btrim(name)) AS name
-             FROM publisher GROUP BY 2 HAVING count(*) > 1"""),
+             FROM publisher GROUP BY 2 HAVING count(*) > 1""",
+          links={'ids': 'publishers'}),
     Check('link_twice', 'Probable duplicates',
           'The same link twice on one person, work or edition',
           """SELECT 'person' AS kind, person_id AS id, link
@@ -219,7 +247,8 @@ CHECKS: List[Check] = [
              FROM worklink GROUP BY 2, 3 HAVING count(*) > 1
              UNION ALL
              SELECT 'edition', edition_id, link
-             FROM editionlink GROUP BY 2, 3 HAVING count(*) > 1""", 2),
+             FROM editionlink GROUP BY 2, 3 HAVING count(*) > 1""", 2,
+          links={'id': KIND}),
     Check('contributor_twice', 'Probable duplicates',
           'The same person twice in the same role on one work, edition '
           'or story',
@@ -232,20 +261,24 @@ CHECKS: List[Check] = [
              UNION ALL
              SELECT 'story', shortstory_id, person_id, role_id
              FROM storycontributor GROUP BY 2, 3, 4
-             HAVING count(*) > 1""", 4),
+             HAVING count(*) > 1""", 4,
+          links={'id': KIND, 'person_id': 'people'}),
     Check('awarded_twice', 'Probable duplicates',
           'The same award given twice to the same target',
           """SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
                     award_id, category_id, year, person_id, work_id,
                     story_id
              FROM awarded GROUP BY 2, 3, 4, 5, 6, 7
-             HAVING count(*) > 1"""),
+             HAVING count(*) > 1""",
+          links={'award_id': 'awards', 'person_id': 'people',
+                 'work_id': 'works', 'story_id': 'shorts'}),
     Check('issue_twice', 'Probable duplicates',
           'Magazine issues with the same number in the same year',
           """SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
                     magazine_id, year, number, number_extra
              FROM issue WHERE number IS NOT NULL
-             GROUP BY 2, 3, 4, 5 HAVING count(*) > 1"""),
+             GROUP BY 2, 3, 4, 5 HAVING count(*) > 1""",
+          links={'ids': 'issues', 'magazine_id': 'magazines'}),
     Check('story_order', 'Probable duplicates',
           'Two stories in the same position of one edition or work',
           """SELECT 'edition' AS kind, edition_id AS id, order_num
@@ -254,20 +287,23 @@ CHECKS: List[Check] = [
              UNION ALL
              SELECT 'work', work_id, order_num
              FROM work_shortstory WHERE order_num IS NOT NULL
-             GROUP BY 2, 3 HAVING count(*) > 1""", 3),
+             GROUP BY 2, 3 HAVING count(*) > 1""", 3,
+          links={'id': KIND}),
     Check('alias_loop', 'Probable duplicates',
           'Aliases pointing to themselves or to each other',
           """SELECT a.alias, a.realname FROM alias a
              WHERE a.alias = a.realname
                 OR EXISTS (SELECT 1 FROM alias b
                            WHERE b.alias = a.realname
-                             AND b.realname = a.alias)""", 2),
+                             AND b.realname = a.alias)""", 2,
+          links={'alias': 'people', 'realname': 'people'}),
 
     # --- Unused records -------------------------------------------------
     Check('person_unused', 'Unused records',
           'People who take part in nothing',
           f"""SELECT p.id, p.name, p.dob, p.dod FROM person p
-              WHERE {_PERSON_UNUSED} ORDER BY p.name"""),
+              WHERE {_PERSON_UNUSED} ORDER BY p.name""",
+          links={'id': 'people'}),
     Check('publisher_unused', 'Unused records',
           'Publishers with no editions, magazines or publisher series',
           """SELECT p.id, p.name FROM publisher p
@@ -277,7 +313,8 @@ CHECKS: List[Check] = [
                                WHERE m.publisher_id = p.id)
                AND NOT EXISTS (SELECT 1 FROM pubseries s
                                WHERE s.publisher_id = p.id)
-             ORDER BY p.name"""),
+             ORDER BY p.name""",
+          links={'id': 'publishers'}),
     Check('story_unused', 'Unused records',
           'Short stories in no edition, work or magazine issue',
           """SELECT s.id, s.title,
@@ -289,24 +326,28 @@ CHECKS: List[Check] = [
                AND NOT EXISTS (SELECT 1 FROM work_shortstory x
                                WHERE x.shortstory_id = s.id)
                AND NOT EXISTS (SELECT 1 FROM issuecontent x
-                               WHERE x.shortstory_id = s.id)"""),
+                               WHERE x.shortstory_id = s.id)""",
+          links={'id': 'shorts'}),
     Check('work_unused', 'Unused records',
           'Works with no editions',
           """SELECT w.id, w.title FROM work w
              WHERE NOT EXISTS (SELECT 1 FROM edition e
-                               WHERE e.work_id = w.id)"""),
+                               WHERE e.work_id = w.id)""",
+          links={'id': 'works'}),
     Check('pubseries_unused', 'Unused records',
           'Publisher series with no editions',
           """SELECT s.id, s.name FROM pubseries s
              WHERE NOT EXISTS (SELECT 1 FROM edition e
-                               WHERE e.pubseries_id = s.id)"""),
+                               WHERE e.pubseries_id = s.id)""",
+          links={'id': 'pubseries'}),
     Check('bookseries_unused', 'Unused records',
           'Book series with no works and no sub-series',
           """SELECT s.id, s.name FROM bookseries s
              WHERE NOT EXISTS (SELECT 1 FROM work w
                                WHERE w.bookseries_id = s.id)
                AND NOT EXISTS (SELECT 1 FROM bookseries c
-                               WHERE c.parent_id = s.id)"""),
+                               WHERE c.parent_id = s.id)""",
+          links={'id': 'bookseries'}),
     Check('tag_unused', 'Unused records',
           'Tags on nothing',
           """SELECT t.id, t.name FROM tag t
@@ -321,37 +362,44 @@ CHECKS: List[Check] = [
                AND NOT EXISTS (SELECT 1 FROM issuetag x
                                WHERE x.tag_id = t.id)
                AND NOT EXISTS (SELECT 1 FROM persontag x
-                               WHERE x.tag_id = t.id)"""),
+                               WHERE x.tag_id = t.id)""",
+          links={'id': 'tags'}),
     Check('magazine_empty', 'Unused records',
           'Magazines with no issues',
           """SELECT m.id, m.name FROM magazine m
              WHERE NOT EXISTS (SELECT 1 FROM issue i
-                               WHERE i.magazine_id = m.id)"""),
+                               WHERE i.magazine_id = m.id)""",
+          links={'id': 'magazines'}),
     Check('issue_empty', 'Unused records',
           'Magazine issues with no contents',
           """SELECT i.id, m.name AS magazine, i.year, i.number
              FROM issue i JOIN magazine m ON m.id = i.magazine_id
              WHERE NOT EXISTS (SELECT 1 FROM issuecontent c
                                WHERE c.issue_id = i.id)
-             ORDER BY m.name, i.year, i.number"""),
+             ORDER BY m.name, i.year, i.number""",
+          links={'id': 'issues'}),
 
     # --- Whitespace -----------------------------------------------------
     Check('spaces_person', 'Whitespace',
           'Person names with extra spaces',
           f"""SELECT id, '[' || name || ']' AS name FROM person
-              WHERE {_SPACES.format(col='name')}"""),
+              WHERE {_SPACES.format(col='name')}""",
+          links={'id': 'people'}),
     Check('spaces_work', 'Whitespace',
           'Work titles with extra spaces',
           f"""SELECT id, '[' || title || ']' AS title FROM work
-              WHERE {_SPACES.format(col='title')}"""),
+              WHERE {_SPACES.format(col='title')}""",
+          links={'id': 'works'}),
     Check('spaces_edition', 'Whitespace',
           'Edition titles with extra spaces',
           f"""SELECT id, '[' || title || ']' AS title FROM edition
-              WHERE {_SPACES.format(col='title')}"""),
+              WHERE {_SPACES.format(col='title')}""",
+          links={'id': 'editions'}),
     Check('spaces_story', 'Whitespace',
           'Short story titles with extra spaces',
           f"""SELECT id, '[' || title || ']' AS title FROM shortstory
-              WHERE {_SPACES.format(col='title')}"""),
+              WHERE {_SPACES.format(col='title')}""",
+          links={'id': 'shorts'}),
     Check('spaces_other', 'Whitespace',
           'Publisher, series, tag and magazine names with extra spaces',
           f"""SELECT 'publisher' AS kind, id, '[' || name || ']' AS name
@@ -367,7 +415,8 @@ CHECKS: List[Check] = [
               FROM tag WHERE {_SPACES.format(col='name')}
               UNION ALL
               SELECT 'magazine', id, '[' || name || ']'
-              FROM magazine WHERE {_SPACES.format(col='name')}""", 2),
+              FROM magazine WHERE {_SPACES.format(col='name')}""", 2,
+          links={'id': KIND}),
 ]
 
 
@@ -419,6 +468,9 @@ def main() -> int:
                              'scripts/check_data_ignore.txt)')
     parser.add_argument('--format', choices=('text', 'markdown'),
                         default='text', help='output format (default text)')
+    parser.add_argument('--site', default=SITE_URL,
+                        help='site the markdown ids link to (default '
+                             f'{SITE_URL})')
     parser.add_argument('--show-ignored', action='store_true',
                         help='print ignored rows too, marked IGNORED')
     args = parser.parse_args()
@@ -470,7 +522,8 @@ def main() -> int:
     stale = sorted(k for k in ignores if k[0] in ran and k not in used)
     limit = None if args.all else args.rows
     if args.format == 'markdown':
-        write_markdown(results, stale, limit, args.show_ignored)
+        write_markdown(results, stale, limit, args.show_ignored,
+                       args.site.rstrip('/'))
     else:
         write_text(results, stale, limit, args.show_ignored)
     return 1 if any(r.rows for r in results) else 0
@@ -525,14 +578,35 @@ def _md(value: Any) -> str:
     return cell
 
 
+def _md_links(check: Check, columns: List[str], row: Sequence[Any],
+              site: str) -> List[str]:
+    """Row cells, ids linked to their pages on the site."""
+    links = check.links or {}
+    kind = row[columns.index(KIND)] if KIND in columns else None
+    cells = []
+    for col, value in zip(columns, row):
+        path = links.get(col)
+        if path == KIND:
+            path = KIND_PATHS.get(kind)
+        if not path or value is None:
+            cells.append(_md(value))
+            continue
+        # A comma-separated id list links each id.
+        cells.append(', '.join(f'[{i}]({site}/{path}/{i})'
+                               for i in str(value).split(',')))
+    return cells
+
+
 def write_markdown(results: List[Result], stale: List[Tuple[str, str]],
-                   limit: Optional[int], show_ignored: bool) -> None:
+                   limit: Optional[int], show_ignored: bool,
+                   site: str = SITE_URL) -> None:
     """Markdown: a summary table, then a table per check with rows."""
     found = sum(bool(r.rows) for r in results)
     print(f'# Data checks {date.today().isoformat()}\n')
     print('Generated by `scripts/check_data.py --format markdown --all`; '
           'see `docs/data-checks.md` for how to read the checks. '
-          f'{found} of {len(results)} checks found something.\n')
+          f'{found} of {len(results)} checks found something. '
+          f'Ids link to their pages on {site}.\n')
     print('| Group | Check | Rows | Ignored |')
     print('|---|---|--:|--:|')
     for r in results:
@@ -563,7 +637,8 @@ def write_markdown(results: List[Result], stale: List[Tuple[str, str]],
             print('|' + '---|' * len(r.columns))
             shown = r.rows[:limit]
             for row in shown:
-                print('| ' + ' | '.join(_md(v) for v in row) + ' |')
+                cells = _md_links(c, r.columns, row, site)
+                print('| ' + ' | '.join(cells) + ' |')
             if len(shown) < len(r.rows):
                 print(f'\n… {len(r.rows) - len(shown)} more '
                       f'(`--only {c.key} --all`).')

@@ -21,6 +21,8 @@ The script reads `DATABASE_URL` from `.env`, as the app does.
 - `--only KEY…` runs some checks; `--all` prints every row instead of the
   first 10 (`--rows N` sets another number).
 - `--format markdown` writes Markdown tables instead of plain text.
+  Ids in them link to the item's page on the site
+  (`--site URL`, default https://www.sf-bibliografia.fi).
 - `--sql KEY` prints a check's query, ready to paste into `psql` against
   production, for example to confirm a row is still wrong there.
 - The script exits with 1 when any check found rows and 0 when all are
@@ -30,7 +32,7 @@ The script reads `DATABASE_URL` from `.env`, as the app does.
 
 The latest full results are kept in `docs/data-check-results.md`: a
 summary table of every check, then a table of rows for each check that
-found something.
+found something, with each id linked to its page.
 Regenerate them after each refresh and commit them; `git diff` then shows
 what was fixed and what is new:
 
