@@ -60,6 +60,9 @@ SITE_URL = 'https://www.sf-bibliografia.fi'
 PAPERBACK = 2
 HARDBACK = 3
 
+# Story types (storytype table).
+ARTICLE = 7
+
 # Expression that is true when a person takes part in nothing.
 _PERSON_UNUSED = """
     NOT EXISTS (SELECT 1 FROM workcontributor c
@@ -190,12 +193,14 @@ CHECKS: List[Check] = [
              FROM person GROUP BY 2 HAVING count(*) > 1""",
           links={'ids': 'people'}),
     Check('story_title', 'Probable duplicates',
-          'Translated short stories with the same title, original '
-          'title, authors and translators',
-          """WITH s AS (
+          'Short stories with the same title, original title, authors '
+          'and translators. A missing original title counts as the '
+          'title (Finnish stories)',
+          f"""WITH s AS (
                  SELECT s.id, lower(btrim(s.title)) AS title_key,
                         s.title,
-                        lower(btrim(s.orig_title)) AS orig_key,
+                        lower(coalesce(nullif(btrim(s.orig_title), ''),
+                                       btrim(s.title))) AS orig_key,
                         btrim(s.orig_title) AS orig,
                         (SELECT string_agg(c.person_id::text, ','
                                            ORDER BY c.person_id)
@@ -218,7 +223,10 @@ CHECKS: List[Check] = [
                          WHERE c.shortstory_id = s.id
                            AND c.role_id = 2) AS translator_names
                  FROM shortstory s
-                 WHERE coalesce(btrim(s.orig_title), '') <> '')
+                 -- Untitled-in-original articles are mostly recurring
+                 -- magazine columns, the same title every issue.
+                 WHERE coalesce(btrim(s.orig_title), '') <> ''
+                    OR s.story_type IS DISTINCT FROM {ARTICLE})
              SELECT string_agg(id::text, ',' ORDER BY id) AS ids,
                     min(title) AS title, min(orig) AS orig,
                     min(author_names) AS authors,

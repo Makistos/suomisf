@@ -12,3 +12,4 @@
 #
 # Example:
 # edition_number  4918,8938  Kummituspalatsi: volumes 1 and 2, not one book
+story_title  12608,12632,12640  Fanzinet: a different column in each issue

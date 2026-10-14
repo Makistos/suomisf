@@ -112,7 +112,7 @@ it below.
 | `edition_number` | Two editions of the same work and version (laitos) with the same edition number (painos) | **Allowed:** a paperback (nidottu) and a hardback (sidottu) published in the same year; those pairs are left out. Rows marked `same` have the same publisher, year, ISBN and binding and are almost certainly one book entered twice: merge them. The rest usually need a corrected edition number, version or binding (unknown binding counts as different). |
 | `isbn_shared` | One ISBN on editions of different works | Usually a copy-paste error. A set of volumes sold under one ISBN is legitimate. |
 | `person_name` | People with the same name | Real namesakes exist; compare dates and works. |
-| `story_title` | Translated stories with the same title, original title, authors and translators | Stories with no original title (Finnish stories, articles, recurring magazine columns) are left out, as are retranslations by another translator. |
+| `story_title` | Stories with the same title, original title, authors and translators; a missing original title counts as the title, so Finnish stories are compared too | Articles with no original title (mostly recurring magazine columns) are left out, as are retranslations by another translator. |
 | `tag_name`, `publisher_name` | Same name ignoring case and spaces | Merge into one. |
 | `link_twice` | The same URL twice on one person, work or edition | Delete one. |
 | `contributor_twice`, `awarded_twice`, `issue_twice`, `story_order`, `alias_loop` | Repeated rows, two stories in one position, alias cycles | Should always be 0. |
