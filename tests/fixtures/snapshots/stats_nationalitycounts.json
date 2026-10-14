@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/nationalitycounts",
@@ -15,12 +15,12 @@
         "nationality": "Suomi",
         "genres": {
           "F": {
-            "Kirjoittaja": 401,
-            "Toimittaja": 95,
-            "Esiintyy": 2
+            "Kirjoittaja": 410,
+            "Toimittaja": 96,
+            "Esiintyy": 3
           },
           "K": {
-            "Kirjoittaja": 128,
+            "Kirjoittaja": 131,
             "Toimittaja": 71,
             "Esiintyy": 2
           },
@@ -28,15 +28,15 @@
             "Kirjoittaja": 7
           },
           "PF": {
-            "Kirjoittaja": 24
+            "Kirjoittaja": 25
           },
           "SF": {
             "Kirjoittaja": 364,
-            "Toimittaja": 93,
-            "Esiintyy": 4
+            "Toimittaja": 96,
+            "Esiintyy": 5
           },
           "VEH": {
-            "Kirjoittaja": 28,
+            "Kirjoittaja": 29,
             "Toimittaja": 3
           },
           "Utopia": {
@@ -78,21 +78,21 @@
             "Esiintyy": 1
           },
           "lF": {
-            "Kirjoittaja": 91
+            "Kirjoittaja": 93
           },
           "R": {
             "Kirjoittaja": 13,
             "Toimittaja": 5
           }
         },
-        "count": 1129
+        "count": 1144
       },
       {
         "nationality_id": 3,
         "nationality": "Yhdysvallat",
         "genres": {
           "F": {
-            "Kirjoittaja": 212,
+            "Kirjoittaja": 213,
             "Toimittaja": 5,
             "Esiintyy": 3
           },
@@ -119,7 +119,7 @@
             "Kirjoittaja": 3
           },
           "nF": {
-            "Kirjoittaja": 99
+            "Kirjoittaja": 100
           },
           "nSF": {
             "Kirjoittaja": 53,
@@ -189,7 +189,7 @@
             "Kirjoittaja": 105
           },
           "nSF": {
-            "Kirjoittaja": 19,
+            "Kirjoittaja": 18,
             "Esiintyy": 9
           },
           "nK": {
@@ -197,10 +197,10 @@
             "Toimittaja": 1
           },
           "lSF": {
-            "Kirjoittaja": 3
+            "Kirjoittaja": 4
           },
           "satu": {
-            "Kirjoittaja": 3
+            "Kirjoittaja": 4
           },
           "eiSF": {
             "Kirjoittaja": 4,
@@ -217,14 +217,14 @@
             "Toimittaja": 3
           },
           "lF": {
-            "Kirjoittaja": 38,
+            "Kirjoittaja": 39,
             "Toimittaja": 2
           },
           "R": {
             "Kirjoittaja": 2
           }
         },
-        "count": 429
+        "count": 430
       },
       {
         "nationality_id": 5,
@@ -257,7 +257,7 @@
             "Kirjoittaja": 11
           },
           "nK": {
-            "Kirjoittaja": 4
+            "Kirjoittaja": 9
           },
           "satu": {
             "Kirjoittaja": 1
@@ -279,7 +279,7 @@
             "Kirjoittaja": 1
           }
         },
-        "count": 92
+        "count": 97
       },
       {
         "nationality_id": 11,
@@ -377,7 +377,7 @@
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 14,
+            "Kirjoittaja": 15,
             "Esiintyy": 1
           },
           "K": {
@@ -418,7 +418,7 @@
             "Kirjoittaja": 4
           }
         },
-        "count": 41
+        "count": 42
       },
       {
         "nationality_id": 31,
@@ -516,7 +516,10 @@
             "Kirjoittaja": 1
           },
           "nSF": {
-            "Kirjoittaja": 3
+            "Kirjoittaja": 2
+          },
+          "lSF": {
+            "Kirjoittaja": 1
           },
           "rajatap": {
             "Kirjoittaja": 2

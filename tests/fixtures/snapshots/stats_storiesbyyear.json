@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storiesbyyear",
@@ -6228,7 +6228,7 @@
       },
       {
         "year": 2000,
-        "count": 1,
+        "count": 2,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 19,
@@ -7956,7 +7956,7 @@
       },
       {
         "year": 2023,
-        "count": 54,
+        "count": 56,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -8004,11 +8004,19 @@
       },
       {
         "year": 2023,
-        "count": 36,
+        "count": 85,
         "storytype_id": 5,
         "storytype_name": "Raapale",
         "language_id": 7,
         "language_name": "suomi"
+      },
+      {
+        "year": 2023,
+        "count": 2,
+        "storytype_id": 5,
+        "storytype_name": "Raapale",
+        "language_id": null,
+        "language_name": null
       },
       {
         "year": 2023,
@@ -8068,7 +8076,7 @@
       },
       {
         "year": 2024,
-        "count": 123,
+        "count": 125,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,
@@ -8076,7 +8084,7 @@
       },
       {
         "year": 2024,
-        "count": 42,
+        "count": 44,
         "storytype_id": 5,
         "storytype_name": "Raapale",
         "language_id": 7,
@@ -8084,7 +8092,7 @@
       },
       {
         "year": 2024,
-        "count": 2,
+        "count": 3,
         "storytype_id": 4,
         "storytype_name": "Runo",
         "language_id": 7,
@@ -8116,7 +8124,7 @@
       },
       {
         "year": 2025,
-        "count": 93,
+        "count": 99,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,
@@ -8148,7 +8156,7 @@
       },
       {
         "year": 2026,
-        "count": 41,
+        "count": 46,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,

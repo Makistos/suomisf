@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/242/shorts",
@@ -93,6 +93,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -197,6 +198,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -258,6 +260,7 @@
                   "contributions": [],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Maki_Harri_Istvan_Enkelitupakkasalongissa_1p.jpg",
                       "id": 2734,
                       "image_src": "/static/images/books/Maki_Harri_Istvan_Enkelitupakkasalongissa_1p.jpg",
                       "image_attr": null
@@ -320,6 +323,7 @@
             "contributions": [],
             "images": [
               {
+                "thumb_src": "/static/images/books/Maki_Harri_Istvan_Enkelitupakkasalongissa_1p.jpg",
                 "id": 2734,
                 "image_src": "/static/images/books/Maki_Harri_Istvan_Enkelitupakkasalongissa_1p.jpg",
                 "image_attr": null
@@ -464,6 +468,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -568,6 +573,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -711,6 +717,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -815,6 +822,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -958,6 +966,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -1062,6 +1071,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -1205,6 +1215,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -1309,6 +1320,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -1452,6 +1464,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -1556,6 +1569,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -1699,6 +1713,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -1803,6 +1818,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -1946,6 +1962,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -2050,6 +2067,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -2125,7 +2143,7 @@
               "name": "Suomi"
             },
             "workcount": 6,
-            "storycount": 117,
+            "storycount": 118,
             "roles": [
               "Kirjoittaja",
               "Toimittaja",
@@ -2196,6 +2214,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -2300,6 +2319,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -2443,6 +2463,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -2547,6 +2568,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -2622,7 +2644,7 @@
               "name": "Suomi"
             },
             "workcount": 3,
-            "storycount": 11,
+            "storycount": 12,
             "roles": [
               "Kirjoittaja",
               "Kansikuva",
@@ -2693,6 +2715,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -2797,6 +2820,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null
@@ -2872,7 +2896,7 @@
               "name": "Suomi"
             },
             "workcount": 2,
-            "storycount": 11,
+            "storycount": 12,
             "roles": [
               "Kirjoittaja",
               "Esiintyy"
@@ -2941,6 +2965,7 @@
                   ],
                   "images": [
                     {
+                      "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "id": 2283,
                       "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                       "image_attr": null
@@ -3045,6 +3070,7 @@
             ],
             "images": [
               {
+                "thumb_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "id": 2283,
                 "image_src": "/static/images/books/Vaisanen_Helena_Valitiloja_1p.jpg",
                 "image_attr": null

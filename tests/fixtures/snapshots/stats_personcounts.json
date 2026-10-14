@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-09-30T19:44:03.354886+00:00",
+    "generated_at": "2026-10-13T20:27:44.247968+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/personcounts",
@@ -104,27 +104,6 @@
         "total": 52
       },
       {
-        "id": 2877,
-        "name": "Burroughs, Edgar Rice",
-        "alt_name": "Edgar Rice Burroughs",
-        "nationality": "Yhdysvallat",
-        "genres": {
-          "F": {
-            "Kirjoittaja": 18
-          },
-          "SF": {
-            "Kirjoittaja": 27
-          },
-          "eiSF": {
-            "Kirjoittaja": 6
-          },
-          "kok": {
-            "Kirjoittaja": 1
-          }
-        },
-        "total": 51
-      },
-      {
         "id": 1556,
         "name": "Pratchett, Terry",
         "alt_name": "Terry Pratchett",
@@ -141,6 +120,27 @@
           },
           "nF": {
             "Kirjoittaja": 9
+          }
+        },
+        "total": 51
+      },
+      {
+        "id": 2877,
+        "name": "Burroughs, Edgar Rice",
+        "alt_name": "Edgar Rice Burroughs",
+        "nationality": "Yhdysvallat",
+        "genres": {
+          "F": {
+            "Kirjoittaja": 18
+          },
+          "SF": {
+            "Kirjoittaja": 27
+          },
+          "eiSF": {
+            "Kirjoittaja": 6
+          },
+          "kok": {
+            "Kirjoittaja": 1
           }
         },
         "total": 51
@@ -204,16 +204,16 @@
         "nationality": null,
         "genres": {
           "F": {
-            "Kirjoittaja": 2004,
+            "Kirjoittaja": 2025,
             "Kääntäjä": 0,
-            "Toimittaja": 87,
+            "Toimittaja": 91,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 31,
+            "Esiintyy": 32,
             "Päätoimittaja": 0
           },
           "K": {
-            "Kirjoittaja": 609,
+            "Kirjoittaja": 612,
             "Kääntäjä": 0,
             "Toimittaja": 73,
             "Kansikuva": 0,
@@ -231,7 +231,7 @@
             "Päätoimittaja": 0
           },
           "PF": {
-            "Kirjoittaja": 118,
+            "Kirjoittaja": 119,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -242,14 +242,14 @@
           "SF": {
             "Kirjoittaja": 1745,
             "Kääntäjä": 0,
-            "Toimittaja": 73,
+            "Toimittaja": 77,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 19,
+            "Esiintyy": 20,
             "Päätoimittaja": 0
           },
           "VEH": {
-            "Kirjoittaja": 64,
+            "Kirjoittaja": 65,
             "Kääntäjä": 0,
             "Toimittaja": 1,
             "Kansikuva": 0,
@@ -267,7 +267,7 @@
             "Päätoimittaja": 0
           },
           "nF": {
-            "Kirjoittaja": 1267,
+            "Kirjoittaja": 1271,
             "Kääntäjä": 0,
             "Toimittaja": 2,
             "Kansikuva": 0,
@@ -276,7 +276,7 @@
             "Päätoimittaja": 0
           },
           "nSF": {
-            "Kirjoittaja": 400,
+            "Kirjoittaja": 395,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -285,7 +285,7 @@
             "Päätoimittaja": 0
           },
           "nK": {
-            "Kirjoittaja": 144,
+            "Kirjoittaja": 150,
             "Kääntäjä": 0,
             "Toimittaja": 7,
             "Kansikuva": 0,
@@ -294,7 +294,7 @@
             "Päätoimittaja": 0
           },
           "lSF": {
-            "Kirjoittaja": 74,
+            "Kirjoittaja": 79,
             "Kääntäjä": 0,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -303,7 +303,7 @@
             "Päätoimittaja": 0
           },
           "satu": {
-            "Kirjoittaja": 8,
+            "Kirjoittaja": 9,
             "Kääntäjä": 0,
             "Toimittaja": 1,
             "Kansikuva": 0,
@@ -339,7 +339,7 @@
             "Päätoimittaja": 0
           },
           "lF": {
-            "Kirjoittaja": 468,
+            "Kirjoittaja": 475,
             "Kääntäjä": 0,
             "Toimittaja": 4,
             "Kansikuva": 0,
@@ -366,7 +366,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 6716
+        "total": 6756
       }
     ],
     "error": null
