@@ -5,6 +5,31 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-10-15 — Names and titles trimmed automatically
+**Commits:** `6c0fa8d8`, `f65b8e0d`
+Person names, work, edition and story titles and publisher, series, tag
+and magazine names lose leading, trailing and doubled spaces whenever
+they are saved (`app/names.py`), and name lookups clean the name first,
+so " runo " finds the tag "runo" instead of creating a second one.
+`scripts/trim_names.py` fixed the existing rows: a dry run by default,
+one logged transaction with `--apply --user NAME`, skipping unique
+names that would clash.
+
+## 2026-10-14 — Merging a tag into itself refused
+**Commits:** `ab539b05`
+Merging a tag with itself deleted every link of the tag and then the tag
+itself. The merge endpoint now returns 400 when both ids are the same.
+
+## 2026-10-14 — Data checks against production, with links
+**Commits:** `ffb25789`, `1adfdb5f`, `057adeea`, `aec35ffa`
+`scripts/check_data.py --prod` (`DATABASE_URL_PROD` in `.env`) or
+`--db URL` checks another database over a read-only connection, and the
+output names the database. In the Markdown results every id links to
+its page on the site, and the file explains how to mark a false
+positive. `story_title` now compares Finnish stories too (a missing
+original title counts as the title), and row order is fixed so the
+results diff shows only real changes.
+
 ## 2026-10-14 — User list with collection and reading counts
 **Commits:** `9d547120`
 `GET /api/users` returns each user's owned editions, wishlist editions,
