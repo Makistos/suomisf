@@ -1586,7 +1586,7 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
 
         # Validate missing_fields
         valid_work_fields = {'description', 'links', 'tags', 'genres',
-                             'language', 'stories'}
+                             'language', 'stories', 'kirjasampo_tags'}
         valid_edition_fields = {'page_count', 'size', 'binding', 'image'}
         valid_fields = valid_work_fields | valid_edition_fields
 
@@ -1623,6 +1623,14 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
                     SELECT 1 FROM work_shortstory ws
                     WHERE ws.work_id = w.id
                 ))""")
+            elif field == 'kirjasampo_tags':
+                # Has a Kirjasampo link but tags were never imported from it
+                conditions.append("""(
+                    w.kirjasampo_imported IS NULL AND EXISTS (
+                        SELECT 1 FROM worklink wl2
+                        WHERE wl2.work_id = w.id
+                        AND wl2.link LIKE '%kirjasampo.fi%'
+                    ))""")
 
         # Edition-level conditions (except image which needs special handling)
         edition_fields = set(missing_fields) & valid_edition_fields

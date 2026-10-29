@@ -1604,6 +1604,8 @@ class Work(Base):
     description = Column(Text())
     descr_attr = Column(String(200))
     imported_string = Column(String(500))
+    # Last time Kirjasampo tags were imported (NULL = never).
+    kirjasampo_imported = Column(DateTime(timezone=True))
     authors = relationship(
         'Person',
         secondary='suomisf.workcontributor',

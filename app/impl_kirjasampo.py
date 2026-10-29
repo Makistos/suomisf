@@ -1,5 +1,6 @@
 """Fetch/parse kirjasampo.fi tags and import them into works."""
 
+import datetime
 from typing import Any
 from urllib.parse import urlparse
 
@@ -341,6 +342,8 @@ def work_import_tags(
         if any(r.get("status") == "added" for r in results):
             log_changes(session, obj=work, name_field='title',
                         old_values={'Asiasanat': old_tags})
+        work.kirjasampo_imported = datetime.datetime.now(
+            datetime.timezone.utc)
         session.commit()
         return ResponseType(results, HttpResponseCode.OK)
 

@@ -477,9 +477,11 @@ def api_random_incomplete_work() -> Response:
         }
     @apiParamExample {json} Available Fields:
         Work fields: ["description", "links", "tags", "genres", "language",
-                      "stories"]
+                      "stories", "kirjasampo_tags"]
         Edition fields: ["page_count", "size", "binding", "image"]
         Note: "stories" field only applies to collections (work type 2)
+        Note: "kirjasampo_tags" = has a kirjasampo.fi link but tags have
+              never been imported from it
     @apiSuccess {ResponseType} works Array of work objects missing specified
                                      data.
     @apiSuccessExample {json} Success-Response:
