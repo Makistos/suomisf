@@ -5,6 +5,13 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-10-29 — Kirjasampo tag import date stored
+**Commits:** `5b164ee1`
+`work.kirjasampo_imported` (migration 043) is set whenever
+`POST /api/work/<id>/tags/import` saves. `works/random/incomplete`
+accepts `kirjasampo_tags` to find works with a kirjasampo.fi link that
+have never had tags imported.
+
 ## 2026-10-15 — Names and titles trimmed automatically
 **Commits:** `6c0fa8d8`, `f65b8e0d`
 Person names, work, edition and story titles and publisher, series, tag
