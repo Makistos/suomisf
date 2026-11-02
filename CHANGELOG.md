@@ -5,6 +5,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-02 — Work link sources can be fixed
+**Commits:** `03f33ccc`
+Admin endpoints under `/api/worklinks/sources` list the distinct work
+link sources (descriptions) with link and work counts, list one
+source's links, rename a source or combine several into one, and
+delete a source's links; each change is logged on the work. Used by
+the frontend's admin page to fix mistyped sources.
+
 ## 2026-10-29 — Kirjasampo tag import date stored
 **Commits:** `5b164ee1`
 `work.kirjasampo_imported` (migration 043) is set whenever
