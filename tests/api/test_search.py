@@ -48,3 +48,36 @@ class TestSearchTitlesOnlyPersonAltNames:
             '/api/search/Xyzzyfoobarnonexistent12345?titles=1')
         response.assert_success()
         assert _results(response) == []
+
+
+class TestSearchLimit:
+    """The number of results: 50 by default (the menu's suggestions),
+    more with ?limit= (the search results page), at most 500."""
+
+    # "maailma" matches well over 50 items (works, stories, tags, ...).
+    TERM = 'maailma'
+
+    def test_default_is_50(self, api_client):
+        response = api_client.get(f'/api/search/{self.TERM}')
+        response.assert_success()
+        assert len(_results(response)) == 50
+
+    def test_limit_returns_more(self, api_client):
+        response = api_client.get(f'/api/search/{self.TERM}?limit=200')
+        response.assert_success()
+        results = _results(response)
+        assert 50 < len(results) <= 200
+        # The first 50 are the same ones the default search gives.
+        default = _results(api_client.get(f'/api/search/{self.TERM}'))
+        assert [(r['type'], r['id']) for r in results[:50]] == \
+            [(r['type'], r['id']) for r in default]
+
+    def test_limit_is_capped(self, api_client):
+        response = api_client.get(f'/api/search/{self.TERM}?limit=100000')
+        response.assert_success()
+        assert len(_results(response)) <= 500
+
+    def test_invalid_limit_falls_back_to_default(self, api_client):
+        response = api_client.get(f'/api/search/{self.TERM}?limit=abc')
+        response.assert_success()
+        assert len(_results(response)) == 50

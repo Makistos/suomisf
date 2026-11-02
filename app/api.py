@@ -355,10 +355,20 @@ def frontpage_random_picks() -> Response:
 
 ###
 # Generic search functions
+SEARCH_DEFAULT_LIMIT = 50
+SEARCH_MAX_LIMIT = 500
+
+
 @app.route('/api/search/<pattern>', methods=['get', 'post'])
 def api_search(pattern: str) -> Tuple[str, int]:
     """
     Searches for a pattern in the API and returns the results.
+
+    Query parameters:
+        titles (1/true/yes): match title/name fields only.
+        limit (int): maximum number of results, 1-500 (default 50; the
+                     menu's suggestions use the default, the search results
+                     page asks for more).
 
     Args:
         pattern (str): The pattern to search for.
@@ -372,10 +382,15 @@ def api_search(pattern: str) -> Tuple[str, int]:
 
     pattern = bleach.clean(pattern)
     titles_only = request.args.get('titles', '') in ('1', 'true', 'yes')
+    try:
+        limit = int(request.args.get('limit', SEARCH_DEFAULT_LIMIT))
+    except ValueError:
+        limit = SEARCH_DEFAULT_LIMIT
+    limit = max(1, min(limit, SEARCH_MAX_LIMIT))
 
     session = new_session()
     results = search_with_fts(session, pattern, titles_only)
-    return json.dumps(results[0:50]), retcode
+    return json.dumps(results[0:limit]), retcode
 
 
 def search_with_fts(session: Any, search_term: str,
