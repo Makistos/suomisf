@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-02 — Search results limit
+**Commits:** `01ed42aa`
+`/api/search/<term>` takes `?limit=` (1–500, default 50 as before), so
+the frontend's search results page can show more than the menu's 50
+suggestions.
+
 ## 2026-11-02 — Work link sources can be fixed
 **Commits:** `03f33ccc`
 Admin endpoints under `/api/worklinks/sources` list the distinct work
