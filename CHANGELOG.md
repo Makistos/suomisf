@@ -5,6 +5,17 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-03 — Kirjasampo import preview
+**Commits:** `2e78d6ea`
+`GET /api/work/<id>/tags/import/preview` returns a work's Kirjasampo
+tags by section, with the sections that aren't tags left out (author,
+main characters, original language, publications, recommendations,
+awards, links), qualifiers stripped and each tag's stored mapping,
+matching existing tag and whether the work already has it. Imported
+tags can be given a type (default Aihe); existing tags keep theirs.
+Tag names now match exactly, ignoring case, so `%` and `_` are no
+longer wildcards. `/api/filter/tags` includes the tag type.
+
 ## 2026-11-02 — Search results limit
 **Commits:** `01ed42aa`
 `/api/search/<term>` takes `?limit=` (1–500, default 50 as before), so
