@@ -148,7 +148,8 @@ def api_filtertags(pattern: str) -> Response:
         pattern (str): The pattern to filter the tags.
 
     Returns:
-        Response: The response object containing the filtered tags.
+        Response: The response object containing the filtered tags
+                  ({id, name, type: {id, name}}).
 
     Raises:
         None

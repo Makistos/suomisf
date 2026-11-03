@@ -11,6 +11,7 @@ from app.impl import ResponseType
 from app.impl_kirjasampo import (
     get_import_mappings,
     kirjasampo_tags,
+    work_import_preview,
     work_import_tags,
 )
 from app.types import HttpResponseCode
@@ -58,6 +59,58 @@ def api_kirjasampo_tags() -> Response:
     return make_api_response(kirjasampo_tags(url))
 
 
+@app.route("/api/work/<int:work_id>/tags/import/preview", methods=["GET"])
+@jwt_admin_required()  # type: ignore
+def api_work_import_preview(work_id: int) -> Response:
+    """
+    Preview the tags a Kirjasampo import would bring to a work (admin only).
+
+    URL: GET /api/work/<work_id>/tags/import/preview
+
+    Authentication: Admin JWT required.
+
+    Fetches the page of the work's Kirjasampo link and applies the import
+    rules: the sections Tekijä, Päähenkilöt, Alkukieli, julkaisut,
+    Kirjastonhoitaja suosittelee, Palkinto and Lisätietoa verkossa are
+    left out, Elokuvat becomes the single tag "elokuva" and parenthesised
+    qualifiers are stripped from names.
+
+    Response 200 — sections in page order (empty if the page has no tags):
+        [
+          {
+            "section": "Aiheet ja teemat",
+            "items": [
+              {
+                "name":     "avaruus",
+                "raw_name": "avaruus (luokka)",
+                "mapping":  null,
+                "match":    {"id": 12, "name": "avaruus",
+                             "type": {"id": 1, "name": "Aihe"}},
+                "on_work":  false
+              },
+              ...
+            ]
+          },
+          ...
+        ]
+
+    Fields per item:
+        name:     Cleaned name; used for matching and stored mappings.
+        raw_name: Name as on the Kirjasampo page.
+        mapping:  Stored decision for the name: {"action": "omit"},
+                  {"action": "replace", "tag": {id, name, type}} or null.
+        match:    Existing tag with the same name (case-insensitive), or
+                  null if importing would create a new one.
+        on_work:  True if the work already has the tag importing would
+                  add (the replace target if mapped, otherwise the match).
+
+    Response 400 — Work not found or it has no Kirjasampo link.
+    Response 401/403 — Authentication required.
+    Response 500 — Fetching the Kirjasampo page failed, or database error.
+    """
+    return make_api_response(work_import_preview(work_id))
+
+
 @app.route("/api/work/<int:work_id>/tags/import", methods=["POST"])
 @jwt_admin_required()  # type: ignore
 def api_work_import_tags(work_id: int) -> Response:
@@ -76,7 +129,8 @@ def api_work_import_tags(work_id: int) -> Response:
           {
             "name":   "maaginen realismi",
             "id":     null,
-            "action": "add"
+            "action": "add",
+            "type_id": 5
           },
           {
             "name":   "kehitysromaanit",
@@ -102,6 +156,9 @@ def api_work_import_tags(work_id: int) -> Response:
         action (str | null): One of "add", "replace", "omit", or
                           null/omitted to auto-resolve from stored
                           mappings (defaults to "add" for unknown names).
+        type_id (int | null): Type of the tag if "add" creates one
+                          (default 1 = Aihe). Existing tags keep their
+                          type. An unknown id gives an error item.
 
     Actions:
         add     Look up or create a tag by name, add it to the work.

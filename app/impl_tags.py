@@ -66,7 +66,7 @@ def tag_filter(query: str) -> ResponseType:
         return ResponseType('TagFilter: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     try:
-        schema = TagSchema(many=True, only=('id', 'name'))
+        schema = TagSchema(many=True, only=('id', 'name', 'type'))
         retval = schema.dump(tags)
     except exceptions.MarshmallowError as exp:
         app.logger.error(

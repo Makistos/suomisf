@@ -3,6 +3,7 @@ SuomiSF API Kirjasampo Integration Tests
 
 Tests for:
   GET  /api/kirjasampo/tags
+  GET  /api/work/<work_id>/tags/import/preview
   POST /api/work/<work_id>/tags/import
   GET  /api/tags/import/mappings
 
@@ -60,6 +61,41 @@ MINIMAL_HTML = b"""
 </html>
 """
 
+# Sections as the preview sees them: skipped sections, a film list,
+# qualifiers, a name repeated in a second section.
+PREVIEW_HTML = """
+<html><body>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Tekijä</h2>
+  <div class="kulsa-field-item"><a href="/a">Auel, Jean M.</a></div>
+</div>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Aiheet ja teemat</h2>
+  <div class="kulsa-field-item"><a href="/1">ki-prev-new (luokka)</a></div>
+  <div class="kulsa-field-item"><a href="/2">KI-Prev-Match</a></div>
+  <div class="kulsa-field-item"><a href="/3">ki-prev-omit</a></div>
+  <div class="kulsa-field-item"><a href="/4">ki-prev-replace</a></div>
+  <div class="kulsa-field-item"><a href="/5">ki-prev-onwork</a></div>
+</div>
+<div class="kulsa-field">
+  <h2 class="kulsa-field-label">Kirjastonhoitaja suosittelee</h2>
+  <div class="kulsa-field-item"><a href="/6">ki-prev-recommended</a></div>
+</div>
+<div class="kulsa-field">
+  <h2 class="kulsa-field-label">Lisätietoa verkossa</h2>
+  <div class="kulsa-field-item"><a href="/11">Wikipedia</a></div>
+</div>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Palkinto</h2>
+  <div class="kulsa-field-item"><a href="/10">Finlandia-palkinto</a></div>
+</div>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Elokuvat</h2>
+  <div class="kulsa-field-item"><a href="/7">Luolakarhut (1986)</a></div>
+  <div class="kulsa-field-item"><a href="/8">Toinen elokuva (1990)</a></div>
+</div>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Henkilöt, toimijat</h2>
+  <div class="kulsa-field-item"><a href="/9">ki-prev-new</a></div>
+</div>
+</body></html>
+""".encode("utf-8")
+
 # person_id=1 is assumed to exist in the test DB
 EXISTING_PERSON_ID = 1
 
@@ -81,6 +117,29 @@ def _import_url(work_id: int) -> str:
 
 def _post_import(client, work_id: int, items) -> object:
     return client.post(_import_url(work_id), data=items)
+
+
+def _preview_url(work_id: int) -> str:
+    return f"/api/work/{work_id}/tags/import/preview"
+
+
+def _preview_items(data) -> dict:
+    """Preview items by section, then by name."""
+    return {
+        g["section"]: {i["name"]: i for i in g["items"]} for g in data
+    }
+
+
+def _tag_type_id(admin_client, tag_id: int) -> int:
+    from app.route_helpers import new_session
+    from app.orm_decl import Tag
+    return new_session().query(Tag).get(tag_id).type_id
+
+
+def _kirjasampo_imported(admin_client, work_id: int):
+    resp = admin_client.get(f"/api/works/{work_id}")
+    resp.assert_status(200)
+    return resp.data["kirjasampo_imported"]
 
 
 def _create_tag(
@@ -120,6 +179,24 @@ def created_work(admin_client):
                                title="Kirjasampo Import Test Work")
     yield work_id
     delete_test_work(admin_client, work_id)
+
+
+@pytest.fixture
+def linked_work(admin_client, created_work):
+    """created_work with a Kirjasampo link."""
+    from app.route_helpers import new_session
+    from app.orm_decl import WorkLink
+
+    session = new_session()
+    link = WorkLink(work_id=created_work, link=VALID_URL,
+                    description="Kirjasampo")
+    session.add(link)
+    session.commit()
+    yield created_work
+    session = new_session()
+    session.query(WorkLink).filter(
+        WorkLink.work_id == created_work).delete(synchronize_session=False)
+    session.commit()
 
 
 @pytest.fixture(autouse=True)
@@ -651,3 +728,216 @@ class TestGetImportMappings(BaseAPITest):
         """Unauthenticated GET returns 401 or 403."""
         resp = api_client.get("/api/tags/import/mappings")
         assert resp.status_code in (401, 403)
+
+
+# ===================================================================
+# GET /api/work/<work_id>/tags/import/preview
+# ===================================================================
+
+class TestWorkTagImportPreview(BaseAPITest):
+    """Tests for the import preview."""
+
+    @patch("app.impl_kirjasampo.requests.get")
+    def test_applies_import_rules_in_page_order(
+        self, mock_get, admin_client, linked_work
+    ):
+        """Skipped sections are left out, films become "elokuva" and
+        qualifiers are stripped; sections keep page order."""
+        mock_get.return_value = _make_mock_response(PREVIEW_HTML)
+        resp = admin_client.get(_preview_url(linked_work))
+        resp.assert_status(200)
+        assert mock_get.call_args.args[0] == VALID_URL
+        assert [g["section"] for g in resp.data] == [
+            "Aiheet ja teemat", "Elokuvat", "Henkilöt, toimijat"]
+        items = _preview_items(resp.data)
+        assert list(items["Aiheet ja teemat"]) == [
+            "ki-prev-new", "ki-prev-match", "ki-prev-omit",
+            "ki-prev-replace", "ki-prev-onwork"]
+        assert items["Aiheet ja teemat"]["ki-prev-new"]["raw_name"] == (
+            "ki-prev-new (luokka)")
+        assert list(items["Elokuvat"]) == ["elokuva"]
+        # The same name in another section is listed there too.
+        assert list(items["Henkilöt, toimijat"]) == ["ki-prev-new"]
+
+    @patch("app.impl_kirjasampo.requests.get")
+    def test_reports_mappings_matches_and_tags_on_work(
+        self, mock_get, admin_client, linked_work, cleanup_tags
+    ):
+        """Each item tells its stored mapping, the existing tag it
+        matches and whether the work has it already."""
+        match_id = _create_tag(admin_client, "ki-PREV-match", cleanup_tags)
+        target_id = _create_tag(
+            admin_client, "ki-prev-replace-target", cleanup_tags)
+        resp = _post_import(admin_client, linked_work, [
+            {"name": "ki-prev-omit", "action": "omit"},
+            {"name": "ki-prev-replace", "id": target_id,
+             "action": "replace"},
+            {"name": "ki-prev-onwork", "action": "add"},
+        ])
+        resp.assert_status(200)
+        onwork_id = resp.data[2]["tag_id"]
+        cleanup_tags.append(onwork_id)
+
+        mock_get.return_value = _make_mock_response(PREVIEW_HTML)
+        resp = admin_client.get(_preview_url(linked_work))
+        resp.assert_status(200)
+        items = _preview_items(resp.data)["Aiheet ja teemat"]
+
+        new = items["ki-prev-new"]
+        assert new["mapping"] is None
+        assert new["match"] is None
+        assert new["on_work"] is False
+
+        match = items["ki-prev-match"]
+        assert match["match"]["id"] == match_id
+        assert match["match"]["type"]["id"] == 1
+        assert match["on_work"] is False
+
+        assert items["ki-prev-omit"]["mapping"] == {"action": "omit"}
+
+        replace = items["ki-prev-replace"]
+        assert replace["mapping"]["action"] == "replace"
+        assert replace["mapping"]["tag"]["id"] == target_id
+        # The replace target was added to the work.
+        assert replace["on_work"] is True
+
+        onwork = items["ki-prev-onwork"]
+        assert onwork["match"]["id"] == onwork_id
+        assert onwork["on_work"] is True
+
+    @patch("app.impl_kirjasampo.requests.get")
+    def test_page_without_tags_gives_empty_list(
+        self, mock_get, admin_client, linked_work
+    ):
+        """A Kirjasampo page with no tags is an empty preview."""
+        mock_get.return_value = _make_mock_response(
+            b"<html><body><p>Ei tunnisteita</p></body></html>")
+        resp = admin_client.get(_preview_url(linked_work))
+        resp.assert_status(200)
+        assert resp.data == []
+
+    @patch("app.impl_kirjasampo.requests.get")
+    def test_dead_kirjasampo_page_is_an_error(
+        self, mock_get, admin_client, linked_work
+    ):
+        """A missing Kirjasampo page is an error, not an empty preview."""
+        mock_get.return_value = _make_mock_response(b"", status_code=404)
+        resp = admin_client.get(_preview_url(linked_work))
+        resp.assert_status(500)
+
+    def test_work_without_kirjasampo_link_returns_400(
+        self, admin_client, created_work
+    ):
+        """The preview needs the work's Kirjasampo link."""
+        resp = admin_client.get(_preview_url(created_work))
+        resp.assert_status(400)
+
+    def test_requires_admin_auth(self, api_client):
+        """Unauthenticated GET returns 401 or 403."""
+        resp = api_client.get(_preview_url(1))
+        assert resp.status_code in (401, 403)
+
+
+# ===================================================================
+# POST /api/work/<work_id>/tags/import — types, matching, import date
+# ===================================================================
+
+class TestWorkTagImportTypesAndDate(BaseAPITest):
+    """Tag types of new tags, exact name matching and the import date."""
+
+    def test_type_id_is_used_for_new_tags(
+        self, admin_client, created_work, cleanup_tags
+    ):
+        """A new tag gets the type the item names."""
+        resp = _post_import(admin_client, created_work, [
+            {"name": "ki-type-new", "action": "add", "type_id": 5},
+        ])
+        resp.assert_status(200)
+        tag_id = resp.data[0]["tag_id"]
+        cleanup_tags.append(tag_id)
+        assert resp.data[0]["status"] == "added"
+        assert _tag_type_id(admin_client, tag_id) == 5
+
+    def test_new_tags_default_to_aihe(
+        self, admin_client, created_work, cleanup_tags
+    ):
+        """Without type_id a new tag is an Aihe."""
+        resp = _post_import(admin_client, created_work, [
+            {"name": "ki-type-default", "action": "add"},
+        ])
+        resp.assert_status(200)
+        tag_id = resp.data[0]["tag_id"]
+        cleanup_tags.append(tag_id)
+        assert _tag_type_id(admin_client, tag_id) == 1
+
+    def test_existing_tag_keeps_its_type(
+        self, admin_client, created_work, cleanup_tags
+    ):
+        """type_id never retypes an existing tag."""
+        tag_id = _create_tag(admin_client, "ki-type-existing", cleanup_tags)
+        before = _tag_type_id(admin_client, tag_id)
+        resp = _post_import(admin_client, created_work, [
+            {"name": "ki-type-existing", "action": "add", "type_id": 5},
+        ])
+        resp.assert_status(200)
+        assert resp.data[0]["tag_id"] == tag_id
+        assert _tag_type_id(admin_client, tag_id) == before
+
+    @pytest.mark.parametrize("bad_type", [9999, "abc"])
+    def test_unknown_type_id_is_an_error_item(
+        self, admin_client, created_work, bad_type
+    ):
+        """An unknown type_id fails that item only."""
+        resp = _post_import(admin_client, created_work, [
+            {"name": "ki-type-bad", "action": "add", "type_id": bad_type},
+        ])
+        resp.assert_status(200)
+        assert resp.data[0]["status"] == "error"
+        assert "tag_id" not in resp.data[0]
+
+    def test_names_match_exactly(
+        self, admin_client, created_work, cleanup_tags
+    ):
+        """_ and % in a name aren't wildcards: a near-miss name creates
+        a new tag instead of reusing another one."""
+        other_id = _create_tag(admin_client, "ki-exactxname", cleanup_tags)
+        resp = _post_import(admin_client, created_work, [
+            {"name": "ki-exact_name", "action": "add"},
+            {"name": "ki-exact%", "action": "add"},
+        ])
+        resp.assert_status(200)
+        ids = [r["tag_id"] for r in resp.data]
+        cleanup_tags.extend(ids)
+        assert other_id not in ids
+        assert ids[0] != ids[1]
+
+    def test_names_match_ignoring_case(
+        self, admin_client, created_work, cleanup_tags
+    ):
+        """An existing tag is reused whatever its case."""
+        tag_id = _create_tag(admin_client, "KI-Case-Tag", cleanup_tags)
+        resp = _post_import(admin_client, created_work, [
+            {"name": "ki-case-tag", "action": "add"},
+        ])
+        resp.assert_status(200)
+        assert resp.data[0]["tag_id"] == tag_id
+
+    def test_empty_list_records_import_date(
+        self, admin_client, created_work
+    ):
+        """Saving with nothing to import still marks the work imported."""
+        assert _kirjasampo_imported(admin_client, created_work) is None
+        resp = _post_import(admin_client, created_work, [])
+        resp.assert_status(200)
+        assert resp.data == []
+        assert _kirjasampo_imported(admin_client, created_work) is not None
+
+    def test_omit_only_records_import_date(
+        self, admin_client, created_work
+    ):
+        """Skipping every tag still marks the work imported."""
+        resp = _post_import(admin_client, created_work, [
+            {"name": "ki-date-omit", "action": "omit"},
+        ])
+        resp.assert_status(200)
+        assert _kirjasampo_imported(admin_client, created_work) is not None

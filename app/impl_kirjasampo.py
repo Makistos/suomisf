@@ -1,16 +1,19 @@
 """Fetch/parse kirjasampo.fi tags and import them into works."""
 
 import datetime
+import re
 from typing import Any
 from urllib.parse import urlparse
 
 import requests
 from bs4 import BeautifulSoup
+from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.impl import ResponseType
 from app.impl_logs import log_changes
-from app.orm_decl import Tag, TagImportOmit, TagImportReplace, Work, WorkTag
+from app.orm_decl import (
+    Tag, TagImportOmit, TagImportReplace, TagType, Work, WorkTag)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 from app import app
@@ -24,6 +27,17 @@ _HEADERS = {
 }
 
 _VALID_ACTIONS = {"add", "replace", "omit"}
+
+# Type given to new tags when the import item doesn't name one.
+DEFAULT_TAG_TYPE_ID = 1  # Aihe
+
+# Kirjasampo sections that aren't subject tags.
+SKIPPED_SECTIONS = {
+    "Tekijä", "Päähenkilöt", "Alkukieli", "julkaisut",
+    "Kirjastonhoitaja suosittelee", "Palkinto", "Lisätietoa verkossa",
+}
+# Sections whose items collapse into one fixed tag.
+SECTION_OVERRIDES = {"Elokuvat": "elokuva"}
 
 
 def _is_valid_kirjasampo_url(url: str) -> bool:
@@ -135,17 +149,29 @@ def _resolve_action(
     return "add", None
 
 
-def _find_or_create_tag(session: Any, name: str) -> Tag:
-    """Return existing tag by name (case-insensitive) or create one."""
-    tag = (
+def _find_tag(session: Any, name: str) -> Tag | None:
+    """Return the tag with exactly this name, ignoring case, or None."""
+    return (
         session.query(Tag)
-        .filter(Tag.name.ilike(clean_name(name)))
+        .filter(func.lower(Tag.name) == clean_name(name).lower())
+        .order_by(Tag.id)
         .first()
     )
+
+
+def _find_or_create_tag(
+    session: Any, name: str, type_id: int | None = None
+) -> Tag:
+    """Return existing tag by name (case-insensitive) or create one.
+
+    type_id is the type of a new tag (default Aihe); an existing tag
+    keeps its type.
+    """
+    tag = _find_tag(session, name)
     if not tag:
         tag = Tag()
         tag.name = name
-        tag.type_id = 1
+        tag.type_id = type_id or DEFAULT_TAG_TYPE_ID
         session.add(tag)
         session.flush()  # get tag.id without committing
         log_changes(session, obj=tag, action='Uusi')
@@ -174,6 +200,9 @@ def work_import_tags(
     action (str | None):
         One of "add", "replace", "omit", or omitted/None to auto-resolve
         from stored mappings (defaulting to "add" for unknown names).
+    type_id (int | None):
+        Type of the tag if "add" creates one (default Aihe). An
+        existing tag keeps its type.
 
     Actions
     -------
@@ -215,6 +244,7 @@ def work_import_tags(
             name: str = item.get("name", "").strip().lower()
             raw_id: Any = item.get("id")
             raw_action: Any = item.get("action")
+            raw_type: Any = item.get("type_id")
 
             if not name:
                 results.append({"name": "", "status": "error",
@@ -237,6 +267,19 @@ def work_import_tags(
                 })
                 continue
 
+            type_id: int | None = None
+            if raw_type is not None and raw_type != "":
+                try:
+                    type_id = int(raw_type)
+                except (TypeError, ValueError):
+                    type_id = -1
+                if session.query(TagType).get(type_id) is None:
+                    results.append({
+                        "name": name, "status": "error",
+                        "error": f"tag type id={raw_type} not found"
+                    })
+                    continue
+
             effective_action, effective_id = _resolve_action(
                 session, name, action, tag_id
             )
@@ -250,7 +293,7 @@ def work_import_tags(
                 if replace_rec:
                     session.delete(replace_rec)
 
-                tag = _find_or_create_tag(session, name)
+                tag = _find_or_create_tag(session, name, type_id)
 
                 if _worktag_exists(session, work_id, tag.id):
                     results.append({
@@ -349,6 +392,128 @@ def work_import_tags(
 
     except SQLAlchemyError as exc:
         app.logger.error(f"work_import_tags: {exc}")
+        return ResponseType(
+            "Tietokantavirhe.",
+            HttpResponseCode.INTERNAL_SERVER_ERROR,
+        )
+
+
+def _strip_qualifiers(name: str) -> str:
+    """Drop parenthesised qualifiers: "avaruus (luokka)" -> "avaruus"."""
+    return clean_name(re.sub(r"\s*\([^)]*\)", " ", name))
+
+
+def _preview_groups(
+    sections: dict[str, list[str]]
+) -> list[tuple[str, list[tuple[str, str]]]]:
+    """Apply the import rules to scraped sections.
+
+    Returns (section, [(name, raw_name), ...]) in page order, without
+    the skipped sections and with empty names dropped.
+    """
+    groups = []
+    for section, raw_names in sections.items():
+        if section in SKIPPED_SECTIONS:
+            continue
+        if section in SECTION_OVERRIDES:
+            override = SECTION_OVERRIDES[section]
+            items = [(override, override)] if raw_names else []
+        else:
+            items = []
+            seen: set[str] = set()
+            for raw in raw_names:
+                name = _strip_qualifiers(raw).lower()
+                if name and name not in seen:
+                    seen.add(name)
+                    items.append((name, raw))
+        if items:
+            groups.append((section, items))
+    return groups
+
+
+def _tag_brief(tag: Tag) -> dict[str, Any]:
+    return {
+        "id": tag.id,
+        "name": tag.name,
+        "type": (
+            {"id": tag.type.id, "name": tag.type.name}
+            if tag.type else None
+        ),
+    }
+
+
+def work_import_preview(work_id: int) -> ResponseType:
+    """Tags a Kirjasampo import would bring to a work, for review.
+
+    Fetches the work's Kirjasampo page and returns its tag sections in
+    page order, as a list of {section, items}. Each item has:
+
+    name: the cleaned name, used for matching and stored mappings
+    raw_name: the name as on the page
+    mapping: {"action": "omit"}, {"action": "replace", "tag": {...}}
+        or None
+    match: the existing tag with the same name, or None if importing
+        would create one
+    on_work: whether the work already has the tag importing would add
+
+    A page without tags gives an empty list.
+    """
+    session = new_session()
+    try:
+        work = session.query(Work).filter(Work.id == work_id).first()
+        if not work:
+            return ResponseType(
+                f"Teosta ei löydy: id={work_id}",
+                HttpResponseCode.BAD_REQUEST,
+            )
+        link = next(
+            (wl.link for wl in work.links if "kirjasampo.fi" in wl.link),
+            None,
+        )
+        if not link:
+            return ResponseType(
+                "Teoksella ei ole Kirjasampo-linkkiä.",
+                HttpResponseCode.BAD_REQUEST,
+            )
+
+        fetched = kirjasampo_tags(link)
+        if fetched.status == HttpResponseCode.NOT_FOUND:
+            # The page exists but has no tags.
+            return ResponseType([], HttpResponseCode.OK)
+        if fetched.status != HttpResponseCode.OK:
+            return fetched
+
+        work_tag_ids = {t.id for t in work.tags}
+        groups = []
+        for section, items in _preview_groups(fetched.response):
+            rows = []
+            for name, raw in items:
+                mapping: dict[str, Any] | None = None
+                target: Tag | None = None
+                if session.query(TagImportOmit).get(name):
+                    mapping = {"action": "omit"}
+                else:
+                    replace = session.query(TagImportReplace).get(name)
+                    if replace and replace.tag:
+                        target = replace.tag
+                        mapping = {
+                            "action": "replace",
+                            "tag": _tag_brief(replace.tag),
+                        }
+                match = _find_tag(session, name)
+                adds = target or match
+                rows.append({
+                    "name": name,
+                    "raw_name": raw,
+                    "mapping": mapping,
+                    "match": _tag_brief(match) if match else None,
+                    "on_work": adds is not None and adds.id in work_tag_ids,
+                })
+            groups.append({"section": section, "items": rows})
+        return ResponseType(groups, HttpResponseCode.OK)
+
+    except SQLAlchemyError as exc:
+        app.logger.error(f"work_import_preview: {exc}")
         return ResponseType(
             "Tietokantavirhe.",
             HttpResponseCode.INTERNAL_SERVER_ERROR,
