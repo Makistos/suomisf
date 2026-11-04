@@ -5,6 +5,17 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-04 — Tag similarity suggestions (job)
+**Commits:** `1d69d62d`
+`scripts/tag_similarity.py` suggests tags to merge or link: probable
+duplicates (same base form, or a spelling variant) and related tags
+(similar name by two multilingual embedding models, or one tag nearly
+always used with the other). Results go into the new `tag_similarity`
+table (migration 044), with vectors in `tag_embedding`, so a rerun
+embeds only new and renamed tags and keeps pairs an admin dismissed.
+Runs on a workstation against the dev DB or production
+(`--prod`, own `tag_similarity` role). See docs/tag-similarity-plan.md.
+
 ## 2026-11-03 — Kirjasampo import preview
 **Commits:** `2e78d6ea`
 `GET /api/work/<id>/tags/import/preview` returns a work's Kirjasampo
