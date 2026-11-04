@@ -129,32 +129,18 @@ Only the top N per tag (e.g. 5) are kept, so the list stays reviewable.
 
 ## Storage (migration 044)
 
-```sql
-CREATE TABLE suomisf.tag_embedding (
-    tag_id     integer NOT NULL REFERENCES suomisf.tag(id) ON DELETE CASCADE,
-    model      text NOT NULL,
-    text_hash  text NOT NULL,
-    vector     real[] NOT NULL,
-    updated    timestamptz NOT NULL DEFAULT now(),
-    PRIMARY KEY (tag_id, model)
-);
+`migrations/044_tag_similarity.sql` adds two tables:
 
-CREATE TABLE suomisf.tag_similarity (
-    tag_a        integer NOT NULL REFERENCES suomisf.tag(id) ON DELETE CASCADE,
-    tag_b        integer NOT NULL REFERENCES suomisf.tag(id) ON DELETE CASCADE,
-    kind         text NOT NULL,           -- 'duplicate' | 'related'
-    reason       text NOT NULL,           -- 'baseform' | 'spelling' | 'name' | 'usage'
-    name_score   real,
-    containment  real,
-    shared       integer NOT NULL DEFAULT 0,
-    status       text NOT NULL DEFAULT 'new',   -- 'new' | 'dismissed'
-    decided_by   integer REFERENCES suomisf."user"(id),
-    decided_at   timestamptz,
-    updated      timestamptz NOT NULL DEFAULT now(),
-    PRIMARY KEY (tag_a, tag_b),
-    CHECK (tag_a < tag_b)
-);
-```
+- `tag_embedding (tag_id, model)`: the vector of each tag per model as
+  float32 bytes (`bytea`, a quarter the size of `real[]` over the tunnel;
+  about 21 MB for both models), with a hash of the embedded text, so a
+  renamed tag is re-embedded.
+- `tag_similarity (tag_a < tag_b)`: `kind` (duplicate / related), `reason`
+  (baseform / spelling / name / usage), `name_score`, `containment`,
+  `shared`, `status` (new / dismissed), `decided_by`, `decided_at` and
+  `updated`.
+
+Both reference `tag` with `ON DELETE CASCADE`.
 
 - A run upserts scores and `kind` but never touches `status`, so a
   dismissed pair stays dismissed. A `new` pair that no longer passes the
@@ -168,16 +154,22 @@ Same shape as `scripts/check_data.py`: reads `DATABASE_URL`, with `--prod`
 / `--db URL` for another database.
 
 ```sh
+pdm install -G similarity                             # once
 .venv/bin/python scripts/tag_similarity.py            # incremental run
-.venv/bin/python scripts/tag_similarity.py --dry-run  # report only, no writes
+.venv/bin/python scripts/tag_similarity.py --dry-run  # compute only, no writes
 .venv/bin/python scripts/tag_similarity.py --rebuild  # re-embed everything
 .venv/bin/python scripts/tag_similarity.py --report docs/tag-similarity-report.md
+.venv/bin/python scripts/tag_similarity.py --prod     # production
 ```
 
-- The model dependencies go in an optional dependency group (`similarity`),
-  so the web app and the server don't need them.
-- It prints what it did: tags embedded, pairs added, updated or removed,
-  and dismissed pairs kept.
+- The model dependencies (`fastembed`, `libvoikko`, `numpy`) are in the
+  `similarity` dependency group, so the web app and the server don't need
+  them. `libvoikko` also needs the system Voikko library and Finnish
+  dictionary (Debian: `libvoikko1`, `voikko-fi`).
+- The models are cached in `~/.cache/fastembed`.
+- It prints what it did: tags embedded per model, pairs added, updated or
+  removed, and dismissed pairs kept. On the dev DB a first run takes about
+  40 s; a rerun with no new tags embeds nothing and takes a few seconds.
 
 ## Getting the results to production
 
@@ -191,9 +183,8 @@ database directly, through the SSH tunnel described in
   renamed or merged since the last refresh would be missing or wrong.
 - **One short write**: all reading and computing happens first, and the
   writes (vectors and pairs) are a single transaction at the end that takes
-  seconds. If a tag is merged or deleted in production while the script
-  runs, its rows fail the foreign key check; the script drops those pairs
-  and commits the rest.
+  seconds. Pairs and vectors of tags merged or deleted in production while
+  the script ran are left out.
 - **Its own database role**: `check_data.py` connects read-only, and this
   script needs to write, so it gets a role of its own rather than the
   app's. A bug in the script then can't change anything else:
@@ -201,7 +192,7 @@ database directly, through the SSH tunnel described in
   ```sql
   CREATE ROLE tag_similarity LOGIN PASSWORD '...';
   GRANT USAGE ON SCHEMA suomisf TO tag_similarity;
-  GRANT SELECT ON suomisf.tag, suomisf.tagtype, suomisf.worktag,
+  GRANT SELECT ON suomisf.tag, suomisf.worktag,
       suomisf.storytag, suomisf.articletag TO tag_similarity;
   GRANT SELECT, INSERT, UPDATE, DELETE
       ON suomisf.tag_embedding, suomisf.tag_similarity TO tag_similarity;
@@ -243,7 +234,9 @@ A new card on `/admin`, "Samankaltaiset asiasanat":
 ## Phases
 
 0. **Prototype and evaluate** — done 2026-11-04; see "Phase 0 results".
-1. **Migration 044, the `tag_similarity` role and the job**, with
+1. **Migration 044, the `tag_similarity` role and the job** — done
+   2026-11-04 (`tests/test_tag_similarity.py`), except creating the role
+   in production, with
    incremental embedding, status preservation and `--dry-run`/`--report`. Pytest tests use a small
    fixture DB and a fake embedding function. Cover: the base-form and
    spelling rules, containment maths, incremental re-embedding on rename, dismissed
