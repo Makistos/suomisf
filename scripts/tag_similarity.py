@@ -16,11 +16,14 @@ Usage:
 The database is DATABASE_URL from .env; --prod uses
 DATABASE_URL_TAG_SIMILARITY_PROD (the tag_similarity role, see migration
 044). Needs the similarity dependency group: pdm install -G similarity.
-The models (about 3 GB) are downloaded on the first run.
+The models (about 3 GB) are downloaded on the first run. Paikka tags
+are looked up in Wikidata (new and renamed ones only); --no-places skips
+that and uses the stored matches.
 """
 import argparse
 import hashlib
 import itertools
+import json
 import os
 import re
 import sys
@@ -59,6 +62,23 @@ CONTAINMENT_USES = 10     # both tags need this many uses ...
 CONTAINMENT_SHARED = 3    # ... and this many shared items
 RELATED_PER_TAG = 5       # related pairs kept per tag, best first
 
+# Places: Paikka tags are matched to Wikidata items.
+PLACE_TYPE = 5            # tagtype Paikka
+WIKIDATA_API = 'https://www.wikidata.org/w/api.php'
+USER_AGENT = 'SuomiSF-tag-similarity/1.0 (https://www.sf-bibliografia.fi)'
+# A match must be an instance of one of these: geographic feature,
+# administrative area, country, continent, geographic region, ...
+GEO_CLASSES = ('Q618123', 'Q56061', 'Q6256', 'Q5107', 'Q82794',
+               'Q15642541')
+FICTIONAL_CLASSES = {'Q3895768', 'Q17198419', 'Q15796005', 'Q1964689',
+                     'Q15632617'}
+# Followed for ancestors: located in (P131) and country (P17); the
+# continent (P30) only when those reach no tag.
+WALK = ('P131', 'P17')
+CONTINENT = 'P30'
+MAX_DEPTH = 6
+CLASS_DEPTH = 10          # "subclass of" levels searched for GEO_CLASSES
+
 # word -> its base forms
 Analyze = Callable[[str], FrozenSet[str]]
 # (model, texts) -> unit vectors, one row per text
@@ -75,14 +95,16 @@ class Pair:
     tag_a: int
     tag_b: int
     kind: str        # 'duplicate' | 'related'
-    reason: str      # 'baseform' | 'spelling' | 'name' | 'usage'
+    reason: str      # 'baseform' | 'spelling' | 'place' | 'name' | 'usage'
     name_score: Optional[float] = None
     containment: Optional[float] = None
     shared: int = 0
 
     @property
     def score(self) -> float:
-        """What a related pair is ranked by."""
+        """What a related pair is ranked by; a place pair comes first."""
+        if self.reason == 'place':
+            return 1.0
         value = self.containment if self.reason == 'usage' \
             else self.name_score
         return value or 0.0
@@ -209,6 +231,226 @@ def usage_pairs(items: Dict[int, Set[str]]) -> Dict[Tuple[int, int], int]:
     return {p: n for p, n in shared.items() if n >= CONTAINMENT_SHARED}
 
 
+# --- Places --------------------------------------------------------------
+
+@dataclass
+class Place:
+    """The Wikidata match of a Paikka tag (a tag_place row)."""
+    tag_id: int
+    name_hash: str
+    qid: Optional[str]           # None: not a real place
+    label: str = ''
+    description: str = ''
+    ancestors: Optional[Dict[str, int]] = None
+    continent_ancestors: Optional[Dict[str, int]] = None
+    manual: bool = False
+
+
+class Entity(NamedTuple):
+    label: str
+    description: str             # Finnish; '' if none
+    sitelinks: int
+    instance: List[str]
+    up: Dict[str, List[str]]     # property -> current values
+
+
+class Wikidata:
+    """The few Wikidata calls the place rule needs, cached per run."""
+
+    def __init__(self) -> None:
+        import requests  # pylint: disable=import-outside-toplevel
+        self.requests = requests
+        self.session = requests.Session()
+        self.session.headers['User-Agent'] = USER_AGENT
+        self._entities: Dict[str, Optional[Entity]] = {}
+        self._searches: Dict[str, List[str]] = {}
+        self._geo_class: Dict[str, bool] = {}
+
+    def _get(self, url: str, params: Dict[str, str],
+             timeout: int = 30) -> Any:
+        for attempt in range(4):
+            r = self.session.get(url, params={**params, 'format': 'json'},
+                                 timeout=timeout)
+            if r.status_code in (429, 502, 503, 504):
+                time.sleep(5 * (attempt + 1))
+                continue
+            r.raise_for_status()
+            return r.json()
+        r.raise_for_status()
+        raise RuntimeError(f'Wikidata: HTTP {r.status_code}')
+
+    def search(self, name: str) -> List[str]:
+        """Items whose Finnish label or alias is name, ignoring case."""
+        if name not in self._searches:
+            res = self._get(WIKIDATA_API, {
+                'action': 'wbsearchentities', 'search': name,
+                'language': 'fi', 'uselang': 'fi', 'type': 'item',
+                'limit': '7'})
+            self._searches[name] = [
+                h['id'] for h in res.get('search', [])
+                if h.get('match', {}).get('text', '').lower()
+                == name.lower()]
+        return self._searches[name]
+
+    def entities(self, qids: Iterable[str]) -> Dict[str, Optional[Entity]]:
+        todo = [q for q in dict.fromkeys(qids) if q not in self._entities]
+        for i in range(0, len(todo), 50):
+            res = self._get(WIKIDATA_API, {
+                'action': 'wbgetentities', 'ids': '|'.join(todo[i:i + 50]),
+                'props': 'labels|descriptions|claims|sitelinks',
+                'languages': 'fi|en'})
+            for qid in todo[i:i + 50]:
+                e = res.get('entities', {}).get(qid)
+                self._entities[qid] = _entity(e) if e and 'missing' not in e \
+                    else None
+        return {q: self._entities.get(q) for q in qids}
+
+    def geographic(self, qids: List[str]) -> Set[str]:
+        """The items that are instances of a GEO_CLASSES class, directly
+        or through "subclass of" (P279)."""
+        ents = self.entities(qids)
+        classes = {c for e in ents.values() if e for c in e.instance}
+        self._load_classes(classes)
+        return {q for q, e in ents.items()
+                if e and any(self._is_geo(c) for c in e.instance)}
+
+    def _load_classes(self, classes: Set[str]) -> None:
+        """Fetch the classes and their superclasses, level by level."""
+        frontier = classes
+        for _ in range(CLASS_DEPTH):
+            todo = [c for c in frontier if c not in self._entities]
+            if not todo:
+                break
+            nxt: Set[str] = set()
+            for e in self.entities(todo).values():
+                if e:
+                    nxt.update(e.up.get('P279', []))
+            frontier = nxt
+
+    def _is_geo(self, cls: str) -> bool:
+        if cls not in self._geo_class:
+            seen, frontier = {cls}, [cls]
+            found = cls in GEO_CLASSES
+            while frontier and not found:
+                nxt = []
+                for c in frontier:
+                    e = self._entities.get(c)
+                    for parent in (e.up.get('P279', []) if e else []):
+                        if parent in GEO_CLASSES:
+                            found = True
+                        if parent not in seen:
+                            seen.add(parent)
+                            nxt.append(parent)
+                frontier = nxt
+            self._geo_class[cls] = found
+        return self._geo_class[cls]
+
+
+def _entity(e: Dict[str, Any]) -> Entity:
+    claims = e.get('claims', {})
+
+    def current(prop: str) -> List[str]:
+        """Values of the best-ranked statements without an end time."""
+        cs = [c for c in claims.get(prop, []) if c.get('rank') != 'deprecated'
+              and 'P582' not in c.get('qualifiers', {})]
+        if any(c.get('rank') == 'preferred' for c in cs):
+            cs = [c for c in cs if c.get('rank') == 'preferred']
+        values = [c.get('mainsnak', {}).get('datavalue', {}).get('value')
+                  for c in cs]
+        return [v['id'] for v in values if isinstance(v, dict) and 'id' in v]
+
+    labels = e.get('labels', {})
+    up = {p: current(p) for p in (*WALK, CONTINENT, 'P279')}
+    # A region spanning several countries is not in any one of them.
+    if len(up['P17']) > 1:
+        up['P17'] = []
+    return Entity(
+        label=(labels.get('fi') or labels.get('en') or {}).get('value', ''),
+        description=(e.get('descriptions', {}).get('fi') or {}).get(
+            'value', ''),
+        sitelinks=len(e.get('sitelinks', {})),
+        instance=current('P31'),
+        up=up)
+
+
+def place_name(name: str) -> Optional[str]:
+    """The name to look up: qualifiers dropped ("maine (paikka)" ->
+    "maine"); None for a fictional place."""
+    if '(kuvitteellinen)' in name:
+        return None
+    return re.sub(r'\s*\([^)]*\)', '', name).strip() or None
+
+
+def resolve_place(tag: Tag, wd: Any) -> Place:
+    """Match a Paikka tag to the best-known real place of that name.
+    Obscure namesakes (a village called Mars) seldom have a Finnish
+    description, so a match needs one."""
+    place = Place(tag.id, text_hash(tag.name), None)
+    name = place_name(tag.name)
+    hits = wd.search(name) if name else []
+    if not hits:
+        return place
+    ents = wd.entities(hits)
+    geo = wd.geographic(hits)
+    candidates = [q for q in hits if q in geo and ents[q]
+                  and ents[q].description
+                  and not set(ents[q].instance) & FICTIONAL_CLASSES]
+    if not candidates:
+        return place
+    qid = max(candidates, key=lambda q: ents[q].sitelinks)
+    place.qid, place.label, place.description = \
+        qid, ents[qid].label, ents[qid].description
+    place.ancestors = walk_up(qid, wd, WALK)
+    place.continent_ancestors = walk_up(qid, wd, (*WALK, CONTINENT))
+    return place
+
+
+def walk_up(qid: str, wd: Any, props: Tuple[str, ...]) -> Dict[str, int]:
+    """Every item a place is in through props, with its depth."""
+    seen, frontier, found = {qid}, [qid], {}
+    for depth in range(1, MAX_DEPTH + 1):
+        nxt = []
+        for e in wd.entities(frontier).values():
+            for prop in props:
+                for parent in (e.up.get(prop, []) if e else []):
+                    if parent not in seen:
+                        seen.add(parent)
+                        nxt.append(parent)
+                        found[parent] = depth
+        if not nxt:
+            break
+        frontier = nxt
+    return found
+
+
+def place_pairs(places: Iterable[Place]) -> List[Tuple[int, int, str]]:
+    """(tag_a, tag_b, kind) pairs: tags of the same place are duplicates;
+    a place and its nearest tagged ancestors are related. An ancestor
+    of another found ancestor is left out ("turku" - "suomi", not
+    "turku" - "eurooppa")."""
+    real = [p for p in places if p.qid]
+    by_qid: Dict[str, List[int]] = defaultdict(list)
+    for p in real:
+        by_qid[p.qid].append(p.tag_id)  # type: ignore[index]
+    ups = {p.qid: p.ancestors or {} for p in real}
+    pairs: Set[Tuple[int, int, str]] = set()
+    for ids in by_qid.values():
+        for a, b in itertools.combinations(sorted(ids), 2):
+            pairs.add((a, b, 'duplicate'))
+    for p in real:
+        found = [q for q in (p.ancestors or {}) if q in by_qid]
+        if not found:
+            found = [q for q in (p.continent_ancestors or {}) if q in by_qid]
+        nearest = [q for q in found
+                   if not any(q in ups.get(o, {}) for o in found if o != q)]
+        for q in nearest:
+            for other in by_qid[q]:
+                a, b = sorted((p.tag_id, other))
+                if (a, b, 'duplicate') not in pairs:
+                    pairs.add((a, b, 'related'))
+    return sorted(pairs)
+
+
 # --- Pairs ---------------------------------------------------------------
 
 def limit_related(pairs: List[Pair], per_tag: int) -> List[Pair]:
@@ -226,7 +468,8 @@ def limit_related(pairs: List[Pair], per_tag: int) -> List[Pair]:
 
 
 def find_pairs(tags: List[Tag], items: Dict[int, Set[str]],
-               similarity: np.ndarray, analyze: Analyze) -> List[Pair]:
+               similarity: np.ndarray, analyze: Analyze,
+               places: Iterable[Place] = ()) -> List[Pair]:
     """Every suggested pair. similarity[i, j] is the name similarity of
     tags[i] and tags[j]."""
     found: Dict[Tuple[int, int], Pair] = {}
@@ -252,12 +495,19 @@ def find_pairs(tags: List[Tag], items: Dict[int, Set[str]],
         if spelling_match(tags[i].name, tags[j].name,
                           float(similarity[i, j])):
             add(i, j, 'duplicate', 'spelling')
+    index = {tag.id: i for i, tag in enumerate(tags)}
+    place_list = place_pairs(places)
+    for a, b, kind in place_list:
+        if kind == 'duplicate' and a in index and b in index:
+            add(index[a], index[b], 'duplicate', 'place')
 
-    # Related: name, then usage.
+    # Related: place, name, then usage.
+    for a, b, kind in place_list:
+        if kind == 'related' and a in index and b in index:
+            add(index[a], index[b], 'related', 'place')
     for i, j in close:
         if upper[i, j] >= RELATED_NAME:
             add(int(i), int(j), 'related', 'name')
-    index = {tag.id: i for i, tag in enumerate(tags)}
     for (a, b), shared in usage_pairs(items).items():
         if (containment(shared, len(items[a]), len(items[b])) or 0) \
                 >= RELATED_CONTAINMENT:
@@ -296,12 +546,57 @@ class Computed:
     # (tag_id, model, text_hash, vector bytes) to store
     vectors: List[Tuple[int, str, str, bytes]]
     embedded: Dict[str, int]
+    # Places looked up this run, to store.
+    places: List[Place]
+
+
+def load_places(conn: Any) -> Dict[int, Place]:
+    return {r.tag_id: Place(r.tag_id, r.name_hash, r.qid, r.label or '',
+                            r.description or '', r.ancestors,
+                            r.continent_ancestors, r.manual)
+            for r in conn.execute(text(
+                'SELECT tag_id, name_hash, qid, label, description, '
+                'ancestors, continent_ancestors, manual FROM tag_place'))}
+
+
+def update_places(conn: Any, wd: Any, rebuild: bool
+                  ) -> Tuple[List[Place], List[Place]]:
+    """(places of the current Paikka tags, places looked up now).
+    Looks up new and renamed tags, or every one not set by hand with
+    rebuild. If Wikidata fails, the stored matches are used."""
+    tags = [Tag(*row) for row in conn.execute(text(
+        'SELECT id, name FROM tag WHERE type_id = :t ORDER BY id'),
+        {'t': PLACE_TYPE})]
+    stored = load_places(conn)
+    todo = [t for t in tags if wd is not None and not (
+        t.id in stored and (stored[t.id].manual or (
+            stored[t.id].name_hash == text_hash(t.name) and not rebuild)))]
+    looked_up: List[Place] = []
+    start = time.time()
+    try:
+        # Batch the calls resolve_place() makes; it then hits the cache.
+        names = [n for n in map(place_name, (t.name for t in todo)) if n]
+        hits = [q for n in names for q in wd.search(n)]
+        wd.entities(hits)
+        wd.geographic(hits)
+        for tag in todo:
+            looked_up.append(resolve_place(tag, wd))
+    except Exception as exp:  # pylint: disable=broad-except
+        print(f'Wikidata lookup failed ({exp}); using the stored '
+              'places for the rest.', file=sys.stderr)
+    if todo:
+        print(f'Looked up {len(looked_up)} places in Wikidata in '
+              f'{time.time() - start:.0f} s.')
+    current = {p.tag_id: p for p in stored.values()}
+    current.update({p.tag_id: p for p in looked_up})
+    ids = {t.id for t in tags}
+    return [p for p in current.values() if p.tag_id in ids], looked_up
 
 
 def compute(conn: Any, embed: Embed, analyze: Analyze,
-            rebuild: bool = False) -> Computed:
-    """Read the tags, embed what is missing and find the pairs. Only
-    reads."""
+            rebuild: bool = False, wikidata: Any = None) -> Computed:
+    """Read the tags, embed what is missing, look up new places and find
+    the pairs. Only reads. Without wikidata only stored places count."""
     tags = [Tag(*row) for row in conn.execute(text(
         'SELECT id, name FROM tag ORDER BY id'))]
     items = tag_items(conn.execute(text(LINKS_SQL)))
@@ -338,8 +633,9 @@ def compute(conn: Any, embed: Embed, analyze: Analyze,
             m = np.vstack(matrix)  # type: ignore[arg-type]
             similarity += m @ m.T
     similarity /= len(MODELS)
-    pairs = find_pairs(tags, items, similarity, analyze)
-    return Computed(tags, items, pairs, vectors, embedded)
+    places, looked_up = update_places(conn, wikidata, rebuild)
+    pairs = find_pairs(tags, items, similarity, analyze, places)
+    return Computed(tags, items, pairs, vectors, embedded, looked_up)
 
 
 class Changes(NamedTuple):
@@ -389,6 +685,24 @@ def apply(conn: Any, computed: Computed) -> Changes:
             SET text_hash = EXCLUDED.text_hash, vector = EXCLUDED.vector,
                 updated = now()""",
             [(t, m, h, v) for t, m, h, v in vectors])
+    places = [p for p in computed.places if p.tag_id in alive]
+    if places:
+        execute_values(cur, """
+            INSERT INTO tag_place (tag_id, name_hash, qid, label,
+                                   description, ancestors,
+                                   continent_ancestors)
+            VALUES %s
+            ON CONFLICT (tag_id) DO UPDATE
+            SET name_hash = EXCLUDED.name_hash, qid = EXCLUDED.qid,
+                label = EXCLUDED.label, description = EXCLUDED.description,
+                ancestors = EXCLUDED.ancestors,
+                continent_ancestors = EXCLUDED.continent_ancestors,
+                checked = now()
+            WHERE NOT tag_place.manual""",
+            [(p.tag_id, p.name_hash, p.qid, p.label, p.description,
+              json.dumps(p.ancestors or {}),
+              json.dumps(p.continent_ancestors or {})) for p in places],
+            template='(%s, %s, %s, %s, %s, %s::jsonb, %s::jsonb)')
     # Vectors of models no longer used.
     conn.execute(text('DELETE FROM tag_embedding WHERE model <> ALL(:m)'),
                  {'m': list(MODELS)})
@@ -416,6 +730,7 @@ def apply(conn: Any, computed: Computed) -> Changes:
 
 REASONS = {
     'baseform': 'Sama perusmuoto', 'spelling': 'Kirjoitusasu',
+    'place': 'Paikka',
     'name': 'Samankaltainen nimi', 'usage': 'Käytetään yhdessä',
 }
 
@@ -456,6 +771,8 @@ def main() -> int:
                         help='re-embed every tag')
     parser.add_argument('--report', metavar='FILE',
                         help='write the pairs as Markdown')
+    parser.add_argument('--no-places', action='store_true',
+                        help='no Wikidata lookups; use the stored places')
     where = parser.add_mutually_exclusive_group()
     where.add_argument('--prod', action='store_true',
                        help='production database '
@@ -479,7 +796,8 @@ def main() -> int:
     with engine.connect() as conn:
         conn.execute(text('SET search_path = suomisf'))
         computed = compute(conn, fastembed_embedder(), voikko_analyzer(),
-                           args.rebuild)
+                           args.rebuild,
+                           None if args.no_places else Wikidata())
         existing = existing_pairs(conn)
         conn.rollback()
     kinds = Counter(p.kind for p in computed.pairs)

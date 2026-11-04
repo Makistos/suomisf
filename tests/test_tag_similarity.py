@@ -114,6 +114,7 @@ def conn(app):  # pylint: disable=unused-argument
             # The clone may carry the dev DB's real vectors and pairs.
             c.execute(text('DELETE FROM tag_similarity'))
             c.execute(text('DELETE FROM tag_embedding'))
+            c.execute(text('DELETE FROM tag_place'))
             yield c
         finally:
             trans.rollback()
@@ -244,3 +245,193 @@ def test_tags_deleted_after_compute_are_left_out(conn):
                  {'id': ids['qqsodat']})
     ts.apply(conn, computed)
     assert _pair('qqsota', 'qqsodat') not in _stored(conn, ids)
+
+
+# --- Places ----------------------------------------------------------------
+
+def _ent(label, description='paikka', sitelinks=10, instance=(), **up):
+    return ts.Entity(label, description, sitelinks, list(instance),
+                     {p: list(up.get(p, []))
+                      for p in ('P131', 'P17', 'P30', 'P279')})
+
+
+class FakeWikidata:
+    """Q1 New York in Q2 (state) in Q3 USA, on Q4 (continent); Q5 Turku
+    in Q6 Finland, both on Q7 Europe."""
+
+    def __init__(self):
+        self.searches: List[str] = []
+        self.ents = {
+            'Q1': _ent('New York', P131=['Q2']),
+            'Q2': _ent('New Yorkin osavaltio', P17=['Q3']),
+            'Q3': _ent('Yhdysvallat', P30=['Q4']),
+            'Q4': _ent('Pohjois-Amerikka'),
+            'Q5': _ent('Turku', P17=['Q6'], P30=['Q7']),
+            'Q6': _ent('Suomi', P30=['Q7']),
+            'Q7': _ent('Eurooppa'),
+            # Namesakes: no Finnish description, fictional, not a place.
+            'Q8': _ent('Mars', description=''),
+            'Q9': _ent('Turku', instance=['Q3895768'], sitelinks=99),
+            'Q10': _ent('Mars', description='planeetta'),
+            'Q11': _ent('Turku', description='kylä', sitelinks=1),
+        }
+        self.geo = {'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9',
+                    'Q11'}
+        self.names = {
+            'qqnew york': ['Q1'], 'qqusa': ['Q3'], 'qqyhdysvallat': ['Q3'],
+            'qqpohjoisvaltio': ['Q2'], 'qqturku': ['Q11', 'Q9', 'Q5'],
+            'qqsuomi': ['Q6'], 'qqeurooppa': ['Q7'], 'qqmars': ['Q8', 'Q10'],
+        }
+
+    def search(self, name):
+        self.searches.append(name)
+        return self.names.get(name, [])
+
+    def entities(self, qids):
+        return {q: self.ents.get(q) for q in qids}
+
+    def geographic(self, qids):
+        return {q for q in qids if q in self.geo}
+
+
+def test_resolve_place_picks_the_best_known_real_place():
+    wd = FakeWikidata()
+    turku = ts.resolve_place(ts.Tag(1, 'qqturku (paikka)'), wd)
+    # Q9 is fictional, Q11 less known than Q5.
+    assert (turku.qid, turku.label) == ('Q5', 'Turku')
+    assert turku.ancestors == {'Q6': 1}
+    assert turku.continent_ancestors == {'Q6': 1, 'Q7': 1}
+    # No Finnish description (Q8) or not geographic (Q10).
+    assert ts.resolve_place(ts.Tag(2, 'qqmars'), wd).qid is None
+    assert ts.resolve_place(ts.Tag(3, 'qqkahvilat'), wd).qid is None
+    assert ts.resolve_place(ts.Tag(4, 'derry (kuvitteellinen)'), wd).qid \
+        is None
+    assert 'derry' not in wd.searches
+
+
+def test_entity_keeps_current_statements():
+    def claim(qid, rank='normal', ended=False):
+        c = {'rank': rank,
+             'mainsnak': {'datavalue': {'value': {'id': qid}}}}
+        if ended:
+            c['qualifiers'] = {'P582': []}
+        return c
+    e = ts._entity({'labels': {'fi': {'value': 'Turku'}}, 'claims': {
+        'P17': [claim('Q34', ended=True), claim('Q33')],
+        'P131': [claim('Q1', 'preferred'), claim('Q2')],
+        'P30': [claim('Q46', 'deprecated')]}})
+    assert e.up == {'P131': ['Q1'], 'P17': ['Q33'], 'P30': [], 'P279': []}
+    # A region in several countries is in none of them.
+    e = ts._entity({'claims': {'P17': [claim('Q33'), claim('Q34')]}})
+    assert e.up['P17'] == []
+
+
+def _place(tag_id, qid, ancestors=None, continent=None):
+    return ts.Place(tag_id, '', qid, ancestors=ancestors or {},
+                    continent_ancestors=continent or ancestors or {})
+
+
+def test_place_pairs_nearest_tagged_ancestor():
+    places = [
+        _place(1, 'Q1', {'Q2': 1, 'Q3': 2}, {'Q2': 1, 'Q3': 2, 'Q4': 3}),
+        _place(2, 'Q3', {}, {'Q4': 1}),        # usa
+        _place(3, 'Q3', {}, {'Q4': 1}),        # yhdysvallat
+        _place(4, 'Q5', {'Q6': 1}, {'Q6': 1, 'Q7': 1}),
+        _place(5, 'Q6', {}, {'Q7': 1}),
+        _place(6, 'Q7'),
+        _place(7, None),
+    ]
+    assert ts.place_pairs(places) == [
+        (1, 2, 'related'), (1, 3, 'related'),   # New York in both
+        (2, 3, 'duplicate'),                    # same item
+        (4, 5, 'related'),                      # Turku - Suomi, not Europe
+        (5, 6, 'related'),                      # continent fallback
+    ]
+
+
+PLACES = ['qqnew york', 'qqusa', 'qqyhdysvallat', 'qqturku', 'qqsuomi',
+          'qqeurooppa', 'qqkahvilat']
+
+
+def _setup_places(conn):
+    return {name: conn.execute(text(
+        'INSERT INTO tag (name, type_id) VALUES (:n, :t) RETURNING id'),
+        {'n': name, 't': ts.PLACE_TYPE}).scalar() for name in PLACES}
+
+
+def _run_places(conn, wd, rebuild=False):
+    computed = ts.compute(conn, FakeEmbedder({}), analyze, rebuild, wd)
+    ts.apply(conn, computed)
+    return computed
+
+
+def test_run_stores_places_and_pairs(conn):
+    ids = _setup_places(conn)
+    _run_places(conn, FakeWikidata())
+    stored = _stored(conn, ids)
+    assert {k: (r.kind, r.reason) for k, r in stored.items()} == {
+        _pair('qqusa', 'qqyhdysvallat'): ('duplicate', 'place'),
+        _pair('qqnew york', 'qqusa'): ('related', 'place'),
+        _pair('qqnew york', 'qqyhdysvallat'): ('related', 'place'),
+        _pair('qqturku', 'qqsuomi'): ('related', 'place'),
+        _pair('qqsuomi', 'qqeurooppa'): ('related', 'place'),
+    }
+    rows = dict(conn.execute(text(
+        'SELECT tag_id, qid FROM tag_place WHERE tag_id = ANY(:ids)'),
+        {'ids': list(ids.values())}).all())
+    assert rows[ids['qqturku']] == 'Q5'
+    assert rows[ids['qqkahvilat']] is None
+
+
+def test_rerun_looks_up_only_new_and_renamed_places(conn):
+    ids = _setup_places(conn)
+    _run_places(conn, FakeWikidata())
+    conn.execute(text("UPDATE tag SET name = 'qqpohjoisvaltio' "
+                      'WHERE id = :id'), {'id': ids['qqkahvilat']})
+    # Set by hand: never looked up again, even when renamed.
+    conn.execute(text("UPDATE tag_place SET manual = true, qid = 'Q99' "
+                      'WHERE tag_id = :id'), {'id': ids['qqturku']})
+    conn.execute(text("UPDATE tag SET name = 'qqturku2' WHERE id = :id"),
+                 {'id': ids['qqturku']})
+    wd = FakeWikidata()
+    _run_places(conn, wd)
+    assert set(wd.searches) == {'qqpohjoisvaltio'}
+    assert conn.execute(text(
+        'SELECT qid FROM tag_place WHERE tag_id = :id'),
+        {'id': ids['qqturku']}).scalar() == 'Q99'
+    # New York is now nearest to the tagged state, not to the country.
+    names = {**ids, 'qqpohjoisvaltio': ids['qqkahvilat']}
+    stored = _stored(conn, names)
+    assert _pair('qqnew york', 'qqpohjoisvaltio') in stored
+    assert _pair('qqnew york', 'qqusa') not in stored
+    # Rebuild looks up everything but the manual one.
+    wd = FakeWikidata()
+    _run_places(conn, wd, rebuild=True)
+    assert 'qqturku2' not in wd.searches
+    assert 'qqusa' in wd.searches
+
+
+def test_without_wikidata_stored_places_still_count(conn):
+    ids = _setup_places(conn)
+    _run_places(conn, FakeWikidata())
+    computed = _run_places(conn, None)
+    assert computed.places == []
+    assert _pair('qqusa', 'qqyhdysvallat') in _stored(conn, ids)
+
+
+def test_geographic_follows_subclasses():
+    """A city is geographic through city -> human settlement -> a
+    GEO_CLASSES class; a language is not. Cache filled by hand, so no
+    network."""
+    wd = ts.Wikidata()
+    geo = ts.GEO_CLASSES[0]
+    wd._entities.update({
+        'Q1': _ent('Turku', instance=['C1']),
+        'Q2': _ent('suomi', instance=['C3']),
+        'C1': _ent('kaupunki', P279=['C2']),
+        'C2': _ent('asutus', P279=[geo]),
+        'C3': _ent('kieli', P279=['C4']),
+        'C4': _ent('viestintä', P279=['C3']),     # a cycle
+        geo: _ent('maantieteellinen kohde'),
+    })
+    assert wd.geographic(['Q1', 'Q2']) == {'Q1'}

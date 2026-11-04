@@ -54,6 +54,41 @@ to be stored between runs.
   through `ON DELETE CASCADE`. A full rebuild happens only when the model
   changes.
 
+## Signal 3: places (Wikidata)
+
+Paikka tags that name a real place are matched to a Wikidata item, and
+a place is related to the nearest tag it lies in.
+
+- **Matching**: the tag name (qualifiers such as "(paikka)" dropped) is
+  searched among Finnish labels and aliases; only exact matches count.
+  A match must be an instance of a geographic feature, administrative
+  area, country, continent or region (followed through "subclass of",
+  P279), not fictional, and have a Finnish description, which leaves out
+  obscure namesakes (a village called Mars). Of several matches, the one
+  with the most Wikipedia articles wins. Kinds of place ("kahvilat",
+  "vankilat") and cosmic or mythical places don't match.
+- **Ancestors**: the items a place is in through "located in" (P131) and
+  "country" (P17), current statements only, so Turku is not in Sweden.
+  The continent (P30) is used only when these reach no tag. A region in
+  several countries is in none of them.
+- **Pairs**: tags matched to the same item are duplicates ("usa" –
+  "yhdysvallat"); a place and its nearest tagged ancestors are related
+  ("new york" – "usa", "turku" – "suomi", not "turku" – "eurooppa").
+- **Incremental**: each tag's match and ancestors are stored, so a run
+  looks up only new and renamed Paikka tags (`--rebuild` all of them,
+  `--no-places` none). A row marked `manual` is never looked up again,
+  so a wrong match can be fixed by hand.
+- **Cost**: a full lookup of the 398 Paikka tags takes about 4 minutes
+  (mostly the class hierarchy, fetched once per run); a rerun with no
+  new tags makes no requests.
+
+Probe on the dev DB, 2026-11-05: 188 of 398 Paikka tags matched a real
+place, 3 of them wrongly ("europa" a French island, "saaret" a Greek
+regional unit, "onnela" an inn); "ahvenanmaa" and "orangen piirikunta"
+were missed. Of 166 place pairs labelled, 164 were useful, including 70
+of 71 country – continent pairs. It also found 4 duplicates the name
+rules miss ("alankomaat" – "hollanti", "tasmania" – "van diemenin maa").
+
 ## Phase 0 results
 
 184 pairs labelled by hand (d = duplicate, r = related, n = neither) on the
@@ -108,8 +143,8 @@ Each pair gets one of two kinds:
 
 | Kind | Meaning | Rule |
 |---|---|---|
-| `duplicate` | Probably the same tag; merge | same base form, **or** a spelling variant: the names folded (lower case, diacritics and non-alphanumerics removed) are equal, or have a similarity ratio ≥ 0.9 with at least 5 characters, name similarity ≥ T1 (0.9), and they don't differ only in digits ("finncon 2007" – "finncon 2008") |
-| `related` | Means nearly the same, or used together | not a duplicate, and name similarity ≥ T2 (0.91), **or** containment ≥ T3 (0.9) with both tags ≥ 10 uses and ≥ 3 shared items |
+| `duplicate` | Probably the same tag; merge | same base form, **or** the same Wikidata place, **or** a spelling variant: the names folded (lower case, diacritics and non-alphanumerics removed) are equal, or have a similarity ratio ≥ 0.9 with at least 5 characters, name similarity ≥ T1 (0.9), and they don't differ only in digits ("finncon 2007" – "finncon 2008") |
+| `related` | Means nearly the same, in the same place, or used together | not a duplicate, and one place lies in the other, **or** name similarity ≥ T2 (0.91), **or** containment ≥ T3 (0.9) with both tags ≥ 10 uses and ≥ 3 shared items |
 
 In the dev DB this gives 42 base-form and 11 spelling pairs, 410 name
 pairs and 26 containment pairs (489 in all, after the limit per tag). The spelling rule is about half right
@@ -154,7 +189,12 @@ Only the top N per tag (e.g. 5) are kept, so the list stays reviewable.
   `shared`, `status` (new / dismissed), `decided_by`, `decided_at` and
   `updated`.
 
-Both reference `tag` with `ON DELETE CASCADE`.
+Migration 045 adds `tag_place (tag_id)`: a Paikka tag's Wikidata item
+(NULL if it is not a real place), label, description, ancestors with
+their depth (`jsonb`), the hash of the name looked up and a `manual`
+flag, and allows the reason `place`.
+
+All reference `tag` with `ON DELETE CASCADE`.
 
 - A run upserts scores and `kind` but never touches `status`, so a
   dismissed pair stays dismissed. A `new` pair that no longer passes the
@@ -209,7 +249,8 @@ database directly, through the SSH tunnel described in
   GRANT SELECT ON suomisf.tag, suomisf.worktag,
       suomisf.storytag, suomisf.articletag TO tag_similarity;
   GRANT SELECT, INSERT, UPDATE, DELETE
-      ON suomisf.tag_embedding, suomisf.tag_similarity TO tag_similarity;
+      ON suomisf.tag_embedding, suomisf.tag_similarity, suomisf.tag_place
+      TO tag_similarity;
   ```
 
   Its URL goes in `.env` as `DATABASE_URL_TAG_SIMILARITY_PROD`, used with
@@ -236,7 +277,7 @@ A new card on `/admin`, "Samankaltaiset asiasanat":
 - A DataTable with Duplicate / Related tabs (or a filter), sorted by score.
   Each row shows both tags as links, coloured by type as elsewhere (see
   `tag-type-to-severity.ts`), their usage counts and the reason ("Sama
-  perusmuoto", "Kirjoitusasu", "Samankaltainen nimi", "Käytetään yhdessä",
+  perusmuoto", "Kirjoitusasu", "Paikka", "Samankaltainen nimi", "Käytetään yhdessä",
   with scores in a tooltip).
 - Actions: **Yhdistä** opens a confirm dialog that picks the target,
   defaulting to the more-used tag, with a swap button, and calls the
