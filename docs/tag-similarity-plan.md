@@ -109,16 +109,30 @@ Each pair gets one of two kinds:
 | Kind | Meaning | Rule |
 |---|---|---|
 | `duplicate` | Probably the same tag; merge | same base form, **or** a spelling variant: the names folded (lower case, diacritics and non-alphanumerics removed) are equal, or have a similarity ratio ≥ 0.9 with at least 5 characters, name similarity ≥ T1 (0.9), and they don't differ only in digits ("finncon 2007" – "finncon 2008") |
-| `related` | Means nearly the same, or used together | not a duplicate, and name similarity ≥ T2 (0.94), **or** containment ≥ T3 (0.9) with both tags ≥ 10 uses and ≥ 3 shared items |
+| `related` | Means nearly the same, or used together | not a duplicate, and name similarity ≥ T2 (0.91), **or** containment ≥ T3 (0.9) with both tags ≥ 10 uses and ≥ 3 shared items |
 
-In the dev DB this gives 41 base-form and 12 spelling pairs, 122 name
-pairs and 27 containment pairs. The spelling rule is about half right
+In the dev DB this gives 42 base-form and 11 spelling pairs, 410 name
+pairs and 26 containment pairs (489 in all, after the limit per tag). The spelling rule is about half right
 ("san fransisco", "lönnroot", "galápagossaaret" vs look-alikes such as
 "valaat" – "valat"); a typo far from the original in meaning space
-("tietokenepelit", 0.84) is missed. T2 = 0.94 and T3 = 0.9 are the lowest
-scores that were labelled; below them precision is unknown, so lowering
-them waits for real use. Name
-similarity is the mean cosine of the e5-large and mpnet vectors.
+("tietokenepelit", 0.84) is missed. Name similarity is the mean cosine of
+the e5-large and mpnet vectors.
+
+A second sheet of 110 pairs sampled just below the first thresholds set
+T2 and T3:
+
+| Band | Pairs in the dev DB | Useful (d or r) of those labelled |
+|---|---|---|
+| name 0.92–0.94 | 159 | 39 / 40 |
+| name 0.91–0.92 | ≈ 160 | 15 / 15 |
+| name 0.90–0.91 | ≈ 190 | 17 / 24 |
+| containment 0.8–0.9 | 17 | 8 / 11 |
+| containment 0.7–0.8 | 36 | 11 / 19 |
+
+So T2 = 0.91; below it short look-alikes take over ("karpaatit" –
+"kärpät", "kallot" – "klovnit"). T3 stays at 0.9: below it containment
+finds themes of a genre ("dystopia" – "jengit") and single-series
+artefacts ("rooma" – "gutenberg").
 
 The stored scores (name similarity, containment, shared item count) let the
 UI show *why* a pair was suggested. Pairs across tag types are allowed, but
