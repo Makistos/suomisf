@@ -12,6 +12,7 @@ from app.impl import ResponseType
 from app.impl_tags import (tag_create, tag_delete, tag_filter, tag_forminfo,
                            tag_info, tag_list, tag_list_quick, tag_merge,
                            tag_search, tag_similar, tag_similar_decide,
+                           tag_similar_to,
                            tag_types, tag_update)
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
@@ -310,3 +311,25 @@ def api_tagsimilarrestore() -> Response:
     Undo a dismissal. Body and responses as in api_tagsimilardismiss.
     """
     return _similar_decide('new')
+
+
+@app.route('/api/tags/<tag_id>/similar', methods=['get'])
+def api_tagsimilarto(tag_id: str) -> Response:
+    """
+    Tags suggested as similar to a tag by scripts/tag_similarity.py, not
+    counting dismissed pairs: probable duplicates first, then related tags,
+    best first.
+
+    Returns
+    -------
+    200 - [{id, name, type: {id, name}, kind, reason}]
+    400 - Invalid id.
+    """
+    try:
+        int_id = int(tag_id)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_tagsimilarto: Invalid id {tag_id}.')
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(tag_similar_to(int_id))

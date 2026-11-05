@@ -739,3 +739,33 @@ def tag_similar_decide(tag_a: int, tag_b: int, status: str,
     return ResponseType({'tag_a': min(tag_a, tag_b),
                          'tag_b': max(tag_a, tag_b), 'status': status},
                         HttpResponseCode.OK.value)
+
+
+TAG_SIMILAR_STMT = """
+SELECT t.id, t.name, t.type_id, tt.name AS type_name, s.kind, s.reason
+FROM tag_similarity s
+JOIN tag t ON t.id = CASE WHEN s.tag_a = :id THEN s.tag_b ELSE s.tag_a END
+LEFT JOIN tagtype tt ON tt.id = t.type_id
+WHERE (s.tag_a = :id OR s.tag_b = :id) AND s.status = 'new'
+ORDER BY s.kind, coalesce(s.name_score, s.containment) DESC NULLS LAST,
+         t.name
+"""
+
+
+def tag_similar_to(tag_id: int) -> ResponseType:
+    """ See api_tagsimilarto in api_tags.py. """
+    session = new_session()
+    try:
+        rows = session.execute(text(TAG_SIMILAR_STMT), {'id': tag_id}).all()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in TagSimilarTo: ' + str(exp))
+        return ResponseType('TagSimilarTo: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType([{
+        'id': row.id,
+        'name': row.name,
+        'type': ({'id': row.type_id, 'name': row.type_name}
+                 if row.type_id is not None else None),
+        'kind': row.kind,
+        'reason': row.reason,
+    } for row in rows], HttpResponseCode.OK.value)

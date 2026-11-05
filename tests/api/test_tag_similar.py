@@ -154,3 +154,21 @@ def test_admin_only(api_client, method, path):
     api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
     resp = getattr(api_client, method)(path)
     assert resp.status_code == 403
+
+
+def test_similar_to_a_tag_is_public_and_skips_dismissed(api_client, pair):
+    a, b, c = pair
+    resp = api_client.get(f'/api/tags/{a}/similar')
+    assert resp.status_code == 200
+    assert [(t['id'], t['kind'], t['reason']) for t in resp.data] == \
+        [(b, 'duplicate', 'baseform'), (c, 'related', 'usage')]
+    assert resp.data[0]['name'] == NAMES[1]
+    assert resp.data[0]['type']['id'] == 1
+    # b - c is dismissed, so c only lists a.
+    assert [t['id'] for t in api_client.get(f'/api/tags/{c}/similar').data] \
+        == [a]
+
+
+def test_similar_to_a_tag_invalid_id(api_client):
+    assert api_client.get('/api/tags/x/similar').status_code == 400
+    assert api_client.get('/api/tags/999999999/similar').data == []

@@ -277,6 +277,10 @@ database directly, through the SSH tunnel described in
   marks a pair "not the same" and records the admin and time;
   `.../restore` sets it back to `new`, also recording who and when. 404
   for an unknown pair.
+- `GET /api/tags/<id>/similar` (public) lists the tags suggested for one
+  tag, dismissed pairs left out: `[{id, name, type, kind, reason}]`,
+  duplicates first, then by score. Shown on the tag page (frontend
+  `b9b93c7`).
 - In `app/api_tags.py` and `app/impl_tags.py`; tests in
   `tests/api/test_tag_similar.py`.
 - Merging uses the existing `POST /api/tags/<source>/merge/<target>`; the
@@ -319,7 +323,7 @@ A new card on `/admin`, "Samankaltaiset asiasanat":
    merging one, since a merge would delete a tag other specs may read;
    merging is covered by the unit tests and `tests/api/test_tag_similar.py`.
 
-Later, if useful: "Related tags" on the tag page from the `related` pairs.
+The tag page lists a tag's suggested similar tags (done 2026-11-05).
 A Kirjasampo import that suggests a similar existing tag for a "Uusi" row
 would need the model in the web app, or a precomputed lookup, so it is out
 of scope for now.
