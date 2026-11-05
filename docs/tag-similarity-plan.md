@@ -303,8 +303,9 @@ database directly, through the SSH tunnel described in
 ## API (admin only)
 
 - `GET /api/tags/similar?kind=duplicate|related&status=new|dismissed`
-  (status defaults to `new`, kind to both) returns `{updated, pairs}`:
-  `updated` is the newest job write, and each pair has `tag_a` and
+  (status defaults to `new`, kind to both) returns `{updated, counts,
+  pairs}`: `updated` is the newest job write, `counts` the pairs in each
+  view (`duplicate`, `related` and `dismissed`), and each pair has `tag_a` and
   `tag_b` (`{id, name, type: {id, name}, uses}`), `kind`, `reason`,
   `name_score`, `containment`, `shared`, `status`, `decided_by` (user
   name) and `decided_at`. Sorted by kind, then score.

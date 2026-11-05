@@ -264,7 +264,8 @@ def api_tagsimilar() -> Response:
 
     Returns
     -------
-    200 - {updated: newest job write or null, pairs: [{tag_a, tag_b, kind,
+    200 - {updated: newest job write or null, counts: {duplicate, related,
+          dismissed} (pairs in each view), pairs: [{tag_a, tag_b, kind,
           reason, name_score, containment, shared, status, decided_by,
           decided_at}]}, tag_a and tag_b being {id, name, type, uses}.
     400 - Unknown kind or status.

@@ -690,6 +690,11 @@ def tag_similar(kind: Optional[str], status: str) -> ResponseType:
                                {'kind': kind, 'status': status}).all()
         updated = session.execute(
             text('SELECT max(updated) FROM tag_similarity')).scalar()
+        # Pairs in each view: new duplicates, new related, dismissed.
+        counts = dict(session.execute(text("""
+            SELECT CASE WHEN status = 'dismissed' THEN 'dismissed'
+                        ELSE kind END, count(*)
+            FROM tag_similarity GROUP BY 1""")).all())
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagSimilar: ' + str(exp))
         return ResponseType('TagSimilar: Tietokantavirhe.',
@@ -708,6 +713,8 @@ def tag_similar(kind: Optional[str], status: str) -> ResponseType:
     } for row in rows]
     return ResponseType({
         'updated': updated.isoformat() if updated else None,
+        'counts': {view: counts.get(view, 0)
+                   for view in ('duplicate', 'related', 'dismissed')},
         'pairs': pairs,
     }, HttpResponseCode.OK.value)
 

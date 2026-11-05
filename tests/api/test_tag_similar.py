@@ -69,6 +69,14 @@ def test_lists_new_pairs_with_tags_and_scores(admin_client, pair):
     resp = admin_client.get('/api/tags/similar')
     assert resp.status_code == 200
     assert resp.data['updated'] is not None
+    # Every view's count, whichever view is asked for; the test DB has
+    # other pairs too, so compare with them removed.
+    counts = resp.data['counts']
+    assert set(counts) == {'duplicate', 'related', 'dismissed'}
+    assert counts['duplicate'] >= 1 and counts['related'] >= 1 \
+        and counts['dismissed'] >= 1
+    assert admin_client.get('/api/tags/similar?status=dismissed') \
+        .data['counts'] == counts
     ours = _ours(resp.data, pair)
     assert [(p['tag_a']['id'], p['tag_b']['id'], p['kind']) for p in ours] \
         == [(a, b, 'duplicate'), (a, c, 'related')]
@@ -102,10 +110,14 @@ def test_rejects_unknown_kind_or_status(admin_client, query):
 def test_dismiss_and_restore(admin_client, pair):
     a, b, _ = pair
     # Either order names the same pair.
+    before = admin_client.get('/api/tags/similar').data['counts']
     resp = admin_client.post('/api/tags/similar/dismiss',
                              data={'tag_a': b, 'tag_b': a})
     assert resp.status_code == 200
     assert resp.data == {'tag_a': a, 'tag_b': b, 'status': 'dismissed'}
+    after = admin_client.get('/api/tags/similar').data['counts']
+    assert (after['duplicate'], after['dismissed']) == \
+        (before['duplicate'] - 1, before['dismissed'] + 1)
     dismissed = _ours(
         admin_client.get('/api/tags/similar?status=dismissed').data, pair)
     dup = next(p for p in dismissed if p['tag_b']['id'] == b)
