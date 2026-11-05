@@ -4,13 +4,15 @@
 import json
 import bleach
 from flask import Response, request
+from flask_jwt_extended import get_jwt_identity
 
 from app import app
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
 from app.impl_tags import (tag_create, tag_delete, tag_filter, tag_forminfo,
                            tag_info, tag_list, tag_list_quick, tag_merge,
-                           tag_search, tag_types, tag_update)
+                           tag_search, tag_similar, tag_similar_decide,
+                           tag_types, tag_update)
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
 
@@ -243,3 +245,68 @@ def api_tagtypes() -> Response:
     """
     retval = tag_types()
     return make_api_response(retval)
+
+
+@app.route('/api/tags/similar', methods=['get'])
+@jwt_admin_required()  # type: ignore
+def api_tagsimilar() -> Response:
+    """
+    List tag pairs suggested by scripts/tag_similarity.py.
+
+    Query parameters
+    ----------------
+    kind : str, optional
+        "duplicate" or "related"; both if left out.
+    status : str, optional
+        "new" (default) or "dismissed".
+
+    Returns
+    -------
+    200 - {updated: newest job write or null, pairs: [{tag_a, tag_b, kind,
+          reason, name_score, containment, shared, status, decided_by,
+          decided_at}]}, tag_a and tag_b being {id, name, type, uses}.
+    400 - Unknown kind or status.
+    """
+    kind = request.args.get('kind') or None
+    status = request.args.get('status') or 'new'
+    return make_api_response(tag_similar(kind, status))
+
+
+def _similar_decide(status: str) -> Response:
+    try:
+        params = json.loads(request.data.decode('utf-8'))
+        tag_a, tag_b = int(params['tag_a']), int(params['tag_b'])
+    except (TypeError, ValueError, KeyError):
+        app.logger.error('api_tagsimilar: Invalid parameters.')
+        response = ResponseType('Virheelliset parametrit',
+                                status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(
+        tag_similar_decide(tag_a, tag_b, status, int(get_jwt_identity())))
+
+
+@app.route('/api/tags/similar/dismiss', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_tagsimilardismiss() -> Response:
+    """
+    Mark a suggested pair as not the same (or not related). Reruns of the
+    job keep it dismissed.
+
+    Body: {tag_a: int, tag_b: int}, in either order.
+
+    Returns
+    -------
+    200 - {tag_a, tag_b, status}
+    400 - Invalid body.
+    404 - No such pair.
+    """
+    return _similar_decide('dismissed')
+
+
+@app.route('/api/tags/similar/restore', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_tagsimilarrestore() -> Response:
+    """
+    Undo a dismissal. Body and responses as in api_tagsimilardismiss.
+    """
+    return _similar_decide('new')

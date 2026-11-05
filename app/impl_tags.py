@@ -1,5 +1,5 @@
 """ Functions related to tags. """
-from typing import Any, List
+from typing import Any, Dict, List, Optional
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
@@ -632,3 +632,110 @@ def tag_types() -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK)
+
+
+# Suggestions written by scripts/tag_similarity.py (migration 044).
+SIMILARITY_KINDS = ('duplicate', 'related')
+SIMILARITY_STATUSES = ('new', 'dismissed')
+
+SIMILAR_STMT = """
+WITH uses AS (
+    SELECT tag_id, count(*) AS n FROM (
+        SELECT tag_id FROM worktag
+        UNION ALL SELECT tag_id FROM storytag
+        UNION ALL SELECT tag_id FROM articletag) links
+    GROUP BY tag_id)
+SELECT s.kind, s.reason, s.name_score, s.containment, s.shared, s.status,
+       s.decided_at, u.name AS decided_by, s.updated,
+       a.id AS a_id, a.name AS a_name, a.type_id AS a_type_id,
+       ta.name AS a_type, coalesce(ua.n, 0) AS a_uses,
+       b.id AS b_id, b.name AS b_name, b.type_id AS b_type_id,
+       tb.name AS b_type, coalesce(ub.n, 0) AS b_uses
+FROM tag_similarity s
+JOIN tag a ON a.id = s.tag_a
+JOIN tag b ON b.id = s.tag_b
+LEFT JOIN tagtype ta ON ta.id = a.type_id
+LEFT JOIN tagtype tb ON tb.id = b.type_id
+LEFT JOIN uses ua ON ua.tag_id = a.id
+LEFT JOIN uses ub ON ub.tag_id = b.id
+LEFT JOIN "user" u ON u.id = s.decided_by
+WHERE s.status = :status AND (:kind IS NULL OR s.kind = :kind)
+ORDER BY s.kind, coalesce(s.name_score, s.containment) DESC NULLS LAST,
+         a.name, b.name
+"""
+
+
+def _similar_tag(row: Any, side: str) -> Dict[str, Any]:
+    type_id = getattr(row, f'{side}_type_id')
+    return {
+        'id': getattr(row, f'{side}_id'),
+        'name': getattr(row, f'{side}_name'),
+        'type': ({'id': type_id, 'name': getattr(row, f'{side}_type')}
+                 if type_id is not None else None),
+        'uses': getattr(row, f'{side}_uses'),
+    }
+
+
+def tag_similar(kind: Optional[str], status: str) -> ResponseType:
+    """ See api_tagsimilar in api_tags.py. """
+    if kind is not None and kind not in SIMILARITY_KINDS:
+        return ResponseType(f'Tuntematon tyyppi: {kind}',
+                            HttpResponseCode.BAD_REQUEST.value)
+    if status not in SIMILARITY_STATUSES:
+        return ResponseType(f'Tuntematon tila: {status}',
+                            HttpResponseCode.BAD_REQUEST.value)
+    session = new_session()
+    try:
+        rows = session.execute(text(SIMILAR_STMT),
+                               {'kind': kind, 'status': status}).all()
+        updated = session.execute(
+            text('SELECT max(updated) FROM tag_similarity')).scalar()
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in TagSimilar: ' + str(exp))
+        return ResponseType('TagSimilar: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    pairs = [{
+        'tag_a': _similar_tag(row, 'a'),
+        'tag_b': _similar_tag(row, 'b'),
+        'kind': row.kind,
+        'reason': row.reason,
+        'name_score': row.name_score,
+        'containment': row.containment,
+        'shared': row.shared,
+        'status': row.status,
+        'decided_by': row.decided_by,
+        'decided_at': row.decided_at.isoformat() if row.decided_at else None,
+    } for row in rows]
+    return ResponseType({
+        'updated': updated.isoformat() if updated else None,
+        'pairs': pairs,
+    }, HttpResponseCode.OK.value)
+
+
+def tag_similar_decide(tag_a: int, tag_b: int, status: str,
+                       user_id: int) -> ResponseType:
+    """ Set the status of a suggested pair: 'dismissed' (not the same, or
+    not related) or 'new' (restored). The job never changes it. """
+    if tag_a == tag_b:
+        return ResponseType('Asiasanapari on virheellinen.',
+                            HttpResponseCode.BAD_REQUEST.value)
+    session = new_session()
+    try:
+        result = session.execute(text("""
+            UPDATE tag_similarity
+            SET status = :status, decided_by = :user_id, decided_at = now()
+            WHERE tag_a = :a AND tag_b = :b"""), {
+                'status': status, 'user_id': user_id,
+                'a': min(tag_a, tag_b), 'b': max(tag_a, tag_b)})
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in TagSimilarDecide: ' + str(exp))
+        return ResponseType('TagSimilarDecide: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    if result.rowcount == 0:  # type: ignore[attr-defined]
+        return ResponseType('Asiasanaparia ei löydy.',
+                            HttpResponseCode.NOT_FOUND.value)
+    return ResponseType({'tag_a': min(tag_a, tag_b),
+                         'tag_b': max(tag_a, tag_b), 'status': status},
+                        HttpResponseCode.OK.value)

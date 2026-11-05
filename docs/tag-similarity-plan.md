@@ -268,9 +268,17 @@ database directly, through the SSH tunnel described in
 ## API (admin only)
 
 - `GET /api/tags/similar?kind=duplicate|related&status=new|dismissed`
-  lists pairs with both tags (id, name, type, usage count) and the scores.
-- `POST /api/tags/similar/dismiss` with `{tag_a, tag_b}` marks a pair "not
-  the same" and records the admin and time; `.../restore` undoes it.
+  (status defaults to `new`, kind to both) returns `{updated, pairs}`:
+  `updated` is the newest job write, and each pair has `tag_a` and
+  `tag_b` (`{id, name, type: {id, name}, uses}`), `kind`, `reason`,
+  `name_score`, `containment`, `shared`, `status`, `decided_by` (user
+  name) and `decided_at`. Sorted by kind, then score.
+- `POST /api/tags/similar/dismiss` with `{tag_a, tag_b}` (either order)
+  marks a pair "not the same" and records the admin and time;
+  `.../restore` sets it back to `new`, also recording who and when. 404
+  for an unknown pair.
+- In `app/api_tags.py` and `app/impl_tags.py`; tests in
+  `tests/api/test_tag_similar.py`.
 - Merging uses the existing `POST /api/tags/<source>/merge/<target>`; the
   pair disappears by cascade.
 
@@ -300,7 +308,7 @@ A new card on `/admin`, "Samankaltaiset asiasanat":
    fixture DB and a fake embedding function. Cover: the base-form and
    spelling rules, containment maths, incremental re-embedding on rename, dismissed
    pairs surviving a rerun, and cascades on tag delete.
-2. **API endpoints** and their pytest tests.
+2. **API endpoints** and their pytest tests — done 2026-11-05.
 3. **Admin card**, unit tests for the table and actions, and an E2E test
    for merging and dismissing a seeded pair. Changelog in both repos.
 
