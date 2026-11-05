@@ -5,6 +5,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-06 — Tag similarity: concepts from Finto
+**Commits:** `5d259251`
+The tag similarity job looks tags up in Finto's KOKO ontology (KAUNO,
+YSO and others; new table `tag_finto`, migration 047). Tags with the same
+concept are suggested as related ("Sama käsite", e.g. "aaveet" –
+"kummitukset", "piraatit" – "merirosvot"), ranked first, and tags of
+related concepts as related ("Liittyvä käsite"), leaving out style tags.
+
 ## 2026-11-05 — Tag similarity: tags linked by hand
 **Commits:** `731b3488`
 Admins can link any two tags as related (`POST /api/tags/similar/add`);
