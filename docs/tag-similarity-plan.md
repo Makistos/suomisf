@@ -93,6 +93,38 @@ were missed. Of 166 place pairs labelled, 164 were useful, including 70
 of 71 country – continent pairs. It also found 4 duplicates the name
 rules miss ("alankomaat" – "hollanti", "tasmania" – "van diemenin maa").
 
+## Signal 4: concepts (Finto)
+
+Finto's KOKO ontology joins KAUNO (fiction), YSO and others into one
+concept per meaning, with synonyms as alternative labels and links to
+related concepts. Embeddings miss synonyms that look nothing alike
+("aaveet" – "kummitukset", "piraatit" – "merirosvot"); KOKO has them.
+
+- **Matching**: each tag name (qualifiers dropped) is looked up among the
+  Finnish preferred, alternative and hidden labels; only a name with
+  exactly one concept counts (51 homonyms on the dev DB are skipped).
+  2 402 of 3 106 tags match.
+- **Pairs**: tags of the same concept are related with reason `concept`
+  ("Sama käsite"), ranked above every other related pair; tags of
+  concepts KOKO links as related (also through a concept's KAUNO/YSO
+  match) are related with reason `concept_related` ("Liittyvä käsite"),
+  ranked like a name similarity of 0.9, except for Tyyli tags. Neither
+  gives a duplicate, and a pair another rule finds keeps that rule's
+  reason (a base-form duplicate stays one).
+- **Incremental**: each tag's concept is stored in `tag_finto`
+  (migration 047), so a run looks up only new and renamed tags (`--rebuild`
+  all, `--no-finto` none); a `manual` row is never looked up again. A
+  full lookup takes about 4 minutes, three requests at a time.
+
+Probe on the dev DB, 2026-11-05, labelled: of the 24 same-concept pairs,
+all 23 labelled were useful but only 5 duplicates (3 of them already
+duplicates by other rules), so same concept means related. Of 100 sampled
+related-concept pairs 85 were useful; 4 of the 5 with a Tyyli tag weren't
+(sibling genres such as "eräkirjallisuus" – "työläiskirjallisuus"), so
+those are left out, giving 84 / 95. The rest of the misses are loose
+associations ("yksinäisyys" – "rakkaus"). Without the per-tag limit there
+would be about 1 700 related-concept pairs, up to 18 for one tag.
+
 ## Phase 0 results
 
 184 pairs labelled by hand (d = duplicate, r = related, n = neither) on the
@@ -148,7 +180,7 @@ Each pair gets one of two kinds:
 | Kind | Meaning | Rule |
 |---|---|---|
 | `duplicate` | Probably the same tag; merge | same base form, **or** the same Wikidata place, **or** a spelling variant: the names folded (lower case, diacritics and non-alphanumerics removed) are equal, or have a similarity ratio ≥ 0.9 with at least 5 characters, name similarity ≥ T1 (0.9), and they don't differ only in digits ("finncon 2007" – "finncon 2008") |
-| `related` | Means nearly the same, in the same place, or used together | not a duplicate, and one place lies in the other, **or** name similarity ≥ T2 (0.91), **or** containment ≥ T3 (0.9) with both tags ≥ 10 uses and ≥ 3 shared items |
+| `related` | Means nearly the same, in the same place, or used together | not a duplicate, and the same KOKO concept, **or** one place lies in the other, **or** name similarity ≥ T2 (0.91), **or** containment ≥ T3 (0.9) with both tags ≥ 10 uses and ≥ 3 shared items, **or** related KOKO concepts (not Tyyli tags) |
 
 In the dev DB this gives 42 base-form and 11 spelling pairs, 410 name
 pairs and 26 containment pairs (489 in all, after the limit per tag). The spelling rule is about half right

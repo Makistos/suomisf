@@ -115,6 +115,7 @@ def conn(app):  # pylint: disable=unused-argument
             c.execute(text('DELETE FROM tag_similarity'))
             c.execute(text('DELETE FROM tag_embedding'))
             c.execute(text('DELETE FROM tag_place'))
+            c.execute(text('DELETE FROM tag_finto'))
             yield c
         finally:
             trans.rollback()
@@ -482,3 +483,149 @@ def test_geographic_follows_subclasses():
     assert wd.geographic(['Q1', 'Q2']) == {'Q1'}
     # Cached per class and root set.
     assert wd.astronomical(['Q1', 'Q2']) == set()
+
+
+# --- Concepts (Finto) -----------------------------------------------------
+
+KOKO = 'http://www.yso.fi/onto/koko/'
+KAUNO = 'http://www.yso.fi/onto/kauno/'
+
+
+class FakeFinto:
+    """aaveet and kummitukset name K1 (related to K2 noidat, through its
+    KAUNO match); qqsota and qqsodat both name K3; K4 and K5 are related
+    style concepts; qqkuu names two concepts."""
+
+    def __init__(self):
+        self.lookups: List[str] = []
+        self.names = {
+            'qqaaveet': ['K1'], 'qqkummitukset': ['K1'], 'qqnoidat': ['K2'],
+            'qqsota': ['K3'], 'qqsodat': ['K3'], 'qqkuu': ['K6', 'K7'],
+            'qqeräkirjallisuus': ['K4'], 'qqtyöläiskirjallisuus': ['K5'],
+        }
+        self.concepts = {
+            'K1': ts.ConceptData('kummitukset', [KAUNO + 'p1'], [KAUNO + 'p2']),
+            'K2': ts.ConceptData('noidat', [KAUNO + 'p2'], []),
+            'K3': ts.ConceptData('sodat', [], []),
+            'K4': ts.ConceptData('eräkirjallisuus', [], ['K5']),
+            'K5': ts.ConceptData('työläiskirjallisuus', [], ['K4']),
+        }
+
+    def lookup(self, name):
+        self.lookups.append(name)
+        return [KOKO + u for u in self.names.get(name, [])]
+
+    def concept(self, uri):
+        return self.concepts[uri.removeprefix(KOKO)]._replace(
+            related=[r if r.startswith('http') else KOKO + r
+                     for r in self.concepts[uri.removeprefix(KOKO)].related])
+
+
+CONCEPT_TAGS = {'qqaaveet': 1, 'qqkummitukset': 1, 'qqnoidat': 1,
+                'qqkuu': 1, 'qqeräkirjallisuus': ts.STYLE_TYPE,
+                'qqtyöläiskirjallisuus': ts.STYLE_TYPE}
+
+
+def test_concept_data_is_parsed_from_finto_json():
+    res = {'graph': [
+        {'uri': 'X', 'prefLabel': {'lang': 'fi', 'value': 'muu'}},
+        {'uri': KOKO + 'p1',
+         'prefLabel': [{'lang': 'sv', 'value': 'spöken'},
+                       {'lang': 'fi', 'value': 'kummitukset'}],
+         'exactMatch': {'uri': KAUNO + 'p1'},
+         'closeMatch': [{'uri': KAUNO + 'p9'}],
+         'related': [{'uri': KOKO + 'p2'}, {'uri': KOKO + 'p3'}]},
+    ]}
+    assert ts._concept(KOKO + 'p1', res) == ts.ConceptData(
+        'kummitukset', [KAUNO + 'p1', KAUNO + 'p9'], [KOKO + 'p2', KOKO + 'p3'])
+    assert ts._concept('missing', res) == ts.ConceptData('', [], [])
+
+
+def test_resolve_concept_needs_one_match():
+    finto = FakeFinto()
+    c = ts.resolve_concept(ts.Tag(1, 'qqaaveet'), finto)
+    assert (c.uri, c.label, c.related) == \
+        (KOKO + 'K1', 'kummitukset', [KAUNO + 'p2'])
+    # Two concepts with the name, or none.
+    assert ts.resolve_concept(ts.Tag(2, 'qqkuu'), finto).uri is None
+    assert ts.resolve_concept(ts.Tag(3, 'qqmuu'), finto).uri is None
+    assert ts.resolve_concept(ts.Tag(4, 'x (kuvitteellinen)'), finto).uri \
+        is None
+
+
+def test_concept_pairs():
+    finto = FakeFinto()
+    tags = [ts.Tag(i, n) for i, n in enumerate(
+        ['qqaaveet', 'qqkummitukset', 'qqnoidat', 'qqeräkirjallisuus',
+         'qqtyöläiskirjallisuus'], 1)]
+    concepts = [ts.resolve_concept(t, finto) for t in tags]
+    # Same concept; related through K1's KAUNO match of K2; the style
+    # tags' related concepts are left out.
+    assert ts.concept_pairs(concepts, {4, 5}) == [
+        (1, 2, 'concept'), (1, 3, 'concept_related'),
+        (2, 3, 'concept_related')]
+    assert (4, 5, 'concept_related') in ts.concept_pairs(concepts, set())
+
+
+def test_same_concept_ranks_first_and_related_concept_low():
+    pairs = [ts.Pair(1, 2, 'related', 'name', name_score=0.95),
+             ts.Pair(1, 3, 'related', 'concept', name_score=0.5),
+             ts.Pair(1, 4, 'related', 'place'),
+             ts.Pair(1, 5, 'related', 'concept_related', name_score=0.99),
+             ts.Pair(1, 6, 'related', 'name', name_score=0.92)]
+    assert [p.tag_b for p in sorted(pairs, key=lambda p: -p.score)] == \
+        [3, 4, 2, 6, 5]
+
+
+def _setup_concepts(conn):
+    return {name: conn.execute(text(
+        'INSERT INTO tag (name, type_id) VALUES (:n, :t) RETURNING id'),
+        {'n': name, 't': t}).scalar() for name, t in CONCEPT_TAGS.items()}
+
+
+def _run_concepts(conn, finto, rebuild=False):
+    computed = ts.compute(conn, FakeEmbedder({}), analyze, rebuild, None,
+                          finto)
+    ts.apply(conn, computed)
+    return computed
+
+
+def test_run_stores_concepts_and_related_pairs(conn):
+    ids = {**_setup_concepts(conn), **_setup(conn)}
+    _run_concepts(conn, FakeFinto())
+    stored = _stored(conn, ids)
+    pairs = {k: (r.kind, r.reason) for k, r in stored.items()}
+    assert pairs[_pair('qqaaveet', 'qqkummitukset')] == ('related', 'concept')
+    assert pairs[_pair('qqaaveet', 'qqnoidat')] == \
+        ('related', 'concept_related')
+    # A duplicate stays one; style tags get no related-concept pair.
+    assert pairs[_pair('qqsota', 'qqsodat')] == ('duplicate', 'baseform')
+    assert _pair('qqeräkirjallisuus', 'qqtyöläiskirjallisuus') not in pairs
+    rows = dict(conn.execute(text(
+        'SELECT tag_id, uri FROM tag_finto WHERE tag_id = ANY(:ids)'),
+        {'ids': list(ids.values())}).all())
+    assert rows[ids['qqaaveet']] == KOKO + 'K1'
+    assert rows[ids['qqkuu']] is None
+
+
+def test_rerun_looks_up_only_new_and_renamed_concepts(conn):
+    ids = _setup_concepts(conn)
+    _run_concepts(conn, FakeFinto())
+    conn.execute(text("UPDATE tag SET name = 'qqnoidat2' WHERE id = :id"),
+                 {'id': ids['qqnoidat']})
+    conn.execute(text("UPDATE tag_finto SET manual = true, uri = NULL "
+                      'WHERE tag_id = :id'), {'id': ids['qqkummitukset']})
+    finto = FakeFinto()
+    _run_concepts(conn, finto)
+    assert finto.lookups == ['qqnoidat2']
+    stored = _stored(conn, {**ids, 'qqnoidat2': ids['qqnoidat']})
+    # The manual "no concept" wins, and the renamed tag has none now.
+    assert _pair('qqaaveet', 'qqkummitukset') not in stored
+    assert _pair('qqaaveet', 'qqnoidat2') not in stored
+    # Without Finto the stored concepts still count.
+    computed = _run_concepts(conn, None)
+    assert computed.concepts == []
+    finto = FakeFinto()
+    _run_concepts(conn, finto, rebuild=True)
+    assert 'qqkummitukset' not in finto.lookups
+    assert 'qqaaveet' in finto.lookups

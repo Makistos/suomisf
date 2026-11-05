@@ -17,11 +17,13 @@ The database is DATABASE_URL from .env; --prod uses
 DATABASE_URL_TAG_SIMILARITY_PROD (the tag_similarity role, see migration
 044). Needs the similarity dependency group: pdm install -G similarity.
 The models (about 3 GB) are downloaded on the first run. Paikka tags
-are looked up in Wikidata (new and renamed ones only); --no-places skips
-that and uses the stored matches.
+are looked up in Wikidata and every tag in Finto's KOKO ontology (new
+and renamed ones only); --no-places and --no-finto skip that and use the
+stored matches.
 """
 import argparse
 import hashlib
+import threading
 import itertools
 import json
 import os
@@ -30,7 +32,8 @@ import sys
 import time
 import unicodedata
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from concurrent.futures import ThreadPoolExecutor
+from dataclasses import dataclass, field
 from difflib import SequenceMatcher
 from functools import lru_cache
 from typing import (Any, Callable, Dict, FrozenSet, Iterable, List,
@@ -82,6 +85,11 @@ CONTINENT = 'P30'
 MAX_DEPTH = 6
 CLASS_DEPTH = 10          # "subclass of" levels searched for a class
 
+# Concepts: tags are matched to Finto's KOKO ontology (KAUNO, YSO, ...).
+FINTO_API = 'https://api.finto.fi/rest/v1/koko/'
+FINTO_WORKERS = 3         # requests at a time
+STYLE_TYPE = 3            # tagtype Tyyli: no related-concept pairs
+
 # word -> its base forms
 Analyze = Callable[[str], FrozenSet[str]]
 # (model, texts) -> unit vectors, one row per text
@@ -91,6 +99,7 @@ Embed = Callable[[str, List[str]], np.ndarray]
 class Tag(NamedTuple):
     id: int
     name: str
+    type_id: Optional[int] = None
 
 
 @dataclass
@@ -98,16 +107,23 @@ class Pair:
     tag_a: int
     tag_b: int
     kind: str        # 'duplicate' | 'related'
-    reason: str      # 'baseform' | 'spelling' | 'place' | 'name' | 'usage'
+    # 'baseform' | 'spelling' | 'place' | 'concept' | 'name' | 'usage'
+    # | 'concept_related' ('manual' is the API's)
+    reason: str
     name_score: Optional[float] = None
     containment: Optional[float] = None
     shared: int = 0
 
     @property
     def score(self) -> float:
-        """What a related pair is ranked by; a place pair comes first."""
+        """What a related pair is ranked by: the same concept first, then
+        a place pair; a related concept as a name similarity of 0.9."""
+        if self.reason == 'concept':
+            return 1.1
         if self.reason == 'place':
             return 1.0
+        if self.reason == 'concept_related':
+            return 0.9
         value = self.containment if self.reason == 'usage' \
             else self.name_score
         return value or 0.0
@@ -390,9 +406,9 @@ def _entity(e: Dict[str, Any]) -> Entity:
         up=up)
 
 
-def place_name(name: str) -> Optional[str]:
-    """The name to look up: qualifiers dropped ("maine (paikka)" ->
-    "maine"); None for a fictional place."""
+def lookup_name(name: str) -> Optional[str]:
+    """The name to look up in Wikidata or Finto: qualifiers dropped
+    ("maine (paikka)" -> "maine"); None for a fictional place."""
     if '(kuvitteellinen)' in name:
         return None
     return re.sub(r'\s*\([^)]*\)', '', name).strip() or None
@@ -404,7 +420,7 @@ def resolve_place(tag: Tag, wd: Any) -> Place:
     description, so a match needs one. A better-known astronomical
     namesake (Europa the moon) rules the name out."""
     place = Place(tag.id, text_hash(tag.name), None)
-    name = place_name(tag.name)
+    name = lookup_name(tag.name)
     hits = wd.search(name) if name else []
     if not hits:
         return place
@@ -472,6 +488,141 @@ def place_pairs(places: Iterable[Place]) -> List[Tuple[int, int, str]]:
     return sorted(pairs)
 
 
+# --- Concepts (Finto) ---------------------------------------------------
+
+@dataclass
+class Concept:
+    """The KOKO concept of a tag (a tag_finto row)."""
+    tag_id: int
+    name_hash: str
+    uri: Optional[str]           # None: no concept, or several
+    label: str = ''
+    matches: Optional[List[str]] = None
+    related: Optional[List[str]] = None
+    manual: bool = False
+
+
+class ConceptData(NamedTuple):
+    label: str                   # Finnish preferred label
+    matches: List[str]           # KAUNO/YSO concepts it matches
+    related: List[str]
+
+
+class Finto:
+    """The two Finto calls the concept rule needs, cached per run. Safe
+    to call from several threads."""
+
+    def __init__(self) -> None:
+        import requests  # pylint: disable=import-outside-toplevel
+        self.requests = requests
+        self._local = threading.local()
+        self._lock = threading.Lock()
+        self._lookups: Dict[str, List[str]] = {}
+        self._concepts: Dict[str, ConceptData] = {}
+
+    def _get(self, path: str, params: Dict[str, str]) -> Any:
+        if not hasattr(self._local, 'session'):
+            self._local.session = self.requests.Session()
+            self._local.session.headers['User-Agent'] = USER_AGENT
+        r = None
+        for attempt in range(4):
+            try:
+                r = self._local.session.get(FINTO_API + path, params=params,
+                                            timeout=30)
+            except (self.requests.Timeout, self.requests.ConnectionError):
+                if attempt == 3:
+                    raise
+                time.sleep(5 * (attempt + 1))
+                continue
+            if r.status_code == 404:
+                return None
+            if r.status_code in (429, 500, 502, 503, 504):
+                time.sleep(5 * (attempt + 1))
+                continue
+            r.raise_for_status()
+            return r.json()
+        assert r is not None
+        r.raise_for_status()
+        raise RuntimeError(f'Finto: HTTP {r.status_code}')
+
+    def lookup(self, name: str) -> List[str]:
+        """KOKO concepts with name as a Finnish preferred, alternative or
+        hidden label."""
+        if name not in self._lookups:
+            res = self._get('lookup', {'label': name, 'lang': 'fi'})
+            uris = [h['uri'] for h in (res or {}).get('result', [])]
+            with self._lock:
+                self._lookups[name] = uris
+        return self._lookups[name]
+
+    def concept(self, uri: str) -> ConceptData:
+        if uri not in self._concepts:
+            res = self._get('data', {'uri': uri,
+                                     'format': 'application/json'})
+            data = _concept(uri, res or {})
+            with self._lock:
+                self._concepts[uri] = data
+        return self._concepts[uri]
+
+
+def _concept(uri: str, res: Dict[str, Any]) -> ConceptData:
+    def listed(value: Any) -> List[Any]:
+        return value if isinstance(value, list) else [value]
+
+    for node in res.get('graph', []):
+        if node.get('uri') != uri:
+            continue
+        labels = [v['value'] for v in listed(node.get('prefLabel', []))
+                  if isinstance(v, dict) and v.get('lang') == 'fi']
+        return ConceptData(
+            label=labels[0] if labels else '',
+            matches=[v['uri'] for prop in ('exactMatch', 'closeMatch')
+                     for v in listed(node.get(prop, []))
+                     if isinstance(v, dict) and 'uri' in v],
+            related=[v['uri'] for v in listed(node.get('related', []))
+                     if isinstance(v, dict) and 'uri' in v])
+    return ConceptData('', [], [])
+
+
+def resolve_concept(tag: Tag, finto: Any) -> Concept:
+    """Match a tag to the KOKO concept that has its name as a label. A
+    name with several concepts (homonyms) is left unmatched."""
+    concept = Concept(tag.id, text_hash(tag.name), None)
+    name = lookup_name(tag.name)
+    uris = finto.lookup(name) if name else []
+    if len(uris) != 1:
+        return concept
+    data = finto.concept(uris[0])
+    concept.uri, concept.label = uris[0], data.label
+    concept.matches, concept.related = data.matches, data.related
+    return concept
+
+
+def concept_pairs(concepts: Iterable[Concept], style_tags: Set[int]
+                  ) -> List[Tuple[int, int, str]]:
+    """(tag_a, tag_b, reason) pairs: tags of the same concept ('concept')
+    and of concepts KOKO links as related ('concept_related'), the latter
+    without style tags, whose related genres mostly aren't."""
+    real = [c for c in concepts if c.uri]
+    by_uri: Dict[str, Set[int]] = defaultdict(set)
+    for c in real:
+        for uri in (c.uri, *(c.matches or ())):
+            by_uri[uri].add(c.tag_id)  # type: ignore[index]
+    pairs: Dict[Tuple[int, int], str] = {}
+    for c in real:
+        for other in by_uri[c.uri] - {c.tag_id}:  # type: ignore[index]
+            a, b = sorted((c.tag_id, other))
+            pairs[a, b] = 'concept'
+    for c in real:
+        if c.tag_id in style_tags:
+            continue
+        for uri in c.related or ():
+            for other in by_uri.get(uri, set()) - {c.tag_id} - style_tags:
+                a, b = sorted((c.tag_id, other))
+                pairs.setdefault((a, b), 'concept_related')
+    return sorted((a, b, reason) for (a, b), reason in pairs.items())
+
+
 # --- Pairs ---------------------------------------------------------------
 
 def limit_related(pairs: List[Pair], per_tag: int) -> List[Pair]:
@@ -490,7 +641,8 @@ def limit_related(pairs: List[Pair], per_tag: int) -> List[Pair]:
 
 def find_pairs(tags: List[Tag], items: Dict[int, Set[str]],
                similarity: np.ndarray, analyze: Analyze,
-               places: Iterable[Place] = ()) -> List[Pair]:
+               places: Iterable[Place] = (),
+               concepts: Iterable[Concept] = ()) -> List[Pair]:
     """Every suggested pair. similarity[i, j] is the name similarity of
     tags[i] and tags[j]."""
     found: Dict[Tuple[int, int], Pair] = {}
@@ -522,7 +674,14 @@ def find_pairs(tags: List[Tag], items: Dict[int, Set[str]],
         if kind == 'duplicate' and a in index and b in index:
             add(index[a], index[b], 'duplicate', 'place')
 
-    # Related: place, name, then usage.
+    # Related: same concept, place, name, usage, then related concept.
+    style_tags = {t.id for t in tags if t.type_id == STYLE_TYPE}
+    concept_list = [(a, b, r) for a, b, r in concept_pairs(concepts,
+                                                           style_tags)
+                    if a in index and b in index]
+    for a, b, reason in concept_list:
+        if reason == 'concept':
+            add(index[a], index[b], 'related', 'concept')
     for a, b, kind in place_list:
         if kind == 'related' and a in index and b in index:
             add(index[a], index[b], 'related', 'place')
@@ -533,6 +692,9 @@ def find_pairs(tags: List[Tag], items: Dict[int, Set[str]],
         if (containment(shared, len(items[a]), len(items[b])) or 0) \
                 >= RELATED_CONTAINMENT:
             add(index[a], index[b], 'related', 'usage')
+    for a, b, reason in concept_list:
+        if reason == 'concept_related':
+            add(index[a], index[b], 'related', 'concept_related')
 
     for p in found.values():
         p.name_score = round(float(similarity[index[p.tag_a],
@@ -567,8 +729,9 @@ class Computed:
     # (tag_id, model, text_hash, vector bytes) to store
     vectors: List[Tuple[int, str, str, bytes]]
     embedded: Dict[str, int]
-    # Places looked up this run, to store.
+    # Places and concepts looked up this run, to store.
     places: List[Place]
+    concepts: List[Concept] = field(default_factory=list)
 
 
 def load_places(conn: Any) -> Dict[int, Place]:
@@ -596,7 +759,7 @@ def update_places(conn: Any, wd: Any, rebuild: bool
     start = time.time()
     try:
         # Batch the calls resolve_place() makes; it then hits the cache.
-        names = [n for n in map(place_name, (t.name for t in todo)) if n]
+        names = [n for n in map(lookup_name, (t.name for t in todo)) if n]
         hits = [q for n in names for q in wd.search(n)]
         wd.entities(hits)
         wd.geographic(hits)
@@ -615,12 +778,49 @@ def update_places(conn: Any, wd: Any, rebuild: bool
     return [p for p in current.values() if p.tag_id in ids], looked_up
 
 
+def load_concepts(conn: Any) -> Dict[int, Concept]:
+    return {r.tag_id: Concept(r.tag_id, r.name_hash, r.uri, r.label or '',
+                              r.matches, r.related, r.manual)
+            for r in conn.execute(text(
+                'SELECT tag_id, name_hash, uri, label, matches, related, '
+                'manual FROM tag_finto'))}
+
+
+def update_concepts(conn: Any, tags: List[Tag], finto: Any, rebuild: bool
+                    ) -> Tuple[List[Concept], List[Concept]]:
+    """(concepts of the current tags, concepts looked up now), as
+    update_places(). If Finto fails, the stored matches are used."""
+    stored = load_concepts(conn)
+    todo = [t for t in tags if finto is not None and not (
+        t.id in stored and (stored[t.id].manual or (
+            stored[t.id].name_hash == text_hash(t.name) and not rebuild)))]
+    looked_up: List[Concept] = []
+    start = time.time()
+    try:
+        with ThreadPoolExecutor(FINTO_WORKERS) as pool:
+            looked_up = list(pool.map(
+                lambda tag: resolve_concept(tag, finto), todo))
+    except Exception as exp:  # pylint: disable=broad-except
+        print(f'Finto lookup failed ({exp}); using the stored concepts.',
+              file=sys.stderr)
+        looked_up = []
+    if todo:
+        print(f'Looked up {len(looked_up)} tags in Finto in '
+              f'{time.time() - start:.0f} s.')
+    current = {c.tag_id: c for c in stored.values()}
+    current.update({c.tag_id: c for c in looked_up})
+    ids = {t.id for t in tags}
+    return [c for c in current.values() if c.tag_id in ids], looked_up
+
+
 def compute(conn: Any, embed: Embed, analyze: Analyze,
-            rebuild: bool = False, wikidata: Any = None) -> Computed:
-    """Read the tags, embed what is missing, look up new places and find
-    the pairs. Only reads. Without wikidata only stored places count."""
+            rebuild: bool = False, wikidata: Any = None,
+            finto: Any = None) -> Computed:
+    """Read the tags, embed what is missing, look up new places and
+    concepts and find the pairs. Only reads. Without wikidata or finto
+    only the stored places or concepts count."""
     tags = [Tag(*row) for row in conn.execute(text(
-        'SELECT id, name FROM tag ORDER BY id'))]
+        'SELECT id, name, type_id FROM tag ORDER BY id'))]
     items = tag_items(conn.execute(text(LINKS_SQL)))
     stored: Dict[Tuple[int, str], Tuple[str, bytes]] = {
         (tag_id, model): (h, bytes(vector))
@@ -656,8 +856,11 @@ def compute(conn: Any, embed: Embed, analyze: Analyze,
             similarity += m @ m.T
     similarity /= len(MODELS)
     places, looked_up = update_places(conn, wikidata, rebuild)
-    pairs = find_pairs(tags, items, similarity, analyze, places)
-    return Computed(tags, items, pairs, vectors, embedded, looked_up)
+    concepts, concepts_looked_up = update_concepts(conn, tags, finto,
+                                                   rebuild)
+    pairs = find_pairs(tags, items, similarity, analyze, places, concepts)
+    return Computed(tags, items, pairs, vectors, embedded, looked_up,
+                    concepts_looked_up)
 
 
 class Changes(NamedTuple):
@@ -730,6 +933,21 @@ def apply(conn: Any, computed: Computed) -> Changes:
               json.dumps(p.ancestors or {}),
               json.dumps(p.continent_ancestors or {})) for p in places],
             template='(%s, %s, %s, %s, %s, %s::jsonb, %s::jsonb)')
+    concepts = [c for c in computed.concepts if c.tag_id in alive]
+    if concepts:
+        execute_values(cur, """
+            INSERT INTO tag_finto (tag_id, name_hash, uri, label, matches,
+                                   related)
+            VALUES %s
+            ON CONFLICT (tag_id) DO UPDATE
+            SET name_hash = EXCLUDED.name_hash, uri = EXCLUDED.uri,
+                label = EXCLUDED.label, matches = EXCLUDED.matches,
+                related = EXCLUDED.related, checked = now()
+            WHERE NOT tag_finto.manual""",
+            [(c.tag_id, c.name_hash, c.uri, c.label,
+              json.dumps(c.matches or []), json.dumps(c.related or []))
+             for c in concepts],
+            template='(%s, %s, %s, %s, %s::jsonb, %s::jsonb)')
     # Vectors of models no longer used.
     conn.execute(text('DELETE FROM tag_embedding WHERE model <> ALL(:m)'),
                  {'m': list(MODELS)})
@@ -761,7 +979,8 @@ REASONS = {
     'baseform': 'Sama perusmuoto', 'spelling': 'Kirjoitusasu',
     'place': 'Paikka',
     'name': 'Samankaltainen nimi', 'usage': 'Käytetään yhdessä',
-    'manual': 'Lisätty käsin',
+    'manual': 'Lisätty käsin', 'concept': 'Sama käsite',
+    'concept_related': 'Liittyvä käsite',
 }
 
 
@@ -803,6 +1022,8 @@ def main() -> int:
                         help='write the pairs as Markdown')
     parser.add_argument('--no-places', action='store_true',
                         help='no Wikidata lookups; use the stored places')
+    parser.add_argument('--no-finto', action='store_true',
+                        help='no Finto lookups; use the stored concepts')
     where = parser.add_mutually_exclusive_group()
     where.add_argument('--prod', action='store_true',
                        help='production database '
@@ -827,7 +1048,8 @@ def main() -> int:
         conn.execute(text('SET search_path = suomisf'))
         computed = compute(conn, fastembed_embedder(), voikko_analyzer(),
                            args.rebuild,
-                           None if args.no_places else Wikidata())
+                           None if args.no_places else Wikidata(),
+                           None if args.no_finto else Finto())
         existing = existing_pairs(conn)
         conn.rollback()
     kinds = Counter(p.kind for p in computed.pairs)

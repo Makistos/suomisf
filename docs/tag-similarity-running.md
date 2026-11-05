@@ -28,10 +28,10 @@ one the web app uses), so the app can read the new tables:
 psql "$DATABASE_URL_PROD" -f migrations/044_tag_similarity.sql
 psql "$DATABASE_URL_PROD" -f migrations/045_tag_place.sql
 psql "$DATABASE_URL_PROD" -f migrations/046_tag_similarity_manual.sql
+psql "$DATABASE_URL_PROD" -f migrations/047_tag_finto.sql
 ```
 
-(046 lets admins link tags by hand; the role below needs nothing more
-for it.)
+(046 lets admins link tags by hand; 047 stores the tags' Finto concepts.)
 
 `DATABASE_URL_PROD` here is the plain `postgresql://user@localhost:5454/suomisf`
 form from `.env` (psql doesn't accept the `postgresql+psycopg2://` form). If
@@ -53,9 +53,14 @@ GRANT USAGE ON SCHEMA suomisf TO tag_similarity;
 GRANT SELECT ON suomisf.tag, suomisf.worktag, suomisf.storytag,
     suomisf.articletag TO tag_similarity;
 GRANT SELECT, INSERT, UPDATE, DELETE
-    ON suomisf.tag_embedding, suomisf.tag_similarity, suomisf.tag_place
+    ON suomisf.tag_embedding, suomisf.tag_similarity, suomisf.tag_place,
+       suomisf.tag_finto
     TO tag_similarity;
 ```
+
+(A role made before migration 047 needs only the last one again, for
+`tag_finto`: `GRANT SELECT, INSERT, UPDATE, DELETE ON suomisf.tag_finto
+TO tag_similarity;`.)
 
 The GRANTs need the tables, so apply the migrations first. Then set the
 password as a separate step, typing it on its own line:
@@ -130,13 +135,14 @@ database):
 Embedded 3110 tags with intfloat/multilingual-e5-large in 32 s.
 Embedded 3110 tags with sentence-transformers/paraphrase-multilingual-mpnet-base-v2 in 9 s.
 Looked up 398 places in Wikidata in 242 s.
-suomisf (production): 3110 tags, 57 duplicate and 625 related pairs.
-Added 682 pairs, updated 0, removed 0; 0 dismissed pairs kept.
+Looked up 3106 tags in Finto in 228 s.
+suomisf (production): 3106 tags, 53 duplicate and 2229 related pairs.
+Added 2282 pairs, updated 0, removed 0; 0 dismissed pairs kept.
 ```
 
-**How long.** The first run embeds every tag and looks every Paikka tag up
-in Wikidata: about 5 minutes. Later runs only embed new and renamed tags
-and look up new and renamed places, then compare all tags (a second or
+**How long.** The first run embeds every tag, looks every Paikka tag up in
+Wikidata and every tag in Finto: about 9 minutes. Later runs only embed
+and look up new and renamed tags, then compare all tags (a second or
 so), so they take seconds. All writes are one short transaction at the
 end; reading and computing happen first, so the site isn't held up.
 
@@ -149,8 +155,9 @@ and a merged or deleted tag takes its pairs with it.
 
 | Option | |
 |---|---|
-| `--rebuild` | Embed every tag and look every place up again. Run it now and then (e.g. monthly) to pick up Wikidata corrections and rule changes; about 5 minutes. Places marked `manual` in `tag_place` are kept. |
+| `--rebuild` | Embed every tag and look every place and concept up again. Run it now and then (e.g. monthly) to pick up Wikidata and Finto corrections and rule changes; about 9 minutes. Rows marked `manual` in `tag_place` or `tag_finto` are kept. |
 | `--no-places` | Skip the Wikidata lookups and use the stored places (e.g. when Wikidata is down; the job also falls back to them by itself if a lookup fails). |
+| `--no-finto` | The same for the Finto lookups and the stored concepts. |
 | `--report FILE` | Also write the pairs as a Markdown report. |
 | `--db URL` | Any other database. |
 | (none) | The dev database (`DATABASE_URL`). |
