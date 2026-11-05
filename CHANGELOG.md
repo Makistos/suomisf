@@ -6,12 +6,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 cover image saves, and dependency bumps are omitted or grouped._
 
 ## 2026-11-05 — Tag similarity: places
-**Commits:** `ccb9df4a`
+**Commits:** `ccb9df4a`, `c965db95`
 The tag similarity job matches Paikka tags to Wikidata places and
 suggests a place with the nearest tag it lies in ("new york" – "usa",
 "turku" – "suomi"), and tags of the same place as duplicates ("usa" –
 "yhdysvallat"). Matches are stored in the new `tag_place` table
-(migration 045), so only new and renamed tags are looked up.
+(migration 045), so only new and renamed tags are looked up. A name
+whose best-known meaning is an astronomical object ("europa", Jupiter's
+moon) is not matched to a place.
 
 ## 2026-11-04 — Tag similarity suggestions (job)
 **Commits:** `1d69d62d`
