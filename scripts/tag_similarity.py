@@ -671,19 +671,22 @@ class Changes(NamedTuple):
 
 def plan_changes(existing: Dict[Tuple[int, int], str],
                  pairs: List[Pair]) -> Changes:
-    """existing maps stored pairs to their status."""
+    """existing maps stored pairs to their status, or to 'manual' for a
+    pair an admin added; those are never changed or removed."""
     found = {(p.tag_a, p.tag_b) for p in pairs}
     gone = [k for k in existing if k not in found]
     return Changes(
         added=[p for p in pairs if (p.tag_a, p.tag_b) not in existing],
-        updated=[p for p in pairs if (p.tag_a, p.tag_b) in existing],
+        updated=[p for p in pairs
+                 if existing.get((p.tag_a, p.tag_b), 'manual') != 'manual'],
         removed=[k for k in gone if existing[k] == 'new'],
         dismissed_kept=sum(existing[k] == 'dismissed' for k in gone))
 
 
 def existing_pairs(conn: Any) -> Dict[Tuple[int, int], str]:
     return {(a, b): status for a, b, status in conn.execute(text(
-        'SELECT tag_a, tag_b, status FROM tag_similarity'))}
+        "SELECT tag_a, tag_b, CASE WHEN reason = 'manual' THEN 'manual' "
+        'ELSE status END FROM tag_similarity'))}
 
 
 def apply(conn: Any, computed: Computed) -> Changes:
@@ -695,7 +698,9 @@ def apply(conn: Any, computed: Computed) -> Changes:
         text('SELECT id FROM tag WHERE id = ANY(:ids)'), {'ids': ids})}
     pairs = [p for p in computed.pairs
              if p.tag_a in alive and p.tag_b in alive]
-    changes = plan_changes(existing_pairs(conn), pairs)
+    existing = existing_pairs(conn)
+    changes = plan_changes(existing, pairs)
+    manual = {k for k, v in existing.items() if v == 'manual'}
 
     cur = conn.connection.cursor()
     vectors = [v for v in computed.vectors if v[0] in alive]
@@ -728,6 +733,7 @@ def apply(conn: Any, computed: Computed) -> Changes:
     # Vectors of models no longer used.
     conn.execute(text('DELETE FROM tag_embedding WHERE model <> ALL(:m)'),
                  {'m': list(MODELS)})
+    pairs = [p for p in pairs if (p.tag_a, p.tag_b) not in manual]
     if pairs:
         execute_values(cur, """
             INSERT INTO tag_similarity (tag_a, tag_b, kind, reason,
@@ -737,7 +743,8 @@ def apply(conn: Any, computed: Computed) -> Changes:
             SET kind = EXCLUDED.kind, reason = EXCLUDED.reason,
                 name_score = EXCLUDED.name_score,
                 containment = EXCLUDED.containment,
-                shared = EXCLUDED.shared, updated = now()""",
+                shared = EXCLUDED.shared, updated = now()
+            WHERE tag_similarity.reason <> 'manual'""",
             [(p.tag_a, p.tag_b, p.kind, p.reason, p.name_score,
               p.containment, p.shared) for p in pairs])
     if changes.removed:
@@ -754,6 +761,7 @@ REASONS = {
     'baseform': 'Sama perusmuoto', 'spelling': 'Kirjoitusasu',
     'place': 'Paikka',
     'name': 'Samankaltainen nimi', 'usage': 'Käytetään yhdessä',
+    'manual': 'Lisätty käsin',
 }
 
 

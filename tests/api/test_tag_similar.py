@@ -172,3 +172,55 @@ def test_similar_to_a_tag_is_public_and_skips_dismissed(api_client, pair):
 def test_similar_to_a_tag_invalid_id(api_client):
     assert api_client.get('/api/tags/x/similar').status_code == 400
     assert api_client.get('/api/tags/999999999/similar').data == []
+
+
+def test_add_links_tags_by_hand_and_dismiss_removes_it(admin_client, pair):
+    a, b, c = pair
+    # b - c was dismissed; adding it makes it a manual pair again.
+    resp = admin_client.post('/api/tags/similar/add',
+                             data={'tag_a': c, 'tag_b': b})
+    assert resp.status_code == 200
+    assert resp.data == {'tag_a': b, 'tag_b': c}
+    similar = admin_client.get(f'/api/tags/{c}/similar').data
+    assert [(t['id'], t['kind'], t['reason']) for t in similar] == \
+        [(b, 'related', 'manual'), (a, 'related', 'usage')]
+    listed = _ours(admin_client.get('/api/tags/similar?kind=related').data,
+                   pair)
+    manual = next(p for p in listed if p['tag_a']['id'] == b)
+    assert manual['decided_by'] == TEST_ADMIN_NAME
+
+    # Removing a manual pair deletes it rather than dismissing it.
+    resp = admin_client.post('/api/tags/similar/dismiss',
+                             data={'tag_a': b, 'tag_b': c})
+    assert resp.data['status'] == 'removed'
+    assert [t['id'] for t in admin_client.get(
+        f'/api/tags/{c}/similar').data] == [a]
+    assert not [p for p in _ours(admin_client.get(
+        '/api/tags/similar?status=dismissed').data, pair)
+        if p['tag_b']['id'] == c and p['tag_a']['id'] == b]
+
+
+def test_add_leaves_a_suggested_pair_alone(admin_client, pair):
+    a, b, _ = pair
+    assert admin_client.post('/api/tags/similar/add',
+                             data={'tag_a': a, 'tag_b': b}).status_code == 200
+    dup = admin_client.get(f'/api/tags/{a}/similar').data[0]
+    assert (dup['id'], dup['kind'], dup['reason']) == \
+        (b, 'duplicate', 'baseform')
+
+
+def test_add_rejects_bad_pairs(admin_client, pair):
+    a, _, _ = pair
+    assert admin_client.post('/api/tags/similar/add',
+                             data={'tag_a': a, 'tag_b': a}).status_code == 400
+    assert admin_client.post('/api/tags/similar/add',
+                             data={'tag_a': a, 'tag_b': 999999999}
+                             ).status_code == 404
+    assert admin_client.post('/api/tags/similar/add',
+                             data={'tag_a': 'x'}).status_code == 400
+
+
+def test_add_is_admin_only(api_client):
+    api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+    assert api_client.post('/api/tags/similar/add',
+                           data={'tag_a': 1, 'tag_b': 2}).status_code == 403

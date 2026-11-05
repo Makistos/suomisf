@@ -27,7 +27,11 @@ one the web app uses), so the app can read the new tables:
 ```sh
 psql "$DATABASE_URL_PROD" -f migrations/044_tag_similarity.sql
 psql "$DATABASE_URL_PROD" -f migrations/045_tag_place.sql
+psql "$DATABASE_URL_PROD" -f migrations/046_tag_similarity_manual.sql
 ```
+
+(046 lets admins link tags by hand; the role below needs nothing more
+for it.)
 
 `DATABASE_URL_PROD` here is the plain `postgresql://user@localhost:5454/suomisf`
 form from `.env` (psql doesn't accept the `postgresql+psycopg2://` form). If
@@ -137,9 +141,9 @@ so), so they take seconds. All writes are one short transaction at the
 end; reading and computing happen first, so the site isn't held up.
 
 **What a run changes.** New pairs are added, changed scores updated and
-suggestions that no longer match removed. A pair an admin dismissed is
-never changed or removed, and a merged or deleted tag takes its pairs
-with it.
+suggestions that no longer match removed. A pair an admin dismissed,
+or linked by hand on a tag's edit dialog, is never changed or removed,
+and a merged or deleted tag takes its pairs with it.
 
 **Other options:**
 

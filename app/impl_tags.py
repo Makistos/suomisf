@@ -715,12 +715,23 @@ def tag_similar(kind: Optional[str], status: str) -> ResponseType:
 def tag_similar_decide(tag_a: int, tag_b: int, status: str,
                        user_id: int) -> ResponseType:
     """ Set the status of a suggested pair: 'dismissed' (not the same, or
-    not related) or 'new' (restored). The job never changes it. """
+    not related) or 'new' (restored). The job never changes it. Dismissing
+    a pair an admin added removes it instead (status 'removed'). """
     if tag_a == tag_b:
         return ResponseType('Asiasanapari on virheellinen.',
                             HttpResponseCode.BAD_REQUEST.value)
     session = new_session()
     try:
+        if status == 'dismissed' and session.execute(text("""
+                DELETE FROM tag_similarity
+                WHERE tag_a = :a AND tag_b = :b AND reason = 'manual'"""),
+                {'a': min(tag_a, tag_b), 'b': max(tag_a, tag_b)}
+                ).rowcount:  # type: ignore[attr-defined]
+            session.commit()
+            return ResponseType({'tag_a': min(tag_a, tag_b),
+                                 'tag_b': max(tag_a, tag_b),
+                                 'status': 'removed'},
+                                HttpResponseCode.OK.value)
         result = session.execute(text("""
             UPDATE tag_similarity
             SET status = :status, decided_by = :user_id, decided_at = now()
@@ -747,8 +758,8 @@ FROM tag_similarity s
 JOIN tag t ON t.id = CASE WHEN s.tag_a = :id THEN s.tag_b ELSE s.tag_a END
 LEFT JOIN tagtype tt ON tt.id = t.type_id
 WHERE (s.tag_a = :id OR s.tag_b = :id) AND s.status = 'new'
-ORDER BY s.kind, coalesce(s.name_score, s.containment) DESC NULLS LAST,
-         t.name
+ORDER BY s.kind, s.reason = 'manual' DESC,
+         coalesce(s.name_score, s.containment) DESC NULLS LAST, t.name
 """
 
 
@@ -769,3 +780,38 @@ def tag_similar_to(tag_id: int) -> ResponseType:
         'kind': row.kind,
         'reason': row.reason,
     } for row in rows], HttpResponseCode.OK.value)
+
+
+def tag_similar_add(tag_a: int, tag_b: int, user_id: int) -> ResponseType:
+    """ Link two tags as related by hand (reason 'manual'), which the job
+    never changes. A dismissed pair becomes this; a pair already
+    suggested is left as it is. """
+    if tag_a == tag_b:
+        return ResponseType('Asiasanaa ei voi liittää itseensä.',
+                            HttpResponseCode.BAD_REQUEST.value)
+    a, b = min(tag_a, tag_b), max(tag_a, tag_b)
+    session = new_session()
+    try:
+        found = session.execute(text(
+            'SELECT count(*) FROM tag WHERE id IN (:a, :b)'),
+            {'a': a, 'b': b}).scalar()
+        if found != 2:
+            return ResponseType('Tuntematon asiasanan tunniste',
+                                HttpResponseCode.NOT_FOUND.value)
+        session.execute(text("""
+            INSERT INTO tag_similarity (tag_a, tag_b, kind, reason,
+                                        decided_by, decided_at)
+            VALUES (:a, :b, 'related', 'manual', :user_id, now())
+            ON CONFLICT (tag_a, tag_b) DO UPDATE
+            SET kind = 'related', reason = 'manual', status = 'new',
+                name_score = NULL, containment = NULL, shared = 0,
+                decided_by = :user_id, decided_at = now(), updated = now()
+            WHERE tag_similarity.status = 'dismissed'"""),
+            {'a': a, 'b': b, 'user_id': user_id})
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in TagSimilarAdd: ' + str(exp))
+        return ResponseType('TagSimilarAdd: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType({'tag_a': a, 'tag_b': b}, HttpResponseCode.OK.value)

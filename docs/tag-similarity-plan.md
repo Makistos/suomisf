@@ -284,6 +284,11 @@ database directly, through the SSH tunnel described in
   tag, dismissed pairs left out: `[{id, name, type, kind, reason}]`,
   duplicates first, then by score. Shown on the tag page (frontend
   `b9b93c7`).
+- `POST /api/tags/similar/add` with `{tag_a, tag_b}` links two tags by
+  hand: a related pair with reason `manual` (migration 046), which the job
+  never changes or removes. Dismissing a manual pair deletes it. A
+  dismissed pair becomes manual; one already suggested is left alone.
+  Used by the similar tags editor in the tag's edit dialog (frontend).
 - In `app/api_tags.py` and `app/impl_tags.py`; tests in
   `tests/api/test_tag_similar.py`.
 - Merging uses the existing `POST /api/tags/<source>/merge/<target>`; the

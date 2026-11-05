@@ -216,6 +216,34 @@ def test_rerun_embeds_only_renamed_and_keeps_dismissed(conn):
         == 'dismissed'
 
 
+def test_rerun_keeps_manual_pairs(conn):
+    """A pair an admin added is never changed or removed, whether or not
+    the rules find it."""
+    ids = _setup(conn)
+    _run(conn, FakeEmbedder(GROUPS))
+    # One the rules find (made manual), one they don't.
+    found = (ids['qqsota'], ids['qqsodat'])
+    other = (ids['qqpelit'], ids['qqväkivalta'])
+    conn.execute(text(
+        "UPDATE tag_similarity SET reason = 'manual', kind = 'related' "
+        'WHERE tag_a = least(:a, :b) AND tag_b = greatest(:a, :b)'),
+        {'a': found[0], 'b': found[1]})
+    conn.execute(text(
+        'INSERT INTO tag_similarity (tag_a, tag_b, kind, reason) '
+        "VALUES (least(:a, :b), greatest(:a, :b), 'related', 'manual')"),
+        {'a': other[0], 'b': other[1]})
+
+    _, changes = _run(conn, FakeEmbedder(GROUPS))
+    stored = _stored(conn, ids)
+    assert (stored[_pair('qqsota', 'qqsodat')].kind,
+            stored[_pair('qqsota', 'qqsodat')].reason) \
+        == ('related', 'manual')
+    assert stored[_pair('qqpelit', 'qqväkivalta')].reason == 'manual'
+    assert not {found, other} & {(min(k), max(k)) for k in changes.removed}
+    updated = {(p.tag_a, p.tag_b) for p in changes.updated}
+    assert (min(found), max(found)) not in updated
+
+
 def test_rebuild_embeds_everything(conn):
     _setup(conn)
     _run(conn, FakeEmbedder(GROUPS))
