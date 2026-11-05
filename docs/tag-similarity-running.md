@@ -45,7 +45,6 @@ sudo -u postgres psql -d suomisf
 
 ```sql
 CREATE ROLE tag_similarity LOGIN;
-\password tag_similarity
 GRANT USAGE ON SCHEMA suomisf TO tag_similarity;
 GRANT SELECT ON suomisf.tag, suomisf.worktag, suomisf.storytag,
     suomisf.articletag TO tag_similarity;
@@ -54,9 +53,21 @@ GRANT SELECT, INSERT, UPDATE, DELETE
     TO tag_similarity;
 ```
 
-`\password` asks for the password, so it stays out of the shell and psql
-history. Make one without characters that need escaping in a URL, e.g.
-`openssl rand -hex 24`.
+The GRANTs need the tables, so apply the migrations first. Then set the
+password as a separate step, typing it on its own line:
+
+```
+\password tag_similarity
+```
+
+Don't paste it together with the SQL above: a psql backslash command takes
+the rest of the input line as its arguments, so pasted statements after it
+are silently ignored. `\password` asks for the password, so it stays out
+of the shell and psql history. Make one without characters that need
+escaping in a URL, e.g. `openssl rand -hex 24`.
+
+Check the result with `\dp suomisf.tag_similarity`: it should list
+`tag_similarity=arwd`.
 
 **The connection URL.** Add it to the backend's `.env` with an editor
 (not on the command line, where it would end up in the history):
