@@ -5,6 +5,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-05 — Tag similarity: admin API
+**Commits:** `63cf2d20`
+Admins can list the tag pairs the similarity job suggests
+(`GET /api/tags/similar`, by kind and status, with both tags' usage
+counts and the scores) and dismiss or restore a pair
+(`POST /api/tags/similar/dismiss`, `.../restore`). Dismissals record
+who and when, and survive reruns of the job.
+
 ## 2026-11-05 — Tag similarity: places
 **Commits:** `ccb9df4a`, `c965db95`
 The tag similarity job matches Paikka tags to Wikidata places and
