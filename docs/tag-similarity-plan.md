@@ -286,7 +286,9 @@ database directly, through the SSH tunnel described in
 
 A new card on `/admin`, "Samankaltaiset asiasanat":
 
-- A DataTable with Duplicate / Related tabs (or a filter), sorted by score.
+- A DataTable with Kaksoiskappaleet / Liittyvät / Hylätyt views (a
+  SelectButton), sorted by score, with a search box. On phones the two
+  tags stack in one cell with the reason under them.
   Each row shows both tags as links, coloured by type as elsewhere (see
   `tag-type-to-severity.ts`), their usage counts and the reason ("Sama
   perusmuoto", "Kirjoitusasu", "Paikka", "Samankaltainen nimi", "Käytetään yhdessä",
@@ -310,7 +312,12 @@ A new card on `/admin`, "Samankaltaiset asiasanat":
    pairs surviving a rerun, and cascades on tag delete.
 2. **API endpoints** and their pytest tests — done 2026-11-05.
 3. **Admin card**, unit tests for the table and actions, and an E2E test
-   for merging and dismissing a seeded pair. Changelog in both repos.
+   for merging and dismissing a seeded pair. Changelog in both repos —
+   done 2026-11-05 (frontend `98f6b14`,
+   `src/features/admin/components/similar-tags.tsx`). The E2E test
+   dismisses and restores a pair from the copied job results rather than
+   merging one, since a merge would delete a tag other specs may read;
+   merging is covered by the unit tests and `tests/api/test_tag_similar.py`.
 
 Later, if useful: "Related tags" on the tag page from the `related` pairs.
 A Kirjasampo import that suggests a similar existing tag for a "Uusi" row
