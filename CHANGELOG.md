@@ -5,6 +5,11 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-05 — Tag similarity: similar tags of a tag
+**Commits:** `f18e6ce9`
+`GET /api/tags/<id>/similar` lists the tags the similarity job suggests
+for one tag, leaving out dismissed pairs; the tag page shows them.
+
 ## 2026-11-05 — Tag similarity: admin API
 **Commits:** `63cf2d20`
 Admins can list the tag pairs the similarity job suggests
