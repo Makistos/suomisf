@@ -5,6 +5,11 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-06 — Tag similarity: pair counts
+**Commits:** `48602eed`
+`GET /api/tags/similar` also returns the number of new duplicate, new
+related and dismissed pairs, shown on the admin card's view buttons.
+
 ## 2026-11-06 — Tag similarity: concepts from Finto
 **Commits:** `5d259251`
 The tag similarity job looks tags up in Finto's KOKO ontology (KAUNO,
