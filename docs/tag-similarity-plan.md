@@ -208,6 +208,9 @@ All reference `tag` with `ON DELETE CASCADE`.
 
 ## The job: `scripts/tag_similarity.py`
 
+How to set up and run it, including the production tunnel and role:
+`tag-similarity-running.md`.
+
 Same shape as `scripts/check_data.py`: reads `DATABASE_URL`, with `--prod`
 / `--db URL` for another database.
 
