@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-05 — Tag similarity: tags linked by hand
+**Commits:** `731b3488`
+Admins can link any two tags as related (`POST /api/tags/similar/add`);
+the job never changes or removes such a pair (reason `manual`, migration
+046), and removing it deletes it.
+
 ## 2026-11-05 — Tag similarity: similar tags of a tag
 **Commits:** `f18e6ce9`
 `GET /api/tags/<id>/similar` lists the tags the similarity job suggests
