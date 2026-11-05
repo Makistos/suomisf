@@ -457,10 +457,12 @@ def test_rerun_looks_up_only_new_and_renamed_places(conn):
     assert 'qqusa' in wd.searches
 
 
-def test_without_wikidata_stored_places_still_count(conn):
+def test_without_wikidata_stored_places_still_count(conn, capsys):
     ids = _setup_places(conn)
     _run_places(conn, FakeWikidata())
+    capsys.readouterr()
     computed = _run_places(conn, None)
+    assert 'Wikidata' not in capsys.readouterr().err
     assert computed.places == []
     assert _pair('qqusa', 'qqyhdysvallat') in _stored(conn, ids)
 

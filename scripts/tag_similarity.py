@@ -757,19 +757,21 @@ def update_places(conn: Any, wd: Any, rebuild: bool
             stored[t.id].name_hash == text_hash(t.name) and not rebuild)))]
     looked_up: List[Place] = []
     start = time.time()
-    try:
-        # Batch the calls resolve_place() makes; it then hits the cache.
-        names = [n for n in map(lookup_name, (t.name for t in todo)) if n]
-        hits = [q for n in names for q in wd.search(n)]
-        wd.entities(hits)
-        wd.geographic(hits)
-        wd.astronomical(hits)
-        for tag in todo:
-            looked_up.append(resolve_place(tag, wd))
-    except Exception as exp:  # pylint: disable=broad-except
-        print(f'Wikidata lookup failed ({exp}); using the stored '
-              'places for the rest.', file=sys.stderr)
     if todo:
+        try:
+            # Batch the calls resolve_place() makes; it then hits the
+            # cache.
+            names = [n for n in map(lookup_name, (t.name for t in todo))
+                     if n]
+            hits = [q for n in names for q in wd.search(n)]
+            wd.entities(hits)
+            wd.geographic(hits)
+            wd.astronomical(hits)
+            for tag in todo:
+                looked_up.append(resolve_place(tag, wd))
+        except Exception as exp:  # pylint: disable=broad-except
+            print(f'Wikidata lookup failed ({exp}); using the stored '
+                  'places for the rest.', file=sys.stderr)
         print(f'Looked up {len(looked_up)} places in Wikidata in '
               f'{time.time() - start:.0f} s.')
     current = {p.tag_id: p for p in stored.values()}
