@@ -65,8 +65,11 @@ a place is related to the nearest tag it lies in.
   area, country, continent or region (followed through "subclass of",
   P279), not fictional, and have a Finnish description, which leaves out
   obscure namesakes (a village called Mars). Of several matches, the one
-  with the most Wikipedia articles wins. Kinds of place ("kahvilat",
-  "vankilat") and cosmic or mythical places don't match.
+  with the most Wikipedia articles wins, unless an astronomical object
+  of the same name has more ("europa" is Jupiter's moon, not the island).
+  Kinds of place ("kahvilat", "vankilat") and cosmic or mythical places
+  don't match. Better-known namesakes of other kinds don't rule a place
+  out: the languages "englanti", "kiina" and "persia" outrank the places.
 - **Ancestors**: the items a place is in through "located in" (P131) and
   "country" (P17), current statements only, so Turku is not in Sweden.
   The continent (P30) is used only when these reach no tag. A region in
@@ -84,7 +87,8 @@ a place is related to the nearest tag it lies in.
 
 Probe on the dev DB, 2026-11-05: 188 of 398 Paikka tags matched a real
 place, 3 of them wrongly ("europa" a French island, "saaret" a Greek
-regional unit, "onnela" an inn); "ahvenanmaa" and "orangen piirikunta"
+regional unit, "onnela" an inn; "europa" fixed since by the
+astronomical-namesake check); "ahvenanmaa" and "orangen piirikunta"
 were missed. Of 166 place pairs labelled, 164 were useful, including 70
 of 71 country – continent pairs. It also found 4 duplicates the name
 rules miss ("alankomaat" – "hollanti", "tasmania" – "van diemenin maa").

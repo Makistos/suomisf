@@ -274,13 +274,21 @@ class FakeWikidata:
             'Q9': _ent('Turku', instance=['Q3895768'], sitelinks=99),
             'Q10': _ent('Mars', description='planeetta'),
             'Q11': _ent('Turku', description='kylä', sitelinks=1),
+            # Europa: an island, and the better-known moon. Io: a moon
+            # less known than the place.
+            'Q12': _ent('Europa', description='saari', sitelinks=50),
+            'Q13': _ent('Europa', description='Jupiterin kuu', sitelinks=100),
+            'Q14': _ent('Io', description='kylä', sitelinks=50),
+            'Q15': _ent('Io', description='Jupiterin kuu', sitelinks=20),
         }
         self.geo = {'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Q9',
-                    'Q11'}
+                    'Q11', 'Q12', 'Q14'}
+        self.moons = {'Q13', 'Q15'}
         self.names = {
             'qqnew york': ['Q1'], 'qqusa': ['Q3'], 'qqyhdysvallat': ['Q3'],
             'qqpohjoisvaltio': ['Q2'], 'qqturku': ['Q11', 'Q9', 'Q5'],
             'qqsuomi': ['Q6'], 'qqeurooppa': ['Q7'], 'qqmars': ['Q8', 'Q10'],
+            'qqeuropa': ['Q12', 'Q13'], 'qqio': ['Q14', 'Q15'],
         }
 
     def search(self, name):
@@ -292,6 +300,9 @@ class FakeWikidata:
 
     def geographic(self, qids):
         return {q for q in qids if q in self.geo}
+
+    def astronomical(self, qids):
+        return {q for q in qids if q in self.moons}
 
 
 def test_resolve_place_picks_the_best_known_real_place():
@@ -307,6 +318,12 @@ def test_resolve_place_picks_the_best_known_real_place():
     assert ts.resolve_place(ts.Tag(4, 'derry (kuvitteellinen)'), wd).qid \
         is None
     assert 'derry' not in wd.searches
+
+
+def test_resolve_place_yields_to_a_better_known_astronomical_object():
+    wd = FakeWikidata()
+    assert ts.resolve_place(ts.Tag(1, 'qqeuropa'), wd).qid is None
+    assert ts.resolve_place(ts.Tag(2, 'qqio'), wd).qid == 'Q14'
 
 
 def test_entity_keeps_current_statements():
@@ -435,3 +452,5 @@ def test_geographic_follows_subclasses():
         geo: _ent('maantieteellinen kohde'),
     })
     assert wd.geographic(['Q1', 'Q2']) == {'Q1'}
+    # Cached per class and root set.
+    assert wd.astronomical(['Q1', 'Q2']) == set()

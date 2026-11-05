@@ -70,6 +70,9 @@ USER_AGENT = 'SuomiSF-tag-similarity/1.0 (https://www.sf-bibliografia.fi)'
 # administrative area, country, continent, geographic region, ...
 GEO_CLASSES = ('Q618123', 'Q56061', 'Q6256', 'Q5107', 'Q82794',
                'Q15642541')
+# A better-known namesake that is one of these (astronomical object) means
+# the tag is not the place: Europa is a moon before an island.
+ASTRONOMICAL_CLASSES = ('Q6999',)
 FICTIONAL_CLASSES = {'Q3895768', 'Q17198419', 'Q15796005', 'Q1964689',
                      'Q15632617'}
 # Followed for ancestors: located in (P131) and country (P17); the
@@ -77,7 +80,7 @@ FICTIONAL_CLASSES = {'Q3895768', 'Q17198419', 'Q15796005', 'Q1964689',
 WALK = ('P131', 'P17')
 CONTINENT = 'P30'
 MAX_DEPTH = 6
-CLASS_DEPTH = 10          # "subclass of" levels searched for GEO_CLASSES
+CLASS_DEPTH = 10          # "subclass of" levels searched for a class
 
 # word -> its base forms
 Analyze = Callable[[str], FrozenSet[str]]
@@ -264,18 +267,26 @@ class Wikidata:
         self.session.headers['User-Agent'] = USER_AGENT
         self._entities: Dict[str, Optional[Entity]] = {}
         self._searches: Dict[str, List[str]] = {}
-        self._geo_class: Dict[str, bool] = {}
+        self._subclass: Dict[Tuple[str, Tuple[str, ...]], bool] = {}
 
     def _get(self, url: str, params: Dict[str, str],
              timeout: int = 30) -> Any:
+        r = None
         for attempt in range(4):
-            r = self.session.get(url, params={**params, 'format': 'json'},
-                                 timeout=timeout)
+            try:
+                r = self.session.get(url, params={**params, 'format': 'json'},
+                                     timeout=timeout)
+            except (self.requests.Timeout, self.requests.ConnectionError):
+                if attempt == 3:
+                    raise
+                time.sleep(5 * (attempt + 1))
+                continue
             if r.status_code in (429, 502, 503, 504):
                 time.sleep(5 * (attempt + 1))
                 continue
             r.raise_for_status()
             return r.json()
+        assert r is not None
         r.raise_for_status()
         raise RuntimeError(f'Wikidata: HTTP {r.status_code}')
 
@@ -306,13 +317,19 @@ class Wikidata:
         return {q: self._entities.get(q) for q in qids}
 
     def geographic(self, qids: List[str]) -> Set[str]:
-        """The items that are instances of a GEO_CLASSES class, directly
-        or through "subclass of" (P279)."""
+        return self.instances(qids, GEO_CLASSES)
+
+    def astronomical(self, qids: List[str]) -> Set[str]:
+        return self.instances(qids, ASTRONOMICAL_CLASSES)
+
+    def instances(self, qids: List[str], roots: Tuple[str, ...]) -> Set[str]:
+        """The items that are instances of a roots class, directly or
+        through "subclass of" (P279)."""
         ents = self.entities(qids)
         classes = {c for e in ents.values() if e for c in e.instance}
         self._load_classes(classes)
         return {q for q, e in ents.items()
-                if e and any(self._is_geo(c) for c in e.instance)}
+                if e and any(self._is_a(c, roots) for c in e.instance)}
 
     def _load_classes(self, classes: Set[str]) -> None:
         """Fetch the classes and their superclasses, level by level."""
@@ -327,23 +344,23 @@ class Wikidata:
                     nxt.update(e.up.get('P279', []))
             frontier = nxt
 
-    def _is_geo(self, cls: str) -> bool:
-        if cls not in self._geo_class:
+    def _is_a(self, cls: str, roots: Tuple[str, ...]) -> bool:
+        if (cls, roots) not in self._subclass:
             seen, frontier = {cls}, [cls]
-            found = cls in GEO_CLASSES
+            found = cls in roots
             while frontier and not found:
                 nxt = []
                 for c in frontier:
                     e = self._entities.get(c)
                     for parent in (e.up.get('P279', []) if e else []):
-                        if parent in GEO_CLASSES:
+                        if parent in roots:
                             found = True
                         if parent not in seen:
                             seen.add(parent)
                             nxt.append(parent)
                 frontier = nxt
-            self._geo_class[cls] = found
-        return self._geo_class[cls]
+            self._subclass[cls, roots] = found
+        return self._subclass[cls, roots]
 
 
 def _entity(e: Dict[str, Any]) -> Entity:
@@ -384,7 +401,8 @@ def place_name(name: str) -> Optional[str]:
 def resolve_place(tag: Tag, wd: Any) -> Place:
     """Match a Paikka tag to the best-known real place of that name.
     Obscure namesakes (a village called Mars) seldom have a Finnish
-    description, so a match needs one."""
+    description, so a match needs one. A better-known astronomical
+    namesake (Europa the moon) rules the name out."""
     place = Place(tag.id, text_hash(tag.name), None)
     name = place_name(tag.name)
     hits = wd.search(name) if name else []
@@ -398,6 +416,9 @@ def resolve_place(tag: Tag, wd: Any) -> Place:
     if not candidates:
         return place
     qid = max(candidates, key=lambda q: ents[q].sitelinks)
+    if any(ents[q] and ents[q].sitelinks > ents[qid].sitelinks
+           for q in wd.astronomical(hits) if q != qid):
+        return place
     place.qid, place.label, place.description = \
         qid, ents[qid].label, ents[qid].description
     place.ancestors = walk_up(qid, wd, WALK)
@@ -579,6 +600,7 @@ def update_places(conn: Any, wd: Any, rebuild: bool
         hits = [q for n in names for q in wd.search(n)]
         wd.entities(hits)
         wd.geographic(hits)
+        wd.astronomical(hits)
         for tag in todo:
             looked_up.append(resolve_place(tag, wd))
     except Exception as exp:  # pylint: disable=broad-except
