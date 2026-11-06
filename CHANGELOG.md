@@ -5,6 +5,18 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-06 — Tag similarity and Kirjasampo import updates
+**Commits:** `be921319`, `6abe96a0`, `2599bb26`
+- Merging tags keeps both tags' similar tags: the merged tag's pairs move
+  to the kept tag, an admin's decision winning where both had one.
+- Suggested pairs can be marked checked (`POST /api/tags/similar/check`,
+  migration 049); the job keeps checked pairs.
+- `GET /api/tags/<id>/similar/works` lists the works of a tag and its
+  similar tags, each once, with the tags each matched.
+- The Kirjasampo import leaves out "Osana julkaisua" and an edition
+  page's publication details ("Sisältää julkaisut", publisher, year,
+  language, translator, original work).
+
 ## 2026-11-06 — Tag similarity: kinds set by an admin
 **Commits:** `aa1d4d19`
 Admins can mark a suggested duplicate as only related, or a related pair
