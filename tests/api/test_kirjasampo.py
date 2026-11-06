@@ -86,6 +86,15 @@ PREVIEW_HTML = """
 <div class="kulsa-field"><h2 class="kulsa-field-label">Palkinto</h2>
   <div class="kulsa-field-item"><a href="/10">Finlandia-palkinto</a></div>
 </div>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Osana julkaisua</h2>
+  <div class="kulsa-field-item"><a href="/12">En julsång på prosa</a></div>
+</div>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Sisältää julkaisut</h2>
+  <div class="kulsa-field-item"><a href="/13">Aaverakastaja</a></div>
+</div>
+<div class="kulsa-field"><h2 class="kulsa-field-label">Kustantaja</h2>
+  <div class="kulsa-field-item"><a href="/14">Kirjava</a></div>
+</div>
 <div class="kulsa-field"><h2 class="kulsa-field-label">Elokuvat</h2>
   <div class="kulsa-field-item"><a href="/7">Luolakarhut (1986)</a></div>
   <div class="kulsa-field-item"><a href="/8">Toinen elokuva (1990)</a></div>

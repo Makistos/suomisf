@@ -31,10 +31,13 @@ _VALID_ACTIONS = {"add", "replace", "omit"}
 # Type given to new tags when the import item doesn't name one.
 DEFAULT_TAG_TYPE_ID = 1  # Aihe
 
-# Kirjasampo sections that aren't subject tags.
+# Kirjasampo sections that aren't subject tags: on a work page, and the
+# publication details of an edition page (whose tags are on its work).
 SKIPPED_SECTIONS = {
-    "Tekijä", "Päähenkilöt", "Alkukieli", "julkaisut",
+    "Tekijä", "Päähenkilöt", "Alkukieli", "julkaisut", "Osana julkaisua",
     "Kirjastonhoitaja suosittelee", "Palkinto", "Lisätietoa verkossa",
+    "Sisältää julkaisut", "Teoksen kuvailutiedot", "Ilmestymisaika",
+    "Kustantaja", "Kieli", "Kääntäjä", "Alkuteos",
 }
 # Sections whose items collapse into one fixed tag.
 SECTION_OVERRIDES = {"Elokuvat": "elokuva"}
