@@ -5,6 +5,13 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-06 — Fix: merging a tag saved for a Kirjasampo name
+**Commits:** `1d0b3597`
+Merging or deleting a tag that a stored Kirjasampo import mapping
+pointed to failed with a database error (e.g. "aviovaimot", mapped from
+"murha : aviovaimot"). A merge now moves the mapping to the kept tag, and
+a delete removes it.
+
 ## 2026-11-06 — Tag similarity and Kirjasampo import updates
 **Commits:** `be921319`, `6abe96a0`, `2599bb26`
 - Merging tags keeps both tags' similar tags: the merged tag's pairs move
