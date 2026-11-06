@@ -869,7 +869,7 @@ class Changes(NamedTuple):
     added: List[Pair]
     updated: List[Pair]
     # New pairs that no longer pass the rules (not ones whose kind an
-    # admin set).
+    # admin set, or that an admin checked).
     removed: List[Tuple[int, int]]
     # Dismissed pairs no longer found; kept so they stay dismissed.
     dismissed_kept: int
@@ -879,7 +879,8 @@ def plan_changes(existing: Dict[Tuple[int, int], str],
                  pairs: List[Pair]) -> Changes:
     """existing maps stored pairs to their status, to 'manual' for a pair
     an admin added (never changed or removed) or to 'fixed' for one whose
-    kind an admin set (kept even when no longer found)."""
+    kind an admin set or that an admin checked (kept even when no longer
+    found)."""
     found = {(p.tag_a, p.tag_b) for p in pairs}
     gone = [k for k in existing if k not in found]
     return Changes(
@@ -893,7 +894,7 @@ def plan_changes(existing: Dict[Tuple[int, int], str],
 def existing_pairs(conn: Any) -> Dict[Tuple[int, int], str]:
     return {(a, b): status for a, b, status in conn.execute(text(
         "SELECT tag_a, tag_b, CASE WHEN reason = 'manual' THEN 'manual' "
-        "WHEN kind_fixed AND status = 'new' THEN 'fixed' "
+        "WHEN (kind_fixed OR checked) AND status = 'new' THEN 'fixed' "
         'ELSE status END FROM tag_similarity'))}
 
 
@@ -976,7 +977,7 @@ def apply(conn: Any, computed: Computed) -> Changes:
         execute_values(cur, """
             DELETE FROM tag_similarity s USING (VALUES %s) AS r(a, b)
             WHERE s.tag_a = r.a AND s.tag_b = r.b AND s.status = 'new'
-                AND NOT s.kind_fixed""",
+                AND NOT s.kind_fixed AND NOT s.checked""",
             changes.removed)
     return changes
 

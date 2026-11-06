@@ -247,7 +247,7 @@ def test_rerun_keeps_manual_pairs(conn):
 
 def test_rerun_keeps_a_kind_an_admin_set(conn):
     """A duplicate an admin marked related stays related, and stays even
-    when the rules no longer find it."""
+    when the rules no longer find it; so does a checked pair."""
     ids = _setup(conn)
     _run(conn, FakeEmbedder(GROUPS))
     for a, b in (('qqsota', 'qqsodat'), ('qqcon 2007', 'qqcon 2008')):
@@ -255,11 +255,20 @@ def test_rerun_keeps_a_kind_an_admin_set(conn):
             "UPDATE tag_similarity SET kind = 'related', kind_fixed = true "
             'WHERE tag_a = least(:a, :b) AND tag_b = greatest(:a, :b)'),
             {'a': ids[a], 'b': ids[b]})
+    # A checked pair is kept the same way.
+    conn.execute(text(
+        'UPDATE tag_similarity SET checked = true '
+        'WHERE tag_a = least(:a, :b) AND tag_b = greatest(:a, :b)'),
+        {'a': ids['qqväkivalta'], 'b': ids['qqväkivaltaisuus']})
+    conn.execute(text("UPDATE tag SET name = 'qqrauha' WHERE id = :id"),
+                 {'id': ids['qqväkivaltaisuus']})
     # The second pair no longer passes the rules after the rename.
     conn.execute(text("UPDATE tag SET name = 'qqmuu' WHERE id = :id"),
                  {'id': ids['qqcon 2008']})
     _, changes = _run(conn, FakeEmbedder(GROUPS))
-    stored = _stored(conn, {**ids, 'qqmuu': ids['qqcon 2008']})
+    stored = _stored(conn, {**ids, 'qqmuu': ids['qqcon 2008'],
+                            'qqrauha': ids['qqväkivaltaisuus']})
+    assert _pair('qqväkivalta', 'qqrauha') in stored
     sota = stored[_pair('qqsota', 'qqsodat')]
     assert (sota.kind, sota.reason) == ('related', 'baseform')
     assert _pair('qqcon 2007', 'qqmuu') in stored

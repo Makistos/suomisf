@@ -14,7 +14,8 @@ from .test_works import TEST_ADMIN_NAME, TEST_ADMIN_PASSWORD
 
 TEST_USER_NAME = 'Test User'
 TEST_USER_PASSWORD = 'testpassword123'
-NAMES = ('zz similar test a', 'zz similar test b', 'zz similar test c')
+NAMES = ('zz similar test a', 'zz similar test b', 'zz similar test c',
+         'zz similar test d')
 
 
 def _clean(session):
@@ -35,7 +36,7 @@ def pair(app):  # pylint: disable=unused-argument
     _clean(session)
     ids = [session.execute(text(
         'INSERT INTO tag (name, type_id) VALUES (:n, 1) RETURNING id'),
-        {'n': n}).scalar() for n in NAMES]
+        {'n': n}).scalar() for n in NAMES[:3]]
     a, b, c = ids
     session.execute(text("""
         INSERT INTO tag_similarity
@@ -275,3 +276,78 @@ def test_kind_is_admin_only(api_client):
     api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
     assert api_client.post('/api/tags/similar/kind', data={
         'tag_a': 1, 'tag_b': 2, 'kind': 'related'}).status_code == 403
+
+
+def test_check_marks_a_pair(admin_client, pair):
+    a, b, _ = pair
+    resp = admin_client.post('/api/tags/similar/check',
+                             data={'tag_a': b, 'tag_b': a, 'checked': True})
+    assert resp.status_code == 200
+    assert resp.data == {'tag_a': a, 'tag_b': b, 'checked': True}
+    dup = next(p for p in _ours(admin_client.get(
+        '/api/tags/similar?kind=duplicate').data, pair)
+        if p['tag_b']['id'] == b)
+    assert (dup['checked'], dup['decided_by']) == (True, TEST_ADMIN_NAME)
+    admin_client.post('/api/tags/similar/check',
+                      data={'tag_a': a, 'tag_b': b, 'checked': False})
+    dup = next(p for p in _ours(admin_client.get(
+        '/api/tags/similar?kind=duplicate').data, pair)
+        if p['tag_b']['id'] == b)
+    assert dup['checked'] is False
+
+
+@pytest.mark.parametrize('body, status', [
+    ({'tag_a': 1, 'tag_b': 2}, 400),
+    ({'tag_a': 1, 'tag_b': 2, 'checked': 'yes'}, 400),
+    ({'tag_a': 999999998, 'tag_b': 999999999, 'checked': True}, 404),
+])
+def test_check_rejects_bad_requests(admin_client, body, status):
+    assert admin_client.post('/api/tags/similar/check',
+                             data=body).status_code == status
+
+
+def test_check_is_admin_only(api_client):
+    api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+    assert api_client.post('/api/tags/similar/check', data={
+        'tag_a': 1, 'tag_b': 2, 'checked': True}).status_code == 403
+
+
+def test_merge_keeps_both_tags_similar_tags(admin_client, pair):
+    """b is merged into c. a - b (duplicate) and a - c (related, new) meet:
+    b's has no decision either, so c's stays. b - d moves to c - d, kept
+    by the job; b - c itself goes."""
+    a, b, c = pair
+    session = new_session()
+    d = session.execute(text(
+        'INSERT INTO tag (name, type_id) VALUES (:n, 1) RETURNING id'),
+        {'n': NAMES[3]}).scalar()
+    session.execute(text(
+        'INSERT INTO tag_similarity (tag_a, tag_b, kind, reason, status, '
+        'checked) VALUES (:b, :d, \'related\', \'name\', \'new\', true)'),
+        {'b': b, 'd': d})
+    session.commit()
+
+    assert admin_client.post(f'/api/tags/{c}/merge/{b}').status_code == 200
+    rows = {(r.tag_a, r.tag_b): r for r in session.execute(text(
+        'SELECT tag_a, tag_b, kind, reason, status, checked, kind_fixed '
+        'FROM tag_similarity WHERE tag_a = ANY(:ids) AND tag_b = ANY(:ids)'),
+        {'ids': [a, b, c, d]})}
+    session.close()
+    assert set(rows) == {(a, c), (min(c, d), max(c, d))}
+    assert (rows[a, c].reason, rows[a, c].kind_fixed) == ('usage', False)
+    moved = rows[min(c, d), max(c, d)]
+    assert (moved.reason, moved.checked, moved.kind_fixed) == \
+        ('name', True, True)
+
+
+def test_merge_keeps_the_decided_pair(admin_client, pair):
+    """b - c is dismissed; merging b into a meets a - c (undecided), so the
+    dismissal wins."""
+    a, b, c = pair
+    assert admin_client.post(f'/api/tags/{a}/merge/{b}').status_code == 200
+    session = new_session()
+    row = session.execute(text(
+        'SELECT reason, status FROM tag_similarity '
+        'WHERE tag_a = :a AND tag_b = :c'), {'a': a, 'c': c}).one()
+    session.close()
+    assert (row.reason, row.status) == ('name', 'dismissed')

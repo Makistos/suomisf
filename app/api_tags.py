@@ -13,7 +13,8 @@ from app.impl import ResponseType
 from app.impl_tags import (tag_create, tag_delete, tag_filter, tag_forminfo,
                            tag_info, tag_list, tag_list_quick, tag_merge,
                            tag_search, tag_similar, tag_similar_decide,
-                           tag_similar_add, tag_similar_kind,
+                           tag_similar_add, tag_similar_check,
+                           tag_similar_kind,
                            tag_similar_to,
                            tag_types, tag_update)
 from app.types import HttpResponseCode
@@ -268,7 +269,7 @@ def api_tagsimilar() -> Response:
     200 - {updated: newest job write or null, counts: {duplicate, related,
           dismissed} (pairs in each view), pairs: [{tag_a, tag_b, kind,
           reason, name_score, containment, shared, status, decided_by,
-          decided_at}]}, tag_a and tag_b being {id, name, type, uses}.
+          decided_at, checked}]}, tag_a and tag_b being {id, name, type, uses}.
     400 - Unknown kind or status.
     """
     kind = request.args.get('kind') or None
@@ -395,3 +396,30 @@ def api_tagsimilarkind() -> Response:
         return _invalid_pair()
     return make_api_response(
         tag_similar_kind(*pair, kind, int(get_jwt_identity())))
+
+
+@app.route('/api/tags/similar/check', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_tagsimilarcheck() -> Response:
+    """
+    Mark a suggested pair as checked (correct as it is), or not.
+
+    Body: {tag_a: int, tag_b: int, checked: bool}, the tags in either order.
+
+    Returns
+    -------
+    200 - {tag_a, tag_b, checked}
+    400 - Invalid body.
+    404 - No such pair.
+    """
+    pair = _pair_params()
+    if pair is None:
+        return _invalid_pair()
+    try:
+        checked = json.loads(request.data.decode('utf-8'))['checked']
+    except (TypeError, ValueError, KeyError):
+        return _invalid_pair()
+    if not isinstance(checked, bool):
+        return _invalid_pair()
+    return make_api_response(
+        tag_similar_check(*pair, checked, int(get_jwt_identity())))

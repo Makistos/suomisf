@@ -1,5 +1,6 @@
 """ Functions related to tags. """
-from typing import Any, Dict, List, Optional
+from datetime import datetime, timezone
+from typing import Any, Dict, List, Optional, Tuple
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
@@ -486,6 +487,58 @@ def tag_delete(tag_id: int) -> ResponseType:
     return retval
 
 
+# Columns of a tag_similarity row other than its tags.
+_SIMILAR_COLUMNS = ('kind', 'reason', 'name_score', 'containment', 'shared',
+                    'status', 'decided_by', 'decided_at', 'updated',
+                    'kind_fixed', 'checked')
+
+
+def _decided(row: Any) -> Tuple[bool, Any]:
+    """ How strongly an admin has decided on a pair: any decision first
+    (dismissed, checked, kind set, added by hand), then the newer. """
+    decided = (row['decided_at'] is not None or row['status'] == 'dismissed'
+               or row['checked'] or row['kind_fixed']
+               or row['reason'] == 'manual')
+    return decided, row['decided_at'] or datetime.min.replace(
+        tzinfo=timezone.utc)
+
+
+def _merge_similar(session: Any, id_to: int, id_from: int) -> None:
+    """ Give the merged tag's similar tags (scripts/tag_similarity.py) to the
+    tag it is merged into, in the caller's transaction. A tag both have
+    keeps the pair with an admin's decision, the newer if both have one,
+    else the kept tag's. A moved pair is kept by the job (kind_fixed) until
+    an admin dismisses it, since the job won't find it under the kept
+    tag's name. The pair of the two tags themselves goes with the merged
+    tag. """
+    cols = ', '.join(_SIMILAR_COLUMNS)
+    moved = session.execute(text(f"""
+        SELECT CASE WHEN tag_a = :src THEN tag_b ELSE tag_a END AS other,
+               {cols}
+        FROM tag_similarity
+        WHERE (tag_a = :src OR tag_b = :src)
+          AND :dst NOT IN (tag_a, tag_b)"""),
+        {'src': id_from, 'dst': id_to}).mappings().all()
+    for row in moved:
+        a, b = min(id_to, row['other']), max(id_to, row['other'])
+        kept = session.execute(text(
+            f'SELECT {cols} FROM tag_similarity '
+            'WHERE tag_a = :a AND tag_b = :b'),
+            {'a': a, 'b': b}).mappings().first()
+        if kept is not None:
+            if _decided(row) <= _decided(kept):
+                continue
+            session.execute(text(
+                'DELETE FROM tag_similarity WHERE tag_a = :a AND tag_b = :b'),
+                {'a': a, 'b': b})
+        values = {**{c: row[c] for c in _SIMILAR_COLUMNS}, 'a': a, 'b': b}
+        values['kind_fixed'] = True
+        session.execute(text(f"""
+            INSERT INTO tag_similarity (tag_a, tag_b, {cols})
+            VALUES (:a, :b, {', '.join(':' + c for c in _SIMILAR_COLUMNS)})
+            """), values)
+
+
 def tag_merge(id_to: int, id_from: int) -> ResponseType:
     """ See api_tagMerge in api.py. """
     retval = ResponseType('', HttpResponseCode.OK.value)
@@ -595,6 +648,8 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
             .filter(WorkTag.tag_id == id_from)\
             .delete()
 
+        _merge_similar(session, id_to, id_from)
+
         log_changes(session, obj=tag_to,
                     old_values={'Yhdistetty': tag_from.name})
         log_changes(session, obj=tag_from, action='Poisto',
@@ -646,6 +701,7 @@ WITH uses AS (
         UNION ALL SELECT tag_id FROM articletag) links
     GROUP BY tag_id)
 SELECT s.kind, s.reason, s.name_score, s.containment, s.shared, s.status,
+       s.checked,
        s.decided_at, u.name AS decided_by, s.updated,
        a.id AS a_id, a.name AS a_name, a.type_id AS a_type_id,
        ta.name AS a_type, coalesce(ua.n, 0) AS a_uses,
@@ -710,6 +766,7 @@ def tag_similar(kind: Optional[str], status: str) -> ResponseType:
         'status': row.status,
         'decided_by': row.decided_by,
         'decided_at': row.decided_at.isoformat() if row.decided_at else None,
+        'checked': row.checked,
     } for row in rows]
     return ResponseType({
         'updated': updated.isoformat() if updated else None,
@@ -851,4 +908,29 @@ def tag_similar_kind(tag_a: int, tag_b: int, kind: str,
         return ResponseType('Asiasanaparia ei löydy.',
                             HttpResponseCode.NOT_FOUND.value)
     return ResponseType({'tag_a': a, 'tag_b': b, 'kind': kind},
+                        HttpResponseCode.OK.value)
+
+
+def tag_similar_check(tag_a: int, tag_b: int, checked: bool,
+                      user_id: int) -> ResponseType:
+    """ Mark a suggested pair as checked by an admin (correct as it is), or
+    take the mark off. The job keeps a checked pair. """
+    a, b = min(tag_a, tag_b), max(tag_a, tag_b)
+    session = new_session()
+    try:
+        result = session.execute(text("""
+            UPDATE tag_similarity
+            SET checked = :checked, decided_by = :user_id, decided_at = now()
+            WHERE tag_a = :a AND tag_b = :b"""),
+            {'checked': checked, 'user_id': user_id, 'a': a, 'b': b})
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in TagSimilarCheck: ' + str(exp))
+        return ResponseType('TagSimilarCheck: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    if result.rowcount == 0:  # type: ignore[attr-defined]
+        return ResponseType('Asiasanaparia ei löydy.',
+                            HttpResponseCode.NOT_FOUND.value)
+    return ResponseType({'tag_a': a, 'tag_b': b, 'checked': checked},
                         HttpResponseCode.OK.value)
