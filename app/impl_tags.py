@@ -7,7 +7,8 @@ from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
 from app.orm_decl import (Tag, ArticleTag, IssueTag, Bookseries, Edition,
                           EditionContributor, Work, WorkContributor,
-                          PersonTag, StoryTag, TagType, WorkTag)
+                          PersonTag, StoryTag, TagImportReplace, TagType,
+                          WorkTag)
 from app.model import (TAG_WORK_FIELDS, TagBriefSchema, TagSchema,
                        TagTypeSchema, WorkBriefSchema)
 from app.route_helpers import new_session
@@ -490,6 +491,10 @@ def tag_delete(tag_id: int) -> ResponseType:
                                 HttpResponseCode.NOT_FOUND.value)
         log_changes(session, obj=tag, action='Poisto',
                     old_values={'Nimi': tag.name})
+        # Kirjasampo names saved as this tag: the import asks again.
+        session.query(TagImportReplace)\
+            .filter(TagImportReplace.tag_id == tag_id)\
+            .delete(synchronize_session=False)
         session.delete(tag)
         session.commit()
     except SQLAlchemyError as exp:
@@ -568,7 +573,8 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
         tag_from = session.query(Tag).filter(Tag.id == id_from).first()
     except SQLAlchemyError as exp:
         app.logger.error('Exception in TagMerge: ' + str(exp))
-        return ResponseType(f'TagMerge: Tietokantavirhe. id={id}',
+        return ResponseType(
+            f'TagMerge: Tietokantavirhe. id={id_to}, {id_from}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if not tag_to or not tag_from:
@@ -662,6 +668,12 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
             .delete()
 
         _merge_similar(session, id_to, id_from)
+        # Kirjasampo names saved as the merged tag are saved as the kept
+        # one from now on.
+        session.query(TagImportReplace)\
+            .filter(TagImportReplace.tag_id == id_from)\
+            .update({TagImportReplace.tag_id: id_to},
+                    synchronize_session=False)
 
         log_changes(session, obj=tag_to,
                     old_values={'Yhdistetty': tag_from.name})
@@ -675,7 +687,7 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
 
     except SQLAlchemyError as exp:
         app.logger.error(exp)
-        return ResponseType(f'Tietokantavirhe. id={id}',
+        return ResponseType(f'Tietokantavirhe. id={id_to}, {id_from}',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return retval

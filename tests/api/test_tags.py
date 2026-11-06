@@ -301,3 +301,54 @@ class TestTagSearch(BaseAPITest):
         """GET /api/tags with invalid param returns 400."""
         response = api_client.get('/api/tags?invalid=value')
         assert response.status_code == 400
+
+
+class TestTagKirjasampoMappings(BaseAPITest):
+    """A Kirjasampo name saved as a tag (tag_import_replace) doesn't stop
+    the tag from being merged or deleted."""
+
+    NAMES = ('zz mapping keep', 'zz mapping merge', 'zz mapping delete')
+    KS_NAMES = ('zz ks merged', 'zz ks deleted')
+
+    @staticmethod
+    def _sql(stmt, **params):
+        from sqlalchemy import text
+        from app.route_helpers import new_session
+        session = new_session()
+        try:
+            rows = session.execute(text(stmt), params)
+            out = rows.all() if rows.returns_rows else None
+            session.commit()
+            return out
+        finally:
+            session.close()
+
+    def _clean(self):
+        self._sql('DELETE FROM tag_import_replace WHERE name = ANY(:n)',
+                  n=list(self.KS_NAMES))
+        self._sql('DELETE FROM tag WHERE name = ANY(:n)', n=list(self.NAMES))
+
+    def test_merge_and_delete_keep_or_drop_the_mapping(self, admin_client):
+        self._clean()
+        try:
+            keep, merged, deleted = [self._sql(
+                'INSERT INTO tag (name, type_id) VALUES (:n, 1) RETURNING id',
+                n=name)[0][0] for name in self.NAMES]
+            self._sql('INSERT INTO tag_import_replace (name, tag_id) '
+                      'VALUES (:a, :m), (:b, :d)',
+                      a=self.KS_NAMES[0], m=merged, b=self.KS_NAMES[1],
+                      d=deleted)
+
+            resp = admin_client.post(f'/api/tags/{keep}/merge/{merged}')
+            assert resp.status_code == 200
+            assert self._sql(
+                'SELECT tag_id FROM tag_import_replace WHERE name = :n',
+                n=self.KS_NAMES[0]) == [(keep,)]
+
+            resp = admin_client.delete(f'/api/tags/{deleted}')
+            assert resp.status_code == 200
+            assert self._sql(
+                'SELECT tag_id FROM tag_import_replace WHERE name = :n',
+                n=self.KS_NAMES[1]) == []
+        finally:
+            self._clean()
