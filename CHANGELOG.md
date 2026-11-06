@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-06 — Tag similarity: kinds set by an admin
+**Commits:** `aa1d4d19`
+Admins can mark a suggested duplicate as only related, or a related pair
+as a duplicate (`POST /api/tags/similar/kind`, migration 048); the job
+keeps that kind and the pair from then on.
+
 ## 2026-11-06 — Tag similarity: pair counts
 **Commits:** `48602eed`
 `GET /api/tags/similar` also returns the number of new duplicate, new
