@@ -327,6 +327,18 @@ database directly, through the SSH tunnel described in
   records who and when. The pair gets `kind_fixed` (migration 048): the
   job keeps its kind, and keeps the pair even if the rules no longer find
   it.
+- `POST /api/tags/similar/check` with `{tag_a, tag_b, checked}` marks a
+  pair as checked by an admin (migration 049), shown on the admin card
+  with a filter to hide checked pairs; the job keeps a checked pair.
+- `GET /api/tags/<id>/similar/works` (public) lists the works of a tag and
+  of its similar tags, each once, with `matched_tags`; the tag page's
+  "Näytä myös samankaltaisten asiasanojen teokset" option.
+- Merging tags (`POST /api/tags/<to>/merge/<from>`) gives the merged
+  tag's pairs to the kept tag. Where both tags have a pair with the same
+  tag, the one with an admin's decision (dismissed, checked, kind set,
+  added by hand) wins, the newer if both; else the kept tag's. Moved pairs
+  get `kind_fixed`, so the job keeps them though it won't find them under
+  the kept tag's name.
 - In `app/api_tags.py` and `app/impl_tags.py`; tests in
   `tests/api/test_tag_similar.py`.
 - Merging uses the existing `POST /api/tags/<source>/merge/<target>`; the

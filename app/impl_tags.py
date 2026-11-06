@@ -8,7 +8,8 @@ from marshmallow import exceptions
 from app.orm_decl import (Tag, ArticleTag, IssueTag, Bookseries, Edition,
                           EditionContributor, Work, WorkContributor,
                           PersonTag, StoryTag, TagType, WorkTag)
-from app.model import (TagBriefSchema, TagSchema, TagTypeSchema)
+from app.model import (TAG_WORK_FIELDS, TagBriefSchema, TagSchema,
+                       TagTypeSchema, WorkBriefSchema)
 from app.route_helpers import new_session
 from app.impl import ResponseType
 from app.impl_logs import log_changes
@@ -182,26 +183,38 @@ ORDER BY tag.name;
     return ResponseType(retval, HttpResponseCode.OK.value)
 
 
-def _tag_page_loaders() -> List[Any]:
-    """Load what TagSchema serializes up front (5,047 lazy-load queries for
-    a tag with 360 works before)."""
-    def contributors(rel: Any, model: Any) -> Any:
-        return rel.options(selectinload(model.person),
-                           selectinload(model.real_person),
-                           selectinload(model.role))
-    works = selectinload(Tag.works)
+def _contributors(rel: Any, model: Any) -> Any:
+    return rel.options(selectinload(model.person),
+                       selectinload(model.real_person),
+                       selectinload(model.role))
+
+
+def _work_loaders(works: Any) -> List[Any]:
+    """Load what TAG_WORK_FIELDS serializes for works reached by works (a
+    loader, or None for a query of works)."""
+    def load(attr: Any) -> Any:
+        return works.selectinload(attr) if works is not None \
+            else selectinload(attr)
     return [
-        works.options(
-            contributors(selectinload(Work.contributions), WorkContributor),
-            selectinload(Work.genres),
-            selectinload(Work.bookseries).selectinload(Bookseries.partof),
-            selectinload(Work.language_name)),
-        works.selectinload(Work.editions).options(
-            contributors(selectinload(Edition.contributions), EditionContributor),
+        _contributors(load(Work.contributions), WorkContributor),
+        load(Work.genres),
+        load(Work.bookseries).selectinload(Bookseries.partof),
+        load(Work.language_name),
+        load(Work.editions).options(
+            _contributors(selectinload(Edition.contributions),
+                          EditionContributor),
             selectinload(Edition.images),
             selectinload(Edition.publisher),
             selectinload(Edition.owners),
             selectinload(Edition.wishlisted)),
+    ]
+
+
+def _tag_page_loaders() -> List[Any]:
+    """Load what TagSchema serializes up front (5,047 lazy-load queries for
+    a tag with 360 works before)."""
+    return [
+        *_work_loaders(selectinload(Tag.works)),
         selectinload(Tag.stories),
         selectinload(Tag.articles),
         selectinload(Tag.magazines),
@@ -934,3 +947,43 @@ def tag_similar_check(tag_a: int, tag_b: int, checked: bool,
                             HttpResponseCode.NOT_FOUND.value)
     return ResponseType({'tag_a': a, 'tag_b': b, 'checked': checked},
                         HttpResponseCode.OK.value)
+
+
+def tag_similar_works(tag_id: int) -> ResponseType:
+    """ See api_tagsimilarworks in api_tags.py. """
+    session = new_session()
+    try:
+        tags = [tag_id] + [row.id for row in session.execute(
+            text(TAG_SIMILAR_STMT), {'id': tag_id})]
+        names = {row.id: (row.name, row.type_id, row.type_name)
+                 for row in session.execute(text(
+                     'SELECT t.id, t.name, t.type_id, tt.name AS type_name '
+                     'FROM tag t LEFT JOIN tagtype tt ON tt.id = t.type_id '
+                     'WHERE t.id = ANY(:ids)'), {'ids': tags})}
+        if tag_id not in names:
+            return ResponseType(f'Asiasanaa ei löydy. id={tag_id}.',
+                                HttpResponseCode.NOT_FOUND.value)
+        matched: Dict[int, List[int]] = {}
+        for work_id, tid in session.execute(text(
+                'SELECT work_id, tag_id FROM worktag '
+                'WHERE tag_id = ANY(:ids)'), {'ids': tags}):
+            matched.setdefault(work_id, []).append(tid)
+        works = session.query(Work).options(*_work_loaders(None))\
+            .filter(Work.id.in_(list(matched))).all() if matched else []
+        dumped = WorkBriefSchema(only=TAG_WORK_FIELDS, many=True).dump(works)
+    except SQLAlchemyError as exp:
+        app.logger.error('Exception in TagSimilarWorks: ' + str(exp))
+        return ResponseType('TagSimilarWorks: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    except exceptions.MarshmallowError as exp:
+        app.logger.error('TagSimilarWorks schema error: ' + str(exp))
+        return ResponseType('TagSimilarWorks: Skeemavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    order = {tid: i for i, tid in enumerate(tags)}
+    for work in dumped:
+        work['matched_tags'] = [
+            {'id': tid, 'name': names[tid][0],
+             'type': ({'id': names[tid][1], 'name': names[tid][2]}
+                      if names[tid][1] is not None else None)}
+            for tid in sorted(set(matched[work['id']]), key=order.__getitem__)]
+    return ResponseType(dumped, HttpResponseCode.OK.value)

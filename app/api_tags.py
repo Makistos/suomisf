@@ -15,7 +15,7 @@ from app.impl_tags import (tag_create, tag_delete, tag_filter, tag_forminfo,
                            tag_search, tag_similar, tag_similar_decide,
                            tag_similar_add, tag_similar_check,
                            tag_similar_kind,
-                           tag_similar_to,
+                           tag_similar_to, tag_similar_works,
                            tag_types, tag_update)
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
@@ -423,3 +423,27 @@ def api_tagsimilarcheck() -> Response:
         return _invalid_pair()
     return make_api_response(
         tag_similar_check(*pair, checked, int(get_jwt_identity())))
+
+
+@app.route('/api/tags/<tag_id>/similar/works', methods=['get'])
+def api_tagsimilarworks(tag_id: str) -> Response:
+    """
+    The works of a tag and of the tags suggested as similar to it (as
+    GET /api/tags/<id>/similar lists them), each work once.
+
+    Returns
+    -------
+    200 - Works as in the tag's own "works", each with matched_tags: the
+          tag itself first, then its similar tags in the work, best first
+          ([{id, name, type}]).
+    400 - Invalid id.
+    404 - No such tag.
+    """
+    try:
+        int_id = int(tag_id)
+    except (TypeError, ValueError):
+        app.logger.error(f'api_tagsimilarworks: Invalid id {tag_id}.')
+        response = ResponseType('Virheellinen tunniste',
+                                status=HttpResponseCode.BAD_REQUEST.value)
+        return make_api_response(response)
+    return make_api_response(tag_similar_works(int_id))

@@ -351,3 +351,37 @@ def test_merge_keeps_the_decided_pair(admin_client, pair):
         'WHERE tag_a = :a AND tag_b = :c'), {'a': a, 'c': c}).one()
     session.close()
     assert (row.reason, row.status) == ('name', 'dismissed')
+
+
+def test_similar_works_lists_each_work_once_with_its_tags(api_client, pair):
+    """a has works 1-2 (the fixture), c gets works 2-3: work 2 is listed
+    once with both tags, a first; b - c is dismissed, so c's other similar
+    tags don't count."""
+    a, _, c = pair
+    session = new_session()
+    works = [r[0] for r in session.execute(text(
+        'SELECT work_id FROM worktag WHERE tag_id = :a ORDER BY work_id'),
+        {'a': a})]
+    third = session.execute(text(
+        'SELECT id FROM work WHERE id <> ALL(:w) ORDER BY id LIMIT 1'),
+        {'w': works}).scalar()
+    for work in (works[1], third):
+        session.execute(text(
+            'INSERT INTO worktag (work_id, tag_id) VALUES (:w, :t)'),
+            {'w': work, 't': c})
+    session.commit()
+    session.close()
+
+    resp = api_client.get(f'/api/tags/{a}/similar/works')
+    assert resp.status_code == 200
+    by_id = {w['id']: [t['id'] for t in w['matched_tags']] for w in resp.data}
+    assert by_id == {works[0]: [a], works[1]: [a, c], third: [c]}
+    work = next(w for w in resp.data if w['id'] == third)
+    assert {'title', 'editions', 'contributions'} <= set(work)
+    assert work['matched_tags'][0]['name'] == NAMES[2]
+
+
+def test_similar_works_unknown_tag(api_client):
+    assert api_client.get('/api/tags/x/similar/works').status_code == 400
+    assert api_client.get('/api/tags/999999999/similar/works').status_code \
+        == 404
