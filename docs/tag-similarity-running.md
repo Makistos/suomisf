@@ -29,9 +29,12 @@ psql "$DATABASE_URL_PROD" -f migrations/044_tag_similarity.sql
 psql "$DATABASE_URL_PROD" -f migrations/045_tag_place.sql
 psql "$DATABASE_URL_PROD" -f migrations/046_tag_similarity_manual.sql
 psql "$DATABASE_URL_PROD" -f migrations/047_tag_finto.sql
+psql "$DATABASE_URL_PROD" -f migrations/048_tag_similarity_kind_fixed.sql
 ```
 
-(046 lets admins link tags by hand; 047 stores the tags' Finto concepts.)
+(046 lets admins link tags by hand; 047 stores the tags' Finto concepts;
+048 lets admins change a pair's kind. The role needs no more grants for
+046 or 048.)
 
 `DATABASE_URL_PROD` here is the plain `postgresql://user@localhost:5454/suomisf`
 form from `.env` (psql doesn't accept the `postgresql+psycopg2://` form). If
@@ -148,7 +151,8 @@ end; reading and computing happen first, so the site isn't held up.
 
 **What a run changes.** New pairs are added, changed scores updated and
 suggestions that no longer match removed. A pair an admin dismissed,
-or linked by hand on a tag's edit dialog, is never changed or removed,
+or linked by hand on a tag's edit dialog, is never changed or removed; a
+pair whose kind an admin set keeps that kind and isn't removed,
 and a merged or deleted tag takes its pairs with it.
 
 **Other options:**

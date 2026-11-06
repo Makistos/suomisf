@@ -236,3 +236,42 @@ def test_add_is_admin_only(api_client):
     api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
     assert api_client.post('/api/tags/similar/add',
                            data={'tag_a': 1, 'tag_b': 2}).status_code == 403
+
+
+def test_kind_set_by_hand(admin_client, pair):
+    a, b, _ = pair
+    resp = admin_client.post('/api/tags/similar/kind',
+                             data={'tag_a': b, 'tag_b': a, 'kind': 'related'})
+    assert resp.status_code == 200
+    assert resp.data == {'tag_a': a, 'tag_b': b, 'kind': 'related'}
+    related = _ours(admin_client.get('/api/tags/similar?kind=related').data,
+                    pair)
+    moved = next(p for p in related if p['tag_b']['id'] == b)
+    # The reason stays; who changed it is recorded.
+    assert (moved['reason'], moved['decided_by']) == \
+        ('baseform', TEST_ADMIN_NAME)
+    assert not [p for p in _ours(admin_client.get(
+        '/api/tags/similar?kind=duplicate').data, pair)
+        if p['tag_b']['id'] == b]
+    session = new_session()
+    assert session.execute(text(
+        'SELECT kind_fixed FROM tag_similarity WHERE tag_a = :a '
+        'AND tag_b = :b'), {'a': a, 'b': b}).scalar() is True
+    session.close()
+
+
+@pytest.mark.parametrize('body, status', [
+    ({'tag_a': 1, 'tag_b': 2, 'kind': 'other'}, 400),
+    ({'tag_a': 1, 'tag_b': 2}, 400),
+    ({'tag_a': 'x', 'tag_b': 2, 'kind': 'related'}, 400),
+    ({'tag_a': 999999998, 'tag_b': 999999999, 'kind': 'related'}, 404),
+])
+def test_kind_rejects_bad_requests(admin_client, body, status):
+    assert admin_client.post('/api/tags/similar/kind',
+                             data=body).status_code == status
+
+
+def test_kind_is_admin_only(api_client):
+    api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+    assert api_client.post('/api/tags/similar/kind', data={
+        'tag_a': 1, 'tag_b': 2, 'kind': 'related'}).status_code == 403

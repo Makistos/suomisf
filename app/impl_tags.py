@@ -822,3 +822,33 @@ def tag_similar_add(tag_a: int, tag_b: int, user_id: int) -> ResponseType:
         return ResponseType('TagSimilarAdd: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType({'tag_a': a, 'tag_b': b}, HttpResponseCode.OK.value)
+
+
+def tag_similar_kind(tag_a: int, tag_b: int, kind: str,
+                     user_id: int) -> ResponseType:
+    """ Set a pair's kind ('duplicate' or 'related') by hand. The job keeps
+    it from then on, and keeps the pair even if its rules no longer find
+    it. """
+    if kind not in SIMILARITY_KINDS:
+        return ResponseType(f'Tuntematon tyyppi: {kind}',
+                            HttpResponseCode.BAD_REQUEST.value)
+    a, b = min(tag_a, tag_b), max(tag_a, tag_b)
+    session = new_session()
+    try:
+        result = session.execute(text("""
+            UPDATE tag_similarity
+            SET kind = :kind, kind_fixed = true, decided_by = :user_id,
+                decided_at = now()
+            WHERE tag_a = :a AND tag_b = :b"""),
+            {'kind': kind, 'user_id': user_id, 'a': a, 'b': b})
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error('Exception in TagSimilarKind: ' + str(exp))
+        return ResponseType('TagSimilarKind: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    if result.rowcount == 0:  # type: ignore[attr-defined]
+        return ResponseType('Asiasanaparia ei löydy.',
+                            HttpResponseCode.NOT_FOUND.value)
+    return ResponseType({'tag_a': a, 'tag_b': b, 'kind': kind},
+                        HttpResponseCode.OK.value)

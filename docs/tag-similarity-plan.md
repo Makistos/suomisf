@@ -322,6 +322,11 @@ database directly, through the SSH tunnel described in
   never changes or removes. Dismissing a manual pair deletes it. A
   dismissed pair becomes manual; one already suggested is left alone.
   Used by the similar tags editor in the tag's edit dialog (frontend).
+- `POST /api/tags/similar/kind` with `{tag_a, tag_b, kind}` sets a pair's
+  kind by hand (e.g. a base-form "duplicate" that is only related) and
+  records who and when. The pair gets `kind_fixed` (migration 048): the
+  job keeps its kind, and keeps the pair even if the rules no longer find
+  it.
 - In `app/api_tags.py` and `app/impl_tags.py`; tests in
   `tests/api/test_tag_similar.py`.
 - Merging uses the existing `POST /api/tags/<source>/merge/<target>`; the

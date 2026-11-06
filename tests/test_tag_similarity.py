@@ -245,6 +245,29 @@ def test_rerun_keeps_manual_pairs(conn):
     assert (min(found), max(found)) not in updated
 
 
+def test_rerun_keeps_a_kind_an_admin_set(conn):
+    """A duplicate an admin marked related stays related, and stays even
+    when the rules no longer find it."""
+    ids = _setup(conn)
+    _run(conn, FakeEmbedder(GROUPS))
+    for a, b in (('qqsota', 'qqsodat'), ('qqcon 2007', 'qqcon 2008')):
+        conn.execute(text(
+            "UPDATE tag_similarity SET kind = 'related', kind_fixed = true "
+            'WHERE tag_a = least(:a, :b) AND tag_b = greatest(:a, :b)'),
+            {'a': ids[a], 'b': ids[b]})
+    # The second pair no longer passes the rules after the rename.
+    conn.execute(text("UPDATE tag SET name = 'qqmuu' WHERE id = :id"),
+                 {'id': ids['qqcon 2008']})
+    _, changes = _run(conn, FakeEmbedder(GROUPS))
+    stored = _stored(conn, {**ids, 'qqmuu': ids['qqcon 2008']})
+    sota = stored[_pair('qqsota', 'qqsodat')]
+    assert (sota.kind, sota.reason) == ('related', 'baseform')
+    assert _pair('qqcon 2007', 'qqmuu') in stored
+    assert not changes.removed or all(
+        {a, b} != {ids['qqcon 2007'], ids['qqcon 2008']}
+        for a, b in changes.removed)
+
+
 def test_rebuild_embeds_everything(conn):
     _setup(conn)
     _run(conn, FakeEmbedder(GROUPS))

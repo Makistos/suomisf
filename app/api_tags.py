@@ -13,7 +13,8 @@ from app.impl import ResponseType
 from app.impl_tags import (tag_create, tag_delete, tag_filter, tag_forminfo,
                            tag_info, tag_list, tag_list_quick, tag_merge,
                            tag_search, tag_similar, tag_similar_decide,
-                           tag_similar_add, tag_similar_to,
+                           tag_similar_add, tag_similar_kind,
+                           tag_similar_to,
                            tag_types, tag_update)
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
@@ -367,3 +368,30 @@ def api_tagsimilaradd() -> Response:
         return _invalid_pair()
     return make_api_response(
         tag_similar_add(*pair, int(get_jwt_identity())))
+
+
+@app.route('/api/tags/similar/kind', methods=['post'])
+@jwt_admin_required()  # type: ignore
+def api_tagsimilarkind() -> Response:
+    """
+    Set a suggested pair's kind by hand, e.g. a "duplicate" that is only
+    related. The job keeps the kind, and the pair, from then on.
+
+    Body: {tag_a: int, tag_b: int, kind: "duplicate" | "related"}, the tags
+    in either order.
+
+    Returns
+    -------
+    200 - {tag_a, tag_b, kind}
+    400 - Invalid body or kind.
+    404 - No such pair.
+    """
+    pair = _pair_params()
+    if pair is None:
+        return _invalid_pair()
+    try:
+        kind = str(json.loads(request.data.decode('utf-8'))['kind'])
+    except (TypeError, ValueError, KeyError):
+        return _invalid_pair()
+    return make_api_response(
+        tag_similar_kind(*pair, kind, int(get_jwt_identity())))
