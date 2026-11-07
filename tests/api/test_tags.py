@@ -307,8 +307,12 @@ class TestTagKirjasampoMappings(BaseAPITest):
     """A Kirjasampo name saved as a tag (tag_import_replace) doesn't stop
     the tag from being merged or deleted."""
 
-    NAMES = ('zz mapping keep', 'zz mapping merge', 'zz mapping delete')
-    KS_NAMES = ('zz ks merged', 'zz ks deleted')
+    NAMES = ('zz mapping keep', 'zz mapping merge', 'zz mapping delete',
+             'Zz Mapping Plain (luokka)', 'zz mapping omitted',
+             'zz mapping twin', 'zz mapping twin (x)')
+    KS_NAMES = ('zz ks merged', 'zz ks deleted', 'zz mapping merge',
+                'zz mapping plain', 'zz mapping twin')
+    OMITTED = 'zz mapping omitted'
 
     @staticmethod
     def _sql(stmt, **params):
@@ -326,14 +330,42 @@ class TestTagKirjasampoMappings(BaseAPITest):
     def _clean(self):
         self._sql('DELETE FROM tag_import_replace WHERE name = ANY(:n)',
                   n=list(self.KS_NAMES))
+        self._sql('DELETE FROM tag_import_omit WHERE name = :n',
+                  n=self.OMITTED)
         self._sql('DELETE FROM tag WHERE name = ANY(:n)', n=list(self.NAMES))
+
+    def _mapped(self, name):
+        return self._sql(
+            'SELECT tag_id FROM tag_import_replace WHERE name = :n', n=name)
+
+    def test_merged_name_is_saved_for_the_kept_tag(self, admin_client):
+        """The import offers the kept tag for a merged tag's name, unless
+        the name is omitted or another tag still has it."""
+        self._clean()
+        try:
+            keep, _, _, plain, omitted, twin, twin_x = [self._sql(
+                'INSERT INTO tag (name, type_id) VALUES (:n, 1) RETURNING id',
+                n=name)[0][0] for name in self.NAMES]
+            self._sql('INSERT INTO tag_import_omit (name) VALUES (:n)',
+                      n=self.OMITTED)
+            for tag in (plain, omitted, twin_x):
+                resp = admin_client.post(f'/api/tags/{keep}/merge/{tag}')
+                assert resp.status_code == 200
+            # Saved without the qualifier, in lower case.
+            assert self._mapped('zz mapping plain') == [(keep,)]
+            assert self._mapped(self.OMITTED) == []
+            # "zz mapping twin" still matches its own tag.
+            assert self._mapped('zz mapping twin') == []
+            assert twin
+        finally:
+            self._clean()
 
     def test_merge_and_delete_keep_or_drop_the_mapping(self, admin_client):
         self._clean()
         try:
             keep, merged, deleted = [self._sql(
                 'INSERT INTO tag (name, type_id) VALUES (:n, 1) RETURNING id',
-                n=name)[0][0] for name in self.NAMES]
+                n=name)[0][0] for name in self.NAMES[:3]]
             self._sql('INSERT INTO tag_import_replace (name, tag_id) '
                       'VALUES (:a, :m), (:b, :d)',
                       a=self.KS_NAMES[0], m=merged, b=self.KS_NAMES[1],
@@ -341,14 +373,11 @@ class TestTagKirjasampoMappings(BaseAPITest):
 
             resp = admin_client.post(f'/api/tags/{keep}/merge/{merged}')
             assert resp.status_code == 200
-            assert self._sql(
-                'SELECT tag_id FROM tag_import_replace WHERE name = :n',
-                n=self.KS_NAMES[0]) == [(keep,)]
+            assert self._mapped(self.KS_NAMES[0]) == [(keep,)]
+            assert self._mapped('zz mapping merge') == [(keep,)]
 
             resp = admin_client.delete(f'/api/tags/{deleted}')
             assert resp.status_code == 200
-            assert self._sql(
-                'SELECT tag_id FROM tag_import_replace WHERE name = :n',
-                n=self.KS_NAMES[1]) == []
+            assert self._mapped(self.KS_NAMES[1]) == []
         finally:
             self._clean()

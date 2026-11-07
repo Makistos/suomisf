@@ -19,10 +19,13 @@ NAMES = ('zz similar test a', 'zz similar test b', 'zz similar test c',
 
 
 def _clean(session):
-    # Pairs go with the tags (ON DELETE CASCADE); work links don't.
-    session.execute(text(
-        'DELETE FROM worktag WHERE tag_id IN '
-        '(SELECT id FROM tag WHERE name IN :names)').bindparams(names=NAMES))
+    # Pairs go with the tags (ON DELETE CASCADE); work links and the
+    # Kirjasampo names merges save don't.
+    for table in ('worktag', 'tag_import_replace'):
+        session.execute(text(
+            f'DELETE FROM {table} WHERE tag_id IN '
+            '(SELECT id FROM tag WHERE name IN :names)')
+            .bindparams(names=NAMES))
     session.execute(text('DELETE FROM tag WHERE name IN :names')
                     .bindparams(names=NAMES))
     session.commit()

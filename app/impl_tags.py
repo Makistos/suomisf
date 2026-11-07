@@ -1,14 +1,15 @@
 """ Functions related to tags. """
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional, Tuple
-from sqlalchemy import text
+from sqlalchemy import func, text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
 from app.orm_decl import (Tag, ArticleTag, IssueTag, Bookseries, Edition,
                           EditionContributor, Work, WorkContributor,
-                          PersonTag, StoryTag, TagImportReplace, TagType,
-                          WorkTag)
+                          PersonTag, StoryTag, TagImportOmit,
+                          TagImportReplace, TagType, WorkTag)
+from app.impl_kirjasampo import import_name
 from app.model import (TAG_WORK_FIELDS, TagBriefSchema, TagSchema,
                        TagTypeSchema, WorkBriefSchema)
 from app.route_helpers import new_session
@@ -557,6 +558,24 @@ def _merge_similar(session: Any, id_to: int, id_from: int) -> None:
             """), values)
 
 
+def _map_merged_name(session: Any, tag_from: Tag, id_to: int) -> None:
+    """Save the merged tag's name as a Kirjasampo name for the kept tag,
+    so the import offers the kept tag instead of a new one.
+
+    A name already mapped or omitted keeps that decision, and a name
+    another tag still has is left for that tag to match.
+    """
+    name = import_name(tag_from.name)
+    if not name or session.query(TagImportReplace).get(name) \
+            or session.query(TagImportOmit).get(name):
+        return
+    if session.query(Tag)\
+            .filter(func.lower(Tag.name) == name, Tag.id != tag_from.id)\
+            .first():
+        return
+    session.add(TagImportReplace(name=name, tag_id=id_to))
+
+
 def tag_merge(id_to: int, id_from: int) -> ResponseType:
     """ See api_tagMerge in api.py. """
     retval = ResponseType('', HttpResponseCode.OK.value)
@@ -674,6 +693,7 @@ def tag_merge(id_to: int, id_from: int) -> ResponseType:
             .filter(TagImportReplace.tag_id == id_from)\
             .update({TagImportReplace.tag_id: id_to},
                     synchronize_session=False)
+        _map_merged_name(session, tag_from, id_to)
 
         log_changes(session, obj=tag_to,
                     old_values={'Yhdistetty': tag_from.name})

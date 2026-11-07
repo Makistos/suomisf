@@ -406,6 +406,11 @@ def _strip_qualifiers(name: str) -> str:
     return clean_name(re.sub(r"\s*\([^)]*\)", " ", name))
 
 
+def import_name(name: str) -> str:
+    """The name a Kirjasampo tag is matched and its mappings stored by."""
+    return _strip_qualifiers(name).lower()
+
+
 def _preview_groups(
     sections: dict[str, list[str]]
 ) -> list[tuple[str, list[tuple[str, str]]]]:
@@ -425,7 +430,7 @@ def _preview_groups(
             items = []
             seen: set[str] = set()
             for raw in raw_names:
-                name = _strip_qualifiers(raw).lower()
+                name = import_name(raw)
                 if name and name not in seen:
                     seen.add(name)
                     items.append((name, raw))
