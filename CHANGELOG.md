@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-07 — Fix: incomplete-works search with edition fields
+**Commits:** `e03d3180`
+The admin page's "Satunnainen keskeneräinen teos" search failed with a
+server error whenever Sivumäärä, Koko or Sidonta was ticked; the edition
+conditions referred to the wrong table alias.
+
 ## 2026-11-07 — Kirjasampo import knows merged tags
 **Commits:** `2b882d63`
 Merging a tag saves its name as a Kirjasampo name for the kept tag, so
