@@ -5,6 +5,13 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-07 — Fix: deleting a series with links
+**Commits:** `67aa2487`
+A book series or publisher's series that had links could not be
+deleted (database error). The links are now removed with the series. A
+publisher's series that still has editions is refused with a message
+instead of a server error.
+
 ## 2026-11-07 — Fix: incomplete-works search with edition fields
 **Commits:** `e03d3180`
 The admin page's "Satunnainen keskeneräinen teos" search failed with a
