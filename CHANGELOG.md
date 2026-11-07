@@ -5,6 +5,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-07 — Kirjasampo import knows merged tags
+**Commits:** `2b882d63`
+Merging a tag saves its name as a Kirjasampo name for the kept tag, so
+the import offers the kept tag (e.g. "metsä" → "metsät") instead of a
+new one. An existing mapping or omit for the name is kept, and a name
+another tag still has is left to it. Migration 050 saves the names of
+earlier merges recorded in the change log.
+
 ## 2026-11-06 — Fix: merging a tag saved for a Kirjasampo name
 **Commits:** `1d0b3597`
 Merging or deleting a tag that a stored Kirjasampo import mapping
