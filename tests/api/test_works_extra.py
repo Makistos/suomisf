@@ -183,6 +183,19 @@ class TestRandomIncompleteWorks(BaseAPITest):
                 assert isinstance(data, dict)
                 assert isinstance(data.get('works'), list)
 
+    def test_random_incomplete_with_edition_fields(self, api_client):
+        """Edition-level fields filter on the edition subquery.
+
+        page_count/size/binding used to reference a nonexistent alias and
+        returned 500.
+        """
+        for field in ('page_count', 'size', 'binding'):
+            response = api_client.post('/api/works/random/incomplete', data={
+                'count': 5,
+                'missing_fields': ['description', field]
+            })
+            assert response.status_code in (200, 404), field
+
     def test_random_incomplete_with_missing_fields(self, api_client):
         """POST /api/works/random/incomplete with missing_fields filter."""
         response = api_client.post('/api/works/random/incomplete', data={

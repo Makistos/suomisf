@@ -1650,12 +1650,12 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
         # Handle other edition fields
         for field in edition_fields:
             if field == 'page_count':
-                edition_conditions.append("e.pages IS NULL")
+                edition_conditions.append("e2.pages IS NULL")
             elif field == 'size':
-                edition_conditions.append("(e.size IS NULL OR e.size = 0)")
+                edition_conditions.append("(e2.size IS NULL OR e2.size = 0)")
             elif field == 'binding':
                 edition_conditions.append(
-                    "(e.binding_id IS NULL OR e.binding_id = 0)")
+                    "(e2.binding_id IS NULL OR e2.binding_id = 0)")
 
         # Build the query
         if not missing_fields:
