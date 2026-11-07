@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-07 — Fix: cover uploads overwriting each other
+**Commits:** `02dc7aae`
+Phones often give every photo the same name (iPhone: image.jpg), and an
+uploaded edition or issue cover replaced the file of another cover with
+that name. The new file now gets _2, _3, … added to its name.
+
 ## 2026-11-07 — Fix: incomplete works by missing binding
 **Commits:** `fcc92762`
 The "Sidonta" option of the random incomplete works search found
