@@ -1650,8 +1650,10 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
             elif field == 'size':
                 edition_conditions.append("(e2.size IS NULL OR e2.size = 0)")
             elif field == 'binding':
+                # Binding type 1 is "Ei tietoa/muu", the default for a new
+                # edition, so it counts as missing.
                 edition_conditions.append(
-                    "(e2.binding_id IS NULL OR e2.binding_id = 0)")
+                    "(e2.binding_id IS NULL OR e2.binding_id IN (0, 1))")
 
         # Build the query
         if not missing_fields:

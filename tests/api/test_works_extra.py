@@ -8,6 +8,9 @@ Note: Run tests/scripts/setup_test_db.py before running these tests.
 """
 
 import pytest
+from sqlalchemy import text
+
+from app.route_helpers import new_session
 
 from .base_test import BaseAPITest
 from .test_works import TEST_ADMIN_NAME, TEST_ADMIN_PASSWORD
@@ -189,15 +192,29 @@ class TestRandomIncompleteWorks(BaseAPITest):
         page_count/size/binding used to reference a nonexistent alias and
         returned 500.
         """
-        # Every edition in the test data has a binding (unknown is the
-        # "Ei tietoa/muu" type, not NULL), so that filter finds nothing.
-        expected = {'page_count': 200, 'size': 200, 'binding': 404}
-        for field, status in expected.items():
+        for field in ('page_count', 'size', 'binding'):
             response = api_client.post('/api/works/random/incomplete', data={
                 'count': 5,
                 'missing_fields': [field]
             })
-            assert response.status_code == status, field
+            assert response.status_code == 200, field
+            assert response.data['works'], field
+
+    def test_random_incomplete_binding_counts_unknown(self, api_client):
+        """An edition whose binding is "Ei tietoa/muu" (id 1) has no
+        binding: unknown is stored as that type, not as NULL."""
+        session = new_session()
+        try:
+            unknown = session.execute(text(
+                'SELECT count(DISTINCT work_id) FROM suomisf.edition'
+                ' WHERE binding_id IS NULL OR binding_id IN (0, 1)')).scalar()
+        finally:
+            session.close()
+        assert unknown > 0
+        response = api_client.post('/api/works/random/incomplete', data={
+            'count': 1, 'missing_fields': ['binding']})
+        assert response.status_code == 200
+        assert response.data['total'] == unknown
 
     def test_random_incomplete_with_missing_fields(self, api_client):
         """POST /api/works/random/incomplete with missing_fields filter."""
