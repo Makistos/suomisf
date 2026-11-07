@@ -373,6 +373,10 @@ def bookseries_delete(series_id: str) -> ResponseType:
                              old_values=old_values)
         if log_id == 0:
             app.logger.error('BookseriesDelete: Failed to log changes.')
+        # Links reference the series (no cascade), so they go first.
+        session.query(BookseriesLink)\
+            .filter(BookseriesLink.bookseries_id == bookseries_id)\
+            .delete()
         session.delete(bookseries)
         session.commit()
     except SQLAlchemyError as exp:

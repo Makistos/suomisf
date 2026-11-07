@@ -3,7 +3,7 @@ from typing import Any, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from app.route_helpers import new_session
-from app.orm_decl import Pubseries
+from app.orm_decl import Edition, Pubseries, PubseriesLink
 from app.model import (PubseriesSchema, PubseriesBriefSchema)
 from app.impl import ResponseType, check_int
 from app import app
@@ -309,10 +309,26 @@ def pubseries_delete(pubseries_id: int) -> ResponseType:
     if pubseries is None:
         return ResponseType(f'Sarjaa ei löydy: {pubseries_id}',
                             HttpResponseCode.NOT_FOUND.value)
-    log_changes(session, obj=pubseries, action='Poisto',
-                old_values={'Nimi': pubseries.name})
-    session.delete(pubseries)
-    session.commit()
+    has_editions = session.query(Edition.id)\
+        .filter(Edition.pubseries_id == pubseries_id)\
+        .first() is not None
+    if has_editions:
+        return ResponseType('Sarjassa on painoksia, sitä ei voi poistaa.',
+                            HttpResponseCode.BAD_REQUEST.value)
+    try:
+        log_changes(session, obj=pubseries, action='Poisto',
+                    old_values={'Nimi': pubseries.name})
+        # Links reference the series (no cascade), so they go first.
+        session.query(PubseriesLink)\
+            .filter(PubseriesLink.pubseries_id == pubseries_id)\
+            .delete()
+        session.delete(pubseries)
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'pubseries_delete: {exp}')
+        return ResponseType('Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType('OK', HttpResponseCode.OK.value)
 
 

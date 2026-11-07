@@ -14,14 +14,17 @@ import os
 import pytest
 
 from app import app as flask_app
-from app.orm_decl import (Bookseries, EditionImage, Issue, IssueImage,
-                          IssueTag, PersonLink, PersonTag, Publisher)
+from app.orm_decl import (Bookseries, BookseriesLink, EditionImage, Issue,
+                          IssueImage, IssueTag, PersonLink, PersonTag,
+                          Publisher, Pubseries, PubseriesLink)
 from app.route_helpers import new_session
 
 TEST_ADMIN_NAME = 'Test Admin'
 TEST_ADMIN_PASSWORD = 'testadminpass123'
 
 MAGAZINE_ID = 12
+PUBSERIES_PUBLISHER_ID = 387
+PUBSERIES_WITH_EDITIONS = 5
 PERSON_ID = 1
 TAG_ID = 1
 EDITION_ID = 86
@@ -134,6 +137,61 @@ def test_bookseries_create_read_delete(client, admin):
         assert client.get(f'/api/bookseries/{series_id}').status_code == 404
     finally:
         _delete_rows(Bookseries, name=TEST_NAME)
+
+
+def _add_row(obj):
+    session = new_session()
+    try:
+        session.add(obj)
+        session.commit()
+        return obj.id
+    finally:
+        session.close()
+
+
+def test_bookseries_with_link_deletes(client, admin):
+    """Links used to block the delete with a database error."""
+    try:
+        resp = client.post('/api/bookseries', headers=admin, json={'data': {
+            'name': TEST_NAME, 'orig_name': None, 'important': False,
+            'description': None, 'partof': None}})
+        series_id = _id_from(resp)
+        _add_row(BookseriesLink(bookseries_id=series_id,
+                                link='https://example.invalid/', description='x'))
+
+        assert client.delete(f'/api/bookseries/{series_id}', headers=admin).status_code == 200
+        assert client.get(f'/api/bookseries/{series_id}').status_code == 404
+    finally:
+        session = new_session()
+        try:
+            for bs in session.query(Bookseries).filter_by(name=TEST_NAME):
+                session.query(BookseriesLink).filter_by(bookseries_id=bs.id).delete()
+            session.commit()
+        finally:
+            session.close()
+        _delete_rows(Bookseries, name=TEST_NAME)
+
+
+def test_pubseries_with_link_deletes(client, admin):
+    """Links used to block the delete with an unhandled database error."""
+    series_id = None
+    try:
+        series_id = _add_row(Pubseries(name=TEST_NAME, publisher_id=PUBSERIES_PUBLISHER_ID))
+        _add_row(PubseriesLink(pubseries_id=series_id,
+                               link='https://example.invalid/', description='x'))
+
+        assert client.delete(f'/api/pubseries/{series_id}', headers=admin).status_code == 200
+        assert client.get(f'/api/pubseries/{series_id}').status_code == 404
+    finally:
+        if series_id is not None:
+            _delete_rows(PubseriesLink, pubseries_id=series_id)
+        _delete_rows(Pubseries, name=TEST_NAME)
+
+
+def test_pubseries_with_editions_is_not_deleted(client, admin):
+    resp = client.delete(f'/api/pubseries/{PUBSERIES_WITH_EDITIONS}', headers=admin)
+    assert resp.status_code == 400
+    assert client.get(f'/api/pubseries/{PUBSERIES_WITH_EDITIONS}').status_code == 200
 
 
 # ---------------------------------------------------------------------------
