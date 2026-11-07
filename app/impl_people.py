@@ -25,7 +25,7 @@ from app.orm_decl import (Alias, Article, Country, Edition, Issue,
 from app.impl import (ResponseType, check_int, get_join_changes)
 from app.api_errors import APIError
 from app.impl_country import AddCountry
-from app.impl_links import links_have_changed
+from app.impl_links import links_have_changed, links_old_value
 from app.types import HttpResponseCode
 from app import app
 
@@ -781,9 +781,6 @@ def person_update(params: Any) -> ResponseType:
         if links_have_changed(person.links, new_links):
             existing_links = session.query(PersonLink).filter(
                 PersonLink.person_id == person_id).all()
-            (to_add, to_remove) = get_join_changes(
-                [x.link for x in existing_links],
-                [x['link'] for x in new_links])
             if len(existing_links) > 0:
                 for link in existing_links:
                     session.delete(link)
@@ -798,9 +795,7 @@ def person_update(params: Any) -> ResponseType:
                     person_id=person_id, link=link['link'],  # type: ignore
                     description=link['description'])
                 session.add(pl)
-            old_values['Linkit'] = ' -'.join([str(x) for x in to_add])
-            old_values['Linkit'] += ' +' + \
-                ' -'.join([str(x) for x in to_remove])
+            old_values['Linkit'] = links_old_value(existing_links)
 
     if 'aliases' in data:
         existing_aliases = session.query(Alias).filter(

@@ -14,6 +14,15 @@ from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
 
+def links_old_value(links: List[Any]) -> str:
+    """
+    The change log's old value for a list of links: each address, followed
+    by its description in parentheses if it has one, separated by commas.
+    """
+    return ', '.join(f'{x.link} ({x.description})' if x.description
+                     else str(x.link) for x in links)
+
+
 def links_have_changed(old_values: List[Any],
                        new_values: List[Any]) -> bool:
     """

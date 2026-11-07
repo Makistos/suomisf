@@ -12,7 +12,8 @@ import pytest
 from sqlalchemy import text
 
 from app.orm_decl import (Bookseries, Magazine, Person, PersonLink,
-                          Publisher, Pubseries, ShortStory, Tag, User)
+                          Publisher, PublisherLink, Pubseries, ShortStory,
+                          Tag, TagImportReplace, User)
 from app.route_helpers import new_session
 
 from .test_works import TEST_ADMIN_NAME, TEST_ADMIN_PASSWORD
@@ -280,6 +281,17 @@ def test_person_link_add(admin_client, watch):
 def new_tags(app):  # pylint: disable=unused-argument
     names = [NAME + ' a', NAME + ' b']
     yield names
+    session = new_session()
+    try:
+        # A merge records the removed tag's name as a replacement for the
+        # kept one; drop those rows first or the tag can't be deleted.
+        session.query(TagImportReplace).filter(
+            TagImportReplace.tag_id.in_(
+                session.query(Tag.id).filter(Tag.name.in_(names)))
+        ).delete(synchronize_session=False)
+        session.commit()
+    finally:
+        session.close()
     for name in names:
         _delete_by(Tag, name=name)
 
@@ -449,4 +461,122 @@ def test_work_create_logs_first_edition_and_awards(admin_client, watch):
     finally:
         admin_client.post('/api/awarded', data={'id': work_id, 'type': 1,
                                                 'awards': []})
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+def _new_work(admin_client):
+    response = admin_client.post('/api/works', data={'data': {
+        'title': NAME, 'pubyear': 2099, 'work_type': {'id': 1},
+        'contributions': [{'person': {'id': PERSON_ID}, 'role': {'id': 1}}],
+        'genres': [], 'links': []}})
+    assert response.status_code == 201, response.data
+    return _id(response)
+
+
+def test_omnibus_parts(admin_client, watch):
+    work_id = _new_work(admin_client)
+    part_title = admin_client.get(f'/api/works/{WORK_ID}').data['title']
+    try:
+        log = watch()
+        assert admin_client.post('/api/works/omnibus', data={
+            'omnibus': work_id,
+            'works': [{'id': WORK_ID}]}).status_code == 200
+        row = log.find('Teos', 'Päivitys', 'Kokoomateos', work_id)
+        assert row['old_value'] == ''
+
+        log = watch()
+        assert admin_client.post('/api/works/omnibus', data={
+            'omnibus': work_id,
+            'works': [{'id': WORK_ID}]}).status_code == 200
+        assert log.rows() == [], 'unchanged parts are not logged'
+
+        log = watch()
+        assert admin_client.post('/api/works/omnibus', data={
+            'omnibus': work_id, 'works': []}).status_code == 200
+        row = log.find('Teos', 'Päivitys', 'Kokoomateos', work_id)
+        assert row['old_value'] == part_title
+    finally:
+        admin_client.post('/api/works/omnibus',
+                          data={'omnibus': work_id, 'works': []})
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+def test_work_links_old_value(admin_client, watch):
+    work_id = _new_work(admin_client)
+    try:
+        assert admin_client.put('/api/works', data={'data': {
+            'id': work_id, 'links': [
+                {'link': 'https://a.example', 'description': 'A'},
+                {'link': 'https://b.example', 'description': ''}]}}
+        ).status_code == 200
+
+        log = watch()
+        assert admin_client.put('/api/works', data={'data': {
+            'id': work_id, 'links': [
+                {'link': 'https://c.example', 'description': 'C'}]}}
+        ).status_code == 200
+        row = log.find('Teos', 'Päivitys', 'Linkit', work_id)
+        assert row['old_value'] == 'https://a.example (A), https://b.example'
+    finally:
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+def test_publisher_links_only_change_is_logged(admin_client, watch):
+    try:
+        response = admin_client.post('/api/publishers', data={'data': {
+            'name': NAME, 'fullname': NAME + ' Oy', 'links': [
+                {'link': 'https://old.example', 'description': 'Vanha'}]}})
+        assert response.status_code == 201, response.data
+        pub_id = _id(response)
+
+        log = watch()
+        assert admin_client.put('/api/publishers', data={'data': {
+            'id': pub_id, 'name': NAME, 'fullname': NAME + ' Oy',
+            'links': [{'link': 'https://new.example',
+                       'description': 'Uusi'}]}}).status_code == 200
+        row = log.find('Kustantaja', 'Päivitys', 'Linkit', pub_id)
+        assert row['old_value'] == 'https://old.example (Vanha)'
+    finally:
+        session = new_session()
+        try:
+            session.query(PublisherLink).filter(
+                PublisherLink.publisher_id.in_(
+                    session.query(Publisher.id)
+                    .filter(Publisher.name == NAME))
+            ).delete(synchronize_session=False)
+            session.commit()
+        finally:
+            session.close()
+        _delete_by(Publisher, name=NAME)
+
+
+def test_change_delete_leaves_trace(admin_client, watch, caplog):
+    work_id = _new_work(admin_client)
+    try:
+        log = watch()
+        assert admin_client.put('/api/works', data={'data': {
+            'id': work_id, 'misc': 'jäljitettävä'}}).status_code == 200
+        session = new_session()
+        try:
+            change_id = session.execute(text(
+                'SELECT id FROM suomisf.log WHERE id > :start'
+                " AND table_id = :wid AND field_name = 'Muuta'"),
+                {'start': log.start, 'wid': work_id}).scalar()
+        finally:
+            session.close()
+        assert change_id
+
+        with caplog.at_level('WARNING'):
+            assert admin_client.delete(
+                f'/api/changes/{change_id}').status_code == 200
+        trace = [r.getMessage() for r in caplog.records
+                 if 'Change log row deleted' in r.getMessage()]
+        assert len(trace) == 1
+        assert f'id={change_id} ' in trace[0]
+        assert f'table_id={work_id} ' in trace[0]
+        assert 'field=Muuta' in trace[0]
+
+        assert admin_client.delete(
+            f'/api/changes/{change_id}').status_code == 404
+    finally:
         assert admin_client.delete(f'/api/works/{work_id}').status_code == 200

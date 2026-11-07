@@ -8,10 +8,8 @@ from app.model import (PubseriesSchema, PubseriesBriefSchema)
 from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
-from app.impl_links import links_have_changed
+from app.impl_links import links_have_changed, links_old_value
 from app.impl_logs import log_and_commit, log_changes
-from app.route_helpers import get_join_changes
-from app.orm_decl import PubseriesLink
 from app.names import clean_name
 
 
@@ -257,9 +255,6 @@ def pubseries_update(params: Any) -> ResponseType:
         if links_have_changed(pubseries.links, new_links):
             existing_links = session.query(PubseriesLink)\
                 .filter(PubseriesLink.pubseries_id == pubseries.id).all()
-            (to_add, to_remove) = get_join_changes(
-                [x.link for x in existing_links],
-                [x['link'] for x in data['links']])
             for link in existing_links:
                 session.delete(link)
             # Add new links
@@ -269,8 +264,7 @@ def pubseries_update(params: Any) -> ResponseType:
                                              link=link['link'],
                                              description=link['description'])
                     session.add(new_link)
-            old_values['Linkit'] = '-'.join([str(x) for x in to_add])
-            old_values['Linkit'] += '+'.join([str(x) for x in to_remove])
+            old_values['Linkit'] = links_old_value(existing_links)
             try:
                 session.commit()
             except SQLAlchemyError as exp:

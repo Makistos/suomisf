@@ -1,4 +1,5 @@
 """ Module for changes-related functions. """
+from flask_jwt_extended import get_jwt_identity
 from sqlalchemy import or_, and_
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
@@ -70,6 +71,18 @@ def change_delete(changeid: int) -> ResponseType:
 
     try:
         item = session.query(Log).filter(Log.id == changeid).first()
+        if item is None:
+            return ResponseType('Muutosta ei löydy.',
+                                HttpResponseCode.NOT_FOUND.value)
+        # The row itself is gone after this, so leave a trace in the
+        # server log: who deleted it and what it said.
+        app.logger.warning(
+            f'Change log row deleted by user {get_jwt_identity()}: '
+            f'id={item.id} table={item.table_name} '
+            f'table_id={item.table_id} object={item.object_name!r} '
+            f'action={item.action} field={item.field_name} '
+            f'old_value={item.old_value!r} user_id={item.user_id} '
+            f'date={item.date}')
         session.delete(item)
         session.commit()
     except SQLAlchemyError as exp:

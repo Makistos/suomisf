@@ -4,7 +4,7 @@ from sqlalchemy import or_
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
-from app.impl_links import links_have_changed
+from app.impl_links import links_have_changed, links_old_value
 from app.impl_logs import log_changes
 from app.model_publisher import PublisherPageSchema
 from app.route_helpers import new_session
@@ -50,8 +50,8 @@ def _save_links(
                                  description=link.get('description', ''))
         session.add(new_link)
 
-    if old_values:
-        old_values['Linkit'] = ', '.join(x['link'] for x in new_links)
+    if old_values is not None:
+        old_values['Linkit'] = links_old_value(existing_links)
 
     return None
 

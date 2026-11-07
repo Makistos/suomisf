@@ -28,7 +28,7 @@ from app.impl_contributors import (update_work_contributors,
                                    has_contribution_role)
 from app.impl_genres import genresHaveChanged
 from app.impl_tags import tags_have_changed
-from app.impl_links import links_have_changed
+from app.impl_links import links_have_changed, links_old_value
 from app.impl_editions import create_first_edition
 from app.impl_genres import checkGenreField
 from app.impl_editions import delete_edition
@@ -1220,9 +1220,6 @@ def work_update(
             existing_links = session.query(WorkLink)\
                 .filter(WorkLink.work_id == work_id)\
                 .all()
-            (to_add, to_remove) = get_join_changes(
-                [x.link for x in existing_links],
-                [x['link'] for x in data['links']])
             if len(existing_links) > 0:
                 for link in existing_links:
                     session.delete(link)
@@ -1234,8 +1231,7 @@ def work_update(
                 sl = WorkLink(work_id=work.id, link=link['link'],
                               description=link['description'])
                 session.add(sl)
-            old_values['Linkit'] = ' -'.join([str(x) for x in to_add])
-            old_values['Linkit'] += ' +'.join([str(x) for x in to_remove])
+            old_values['Linkit'] = links_old_value(existing_links)
 
     # Awards
 
@@ -1819,6 +1815,9 @@ def save_omnibus(params: Any) -> ResponseType:
             return ResponseType('Virheellinen teos',
                                 HttpResponseCode.BAD_REQUEST.value)
     try:
+        old_ids = [x[0] for x in session.query(Omnibus.work_id)
+                   .filter(Omnibus.omnibus_id == omnibus_id)
+                   .order_by(Omnibus.order_num).all()]
         # Start by removing existing omnibus parts
         session.query(Omnibus)\
             .filter(Omnibus.omnibus_id == omnibus_id).delete()
@@ -1828,6 +1827,11 @@ def save_omnibus(params: Any) -> ResponseType:
                          explanation=wid.get('explanation') or None,
                          order_num=idx+1)
             session.add(ob)
+        omnibus = session.query(Work).filter(Work.id == omnibus_id).first()
+        if omnibus:
+            log_list_change(session, omnibus, 'Kokoomateos', old_ids,
+                            [x['id'] for x in work_ids], Work,
+                            name_field='title')
         session.commit()
     except SQLAlchemyError as exp:
         session.rollback()

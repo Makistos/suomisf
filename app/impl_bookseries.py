@@ -2,12 +2,12 @@
 from typing import Any, Union
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
-from app.impl_links import links_have_changed
+from app.impl_links import links_have_changed, links_old_value
 from app.impl_logs import log_and_commit, log_changes
 
 from app.orm_decl import (Bookseries, BookseriesLink, Work)
 from app.model import (BookseriesSchema, BookseriesBriefSchema)
-from app.route_helpers import get_join_changes, new_session
+from app.route_helpers import new_session
 from app.impl import ResponseType, check_int
 from app import app
 from app.types import HttpResponseCode
@@ -295,9 +295,6 @@ def bookseries_update(params: Any) -> ResponseType:
         if links_have_changed(bookseries.links, new_links):
             existig_links = session.query(BookseriesLink)\
                 .filter(BookseriesLink.bookseries_id == bookseries.id).all()
-            (to_add, to_remove) = get_join_changes(
-                [x.link for x in existig_links],
-                [x['link'] for x in data['links']])
             for link in existig_links:
                 session.delete(link)
             # Add new links
@@ -307,8 +304,7 @@ def bookseries_update(params: Any) -> ResponseType:
                                               link=link['link'],
                                               description=link['description'])
                     session.add(new_link)
-            old_values['Linkit'] = '-'.join([str(x) for x in to_add])
-            old_values['Linkit'] += '+'.join([str(x) for x in to_remove])
+            old_values['Linkit'] = links_old_value(existig_links)
             try:
                 session.commit()
             except SQLAlchemyError as exp:
