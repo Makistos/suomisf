@@ -5,6 +5,15 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-07 — Change log: omnibus parts, links, deleted rows
+**Commits:** `fbdf1a3a`
+Changing an omnibus's parts is now recorded in the change log, with the
+old parts as the old value. Link changes record the old links as
+"address (description)"; for works, people and series the old value was
+garbled, and for publishers it showed the new links and was missing
+when only links changed. Deleting a change-log row leaves a warning in
+the server log with who deleted it and what the row said.
+
 ## 2026-11-07 — Fix: deleting a series with links
 **Commits:** `67aa2487`
 A book series or publisher's series that had links could not be
