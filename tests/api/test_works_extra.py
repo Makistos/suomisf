@@ -189,12 +189,15 @@ class TestRandomIncompleteWorks(BaseAPITest):
         page_count/size/binding used to reference a nonexistent alias and
         returned 500.
         """
-        for field in ('page_count', 'size', 'binding'):
+        # Every edition in the test data has a binding (unknown is the
+        # "Ei tietoa/muu" type, not NULL), so that filter finds nothing.
+        expected = {'page_count': 200, 'size': 200, 'binding': 404}
+        for field, status in expected.items():
             response = api_client.post('/api/works/random/incomplete', data={
                 'count': 5,
-                'missing_fields': ['description', field]
+                'missing_fields': [field]
             })
-            assert response.status_code in (200, 404), field
+            assert response.status_code == status, field
 
     def test_random_incomplete_with_missing_fields(self, api_client):
         """POST /api/works/random/incomplete with missing_fields filter."""
