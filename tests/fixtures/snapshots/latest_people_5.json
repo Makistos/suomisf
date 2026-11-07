@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -11,21 +11,21 @@
     "status_code": 200,
     "data": [
       {
-        "id": 8093,
-        "name": "Vihinen, Reino",
-        "alt_name": "Reino Vihinen",
+        "id": 8149,
+        "name": "Torkkola, Johanna",
+        "alt_name": "Johanna Torkkola",
         "fullname": "",
         "image_src": null,
-        "dob": 1928,
-        "dod": 2018,
+        "dob": null,
+        "dod": null,
         "nationality": {
           "id": 4,
           "name": "Suomi"
         },
-        "workcount": 0,
+        "workcount": 1,
         "storycount": 0,
         "roles": [
-          "Kansikuva"
+          "Kirjoittaja"
         ],
         "other_names": "",
         "first_name": null,
@@ -37,9 +37,9 @@
         "imported_string": null
       },
       {
-        "id": 8092,
-        "name": "Laiho, Katariina",
-        "alt_name": "Katariina Laiho",
+        "id": 8148,
+        "name": "Halla, Helion",
+        "alt_name": "Helion Halla",
         "fullname": "",
         "image_src": null,
         "dob": null,
@@ -49,9 +49,9 @@
           "name": "Suomi"
         },
         "workcount": 0,
-        "storycount": 0,
+        "storycount": 1,
         "roles": [
-          "Kansikuva"
+          "Kirjoittaja"
         ],
         "other_names": "",
         "first_name": null,
@@ -63,35 +63,9 @@
         "imported_string": null
       },
       {
-        "id": 8091,
-        "name": "Mattas, Åke",
-        "alt_name": "Åke Mattas",
-        "fullname": "Åke Carl-Anders Mattas",
-        "image_src": null,
-        "dob": 1920,
-        "dod": 1962,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 0,
-        "storycount": 0,
-        "roles": [
-          "Kansikuva"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8090,
-        "name": "Schatzlmayr, Franz",
-        "alt_name": "Franz Schatzlmayr",
+        "id": 8147,
+        "name": "Usvasilta, Serafia",
+        "alt_name": "Serafia Usvasilta",
         "fullname": "",
         "image_src": null,
         "dob": null,
@@ -101,9 +75,9 @@
           "name": "Suomi"
         },
         "workcount": 0,
-        "storycount": 0,
+        "storycount": 2,
         "roles": [
-          "Kansikuva"
+          "Kirjoittaja"
         ],
         "other_names": "",
         "first_name": null,
@@ -115,21 +89,47 @@
         "imported_string": null
       },
       {
-        "id": 8089,
-        "name": "Vos, Hubert",
-        "alt_name": "Hubert Vos",
+        "id": 8146,
+        "name": "Puustinen, Henna",
+        "alt_name": "Henna Puustinen",
         "fullname": "",
         "image_src": null,
-        "dob": 1855,
-        "dod": 1935,
+        "dob": null,
+        "dod": null,
         "nationality": {
-          "id": 51,
-          "name": "Alankomaat"
+          "id": 4,
+          "name": "Suomi"
         },
-        "workcount": 0,
+        "workcount": 2,
         "storycount": 0,
         "roles": [
-          "Kansikuva"
+          "Kirjoittaja"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
+      {
+        "id": 8145,
+        "name": "Mäkinen, Marja",
+        "alt_name": "Marja Mäkinen",
+        "fullname": "",
+        "image_src": null,
+        "dob": null,
+        "dod": null,
+        "nationality": {
+          "id": 4,
+          "name": "Suomi"
+        },
+        "workcount": 2,
+        "storycount": 0,
+        "roles": [
+          "Kirjoittaja"
         ],
         "other_names": "",
         "first_name": null,

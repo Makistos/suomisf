@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/works/5",
@@ -11,488 +11,16 @@
     "status_code": 200,
     "data": [
       {
-        "id": 7277,
-        "title": "Matka aamun maahan",
-        "orig_title": "Die Morgenlandfahrt",
-        "author_str": "Hesse, Hermann",
-        "contributions": [
-          {
-            "person": {
-              "id": 1965,
-              "name": "Hesse, Hermann",
-              "alt_name": "Hermann Hesse"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [
-              {
-                "id": 258,
-                "name": "Kaila, Kai",
-                "alt_name": "Kai Kaila"
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 6300,
-                  "name": "Antikainen, Kosti",
-                  "alt_name": "Kosti Antikainen"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                "id": 10287,
-                "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 150,
-              "name": "Kirjayhtymä"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10544,
-            "title": "Matka aamun maahan",
-            "subtitle": "",
-            "pubyear": 1975,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-26-1063-9",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 88,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          },
-          {
-            "editors": [],
-            "translators": [
-              {
-                "id": 258,
-                "name": "Kaila, Kai",
-                "alt_name": "Kai Kaila"
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 6300,
-                  "name": "Antikainen, Kosti",
-                  "alt_name": "Kosti Antikainen"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                "id": 10288,
-                "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 150,
-              "name": "Kirjayhtymä"
-            },
-            "owners": [
-              {
-                "id": 11,
-                "name": "Kirjokerttu"
-              }
-            ],
-            "wishlisted": [],
-            "id": 10545,
-            "title": "Matka aamun maahan",
-            "subtitle": "",
-            "pubyear": 1975,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "951-26-1064-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 88,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          },
-          {
-            "editors": [],
-            "translators": [
-              {
-                "id": 258,
-                "name": "Kaila, Kai",
-                "alt_name": "Kai Kaila"
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 6300,
-                  "name": "Antikainen, Kosti",
-                  "alt_name": "Kosti Antikainen"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                "id": 10286,
-                "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 150,
-              "name": "Kirjayhtymä"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10543,
-            "title": "Matka aamun maahan",
-            "subtitle": "",
-            "pubyear": 1975,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "951-26-1064-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 88,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
-        "language_name": {
-          "id": 14,
-          "name": "saksa"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 1932,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
-        "descr_attr": "Takakansi",
-        "imported_string": null
-      },
-      {
-        "id": 7276,
-        "title": "Metsänkorva",
+        "id": 7343,
+        "title": "Nekropolis",
         "orig_title": "",
-        "author_str": "Meresmaa, J. S.",
+        "author_str": "Torkkola, Johanna",
         "contributions": [
           {
             "person": {
-              "id": 1204,
-              "name": "Meresmaa, J. S.",
-              "alt_name": "J. S. Meresmaa"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 5400,
-                  "name": "Niemi, Karin",
-                  "alt_name": "Karin Niemi"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Meresmaa_JS_Metsankorva_1p.jpg",
-                "id": 10277,
-                "image_src": "/static/images/books/Meresmaa_JS_Metsankorva_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 208,
-              "name": "Myllylahti"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10540,
-            "title": "Metsänkorva",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-356-728-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 333,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 8,
-            "name": "Nuorten fantasia",
-            "abbr": "nF"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
-        "language_name": null,
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p><strong>Taianomaisen lumoava tarina vaarallisista salaisuuksista, rohkeudesta etsiä oma polkunsa ja rakkaudesta, joka löytyy sieltä, missä sitä vähiten odottaa.</strong></p><p>Meusalinan elämä Syväharjun raakkutilalla on ennalta määrätty, sillä hän on helmenkuiskaaja. Mutta Meusalinalla on salaisuus: helmenkuiskaaminen tuntuu hänestä vankilalta. Hänen sydämensä kaipaa vapautta – ja Neimosta, komeaa metsästäjää, joka ei edes huomaa häntä.</p><p>Metsässä Meusalina kohtaa tamminoidan ja kiinnostuu uudesta uramahdollisuudesta. Ulkoisten sattumusten paineesta hän yrittää taikuuden avulla herättää Neimoksen huomion, mutta taiat eivät aina toimi toivotusti, eikä sydäntä ohjailla tahdolla.</p><p>Puunhakkaajan hiljainen poika Kielmarius vaalii sekä synkeää salaisuutta että helliä tunteitaan Meusalinaa kohtaan. Kiel tietää metsän kätköissä puun, jonka rungossa kasvaa ihmisen korvan muotoinen pahka. Korvapuu kuuntelee kaiken, mitä Kiel sille kertoo.</p><p>Kun Meusalina joutuu vaaraan, Kiel rientää apuun. Mutta miten metsä vastaa, kun liikkeellä ovat arvaamattomat taikavoimat?</p>",
-        "descr_attr": "Myllylahti",
-        "imported_string": null
-      },
-      {
-        "id": 7275,
-        "title": "Paha – Ei pakopaikkaa",
-        "orig_title": "Udyr: Ingen steder å gjemme seg",
-        "author_str": "Bjerkeland, Ingvild",
-        "contributions": [
-          {
-            "person": {
-              "id": 7339,
-              "name": "Bjerkeland, Ingvild",
-              "alt_name": "Ingvild Bjerkeland"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [
-              {
-                "id": 2555,
-                "name": "Joskitt-Pöyry, Jonna",
-                "alt_name": "Jonna Joskitt-Pöyry"
-              }
-            ],
-            "contributions": [
-              {
-                "person": {
-                  "id": 2555,
-                  "name": "Joskitt-Pöyry, Jonna",
-                  "alt_name": "Jonna Joskitt-Pöyry"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 5389,
-                  "name": "Lämsä, Perttu",
-                  "alt_name": "Perttu Lämsä"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "Kansi",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Bjerkeland_Ingvild_Pahaeipakopaikkaa_1p.jpg",
-                "id": 10276,
-                "image_src": "/static/images/books/Bjerkeland_Ingvild_Pahaeipakopaikkaa_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 227,
-              "name": "Otava"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10539,
-            "title": "Paha – Ei pakopaikkaa",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-951-1-51114-4",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 144,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 10,
-            "name": "Nuorten kauhu",
-            "abbr": "nK"
-          }
-        ],
-        "bookseries": null,
-        "tags": [
-          {
-            "id": 521,
-            "name": "dystopia",
-            "type": {
-              "id": 2,
-              "name": "Alagenre"
-            }
-          }
-        ],
-        "language_name": {
-          "id": 16,
-          "name": "norja"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2025,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p><strong>Voiko pahuudelta piiloutua?</strong></p><p>Abdin ja hänen pikkusiskonsa Alvan pakomatka maan vallanneilta, karmaisevilta pedoilta jatkuu.</p><p>Sisarukset ovat selvittäneet tiensä rannikolle ja lähtevät yhdessä kymmenien tuntemattomien kanssa kumiveneellä kohti Shetlandinsaaria. Sieltä he toivovat löytävänsä paitsi suojaa myös kadonneen isänsä.</p><p>Pakolaisleirissä he ovat hetken turvassa – ainakin pedoilta. Ei kuitenkaan ole helppoa olla lapsi keskellä romahtanutta sivilisaatiota. Pian käy myös selväksi, ettei Shetlanti olekaan niin kaukana mantereesta kuin voisi kuvitella…</p><p>Palkitun nuorten kauhuromaanin <em>”Paha”</em> hyytävän vangitseva jatko-osa.</p>",
-        "descr_attr": "Otava",
-        "imported_string": null
-      },
-      {
-        "id": 7274,
-        "title": "Nelvikan tyttäret",
-        "orig_title": "",
-        "author_str": "Carole, Maria",
-        "contributions": [
-          {
-            "person": {
-              "id": 2930,
-              "name": "Carole, Maria",
-              "alt_name": "Maria Carole"
+              "id": 8149,
+              "name": "Torkkola, Johanna",
+              "alt_name": "Johanna Torkkola"
             },
             "role": {
               "id": 1,
@@ -509,29 +37,437 @@
             "contributions": [],
             "images": [
               {
-                "thumb_src": "/static/images/books/Carole_Maria_Nelvikantyttaret_1p.jpg",
-                "id": 10275,
-                "image_src": "/static/images/books/Carole_Maria_Nelvikantyttaret_1p.jpg",
+                "thumb_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
+                "id": 10383,
+                "image_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 529,
-              "name": "Jahka"
+              "id": 39,
+              "name": "Books on Demand"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 10538,
-            "title": "Nelvikan tyttäret",
+            "id": 10626,
+            "title": "Nekropolis",
             "subtitle": "",
             "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-2-9581710-1-8",
+            "isbn": "978-952-89-4977-0",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 632,
+            "pages": 220,
+            "size": 20,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": {
+          "partof": null,
+          "id": 906,
+          "name": "Aave-avainten Vartijat",
+          "orig_name": null,
+          "description": null,
+          "important": false,
+          "image_src": null,
+          "image_attr": null
+        },
+        "tags": [],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 1,
+        "subtitle": "",
+        "pubyear": 2026,
+        "bookseriesnum": "1",
+        "bookseriesorder": 1,
+        "misc": "",
+        "description": "<p>Leidi Johanna on Vaarajoen kunnan ainoa Näkijä. Hän oli Tuonelanmäen noita, joka tiesi muinaisen maailman hautausmaista ja hautareliikeistä lähes kaiken.</p><p>Kunnan poliisi on voimaton selvittämään hylätyn hautausmaan outoja valoilmiöitä tai raunioluostarin itsestään soivien urkujen mysteeriä. Urkujen soittajaksi huhutaan tulipalossa menehtynyttä luostariveljeä, joka muistelee menneitä messujaan noen mustaamien urkujen ääressä.</p><p>Asiaa selvittämään vaaditaan Leidi Johannan kaltainen mestarimystikko. Leidi Johannan salapoliisityön myötä tutustumme näkymättömään henkien ja aaveiden maailmaan, jossa selviytymiseen tarvitaan Johannan kaikki sielulliset ja yliluonnolliset kyvyt. Kuolleiden kalmanhuuruinen valtakunta osoittautuu hengenvaaralliseksi paikaksi – jopa jo kertaalleen kuolleille.</p>",
+        "descr_attr": "Books on Demand",
+        "imported_string": null,
+        "kirjasampo_imported": null
+      },
+      {
+        "id": 7342,
+        "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+        "orig_title": "",
+        "author_str": "anonyymi (toim.)",
+        "contributions": [
+          {
+            "person": {
+              "id": 3329,
+              "name": "anonyymi",
+              "alt_name": "anonyymi"
+            },
+            "role": {
+              "id": 3,
+              "name": "Toimittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "id": 10382,
+                "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 534,
+              "name": "Taikasana"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10625,
+            "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-88-2038-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 183,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": null,
+        "tags": [],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 2,
+        "subtitle": "",
+        "pubyear": 2026,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
+        "misc": "",
+        "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
+        "descr_attr": "Taikasana",
+        "imported_string": null,
+        "kirjasampo_imported": null
+      },
+      {
+        "id": 7341,
+        "title": "Se on hengen menoa",
+        "orig_title": "",
+        "author_str": "Mäkinen, Marja & Puustinen, Henna",
+        "contributions": [
+          {
+            "person": {
+              "id": 8145,
+              "name": "Mäkinen, Marja",
+              "alt_name": "Marja Mäkinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 8146,
+              "name": "Puustinen, Henna",
+              "alt_name": "Henna Puustinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
+                "id": 10381,
+                "image_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 39,
+              "name": "Books on Demand"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10624,
+            "title": "Se on hengen menoa",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-89-2945-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 100,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": {
+          "partof": null,
+          "id": 905,
+          "name": "Muumiomummot",
+          "orig_name": null,
+          "description": null,
+          "important": false,
+          "image_src": null,
+          "image_attr": null
+        },
+        "tags": [],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 1,
+        "subtitle": "",
+        "pubyear": 2026,
+        "bookseriesnum": "2",
+        "bookseriesorder": 2,
+        "misc": "",
+        "description": "<p>Muumiomummot Lilja ja Ruusu olivat välitilaan juuttuneita entisiä soteammattilaisia, jotka asustelivat hautausmaalla ja ihmettelivät maailman menoa. Elettiin aikaa jälkeen 2,5 maailmansodan, joka oli tuonut mukanaan monenlaisia muutoksia.</p><p>Aikaa tappaakseen mummot päättivät lähteä rengasmatkalle Itä-Suomeen, koska niin teki mieli karjalanpiirakkaa. Reissuun lähdettiin liftaten ja mitä kaikkea sitten tapahtuikaan...</p><p>Tämä on <em>Muumiomummojen </em>toinen kirja ja jatkaa samaa genreä, joka on sekoitus komediaa, tragediaa, scifiä sekä kokemuksellista faktaa.</p>",
+        "descr_attr": "Books on Demand",
+        "imported_string": null,
+        "kirjasampo_imported": null
+      },
+      {
+        "id": 7340,
+        "title": "Muumiomummot sotesotkuissa",
+        "orig_title": "",
+        "author_str": "Mäkinen, Marja & Puustinen, Henna",
+        "contributions": [
+          {
+            "person": {
+              "id": 8145,
+              "name": "Mäkinen, Marja",
+              "alt_name": "Marja Mäkinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 8146,
+              "name": "Puustinen, Henna",
+              "alt_name": "Henna Puustinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
+                "id": 10380,
+                "image_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 39,
+              "name": "Books on Demand"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10623,
+            "title": "Muumiomummot sotesotkuissa",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-80-7596-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 74,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": {
+          "partof": null,
+          "id": 905,
+          "name": "Muumiomummot",
+          "orig_name": null,
+          "description": null,
+          "important": false,
+          "image_src": null,
+          "image_attr": null
+        },
+        "tags": [],
+        "language_name": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "type": 1,
+        "subtitle": "",
+        "pubyear": 2026,
+        "bookseriesnum": "1",
+        "bookseriesorder": 1,
+        "misc": "",
+        "description": "<p>Lilja ja Ruusu ovat Sote-alan muumioituneita ammattilaisia, Lilja entinen sairaanhoitaja ja Ruusu entinen suuhygienisti. He ovat hengettömiä, mutta jääneet välitilaan, koska hoitotakuu ei koskenut kuolleita. He tarkastelevat maailmanmenoa vanhoin silmin tulevaisuuden maailmassa globaalien kriisien keskellä. Ensimmäisessä kirjassa mummot seikkailevat Sote-keskuksessa ja sen läheisyydessä. He majailevat hautausmaalla, koska muualle heitä ei huolita. Tarina on sekoitus komediaa, tragediaa, scifiä ja kokemuksellista faktaa. Jokainen lukija ottakoon itse selvää missä genressä milloinkin liikutaan.</p>",
+        "descr_attr": "Books on Demand",
+        "imported_string": null,
+        "kirjasampo_imported": null
+      },
+      {
+        "id": 7339,
+        "title": "Saastamoinen ja maapallonpysähdys",
+        "orig_title": "",
+        "author_str": "Kastarinen, Lasse",
+        "contributions": [
+          {
+            "person": {
+              "id": 8144,
+              "name": "Kastarinen, Lasse",
+              "alt_name": "Lasse Kastarinen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [],
+            "contributions": [],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
+                "id": 10379,
+                "image_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 39,
+              "name": "Books on Demand"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10622,
+            "title": "Saastamoinen ja maapallonpysähdys",
+            "subtitle": "",
+            "pubyear": 2015,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-318-127-4",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 324,
             "size": 22,
             "dustcover": 1,
             "coverimage": 1,
@@ -553,96 +489,16 @@
           "id": 7,
           "name": "suomi"
         },
-        "type": 6,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p><strong>Nelvikan tyttäriä kokoaa kaksi rakastettua fantasiaromaania yksiin kansiin.</strong></p><p><em>Tulen tyttäriä</em> on romanttista fantasiaa maailmassa, jossa jumalat elävät eristyksissä vuorellaan, ja jumalten jälkeläiset sekä ihmiset välttelevät toisiaan. Naarni on sotilas ja tulten sukua. Knameira, ei aivan jumala, muttei tavallinen nainenkaan. Naarni laskee vuosia palvelusaikansa loppumiseen, kunnes eräänä syysyönä kohtaa valolta tuoksuvan Emman ja lakkaa laskemasta.</p><p>Kehuttu esikoisteos keskittyy siihen, mikä elämässä on tärkeää silloinkin kun ympärillä kuohuu.</p><p><em>Sinisen talon noita</em> jatkaa Nelvikan naisten tarinaa. Auri on 17-vuotias ja kaupungin vahvimpia parantajia. Hänestä tulee aikanaan maimo, aivan kuten isoäidistään, jonka opissa hän on ollut pikkutytöstä lähtien. Tulevaisuus on selkeä, Auria varten piiretty polku. Nelvikan ulkopuolella kylät ja kaupungit täyttyvät pakolaisista, jotka sekoittavat arkea. Aurin arki sekoittuu kuitenkin pääasiassa miehestä, joka tuoksuu kuparilta ja sulavalta lumelta. Eikä Auri ole sinisessä talossa ainoa, jonka mieltä salaisuudet painavat.</p><p><em>Sinisen talon noita</em> on rakkaustarina ja kasvukertomus, jossa ihmisyys yhdistää enemmän kuin erottaa.</p><p><em>\"Tuoksuja, jotka sekoittuivat toisiinsa, loivat aivan uutta, juuri sopivaa. Yhdessä he olivat parasta kevättä, jään alta paljastuvaa.\"</em></p>",
-        "descr_attr": "Books on Demand",
-        "imported_string": null
-      },
-      {
-        "id": 7273,
-        "title": "Maa, joka ei anna anteeksi",
-        "orig_title": "",
-        "author_str": "Lakkala, Henrik",
-        "contributions": [
-          {
-            "person": {
-              "id": 8085,
-              "name": "Lakkala, Henrik",
-              "alt_name": "Henrik Lakkala"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Lakkala_Henrik_Maajokaeiannaanteeksi_1p.jpg",
-                "id": 10274,
-                "image_src": "/static/images/books/Lakkala_Henrik_Maajokaeiannaanteeksi_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 480,
-              "name": "Momentum Kirjat"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10537,
-            "title": "Maa, joka ei anna anteeksi",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-417-404-6",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 106,
-            "size": 20,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 2,
-            "name": "Kauhu",
-            "abbr": "K"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
         "type": 1,
         "subtitle": "",
-        "pubyear": 2026,
+        "pubyear": 2015,
         "bookseriesnum": "",
         "bookseriesorder": null,
         "misc": "",
-        "description": "<p>Ryhmä ritareita saa käskyn jakamaan ylemmän Herran tietoisuutta tuntemattomaan maahan. Yllättävä vihollisten hyökkäys saa retkikunnan vetäytymään luolaan, jossa he kohtaavat epäilyttävän muukalaisen. Perääntyminen on mahdotonta ja ainoa ulospääsy on jatkaa matkaa yhä syvemmälle luolaan kohti helvetin tulta ja pimeyden portteja. Tarina kertoo selviytymisestä ja omien syntien kohtaamisesta. Helvetti on täynnä demoneita ja voit kuulla kuiskauksia pimeydestä. Voiko muukalaiseen luottaa? Astukaa ikuiseen tuleen.</p><p>Henrik Lakkala (s. 1992) on Joensuussa vaikuttava kirjailija, joka työskentelee finanssialalla. Hänen esikoisteoksensa Maa, joka ei anna anteeksi käsittelee ihmisyyden pimeimpiä kerroksia ja selviytymistä sisäisen tuhon keskellä. Teos rakentaa armottoman maailman, jossa yksilö kohtaa oman rajallisuutensa ja hajoamisensa. Kirjailijan ilmaisua ovat muovanneet erityisesti Jon Nödtveidtin musiikilliset vaikutteet sekä oma sisäinen mielenmaisema. Hänen tuotantonsa tarkastelee, mitä jää jäljelle, kun ihminen kulkee läpi henkilökohtaisen infernonsa.</p>",
-        "descr_attr": "Momentum Kirjat",
-        "imported_string": null
+        "description": "<p>Talvella 2018 maanjäristys ravistaa Helsinkiä, kun suomalaisessa ydinvoimalassa räjähtää. Maapallon pyöriminen pysähtyy ja saa liikkeelle Fartum Energyn turvallisuusanalyytikko Harri Saastamoisen. Suomesta tulee rantaparatiisi pysyvässä auringonpaisteessa, valtiomuoto muuttuu ja suurvaltojen sota-alukset saapuvat Suomenlahdelle.</p><p>Saastamoinen on sosiaalisesti rajoittunut älykkö, joka saa sanotuksi seikkailun puoliväliin mennessä vajaat toistakymmentä sanaa. Riskejä minimoivalle puusilmälle tulevat vaivoiksi niin gangsterit, sotilaat, irronneet ruumiinosat kuin poliitikotkin. Lähipiiristä huolta aiheuttavat Saastamoisen poika, tämän raivohullu Susa-äiti sekä papisto. Telluksen ongelmista puhumattakaan.</p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Esikoiskirjailija Lasse Kastarinen (s. 1965) on pitkän linjan AV ammattilainen, harrastelijamuusikko, sekatyöläinen sekä opettaja.</span></p>",
+        "descr_attr": "Books on Demand",
+        "imported_string": null,
+        "kirjasampo_imported": null
       }
     ],
     "error": null

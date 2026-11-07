@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/1585/shorts",
@@ -309,7 +309,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -919,7 +920,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -1531,7 +1533,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -2141,7 +2144,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -2751,7 +2755,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -3227,7 +3232,8 @@
               "misc": "",
               "description": "<p><em>Jäinen lohikäärme</em> -kokoelma sisältää 12 science fiction -novellia. Novelleissa kohdataan komeetan ytimessä asustava olento, muumio herätetään henkiin geeniteknologian avulla, Helsinkiin laskeutuu muukalaisten avaruusalus...</p><p>Filosofian tohtori ja dosentti Heikki Oja on Helsingin yliopiston almanakkatoimiston almanakkapäällikkö. Hän on julkaissut useita tähtitiedettä käsitteleviä kirjoja ja artikkeleita. Hänen teoksensa <em>Aikakirja</em> oli Tieto-Finlandia-palkintoehdokas 2000.</p>",
               "descr_attr": null,
-              "imported_string": "\n<a href=\"novkok/oja-jl.htm\">\n<b>Jäinen lohikäärme</b></a>. Portti-kirjat 6. Tampereen Science Fiction Seura 2001. [SF,kok]."
+              "imported_string": "\n<a href=\"novkok/oja-jl.htm\">\n<b>Jäinen lohikäärme</b></a>. Portti-kirjat 6. Tampereen Science Fiction Seura 2001. [SF,kok].",
+              "kirjasampo_imported": "2026-11-05T14:16:40.010694+02:00"
             },
             "editors": [],
             "contributions": [
@@ -3550,7 +3556,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -4083,7 +4090,8 @@
               "misc": "",
               "description": "<p>JOHANNA SINISALON PALKITTUJA NOVELLEJA YKSISSÄ KANSISSA!</p><p>Tarinat sijoittuvat pääosin meidän aikaamme ja tuttuihin maisemiin, joissa jokin on häiritsevästi ja pelottavasti toisin. Novelleissaan Sinisalo järjestelmällisesti kääntää tutun ja totutun päälaelleen. Se, mitä luulemme omaksemme, on jonkin muun hallussa. Ihmisen ymmärrys maailmasta on jonkin toisen kuin hänen itsensä kirjoittama, myytit ovat totta ja totena pidetty pelkkää myyttiä.</p><p>Sinisalon novellien maisema pitää sisällään salaisuuksia, jollaisia emme voi edes kuvitella olevan, ja samalla hän avaa uusia viiltäviä valaistuskulmia omaan maailmaamme.</p><p>Näiden novellien lukemisen jälkeen ei mitään - ei edes itseä - voi katsoa enää niin kuin ennen, sillä kaikki mihin uskomme saattaakin olla häiritsevästi toisin.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": null
             },
             "editors": [],
             "contributions": [],
@@ -4294,7 +4302,8 @@
               "misc": "",
               "description": "<p>JOHANNA SINISALON PALKITTUJA NOVELLEJA YKSISSÄ KANSISSA!</p><p>Tarinat sijoittuvat pääosin meidän aikaamme ja tuttuihin maisemiin, joissa jokin on häiritsevästi ja pelottavasti toisin. Novelleissaan Sinisalo järjestelmällisesti kääntää tutun ja totutun päälaelleen. Se, mitä luulemme omaksemme, on jonkin muun hallussa. Ihmisen ymmärrys maailmasta on jonkin toisen kuin hänen itsensä kirjoittama, myytit ovat totta ja totena pidetty pelkkää myyttiä.</p><p>Sinisalon novellien maisema pitää sisällään salaisuuksia, jollaisia emme voi edes kuvitella olevan, ja samalla hän avaa uusia viiltäviä valaistuskulmia omaan maailmaamme.</p><p>Näiden novellien lukemisen jälkeen ei mitään - ei edes itseä - voi katsoa enää niin kuin ennen, sillä kaikki mihin uskomme saattaakin olla häiritsevästi toisin.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": null
             },
             "editors": [],
             "contributions": [
@@ -4612,7 +4621,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -5225,7 +5235,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -5836,7 +5847,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -7187,7 +7199,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -8392,7 +8405,8 @@
               "misc": "",
               "description": null,
               "descr_attr": null,
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -8752,7 +8766,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -9440,7 +9455,8 @@
               "misc": "",
               "description": "<p>Pekka \"Pietari\" Virtanen julkaisi ensimmäisen novellinsa <em>Veljmies </em>Portissa 1983. Muutkin lehdet innostuivat ja Virtasesta tuli komeetta, jonka novelleja alkoi ryöpytä Spinistä, Portista, Aikakoneesta, Tähtivaeltajasta ja Ikaroksesta. Hänen novellinsa <em>Perinne </em>voitti Atorox-palkinnon ja Jalava julkaisi hänen tieteisromaaninsa <em>Katajanukke</em>. Tätä kiivainta vaihetta kesti noin viisi vuotta, joiden aikana fanzinet julkaisivat kolmisenkymmentä Virtasen novellia.</p><p>Virtasen tieteiskertomukset ovat monelta jo unohtuneet ja aina vain eteenpäin tähystävät eivät ole niistä kuulleetkaan, vaikka niitä on julkaistu myös antologioissa, käännetty Esperantoksi sekä luettu yleisradiossa. <em>Planeettojen kapellimestari </em>on kokoelma Pekka Virtasen tieteisnovelleja ja tärkeä osa suomalaisen science fictionin lähihistoriaa.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vir-pk.htm\">\n<b>Planeettojen kapellimestari</b></a>. Valittuja tieteiskertomuksia. Wanhain Herrain Huone 2014. [SF,kok]."
+              "imported_string": "\n<a href=\"novkok/vir-pk.htm\">\n<b>Planeettojen kapellimestari</b></a>. Valittuja tieteiskertomuksia. Wanhain Herrain Huone 2014. [SF,kok].",
+              "kirjasampo_imported": null
             },
             "editors": [],
             "contributions": [
@@ -9758,7 +9774,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -10608,7 +10625,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -11928,7 +11946,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -13120,7 +13139,8 @@
               "misc": "",
               "description": null,
               "descr_attr": null,
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -13135,7 +13155,7 @@
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 36,
+                "workcount": 37,
                 "storycount": 65,
                 "roles": [
                   "Kirjoittaja",
@@ -13468,7 +13488,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -14819,7 +14840,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -16036,7 +16058,8 @@
               "misc": "",
               "description": "<p><em>Jäinen lohikäärme</em> -kokoelma sisältää 12 science fiction -novellia. Novelleissa kohdataan komeetan ytimessä asustava olento, muumio herätetään henkiin geeniteknologian avulla, Helsinkiin laskeutuu muukalaisten avaruusalus...</p><p>Filosofian tohtori ja dosentti Heikki Oja on Helsingin yliopiston almanakkatoimiston almanakkapäällikkö. Hän on julkaissut useita tähtitiedettä käsitteleviä kirjoja ja artikkeleita. Hänen teoksensa <em>Aikakirja</em> oli Tieto-Finlandia-palkintoehdokas 2000.</p>",
               "descr_attr": null,
-              "imported_string": "\n<a href=\"novkok/oja-jl.htm\">\n<b>Jäinen lohikäärme</b></a>. Portti-kirjat 6. Tampereen Science Fiction Seura 2001. [SF,kok]."
+              "imported_string": "\n<a href=\"novkok/oja-jl.htm\">\n<b>Jäinen lohikäärme</b></a>. Portti-kirjat 6. Tampereen Science Fiction Seura 2001. [SF,kok].",
+              "kirjasampo_imported": "2026-11-05T14:16:40.010694+02:00"
             },
             "editors": [],
             "contributions": [
@@ -16359,7 +16382,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -17723,7 +17747,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -19076,7 +19101,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -20427,7 +20453,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -21779,7 +21806,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {
@@ -22996,7 +23024,8 @@
               "misc": "",
               "description": "<p><em>Jäinen lohikäärme</em> -kokoelma sisältää 12 science fiction -novellia. Novelleissa kohdataan komeetan ytimessä asustava olento, muumio herätetään henkiin geeniteknologian avulla, Helsinkiin laskeutuu muukalaisten avaruusalus...</p><p>Filosofian tohtori ja dosentti Heikki Oja on Helsingin yliopiston almanakkatoimiston almanakkapäällikkö. Hän on julkaissut useita tähtitiedettä käsitteleviä kirjoja ja artikkeleita. Hänen teoksensa <em>Aikakirja</em> oli Tieto-Finlandia-palkintoehdokas 2000.</p>",
               "descr_attr": null,
-              "imported_string": "\n<a href=\"novkok/oja-jl.htm\">\n<b>Jäinen lohikäärme</b></a>. Portti-kirjat 6. Tampereen Science Fiction Seura 2001. [SF,kok]."
+              "imported_string": "\n<a href=\"novkok/oja-jl.htm\">\n<b>Jäinen lohikäärme</b></a>. Portti-kirjat 6. Tampereen Science Fiction Seura 2001. [SF,kok].",
+              "kirjasampo_imported": "2026-11-05T14:16:40.010694+02:00"
             },
             "editors": [],
             "contributions": [
@@ -23319,7 +23348,8 @@
               "misc": "Portti-palkinto 1989 (suomalaiset sf- ja fantasiakirjat).",
               "description": "<p>Kotimainen science fiction on nousussa! Viimeaikaisissa kirjoituskilpailuissa on löytynyt uusia tekijöitä, jännittäviä novelleja ja kiehtovia ajatuksia. Tähän kirjaan on koottu parhaimmisto Suomen Tieteiskirjoittajien ja Portti-lehden kilpailuista sekä kaikki Atorox-palkinnon saaneet sf-novellit.</p>",
               "descr_attr": "Takakansi",
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-04T20:49:02.302522+02:00"
             },
             "editors": [
               {

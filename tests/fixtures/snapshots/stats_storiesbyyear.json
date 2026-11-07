@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storiesbyyear",
@@ -1076,7 +1076,7 @@
       },
       {
         "year": 1875,
-        "count": 2,
+        "count": 3,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -1164,7 +1164,7 @@
       },
       {
         "year": 1881,
-        "count": 1,
+        "count": 2,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -1268,7 +1268,7 @@
       },
       {
         "year": 1884,
-        "count": 3,
+        "count": 4,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -1556,7 +1556,7 @@
       },
       {
         "year": 1894,
-        "count": 21,
+        "count": 22,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -2036,7 +2036,7 @@
       },
       {
         "year": 1910,
-        "count": 16,
+        "count": 18,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -2420,7 +2420,7 @@
       },
       {
         "year": 1921,
-        "count": 10,
+        "count": 11,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -2652,7 +2652,7 @@
       },
       {
         "year": 1927,
-        "count": 18,
+        "count": 19,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -7684,7 +7684,7 @@
       },
       {
         "year": 2019,
-        "count": 3,
+        "count": 6,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 1,
@@ -7772,19 +7772,11 @@
       },
       {
         "year": 2020,
-        "count": 149,
+        "count": 156,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,
         "language_name": "suomi"
-      },
-      {
-        "year": 2020,
-        "count": 7,
-        "storytype_id": 1,
-        "storytype_name": "Novelli",
-        "language_id": null,
-        "language_name": null
       },
       {
         "year": 2020,
@@ -7892,7 +7884,7 @@
       },
       {
         "year": 2022,
-        "count": 40,
+        "count": 41,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -8148,7 +8140,7 @@
       },
       {
         "year": 2026,
-        "count": 1,
+        "count": 2,
         "storytype_id": 7,
         "storytype_name": "Artikkeli",
         "language_id": 7,
@@ -8156,7 +8148,7 @@
       },
       {
         "year": 2026,
-        "count": 46,
+        "count": 68,
         "storytype_id": 1,
         "storytype_name": "Novelli",
         "language_id": 7,

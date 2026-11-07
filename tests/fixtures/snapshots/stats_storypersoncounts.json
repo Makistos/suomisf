@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/storypersoncounts",
@@ -61,7 +61,7 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 50
+            "Kirjoittaja": 53
           },
           "Runo": {
             "Kirjoittaja": 2
@@ -76,7 +76,7 @@
             "Kirjoittaja": 306
           }
         },
-        "total": 361
+        "total": 364
       },
       {
         "id": 781,
@@ -173,7 +173,7 @@
         "nationality": "Yhdysvallat",
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 127
+            "Kirjoittaja": 128
           },
           "Runo": {
             "Kirjoittaja": 12
@@ -183,7 +183,7 @@
             "Esiintyy": 26
           }
         },
-        "total": 142
+        "total": 143
       },
       {
         "id": 2286,
@@ -235,7 +235,7 @@
         "nationality": null,
         "storytypes": {
           "Novelli": {
-            "Kirjoittaja": 8575,
+            "Kirjoittaja": 8610,
             "Kääntäjä": 1260,
             "Toimittaja": 0,
             "Kansikuva": 0,
@@ -289,12 +289,12 @@
             "Päätoimittaja": 0
           },
           "Artikkeli": {
-            "Kirjoittaja": 4416,
+            "Kirjoittaja": 4418,
             "Kääntäjä": 61,
             "Toimittaja": 0,
             "Kansikuva": 0,
             "Kuvittaja": 0,
-            "Esiintyy": 1247,
+            "Esiintyy": 1248,
             "Päätoimittaja": 0
           },
           "Esipuhe": {
@@ -316,7 +316,7 @@
             "Päätoimittaja": 0
           }
         },
-        "total": 14098
+        "total": 14135
       }
     ],
     "error": null

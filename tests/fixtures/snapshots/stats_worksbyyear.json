@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/worksbyyear",
@@ -714,7 +714,7 @@
       },
       {
         "year": 1926,
-        "count": 3,
+        "count": 4,
         "language_id": 14,
         "language_name": "saksa"
       },
@@ -3168,7 +3168,7 @@
       },
       {
         "year": 2003,
-        "count": 93,
+        "count": 94,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -3840,7 +3840,7 @@
       },
       {
         "year": 2013,
-        "count": 79,
+        "count": 80,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -3954,7 +3954,7 @@
       },
       {
         "year": 2015,
-        "count": 75,
+        "count": 76,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4368,6 +4368,12 @@
       },
       {
         "year": 2022,
+        "count": 1,
+        "language_id": 36,
+        "language_name": "hollanti"
+      },
+      {
+        "year": 2022,
         "count": 2,
         "language_id": 5,
         "language_name": "japani"
@@ -4398,7 +4404,7 @@
       },
       {
         "year": 2022,
-        "count": 135,
+        "count": 140,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4470,7 +4476,7 @@
       },
       {
         "year": 2023,
-        "count": 139,
+        "count": 141,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4542,7 +4548,7 @@
       },
       {
         "year": 2024,
-        "count": 131,
+        "count": 132,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4626,7 +4632,7 @@
       },
       {
         "year": 2025,
-        "count": 118,
+        "count": 122,
         "language_id": 7,
         "language_name": "suomi"
       },
@@ -4644,27 +4650,45 @@
       },
       {
         "year": 2025,
-        "count": 1,
+        "count": 2,
         "language_id": 40,
         "language_name": "viro"
       },
       {
         "year": 2026,
-        "count": 69,
+        "count": 87,
         "language_id": 1,
         "language_name": "englanti"
       },
       {
         "year": 2026,
         "count": 1,
+        "language_id": 42,
+        "language_name": "englanti/suomi"
+      },
+      {
+        "year": 2026,
+        "count": 2,
         "language_id": 5,
         "language_name": "japani"
+      },
+      {
+        "year": 2026,
+        "count": 2,
+        "language_id": 32,
+        "language_name": "kiina"
       },
       {
         "year": 2026,
         "count": 3,
         "language_id": 16,
         "language_name": "norja"
+      },
+      {
+        "year": 2026,
+        "count": 1,
+        "language_id": 35,
+        "language_name": "portugali"
       },
       {
         "year": 2026,
@@ -4686,7 +4710,7 @@
       },
       {
         "year": 2026,
-        "count": 92,
+        "count": 118,
         "language_id": 7,
         "language_name": "suomi"
       },

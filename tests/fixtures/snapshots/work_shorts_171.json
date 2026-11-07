@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/works/shorts/171",
@@ -150,7 +150,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -317,7 +318,8 @@
               "misc": "",
               "description": null,
               "descr_attr": null,
-              "imported_string": ""
+              "imported_string": "",
+              "kirjasampo_imported": null
             },
             "editors": [],
             "contributions": [],
@@ -525,7 +527,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -774,7 +777,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -1023,7 +1027,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -1272,7 +1277,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -1521,7 +1527,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -1770,7 +1777,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -2019,7 +2027,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -2271,7 +2280,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -2520,7 +2530,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -2772,7 +2783,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {
@@ -3022,7 +3034,8 @@
               "misc": "",
               "description": "<p>Mitä tapahtuu ennen syntymää ja kuoleman jälkeen? Kaksitoista kirjailijaa pohtii näitä kysymyksiä antologiassa <em>Välitiloja</em>. Jokainen heistä käsittelee aihetta eri näkökulmasta, ja ainoa yhdistävä tekijä on musta huumori. Joukossa on tunnettuja kirjoittajia, kuten Harri István Mäki ja Katariina Romppainen, mutta myös uusia kiinnostavia tekijöitä, kuten Enna Airik ja Jaakko Markus Seppälä.</p><p>Tutustu ja elä henkesi edestä!</p>",
               "descr_attr": "Takakansi",
-              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok]."
+              "imported_string": "\n<a href=\"novkok/vai-vt.htm\">\n<b>Välitiloja</b></a>. Kustantamo Helmivyö 2020. [F,Kok].",
+              "kirjasampo_imported": null
             },
             "editors": [
               {

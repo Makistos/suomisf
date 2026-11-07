@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/editions/5",
@@ -12,274 +12,60 @@
     "data": [
       {
         "work": {
-          "id": 1578,
-          "title": "Kapteeni taivaassa",
-          "orig_title": "Report from Paradise",
-          "author_str": "Twain, Mark",
+          "id": 7343,
+          "title": "Nekropolis",
+          "orig_title": "",
+          "author_str": "Torkkola, Johanna",
           "contributions": [
             {
               "person": {
-                "id": 1073,
-                "name": "Twain, Mark",
-                "alt_name": "Mark Twain"
+                "id": 8149,
+                "name": "Torkkola, Johanna",
+                "alt_name": "Johanna Torkkola"
               },
               "role": {
                 "id": 1,
                 "name": "Kirjoittaja"
               },
-              "description": null,
+              "description": "",
               "real_person": null
             }
           ],
           "editions": [
             {
               "editors": [],
-              "translators": [
-                {
-                  "id": 1075,
-                  "name": "Etto, Jorma",
-                  "alt_name": "Jorma Etto"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 1075,
-                    "name": "Etto, Jorma",
-                    "alt_name": "Jorma Etto"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8093,
-                    "name": "Vihinen, Reino",
-                    "alt_name": "Reino Vihinen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Päällyksen sommitellut",
-                  "real_person": null
-                }
-              ],
+              "translators": [],
+              "contributions": [],
               "images": [
                 {
-                  "thumb_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
-                  "id": 10289,
-                  "image_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
+                  "thumb_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
+                  "id": 10383,
+                  "image_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
                   "image_attr": null
                 }
               ],
               "publisher": {
-                "id": 133,
-                "name": "Karisto"
+                "id": 39,
+                "name": "Books on Demand"
               },
               "owners": [],
               "wishlisted": [],
-              "id": 10546,
-              "title": "Kapteeni taivaassa",
+              "id": 10626,
+              "title": "Nekropolis",
               "subtitle": "",
-              "pubyear": 1958,
+              "pubyear": 2026,
               "editionnum": 1,
               "version": 1,
-              "isbn": "",
+              "isbn": "978-952-89-4977-0",
               "printedin": null,
               "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 106,
-              "size": 19,
-              "dustcover": 3,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "<b>Kapteeni taivaassa</b>. (Report from Paradise, 1952). Suom Jorma Etto. Karisto 1958. [F].",
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 1075,
-                  "name": "Etto, Jorma",
-                  "alt_name": "Jorma Etto"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 1075,
-                    "name": "Etto, Jorma",
-                    "alt_name": "Jorma Etto"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8093,
-                    "name": "Vihinen, Reino",
-                    "alt_name": "Reino Vihinen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Päällyksen sommitellut",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
-                  "id": 2856,
-                  "image_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 133,
-                "name": "Karisto"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 1835,
-              "title": "Kapteeni taivaassa",
-              "subtitle": "",
-              "pubyear": 1958,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 106,
-              "size": 19,
+              "coll_info": null,
+              "pages": 220,
+              "size": 20,
               "dustcover": 1,
               "coverimage": 1,
-              "misc": "",
-              "imported_string": "<b>Kapteeni taivaassa</b>. (Report from Paradise, 1952). Suom Jorma Etto. Karisto 1958. [F].",
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 1075,
-                  "name": "Etto, Jorma",
-                  "alt_name": "Jorma Etto"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 1075,
-                    "name": "Etto, Jorma",
-                    "alt_name": "Jorma Etto"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_2p.jpg",
-                  "id": 2603,
-                  "image_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_2p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 133,
-                "name": "Karisto"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 1836,
-              "title": "Kapteeni taivaassa",
-              "subtitle": "",
-              "pubyear": 1979,
-              "editionnum": 2,
-              "version": 1,
-              "isbn": "951-23-1323-5",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 98,
-              "size": 18,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "2.painos: Pokkaristo. Karisto 1979.",
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 1075,
-                  "name": "Etto, Jorma",
-                  "alt_name": "Jorma Etto"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 1075,
-                    "name": "Etto, Jorma",
-                    "alt_name": "Jorma Etto"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_3p.jpg",
-                  "id": 2602,
-                  "image_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_3p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 133,
-                "name": "Karisto"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 1837,
-              "title": "Kapteeni taivaassa",
-              "subtitle": "",
-              "pubyear": 1997,
-              "editionnum": 3,
-              "version": 1,
-              "isbn": "951-23-3639-1",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 116,
-              "size": 18,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "3.painos: Pokkaristo. Karisto 1997.",
+              "misc": null,
+              "imported_string": null,
               "verified": false
             }
           ],
@@ -290,62 +76,45 @@
               "abbr": "F"
             }
           ],
-          "bookseries": null,
+          "bookseries": {
+            "partof": null,
+            "id": 906,
+            "name": "Aave-avainten Vartijat",
+            "orig_name": null,
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
           "tags": [],
           "language_name": {
-            "id": 1,
-            "name": "englanti"
+            "id": 7,
+            "name": "suomi"
           },
           "type": 1,
           "subtitle": "",
-          "pubyear": 1952,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
+          "pubyear": 2026,
+          "bookseriesnum": "1",
+          "bookseriesorder": 1,
           "misc": "",
-          "description": "<p>KAPTEENI TAIVAASSA sisältää Amerikan suurimman humoristin kaksi satiiria, jotka aivan äskeisvuosiin asti olivat ainoastaan kirjailijan kaikkein lähimpien ystävien tiedossa.</p><p>Jos tämä raportti lukijaansa henkilökohtaisen loukkauksen lailla ärsyttää ja vihastuttaa tai tuntuu riistävän ihmiseltä elämän tärkeimmät keskeiset arvot, niin silloin on syytä kokeilla, miltä tuntuisi lukea kirja uudestaan. Jos teos jättää välinpitämättömäksi, niin silloin se on jäänyt lukematta, korkeintaan on tullut katselluksi sen kirjaimia. Vielä on sekin mahdollisuus, että »Kapteeni taivaassa» johdattaa lukijan teennäisyydet rikki ravistelevaan nauruun ja samalla syvään vakavuuteen ja uudistuneeseen elämäntuntoon. Silloin kunnon Mark Twain on kuin onkin löytänyt tärkeimmälle sanottavalleen yhden ymmärtäjän lisää.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": ""
+          "description": "<p>Leidi Johanna on Vaarajoen kunnan ainoa Näkijä. Hän oli Tuonelanmäen noita, joka tiesi muinaisen maailman hautausmaista ja hautareliikeistä lähes kaiken.</p><p>Kunnan poliisi on voimaton selvittämään hylätyn hautausmaan outoja valoilmiöitä tai raunioluostarin itsestään soivien urkujen mysteeriä. Urkujen soittajaksi huhutaan tulipalossa menehtynyttä luostariveljeä, joka muistelee menneitä messujaan noen mustaamien urkujen ääressä.</p><p>Asiaa selvittämään vaaditaan Leidi Johannan kaltainen mestarimystikko. Leidi Johannan salapoliisityön myötä tutustumme näkymättömään henkien ja aaveiden maailmaan, jossa selviytymiseen tarvitaan Johannan kaikki sielulliset ja yliluonnolliset kyvyt. Kuolleiden kalmanhuuruinen valtakunta osoittautuu hengenvaaralliseksi paikaksi – jopa jo kertaalleen kuolleille.</p>",
+          "descr_attr": "Books on Demand",
+          "imported_string": null,
+          "kirjasampo_imported": null
         },
         "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 1075,
-              "name": "Etto, Jorma",
-              "alt_name": "Jorma Etto"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 8093,
-              "name": "Vihinen, Reino",
-              "alt_name": "Reino Vihinen"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "Päällyksen sommitellut",
-            "real_person": null
-          }
-        ],
+        "contributions": [],
         "images": [
           {
-            "thumb_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
-            "id": 10289,
-            "image_src": "/static/images/books/Twain_Mark_Kapteenitaivaassa_1p.jpg",
+            "thumb_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
+            "id": 10383,
+            "image_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
             "image_attr": null
           }
         ],
         "publisher": {
-          "id": 133,
-          "name": "Karisto"
+          "id": 39,
+          "name": "Books on Demand"
         },
         "owners": [],
         "wishlisted": [],
@@ -353,347 +122,19 @@
           "id": 3,
           "name": "Sidottu"
         },
-        "id": 10546,
-        "title": "Kapteeni taivaassa",
+        "id": 10626,
+        "title": "Nekropolis",
         "subtitle": "",
-        "pubyear": 1958,
+        "pubyear": 2026,
         "editionnum": 1,
         "version": 1,
-        "isbn": "",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": "",
-        "pages": 106,
-        "size": 19,
-        "dustcover": 3,
-        "coverimage": 1,
-        "misc": "",
-        "imported_string": "<b>Kapteeni taivaassa</b>. (Report from Paradise, 1952). Suom Jorma Etto. Karisto 1958. [F].",
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7277,
-          "title": "Matka aamun maahan",
-          "orig_title": "Die Morgenlandfahrt",
-          "author_str": "Hesse, Hermann",
-          "contributions": [
-            {
-              "person": {
-                "id": 1965,
-                "name": "Hesse, Hermann",
-                "alt_name": "Hermann Hesse"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10287,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10544,
-              "title": "Matka aamun maahan",
-              "subtitle": "",
-              "pubyear": 1975,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "951-26-1063-9",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 88,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10288,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
-              },
-              "owners": [
-                {
-                  "id": 11,
-                  "name": "Kirjokerttu"
-                }
-              ],
-              "wishlisted": [],
-              "id": 10545,
-              "title": "Matka aamun maahan",
-              "subtitle": "",
-              "pubyear": 1975,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "951-26-1064-7",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 88,
-              "size": 21,
-              "dustcover": 3,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10286,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10543,
-              "title": "Matka aamun maahan",
-              "subtitle": "",
-              "pubyear": 1975,
-              "editionnum": 2,
-              "version": 1,
-              "isbn": "951-26-1064-7",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 88,
-              "size": 21,
-              "dustcover": 3,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 1,
-              "name": "Fantasia",
-              "abbr": "F"
-            }
-          ],
-          "bookseries": null,
-          "tags": [],
-          "language_name": {
-            "id": 14,
-            "name": "saksa"
-          },
-          "type": 1,
-          "subtitle": "",
-          "pubyear": 1932,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "",
-          "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": null
-        },
-        "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 258,
-              "name": "Kaila, Kai",
-              "alt_name": "Kai Kaila"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 6300,
-              "name": "Antikainen, Kosti",
-              "alt_name": "Kosti Antikainen"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "Kansi",
-            "real_person": null
-          }
-        ],
-        "images": [
-          {
-            "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-            "id": 10288,
-            "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 150,
-          "name": "Kirjayhtymä"
-        },
-        "owners": [
-          {
-            "id": 11,
-            "name": "Kirjokerttu"
-          }
-        ],
-        "wishlisted": [],
-        "binding": {
-          "id": 3,
-          "name": "Sidottu"
-        },
-        "id": 10545,
-        "title": "Matka aamun maahan",
-        "subtitle": "",
-        "pubyear": 1975,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "951-26-1064-7",
+        "isbn": "978-952-89-4977-0",
         "printedin": null,
         "pubseriesnum": null,
         "coll_info": null,
-        "pages": 88,
-        "size": 21,
-        "dustcover": 3,
+        "pages": 220,
+        "size": 20,
+        "dustcover": 1,
         "coverimage": 1,
         "misc": null,
         "imported_string": null,
@@ -701,20 +142,20 @@
       },
       {
         "work": {
-          "id": 7277,
-          "title": "Matka aamun maahan",
-          "orig_title": "Die Morgenlandfahrt",
-          "author_str": "Hesse, Hermann",
+          "id": 7342,
+          "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+          "orig_title": "",
+          "author_str": "anonyymi (toim.)",
           "contributions": [
             {
               "person": {
-                "id": 1965,
-                "name": "Hesse, Hermann",
-                "alt_name": "Hermann Hesse"
+                "id": 3329,
+                "name": "anonyymi",
+                "alt_name": "anonyymi"
               },
               "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
+                "id": 3,
+                "name": "Toimittaja"
               },
               "description": "",
               "real_person": null
@@ -723,32 +164,13 @@
           "editions": [
             {
               "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
+              "translators": [],
               "contributions": [
                 {
                   "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
+                    "id": 7199,
+                    "name": "Berghäll, Ruska J. J.",
+                    "alt_name": "Ruska J. J. Berghäll"
                   },
                   "role": {
                     "id": 4,
@@ -756,178 +178,48 @@
                   },
                   "description": "Kansi",
                   "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 7199,
+                    "name": "Berghäll, Ruska J. J.",
+                    "alt_name": "Ruska J. J. Berghäll"
+                  },
+                  "role": {
+                    "id": 5,
+                    "name": "Kuvittaja"
+                  },
+                  "description": "",
+                  "real_person": null
                 }
               ],
               "images": [
                 {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10287,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                  "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                  "id": 10382,
+                  "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
                   "image_attr": null
                 }
               ],
               "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
+                "id": 534,
+                "name": "Taikasana"
               },
               "owners": [],
               "wishlisted": [],
-              "id": 10544,
-              "title": "Matka aamun maahan",
+              "id": 10625,
+              "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
               "subtitle": "",
-              "pubyear": 1975,
+              "pubyear": 2026,
               "editionnum": 1,
               "version": 1,
-              "isbn": "951-26-1063-9",
+              "isbn": "978-952-88-2038-3",
               "printedin": null,
               "pubseriesnum": null,
               "coll_info": null,
-              "pages": 88,
+              "pages": 183,
               "size": 21,
               "dustcover": 1,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10288,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
-              },
-              "owners": [
-                {
-                  "id": 11,
-                  "name": "Kirjokerttu"
-                }
-              ],
-              "wishlisted": [],
-              "id": 10545,
-              "title": "Matka aamun maahan",
-              "subtitle": "",
-              "pubyear": 1975,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "951-26-1064-7",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 88,
-              "size": 21,
-              "dustcover": 3,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10286,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10543,
-              "title": "Matka aamun maahan",
-              "subtitle": "",
-              "pubyear": 1975,
-              "editionnum": 2,
-              "version": 1,
-              "isbn": "951-26-1064-7",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 88,
-              "size": 21,
-              "dustcover": 3,
               "coverimage": 1,
               "misc": null,
               "imported_string": null,
@@ -944,39 +236,27 @@
           "bookseries": null,
           "tags": [],
           "language_name": {
-            "id": 14,
-            "name": "saksa"
+            "id": 7,
+            "name": "suomi"
           },
-          "type": 1,
+          "type": 2,
           "subtitle": "",
-          "pubyear": 1932,
+          "pubyear": 2026,
           "bookseriesnum": "",
           "bookseriesorder": null,
           "misc": "",
-          "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": null
+          "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
+          "descr_attr": "Taikasana",
+          "imported_string": null,
+          "kirjasampo_imported": null
         },
         "editors": [],
         "contributions": [
           {
             "person": {
-              "id": 258,
-              "name": "Kaila, Kai",
-              "alt_name": "Kai Kaila"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 6300,
-              "name": "Antikainen, Kosti",
-              "alt_name": "Kosti Antikainen"
+              "id": 7199,
+              "name": "Berghäll, Ruska J. J.",
+              "alt_name": "Ruska J. J. Berghäll"
             },
             "role": {
               "id": 4,
@@ -984,19 +264,32 @@
             },
             "description": "Kansi",
             "real_person": null
+          },
+          {
+            "person": {
+              "id": 7199,
+              "name": "Berghäll, Ruska J. J.",
+              "alt_name": "Ruska J. J. Berghäll"
+            },
+            "role": {
+              "id": 5,
+              "name": "Kuvittaja"
+            },
+            "description": "",
+            "real_person": null
           }
         ],
         "images": [
           {
-            "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-            "id": 10287,
-            "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+            "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+            "id": 10382,
+            "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
             "image_attr": null
           }
         ],
         "publisher": {
-          "id": 150,
-          "name": "Kirjayhtymä"
+          "id": 534,
+          "name": "Taikasana"
         },
         "owners": [],
         "wishlisted": [],
@@ -1004,17 +297,17 @@
           "id": 2,
           "name": "Nidottu"
         },
-        "id": 10544,
-        "title": "Matka aamun maahan",
+        "id": 10625,
+        "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
         "subtitle": "",
-        "pubyear": 1975,
+        "pubyear": 2026,
         "editionnum": 1,
         "version": 1,
-        "isbn": "951-26-1063-9",
+        "isbn": "978-952-88-2038-3",
         "printedin": null,
         "pubseriesnum": null,
         "coll_info": null,
-        "pages": 88,
+        "pages": 183,
         "size": 21,
         "dustcover": 1,
         "coverimage": 1,
@@ -1024,16 +317,29 @@
       },
       {
         "work": {
-          "id": 7277,
-          "title": "Matka aamun maahan",
-          "orig_title": "Die Morgenlandfahrt",
-          "author_str": "Hesse, Hermann",
+          "id": 7341,
+          "title": "Se on hengen menoa",
+          "orig_title": "",
+          "author_str": "Mäkinen, Marja & Puustinen, Henna",
           "contributions": [
             {
               "person": {
-                "id": 1965,
-                "name": "Hesse, Hermann",
-                "alt_name": "Hermann Hesse"
+                "id": 8145,
+                "name": "Mäkinen, Marja",
+                "alt_name": "Marja Mäkinen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            },
+            {
+              "person": {
+                "id": 8146,
+                "name": "Puustinen, Henna",
+                "alt_name": "Henna Puustinen"
               },
               "role": {
                 "id": 1,
@@ -1046,211 +352,308 @@
           "editions": [
             {
               "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
+              "translators": [],
+              "contributions": [],
               "images": [
                 {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10287,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                  "thumb_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
+                  "id": 10381,
+                  "image_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
                   "image_attr": null
                 }
               ],
               "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
+                "id": 39,
+                "name": "Books on Demand"
               },
               "owners": [],
               "wishlisted": [],
-              "id": 10544,
-              "title": "Matka aamun maahan",
+              "id": 10624,
+              "title": "Se on hengen menoa",
               "subtitle": "",
-              "pubyear": 1975,
+              "pubyear": 2026,
               "editionnum": 1,
               "version": 1,
-              "isbn": "951-26-1063-9",
+              "isbn": "978-952-89-2945-1",
               "printedin": null,
               "pubseriesnum": null,
               "coll_info": null,
-              "pages": 88,
+              "pages": 100,
               "size": 21,
               "dustcover": 1,
               "coverimage": 1,
               "misc": null,
               "imported_string": null,
               "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 1,
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": {
+            "partof": null,
+            "id": 905,
+            "name": "Muumiomummot",
+            "orig_name": null,
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
+          "tags": [],
+          "language_name": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2026,
+          "bookseriesnum": "2",
+          "bookseriesorder": 2,
+          "misc": "",
+          "description": "<p>Muumiomummot Lilja ja Ruusu olivat välitilaan juuttuneita entisiä soteammattilaisia, jotka asustelivat hautausmaalla ja ihmettelivät maailman menoa. Elettiin aikaa jälkeen 2,5 maailmansodan, joka oli tuonut mukanaan monenlaisia muutoksia.</p><p>Aikaa tappaakseen mummot päättivät lähteä rengasmatkalle Itä-Suomeen, koska niin teki mieli karjalanpiirakkaa. Reissuun lähdettiin liftaten ja mitä kaikkea sitten tapahtuikaan...</p><p>Tämä on <em>Muumiomummojen </em>toinen kirja ja jatkaa samaa genreä, joka on sekoitus komediaa, tragediaa, scifiä sekä kokemuksellista faktaa.</p>",
+          "descr_attr": "Books on Demand",
+          "imported_string": null,
+          "kirjasampo_imported": null
+        },
+        "editors": [],
+        "contributions": [],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
+            "id": 10381,
+            "image_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 39,
+          "name": "Books on Demand"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 10624,
+        "title": "Se on hengen menoa",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "978-952-89-2945-1",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 100,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 7340,
+          "title": "Muumiomummot sotesotkuissa",
+          "orig_title": "",
+          "author_str": "Mäkinen, Marja & Puustinen, Henna",
+          "contributions": [
+            {
+              "person": {
+                "id": 8145,
+                "name": "Mäkinen, Marja",
+                "alt_name": "Marja Mäkinen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
             },
             {
+              "person": {
+                "id": 8146,
+                "name": "Puustinen, Henna",
+                "alt_name": "Henna Puustinen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
               "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
+              "translators": [],
+              "contributions": [],
               "images": [
                 {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10288,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                  "thumb_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
+                  "id": 10380,
+                  "image_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
                   "image_attr": null
                 }
               ],
               "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
+                "id": 39,
+                "name": "Books on Demand"
               },
-              "owners": [
-                {
-                  "id": 11,
-                  "name": "Kirjokerttu"
-                }
-              ],
+              "owners": [],
               "wishlisted": [],
-              "id": 10545,
-              "title": "Matka aamun maahan",
+              "id": 10623,
+              "title": "Muumiomummot sotesotkuissa",
               "subtitle": "",
-              "pubyear": 1975,
+              "pubyear": 2026,
               "editionnum": 1,
               "version": 1,
-              "isbn": "951-26-1064-7",
+              "isbn": "978-952-80-7596-7",
               "printedin": null,
               "pubseriesnum": null,
               "coll_info": null,
-              "pages": 88,
+              "pages": 74,
               "size": 21,
-              "dustcover": 3,
+              "dustcover": 1,
               "coverimage": 1,
               "misc": null,
               "imported_string": null,
               "verified": false
-            },
+            }
+          ],
+          "genres": [
+            {
+              "id": 1,
+              "name": "Fantasia",
+              "abbr": "F"
+            }
+          ],
+          "bookseries": {
+            "partof": null,
+            "id": 905,
+            "name": "Muumiomummot",
+            "orig_name": null,
+            "description": null,
+            "important": false,
+            "image_src": null,
+            "image_attr": null
+          },
+          "tags": [],
+          "language_name": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2026,
+          "bookseriesnum": "1",
+          "bookseriesorder": 1,
+          "misc": "",
+          "description": "<p>Lilja ja Ruusu ovat Sote-alan muumioituneita ammattilaisia, Lilja entinen sairaanhoitaja ja Ruusu entinen suuhygienisti. He ovat hengettömiä, mutta jääneet välitilaan, koska hoitotakuu ei koskenut kuolleita. He tarkastelevat maailmanmenoa vanhoin silmin tulevaisuuden maailmassa globaalien kriisien keskellä. Ensimmäisessä kirjassa mummot seikkailevat Sote-keskuksessa ja sen läheisyydessä. He majailevat hautausmaalla, koska muualle heitä ei huolita. Tarina on sekoitus komediaa, tragediaa, scifiä ja kokemuksellista faktaa. Jokainen lukija ottakoon itse selvää missä genressä milloinkin liikutaan.</p>",
+          "descr_attr": "Books on Demand",
+          "imported_string": null,
+          "kirjasampo_imported": null
+        },
+        "editors": [],
+        "contributions": [],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
+            "id": 10380,
+            "image_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 39,
+          "name": "Books on Demand"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 10623,
+        "title": "Muumiomummot sotesotkuissa",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "978-952-80-7596-7",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": null,
+        "pages": 74,
+        "size": 21,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": null,
+        "imported_string": null,
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 7339,
+          "title": "Saastamoinen ja maapallonpysähdys",
+          "orig_title": "",
+          "author_str": "Kastarinen, Lasse",
+          "contributions": [
+            {
+              "person": {
+                "id": 8144,
+                "name": "Kastarinen, Lasse",
+                "alt_name": "Lasse Kastarinen"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": "",
+              "real_person": null
+            }
+          ],
+          "editions": [
             {
               "editors": [],
-              "translators": [
-                {
-                  "id": 258,
-                  "name": "Kaila, Kai",
-                  "alt_name": "Kai Kaila"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 258,
-                    "name": "Kaila, Kai",
-                    "alt_name": "Kai Kaila"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 6300,
-                    "name": "Antikainen, Kosti",
-                    "alt_name": "Kosti Antikainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                }
-              ],
+              "translators": [],
+              "contributions": [],
               "images": [
                 {
-                  "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-                  "id": 10286,
-                  "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+                  "thumb_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
+                  "id": 10379,
+                  "image_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
                   "image_attr": null
                 }
               ],
               "publisher": {
-                "id": 150,
-                "name": "Kirjayhtymä"
+                "id": 39,
+                "name": "Books on Demand"
               },
               "owners": [],
               "wishlisted": [],
-              "id": 10543,
-              "title": "Matka aamun maahan",
+              "id": 10622,
+              "title": "Saastamoinen ja maapallonpysähdys",
               "subtitle": "",
-              "pubyear": 1975,
-              "editionnum": 2,
+              "pubyear": 2015,
+              "editionnum": 1,
               "version": 1,
-              "isbn": "951-26-1064-7",
+              "isbn": "978-952-318-127-4",
               "printedin": null,
               "pubseriesnum": null,
               "coll_info": null,
-              "pages": 88,
-              "size": 21,
-              "dustcover": 3,
+              "pages": 324,
+              "size": 22,
+              "dustcover": 1,
               "coverimage": 1,
               "misc": null,
               "imported_string": null,
@@ -1267,467 +670,56 @@
           "bookseries": null,
           "tags": [],
           "language_name": {
-            "id": 14,
-            "name": "saksa"
+            "id": 7,
+            "name": "suomi"
           },
           "type": 1,
           "subtitle": "",
-          "pubyear": 1932,
+          "pubyear": 2015,
           "bookseriesnum": "",
           "bookseriesorder": null,
           "misc": "",
-          "description": "<p>Viime vuosina kaikkialla maailmassa uudelleen löydetyn Nobel-kirjailijan taidokas pienoisromaani.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": null
+          "description": "<p>Talvella 2018 maanjäristys ravistaa Helsinkiä, kun suomalaisessa ydinvoimalassa räjähtää. Maapallon pyöriminen pysähtyy ja saa liikkeelle Fartum Energyn turvallisuusanalyytikko Harri Saastamoisen. Suomesta tulee rantaparatiisi pysyvässä auringonpaisteessa, valtiomuoto muuttuu ja suurvaltojen sota-alukset saapuvat Suomenlahdelle.</p><p>Saastamoinen on sosiaalisesti rajoittunut älykkö, joka saa sanotuksi seikkailun puoliväliin mennessä vajaat toistakymmentä sanaa. Riskejä minimoivalle puusilmälle tulevat vaivoiksi niin gangsterit, sotilaat, irronneet ruumiinosat kuin poliitikotkin. Lähipiiristä huolta aiheuttavat Saastamoisen poika, tämän raivohullu Susa-äiti sekä papisto. Telluksen ongelmista puhumattakaan.</p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Esikoiskirjailija Lasse Kastarinen (s. 1965) on pitkän linjan AV ammattilainen, harrastelijamuusikko, sekatyöläinen sekä opettaja.</span></p>",
+          "descr_attr": "Books on Demand",
+          "imported_string": null,
+          "kirjasampo_imported": null
         },
         "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 258,
-              "name": "Kaila, Kai",
-              "alt_name": "Kai Kaila"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 6300,
-              "name": "Antikainen, Kosti",
-              "alt_name": "Kosti Antikainen"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "Kansi",
-            "real_person": null
-          }
-        ],
+        "contributions": [],
         "images": [
           {
-            "thumb_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
-            "id": 10286,
-            "image_src": "/static/images/books/Hesse_Hermann_Matkaaamunmaahan_1p.jpg",
+            "thumb_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
+            "id": 10379,
+            "image_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
             "image_attr": null
           }
         ],
         "publisher": {
-          "id": 150,
-          "name": "Kirjayhtymä"
+          "id": 39,
+          "name": "Books on Demand"
         },
         "owners": [],
         "wishlisted": [],
         "binding": {
-          "id": 3,
-          "name": "Sidottu"
+          "id": 2,
+          "name": "Nidottu"
         },
-        "id": 10543,
-        "title": "Matka aamun maahan",
+        "id": 10622,
+        "title": "Saastamoinen ja maapallonpysähdys",
         "subtitle": "",
-        "pubyear": 1975,
-        "editionnum": 2,
+        "pubyear": 2015,
+        "editionnum": 1,
         "version": 1,
-        "isbn": "951-26-1064-7",
+        "isbn": "978-952-318-127-4",
         "printedin": null,
         "pubseriesnum": null,
         "coll_info": null,
-        "pages": 88,
-        "size": 21,
-        "dustcover": 3,
+        "pages": 324,
+        "size": 22,
+        "dustcover": 1,
         "coverimage": 1,
         "misc": null,
         "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 4671,
-          "title": "Painajainen",
-          "orig_title": "Something Wicked This Way Comes",
-          "author_str": "Bradbury, Ray",
-          "contributions": [
-            {
-              "person": {
-                "id": 2820,
-                "name": "Bradbury, Ray",
-                "alt_name": "Ray Bradbury"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": null,
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 2822,
-                  "name": "Roos, Jertta",
-                  "alt_name": "Jertta Roos"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 2822,
-                    "name": "Roos, Jertta",
-                    "alt_name": "Jertta Roos"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
-                  "id": 10285,
-                  "image_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 316,
-                "name": "Tajo"
-              },
-              "owners": [
-                {
-                  "id": 11,
-                  "name": "Kirjokerttu"
-                }
-              ],
-              "wishlisted": [],
-              "id": 10542,
-              "title": "Painajainen",
-              "subtitle": "",
-              "pubyear": 1964,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "",
-              "printedin": "Turku",
-              "pubseriesnum": 2,
-              "coll_info": "",
-              "pages": 333,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "",
-              "verified": false
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 2822,
-                  "name": "Roos, Jertta",
-                  "alt_name": "Jertta Roos"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 2822,
-                    "name": "Roos, Jertta",
-                    "alt_name": "Jertta Roos"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
-                  "id": 327,
-                  "image_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 316,
-                "name": "Tajo"
-              },
-              "owners": [
-                {
-                  "id": 2,
-                  "name": "mep"
-                }
-              ],
-              "wishlisted": [],
-              "id": 5351,
-              "title": "Painajainen",
-              "subtitle": "",
-              "pubyear": 1964,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "",
-              "printedin": "Turku",
-              "pubseriesnum": 2,
-              "coll_info": "",
-              "pages": 333,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "",
-              "imported_string": "",
-              "verified": true
-            },
-            {
-              "editors": [],
-              "translators": [
-                {
-                  "id": 2822,
-                  "name": "Roos, Jertta",
-                  "alt_name": "Jertta Roos"
-                }
-              ],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 5413,
-                    "name": "Mustanoja, Juha",
-                    "alt_name": "Juha Mustanoja"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "kannen suunnittelu",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 5412,
-                    "name": "Lappalainen, Sini",
-                    "alt_name": "Sini Lappalainen"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kuva",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 2822,
-                    "name": "Roos, Jertta",
-                    "alt_name": "Jertta Roos"
-                  },
-                  "role": {
-                    "id": 2,
-                    "name": "Kääntäjä"
-                  },
-                  "description": null,
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Bradbury_Ray_Pahasaapuuportintaa_2l1p.jpg",
-                  "id": 309,
-                  "image_src": "/static/images/books/Bradbury_Ray_Pahasaapuuportintaa_2l1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 215,
-                "name": "Nostromo"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 5352,
-              "title": "Paha saapuu portin taa",
-              "subtitle": "",
-              "pubyear": 1990,
-              "editionnum": 1,
-              "version": 2,
-              "isbn": "951-620-000-1",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": "",
-              "pages": 333,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": "Toisen laitoksen nimi on Matti Rossin suomennos teoksen alkukielisenä nimenä olevasta Macbethin säkeestä, jossa noidat aavistavat päähenkilön lähestymisen kuulemaan ennustusta.",
-              "imported_string": "2.laitos: <b>Paha saapuu portin taa</b>. Suom Jertta Roos. Nostromo 1990.",
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 1,
-              "name": "Fantasia",
-              "abbr": "F"
-            },
-            {
-              "id": 2,
-              "name": "Kauhu",
-              "abbr": "K"
-            }
-          ],
-          "bookseries": null,
-          "tags": [
-            {
-              "id": 608,
-              "name": "myytit",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            },
-            {
-              "id": 637,
-              "name": "hyvän ja pahan taistelu",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            },
-            {
-              "id": 1001,
-              "name": "lapsuus",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            },
-            {
-              "id": 1038,
-              "name": "pojat",
-              "type": {
-                "id": 4,
-                "name": "Toimija"
-              }
-            },
-            {
-              "id": 1135,
-              "name": "henkinen pahoinvointi",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            },
-            {
-              "id": 1136,
-              "name": "nostalgia",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            },
-            {
-              "id": 1137,
-              "name": "sirkukset",
-              "type": {
-                "id": 5,
-                "name": "Paikka"
-              }
-            },
-            {
-              "id": 2699,
-              "name": "hwa top40",
-              "type": {
-                "id": 1,
-                "name": "Aihe"
-              }
-            },
-            {
-              "id": 401,
-              "name": "elokuva",
-              "type": {
-                "id": 7,
-                "name": "Lista"
-              }
-            }
-          ],
-          "language_name": {
-            "id": 1,
-            "name": "englanti"
-          },
-          "type": 1,
-          "subtitle": "",
-          "pubyear": 1962,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "Horror Writer Association's Top 40 Horror Book of All Time. ",
-          "description": "<p>Amerikkalainen fantasia- ja tieteiskirjallisuuden mestari Ray Bradbury (s. 1920) on romaanissaan <em>Paha saapuu portin taa</em> lajityyppinsä ylittäen kuvannut ihmismielen horjumista pahan ja hyvän välillä. Intensiivisen suvereenisti Bradbury luo oman pelottavan maailmansa, joka palautuu jokaisessa ihmisessä uinuvaan epätoivoiseksi tuomittuun nostalgiapyrkimykseen; haluun elää maailmassa jota ei enää ole eikä koskaan ole ollutkaan olemassa.</p>",
-          "descr_attr": "Takakansi",
-          "imported_string": ""
-        },
-        "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 2822,
-              "name": "Roos, Jertta",
-              "alt_name": "Jertta Roos"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": null,
-            "real_person": null
-          }
-        ],
-        "images": [
-          {
-            "thumb_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
-            "id": 10285,
-            "image_src": "/static/images/books/Bradbury_Ray_Painajainen_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 316,
-          "name": "Tajo"
-        },
-        "owners": [
-          {
-            "id": 11,
-            "name": "Kirjokerttu"
-          }
-        ],
-        "wishlisted": [],
-        "binding": {
-          "id": 3,
-          "name": "Sidottu"
-        },
-        "id": 10542,
-        "title": "Painajainen",
-        "subtitle": "",
-        "pubyear": 1964,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "",
-        "printedin": "Turku",
-        "pubseriesnum": 2,
-        "coll_info": "",
-        "pages": 333,
-        "size": 21,
-        "dustcover": 1,
-        "coverimage": 1,
-        "misc": "",
-        "imported_string": "",
         "verified": false
       }
     ],

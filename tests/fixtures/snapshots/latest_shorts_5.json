@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/shorts/5",
@@ -13,18 +13,492 @@
       {
         "authors": [
           {
-            "id": 8082,
-            "name": "Genberg, Kjell E.",
-            "alt_name": "Kjell E. Genberg",
-            "fullname": "Kjell Erling Genberg",
+            "id": 7120,
+            "name": "Liikala, Milka",
+            "alt_name": "Milka Liikala",
+            "fullname": "",
             "image_src": null,
-            "dob": 1940,
+            "dob": null,
             "dod": null,
             "nationality": {
-              "id": 5,
-              "name": "Ruotsi"
+              "id": 4,
+              "name": "Suomi"
             },
             "workcount": 1,
+            "storycount": 5,
+            "roles": [
+              "Kirjoittaja"
+            ],
+            "other_names": "",
+            "first_name": null,
+            "last_name": null,
+            "image_attr": null,
+            "qid": null,
+            "bio": "",
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": {
+              "id": 7342,
+              "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+              "orig_title": "",
+              "author_str": "anonyymi (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 3329,
+                    "name": "anonyymi",
+                    "alt_name": "anonyymi"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
+                      },
+                      "description": "",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                      "id": 10382,
+                      "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 534,
+                    "name": "Taikasana"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10625,
+                  "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+                  "subtitle": "",
+                  "pubyear": 2026,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "978-952-88-2038-3",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 183,
+                  "size": 21,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2,
+              "subtitle": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
+              "descr_attr": "Taikasana",
+              "imported_string": null,
+              "kirjasampo_imported": null
+            },
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "id": 10382,
+                "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 534,
+              "name": "Taikasana"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 10625,
+            "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-88-2038-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 183,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 7120,
+              "name": "Liikala, Milka",
+              "alt_name": "Milka Liikala"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15799,
+        "title": "Valkoinen korppi",
+        "orig_title": "",
+        "pubyear": 2026,
+        "notes": ""
+      },
+      {
+        "authors": [
+          {
+            "id": 5296,
+            "name": "Aikioniemi, Tuula",
+            "alt_name": "Tuula Aikioniemi",
+            "fullname": "",
+            "image_src": null,
+            "dob": null,
+            "dod": null,
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 0,
+            "storycount": 6,
+            "roles": [
+              "Kirjoittaja"
+            ],
+            "other_names": null,
+            "first_name": "",
+            "last_name": "",
+            "image_attr": "",
+            "qid": null,
+            "bio": null,
+            "bio_src": "",
+            "imported_string": null
+          }
+        ],
+        "type": {
+          "id": 1,
+          "name": "Novelli"
+        },
+        "issues": [],
+        "editions": [
+          {
+            "work": {
+              "id": 7342,
+              "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+              "orig_title": "",
+              "author_str": "anonyymi (toim.)",
+              "contributions": [
+                {
+                  "person": {
+                    "id": 3329,
+                    "name": "anonyymi",
+                    "alt_name": "anonyymi"
+                  },
+                  "role": {
+                    "id": 3,
+                    "name": "Toimittaja"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "editions": [
+                {
+                  "editors": [],
+                  "translators": [],
+                  "contributions": [
+                    {
+                      "person": {
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
+                      },
+                      "role": {
+                        "id": 4,
+                        "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
+                      },
+                      "description": "",
+                      "real_person": null
+                    }
+                  ],
+                  "images": [
+                    {
+                      "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                      "id": 10382,
+                      "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                      "image_attr": null
+                    }
+                  ],
+                  "publisher": {
+                    "id": 534,
+                    "name": "Taikasana"
+                  },
+                  "owners": [],
+                  "wishlisted": [],
+                  "id": 10625,
+                  "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+                  "subtitle": "",
+                  "pubyear": 2026,
+                  "editionnum": 1,
+                  "version": 1,
+                  "isbn": "978-952-88-2038-3",
+                  "printedin": null,
+                  "pubseriesnum": null,
+                  "coll_info": null,
+                  "pages": 183,
+                  "size": 21,
+                  "dustcover": 1,
+                  "coverimage": 1,
+                  "misc": null,
+                  "imported_string": null,
+                  "verified": false
+                }
+              ],
+              "genres": [
+                {
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
+                }
+              ],
+              "bookseries": null,
+              "tags": [],
+              "language_name": {
+                "id": 7,
+                "name": "suomi"
+              },
+              "type": 2,
+              "subtitle": "",
+              "pubyear": 2026,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "",
+              "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
+              "descr_attr": "Taikasana",
+              "imported_string": null,
+              "kirjasampo_imported": null
+            },
+            "editors": [],
+            "contributions": [
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
+                },
+                "description": "",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "id": 10382,
+                "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 534,
+              "name": "Taikasana"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "binding": {
+              "id": 2,
+              "name": "Nidottu"
+            },
+            "id": 10625,
+            "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-88-2038-3",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 183,
+            "size": 21,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [],
+        "contributors": [
+          {
+            "person": {
+              "id": 5296,
+              "name": "Aikioniemi, Tuula",
+              "alt_name": "Tuula Aikioniemi"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "lang": {
+          "id": 7,
+          "name": "suomi"
+        },
+        "id": 15798,
+        "title": "Syvintä Mustaa",
+        "orig_title": "",
+        "pubyear": 2026,
+        "notes": ""
+      },
+      {
+        "authors": [
+          {
+            "id": 8148,
+            "name": "Halla, Helion",
+            "alt_name": "Helion Halla",
+            "fullname": "",
+            "image_src": null,
+            "dob": null,
+            "dod": null,
+            "nationality": {
+              "id": 4,
+              "name": "Suomi"
+            },
+            "workcount": 0,
             "storycount": 1,
             "roles": [
               "Kirjoittaja"
@@ -47,72 +521,20 @@
         "editions": [
           {
             "work": {
-              "id": 7269,
-              "title": "Keskiyön kummitusjuttuja",
+              "id": 7342,
+              "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
               "orig_title": "",
-              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
+              "author_str": "anonyymi (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 8078,
-                    "name": "Johansson, Ewa Christina",
-                    "alt_name": "Ewa Christina Johansson"
+                    "id": 3329,
+                    "name": "anonyymi",
+                    "alt_name": "anonyymi"
                   },
                   "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8079,
-                    "name": "Ambjörnsson, Gunila",
-                    "alt_name": "Gunila Ambjörnsson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8080,
-                    "name": "Norlin, Arne",
-                    "alt_name": "Arne Norlin"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8081,
-                    "name": "Persson, Åke",
-                    "alt_name": "Åke Persson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8082,
-                    "name": "Genberg, Kjell E.",
-                    "alt_name": "Kjell E. Genberg"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
+                    "id": 3,
+                    "name": "Toimittaja"
                   },
                   "description": "",
                   "real_person": null
@@ -121,54 +543,30 @@
               "editions": [
                 {
                   "editors": [],
-                  "translators": [
-                    {
-                      "id": 195,
-                      "name": "Kolehmainen, Annukka",
-                      "alt_name": "Annukka Kolehmainen"
-                    },
-                    {
-                      "id": 8077,
-                      "name": "Antikainen, Hanna",
-                      "alt_name": "Hanna Antikainen"
-                    }
-                  ],
+                  "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 8077,
-                        "name": "Antikainen, Hanna",
-                        "alt_name": "Hanna Antikainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 195,
-                        "name": "Kolehmainen, Annukka",
-                        "alt_name": "Annukka Kolehmainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 8083,
-                        "name": "Holländer, Milja",
-                        "alt_name": "Milja Holländer"
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
                       },
                       "role": {
                         "id": 4,
                         "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
                       },
                       "description": "",
                       "real_person": null
@@ -176,30 +574,30 @@
                   ],
                   "images": [
                     {
-                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                      "id": 10270,
-                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                      "id": 10382,
+                      "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 528,
-                    "name": "Kolibri"
+                    "id": 534,
+                    "name": "Taikasana"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 10533,
-                  "title": "Keskiyön kummitusjuttuja",
+                  "id": 10625,
+                  "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
                   "subtitle": "",
-                  "pubyear": 2003,
+                  "pubyear": 2026,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "952-16-0586-3",
+                  "isbn": "978-952-88-2038-3",
                   "printedin": null,
                   "pubseriesnum": null,
                   "coll_info": null,
-                  "pages": 127,
-                  "size": 18,
+                  "pages": 183,
+                  "size": 21,
                   "dustcover": 1,
                   "coverimage": 1,
                   "misc": null,
@@ -209,73 +607,52 @@
               ],
               "genres": [
                 {
-                  "id": 10,
-                  "name": "Nuorten kauhu",
-                  "abbr": "nK"
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 }
               ],
               "bookseries": null,
-              "tags": [
-                {
-                  "id": 703,
-                  "name": "kummitukset",
-                  "type": {
-                    "id": 4,
-                    "name": "Toimija"
-                  }
-                }
-              ],
+              "tags": [],
               "language_name": {
-                "id": 19,
-                "name": "ruotsi"
+                "id": 7,
+                "name": "suomi"
               },
               "type": 2,
               "subtitle": "",
-              "pubyear": 2003,
+              "pubyear": 2026,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": null
+              "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
+              "descr_attr": "Taikasana",
+              "imported_string": null,
+              "kirjasampo_imported": null
             },
             "editors": [],
             "contributions": [
               {
                 "person": {
-                  "id": 8077,
-                  "name": "Antikainen, Hanna",
-                  "alt_name": "Hanna Antikainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 195,
-                  "name": "Kolehmainen, Annukka",
-                  "alt_name": "Annukka Kolehmainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 8083,
-                  "name": "Holländer, Milja",
-                  "alt_name": "Milja Holländer"
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
                 },
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -283,15 +660,15 @@
             ],
             "images": [
               {
-                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                "id": 10270,
-                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "id": 10382,
+                "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 528,
-              "name": "Kolibri"
+              "id": 534,
+              "name": "Taikasana"
             },
             "owners": [],
             "wishlisted": [],
@@ -299,18 +676,18 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 10533,
-            "title": "Keskiyön kummitusjuttuja",
+            "id": 10625,
+            "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
             "subtitle": "",
-            "pubyear": 2003,
+            "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "952-16-0586-3",
+            "isbn": "978-952-88-2038-3",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 127,
-            "size": 18,
+            "pages": 183,
+            "size": 21,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
@@ -322,9 +699,9 @@
         "contributors": [
           {
             "person": {
-              "id": 8082,
-              "name": "Genberg, Kjell E.",
-              "alt_name": "Kjell E. Genberg"
+              "id": 8148,
+              "name": "Halla, Helion",
+              "alt_name": "Helion Halla"
             },
             "role": {
               "id": 1,
@@ -332,419 +709,33 @@
             },
             "description": "",
             "real_person": null
-          },
-          {
-            "person": {
-              "id": 8077,
-              "name": "Antikainen, Hanna",
-              "alt_name": "Hanna Antikainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 195,
-              "name": "Kolehmainen, Annukka",
-              "alt_name": "Annukka Kolehmainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
           }
         ],
         "lang": {
-          "id": 19,
-          "name": "ruotsi"
+          "id": 7,
+          "name": "suomi"
         },
-        "id": 15758,
-        "title": "Hiljainen tyttö",
-        "orig_title": "Tysta flickan",
-        "pubyear": 2000,
+        "id": 15797,
+        "title": "Kutojan kruunu",
+        "orig_title": "",
+        "pubyear": 2026,
         "notes": ""
       },
       {
         "authors": [
           {
-            "id": 8078,
-            "name": "Johansson, Ewa Christina",
-            "alt_name": "Ewa Christina Johansson",
+            "id": 8147,
+            "name": "Usvasilta, Serafia",
+            "alt_name": "Serafia Usvasilta",
             "fullname": "",
             "image_src": null,
-            "dob": 1964,
+            "dob": null,
             "dod": null,
             "nationality": {
-              "id": 5,
-              "name": "Ruotsi"
+              "id": 4,
+              "name": "Suomi"
             },
-            "workcount": 1,
-            "storycount": 4,
-            "roles": [
-              "Kirjoittaja"
-            ],
-            "other_names": "",
-            "first_name": null,
-            "last_name": null,
-            "image_attr": null,
-            "qid": "",
-            "bio": "",
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 1,
-          "name": "Novelli"
-        },
-        "issues": [],
-        "editions": [
-          {
-            "work": {
-              "id": 7269,
-              "title": "Keskiyön kummitusjuttuja",
-              "orig_title": "",
-              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
-              "contributions": [
-                {
-                  "person": {
-                    "id": 8078,
-                    "name": "Johansson, Ewa Christina",
-                    "alt_name": "Ewa Christina Johansson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8079,
-                    "name": "Ambjörnsson, Gunila",
-                    "alt_name": "Gunila Ambjörnsson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8080,
-                    "name": "Norlin, Arne",
-                    "alt_name": "Arne Norlin"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8081,
-                    "name": "Persson, Åke",
-                    "alt_name": "Åke Persson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8082,
-                    "name": "Genberg, Kjell E.",
-                    "alt_name": "Kjell E. Genberg"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                }
-              ],
-              "editions": [
-                {
-                  "editors": [],
-                  "translators": [
-                    {
-                      "id": 195,
-                      "name": "Kolehmainen, Annukka",
-                      "alt_name": "Annukka Kolehmainen"
-                    },
-                    {
-                      "id": 8077,
-                      "name": "Antikainen, Hanna",
-                      "alt_name": "Hanna Antikainen"
-                    }
-                  ],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 8077,
-                        "name": "Antikainen, Hanna",
-                        "alt_name": "Hanna Antikainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 195,
-                        "name": "Kolehmainen, Annukka",
-                        "alt_name": "Annukka Kolehmainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 8083,
-                        "name": "Holländer, Milja",
-                        "alt_name": "Milja Holländer"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "",
-                      "real_person": null
-                    }
-                  ],
-                  "images": [
-                    {
-                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                      "id": 10270,
-                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                      "image_attr": null
-                    }
-                  ],
-                  "publisher": {
-                    "id": 528,
-                    "name": "Kolibri"
-                  },
-                  "owners": [],
-                  "wishlisted": [],
-                  "id": 10533,
-                  "title": "Keskiyön kummitusjuttuja",
-                  "subtitle": "",
-                  "pubyear": 2003,
-                  "editionnum": 1,
-                  "version": 1,
-                  "isbn": "952-16-0586-3",
-                  "printedin": null,
-                  "pubseriesnum": null,
-                  "coll_info": null,
-                  "pages": 127,
-                  "size": 18,
-                  "dustcover": 1,
-                  "coverimage": 1,
-                  "misc": null,
-                  "imported_string": null,
-                  "verified": false
-                }
-              ],
-              "genres": [
-                {
-                  "id": 10,
-                  "name": "Nuorten kauhu",
-                  "abbr": "nK"
-                }
-              ],
-              "bookseries": null,
-              "tags": [
-                {
-                  "id": 703,
-                  "name": "kummitukset",
-                  "type": {
-                    "id": 4,
-                    "name": "Toimija"
-                  }
-                }
-              ],
-              "language_name": {
-                "id": 19,
-                "name": "ruotsi"
-              },
-              "type": 2,
-              "subtitle": "",
-              "pubyear": 2003,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": null
-            },
-            "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 8077,
-                  "name": "Antikainen, Hanna",
-                  "alt_name": "Hanna Antikainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 195,
-                  "name": "Kolehmainen, Annukka",
-                  "alt_name": "Annukka Kolehmainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 8083,
-                  "name": "Holländer, Milja",
-                  "alt_name": "Milja Holländer"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                "id": 10270,
-                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 528,
-              "name": "Kolibri"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 2,
-              "name": "Nidottu"
-            },
-            "id": 10533,
-            "title": "Keskiyön kummitusjuttuja",
-            "subtitle": "",
-            "pubyear": 2003,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "952-16-0586-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 127,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 8078,
-              "name": "Johansson, Ewa Christina",
-              "alt_name": "Ewa Christina Johansson"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 8077,
-              "name": "Antikainen, Hanna",
-              "alt_name": "Hanna Antikainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 195,
-              "name": "Kolehmainen, Annukka",
-              "alt_name": "Annukka Kolehmainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 19,
-          "name": "ruotsi"
-        },
-        "id": 15757,
-        "title": "Vahanukke",
-        "orig_title": "",
-        "pubyear": null,
-        "notes": ""
-      },
-      {
-        "authors": [
-          {
-            "id": 8079,
-            "name": "Ambjörnsson, Gunila",
-            "alt_name": "Gunila Ambjörnsson",
-            "fullname": "",
-            "image_src": null,
-            "dob": 1938,
-            "dod": 2013,
-            "nationality": {
-              "id": 5,
-              "name": "Ruotsi"
-            },
-            "workcount": 1,
+            "workcount": 0,
             "storycount": 2,
             "roles": [
               "Kirjoittaja"
@@ -767,72 +758,20 @@
         "editions": [
           {
             "work": {
-              "id": 7269,
-              "title": "Keskiyön kummitusjuttuja",
+              "id": 7342,
+              "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
               "orig_title": "",
-              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
+              "author_str": "anonyymi (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 8078,
-                    "name": "Johansson, Ewa Christina",
-                    "alt_name": "Ewa Christina Johansson"
+                    "id": 3329,
+                    "name": "anonyymi",
+                    "alt_name": "anonyymi"
                   },
                   "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8079,
-                    "name": "Ambjörnsson, Gunila",
-                    "alt_name": "Gunila Ambjörnsson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8080,
-                    "name": "Norlin, Arne",
-                    "alt_name": "Arne Norlin"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8081,
-                    "name": "Persson, Åke",
-                    "alt_name": "Åke Persson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8082,
-                    "name": "Genberg, Kjell E.",
-                    "alt_name": "Kjell E. Genberg"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
+                    "id": 3,
+                    "name": "Toimittaja"
                   },
                   "description": "",
                   "real_person": null
@@ -841,54 +780,30 @@
               "editions": [
                 {
                   "editors": [],
-                  "translators": [
-                    {
-                      "id": 195,
-                      "name": "Kolehmainen, Annukka",
-                      "alt_name": "Annukka Kolehmainen"
-                    },
-                    {
-                      "id": 8077,
-                      "name": "Antikainen, Hanna",
-                      "alt_name": "Hanna Antikainen"
-                    }
-                  ],
+                  "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 8077,
-                        "name": "Antikainen, Hanna",
-                        "alt_name": "Hanna Antikainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 195,
-                        "name": "Kolehmainen, Annukka",
-                        "alt_name": "Annukka Kolehmainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 8083,
-                        "name": "Holländer, Milja",
-                        "alt_name": "Milja Holländer"
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
                       },
                       "role": {
                         "id": 4,
                         "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
                       },
                       "description": "",
                       "real_person": null
@@ -896,30 +811,30 @@
                   ],
                   "images": [
                     {
-                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                      "id": 10270,
-                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                      "id": 10382,
+                      "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 528,
-                    "name": "Kolibri"
+                    "id": 534,
+                    "name": "Taikasana"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 10533,
-                  "title": "Keskiyön kummitusjuttuja",
+                  "id": 10625,
+                  "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
                   "subtitle": "",
-                  "pubyear": 2003,
+                  "pubyear": 2026,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "952-16-0586-3",
+                  "isbn": "978-952-88-2038-3",
                   "printedin": null,
                   "pubseriesnum": null,
                   "coll_info": null,
-                  "pages": 127,
-                  "size": 18,
+                  "pages": 183,
+                  "size": 21,
                   "dustcover": 1,
                   "coverimage": 1,
                   "misc": null,
@@ -929,73 +844,52 @@
               ],
               "genres": [
                 {
-                  "id": 10,
-                  "name": "Nuorten kauhu",
-                  "abbr": "nK"
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 }
               ],
               "bookseries": null,
-              "tags": [
-                {
-                  "id": 703,
-                  "name": "kummitukset",
-                  "type": {
-                    "id": 4,
-                    "name": "Toimija"
-                  }
-                }
-              ],
+              "tags": [],
               "language_name": {
-                "id": 19,
-                "name": "ruotsi"
+                "id": 7,
+                "name": "suomi"
               },
               "type": 2,
               "subtitle": "",
-              "pubyear": 2003,
+              "pubyear": 2026,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": null
+              "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
+              "descr_attr": "Taikasana",
+              "imported_string": null,
+              "kirjasampo_imported": null
             },
             "editors": [],
             "contributions": [
               {
                 "person": {
-                  "id": 8077,
-                  "name": "Antikainen, Hanna",
-                  "alt_name": "Hanna Antikainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 195,
-                  "name": "Kolehmainen, Annukka",
-                  "alt_name": "Annukka Kolehmainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 8083,
-                  "name": "Holländer, Milja",
-                  "alt_name": "Milja Holländer"
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
                 },
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -1003,15 +897,15 @@
             ],
             "images": [
               {
-                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                "id": 10270,
-                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "id": 10382,
+                "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 528,
-              "name": "Kolibri"
+              "id": 534,
+              "name": "Taikasana"
             },
             "owners": [],
             "wishlisted": [],
@@ -1019,18 +913,18 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 10533,
-            "title": "Keskiyön kummitusjuttuja",
+            "id": 10625,
+            "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
             "subtitle": "",
-            "pubyear": 2003,
+            "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "952-16-0586-3",
+            "isbn": "978-952-88-2038-3",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 127,
-            "size": 18,
+            "pages": 183,
+            "size": 21,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
@@ -1042,9 +936,9 @@
         "contributors": [
           {
             "person": {
-              "id": 8079,
-              "name": "Ambjörnsson, Gunila",
-              "alt_name": "Gunila Ambjörnsson"
+              "id": 8147,
+              "name": "Usvasilta, Serafia",
+              "alt_name": "Serafia Usvasilta"
             },
             "role": {
               "id": 1,
@@ -1052,69 +946,44 @@
             },
             "description": "",
             "real_person": null
-          },
-          {
-            "person": {
-              "id": 8077,
-              "name": "Antikainen, Hanna",
-              "alt_name": "Hanna Antikainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 195,
-              "name": "Kolehmainen, Annukka",
-              "alt_name": "Annukka Kolehmainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
           }
         ],
         "lang": {
-          "id": 19,
-          "name": "ruotsi"
+          "id": 7,
+          "name": "suomi"
         },
-        "id": 15756,
-        "title": "Itkevä kissa",
+        "id": 15796,
+        "title": "Pahanilmanlintu",
         "orig_title": "",
-        "pubyear": null,
+        "pubyear": 2026,
         "notes": ""
       },
       {
         "authors": [
           {
-            "id": 8081,
-            "name": "Persson, Åke",
-            "alt_name": "Åke Persson",
+            "id": 5629,
+            "name": "Norontaus, Pau",
+            "alt_name": "Pau Norontaus",
             "fullname": "",
             "image_src": null,
-            "dob": 1962,
+            "dob": 1988,
             "dod": null,
             "nationality": {
-              "id": 5,
-              "name": "Ruotsi"
+              "id": 4,
+              "name": "Suomi"
             },
-            "workcount": 1,
-            "storycount": 1,
+            "workcount": 0,
+            "storycount": 2,
             "roles": [
-              "Kirjoittaja"
+              "Kirjoittaja",
+              "Kansikuva"
             ],
-            "other_names": "",
-            "first_name": null,
-            "last_name": null,
-            "image_attr": null,
+            "other_names": null,
+            "first_name": "",
+            "last_name": "",
+            "image_attr": "",
             "qid": null,
-            "bio": "",
+            "bio": null,
             "bio_src": "",
             "imported_string": null
           }
@@ -1127,72 +996,20 @@
         "editions": [
           {
             "work": {
-              "id": 7269,
-              "title": "Keskiyön kummitusjuttuja",
+              "id": 7342,
+              "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
               "orig_title": "",
-              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
+              "author_str": "anonyymi (toim.)",
               "contributions": [
                 {
                   "person": {
-                    "id": 8078,
-                    "name": "Johansson, Ewa Christina",
-                    "alt_name": "Ewa Christina Johansson"
+                    "id": 3329,
+                    "name": "anonyymi",
+                    "alt_name": "anonyymi"
                   },
                   "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8079,
-                    "name": "Ambjörnsson, Gunila",
-                    "alt_name": "Gunila Ambjörnsson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8080,
-                    "name": "Norlin, Arne",
-                    "alt_name": "Arne Norlin"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8081,
-                    "name": "Persson, Åke",
-                    "alt_name": "Åke Persson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8082,
-                    "name": "Genberg, Kjell E.",
-                    "alt_name": "Kjell E. Genberg"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
+                    "id": 3,
+                    "name": "Toimittaja"
                   },
                   "description": "",
                   "real_person": null
@@ -1201,54 +1018,30 @@
               "editions": [
                 {
                   "editors": [],
-                  "translators": [
-                    {
-                      "id": 195,
-                      "name": "Kolehmainen, Annukka",
-                      "alt_name": "Annukka Kolehmainen"
-                    },
-                    {
-                      "id": 8077,
-                      "name": "Antikainen, Hanna",
-                      "alt_name": "Hanna Antikainen"
-                    }
-                  ],
+                  "translators": [],
                   "contributions": [
                     {
                       "person": {
-                        "id": 8077,
-                        "name": "Antikainen, Hanna",
-                        "alt_name": "Hanna Antikainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 195,
-                        "name": "Kolehmainen, Annukka",
-                        "alt_name": "Annukka Kolehmainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 8083,
-                        "name": "Holländer, Milja",
-                        "alt_name": "Milja Holländer"
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
                       },
                       "role": {
                         "id": 4,
                         "name": "Kansikuva"
+                      },
+                      "description": "Kansi",
+                      "real_person": null
+                    },
+                    {
+                      "person": {
+                        "id": 7199,
+                        "name": "Berghäll, Ruska J. J.",
+                        "alt_name": "Ruska J. J. Berghäll"
+                      },
+                      "role": {
+                        "id": 5,
+                        "name": "Kuvittaja"
                       },
                       "description": "",
                       "real_person": null
@@ -1256,30 +1049,30 @@
                   ],
                   "images": [
                     {
-                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                      "id": 10270,
-                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                      "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                      "id": 10382,
+                      "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
                       "image_attr": null
                     }
                   ],
                   "publisher": {
-                    "id": 528,
-                    "name": "Kolibri"
+                    "id": 534,
+                    "name": "Taikasana"
                   },
                   "owners": [],
                   "wishlisted": [],
-                  "id": 10533,
-                  "title": "Keskiyön kummitusjuttuja",
+                  "id": 10625,
+                  "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
                   "subtitle": "",
-                  "pubyear": 2003,
+                  "pubyear": 2026,
                   "editionnum": 1,
                   "version": 1,
-                  "isbn": "952-16-0586-3",
+                  "isbn": "978-952-88-2038-3",
                   "printedin": null,
                   "pubseriesnum": null,
                   "coll_info": null,
-                  "pages": 127,
-                  "size": 18,
+                  "pages": 183,
+                  "size": 21,
                   "dustcover": 1,
                   "coverimage": 1,
                   "misc": null,
@@ -1289,73 +1082,52 @@
               ],
               "genres": [
                 {
-                  "id": 10,
-                  "name": "Nuorten kauhu",
-                  "abbr": "nK"
+                  "id": 1,
+                  "name": "Fantasia",
+                  "abbr": "F"
                 }
               ],
               "bookseries": null,
-              "tags": [
-                {
-                  "id": 703,
-                  "name": "kummitukset",
-                  "type": {
-                    "id": 4,
-                    "name": "Toimija"
-                  }
-                }
-              ],
+              "tags": [],
               "language_name": {
-                "id": 19,
-                "name": "ruotsi"
+                "id": 7,
+                "name": "suomi"
               },
               "type": 2,
               "subtitle": "",
-              "pubyear": 2003,
+              "pubyear": 2026,
               "bookseriesnum": "",
               "bookseriesorder": null,
               "misc": "",
-              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": null
+              "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
+              "descr_attr": "Taikasana",
+              "imported_string": null,
+              "kirjasampo_imported": null
             },
             "editors": [],
             "contributions": [
               {
                 "person": {
-                  "id": 8077,
-                  "name": "Antikainen, Hanna",
-                  "alt_name": "Hanna Antikainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 195,
-                  "name": "Kolehmainen, Annukka",
-                  "alt_name": "Annukka Kolehmainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 8083,
-                  "name": "Holländer, Milja",
-                  "alt_name": "Milja Holländer"
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
                 },
                 "role": {
                   "id": 4,
                   "name": "Kansikuva"
+                },
+                "description": "Kansi",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7199,
+                  "name": "Berghäll, Ruska J. J.",
+                  "alt_name": "Ruska J. J. Berghäll"
+                },
+                "role": {
+                  "id": 5,
+                  "name": "Kuvittaja"
                 },
                 "description": "",
                 "real_person": null
@@ -1363,15 +1135,15 @@
             ],
             "images": [
               {
-                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                "id": 10270,
-                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
+                "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "id": 10382,
+                "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 528,
-              "name": "Kolibri"
+              "id": 534,
+              "name": "Taikasana"
             },
             "owners": [],
             "wishlisted": [],
@@ -1379,18 +1151,18 @@
               "id": 2,
               "name": "Nidottu"
             },
-            "id": 10533,
-            "title": "Keskiyön kummitusjuttuja",
+            "id": 10625,
+            "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
             "subtitle": "",
-            "pubyear": 2003,
+            "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "952-16-0586-3",
+            "isbn": "978-952-88-2038-3",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 127,
-            "size": 18,
+            "pages": 183,
+            "size": 21,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
@@ -1402,9 +1174,9 @@
         "contributors": [
           {
             "person": {
-              "id": 8081,
-              "name": "Persson, Åke",
-              "alt_name": "Åke Persson"
+              "id": 5629,
+              "name": "Norontaus, Pau",
+              "alt_name": "Pau Norontaus"
             },
             "role": {
               "id": 1,
@@ -1412,402 +1184,16 @@
             },
             "description": "",
             "real_person": null
-          },
-          {
-            "person": {
-              "id": 8077,
-              "name": "Antikainen, Hanna",
-              "alt_name": "Hanna Antikainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 195,
-              "name": "Kolehmainen, Annukka",
-              "alt_name": "Annukka Kolehmainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
           }
         ],
         "lang": {
-          "id": 19,
-          "name": "ruotsi"
+          "id": 7,
+          "name": "suomi"
         },
-        "id": 15755,
-        "title": "Kuolleiden tunturi",
+        "id": 15795,
+        "title": "Rihmasto",
         "orig_title": "",
-        "pubyear": null,
-        "notes": ""
-      },
-      {
-        "authors": [
-          {
-            "id": 8078,
-            "name": "Johansson, Ewa Christina",
-            "alt_name": "Ewa Christina Johansson",
-            "fullname": "",
-            "image_src": null,
-            "dob": 1964,
-            "dod": null,
-            "nationality": {
-              "id": 5,
-              "name": "Ruotsi"
-            },
-            "workcount": 1,
-            "storycount": 4,
-            "roles": [
-              "Kirjoittaja"
-            ],
-            "other_names": "",
-            "first_name": null,
-            "last_name": null,
-            "image_attr": null,
-            "qid": "",
-            "bio": "",
-            "bio_src": "",
-            "imported_string": null
-          }
-        ],
-        "type": {
-          "id": 1,
-          "name": "Novelli"
-        },
-        "issues": [],
-        "editions": [
-          {
-            "work": {
-              "id": 7269,
-              "title": "Keskiyön kummitusjuttuja",
-              "orig_title": "",
-              "author_str": "Johansson, Ewa Christina & Ambjörnsson, Gunila & Norlin, Arne & Persson, Åke & Genberg, Kjell E.",
-              "contributions": [
-                {
-                  "person": {
-                    "id": 8078,
-                    "name": "Johansson, Ewa Christina",
-                    "alt_name": "Ewa Christina Johansson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8079,
-                    "name": "Ambjörnsson, Gunila",
-                    "alt_name": "Gunila Ambjörnsson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8080,
-                    "name": "Norlin, Arne",
-                    "alt_name": "Arne Norlin"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8081,
-                    "name": "Persson, Åke",
-                    "alt_name": "Åke Persson"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 8082,
-                    "name": "Genberg, Kjell E.",
-                    "alt_name": "Kjell E. Genberg"
-                  },
-                  "role": {
-                    "id": 1,
-                    "name": "Kirjoittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                }
-              ],
-              "editions": [
-                {
-                  "editors": [],
-                  "translators": [
-                    {
-                      "id": 195,
-                      "name": "Kolehmainen, Annukka",
-                      "alt_name": "Annukka Kolehmainen"
-                    },
-                    {
-                      "id": 8077,
-                      "name": "Antikainen, Hanna",
-                      "alt_name": "Hanna Antikainen"
-                    }
-                  ],
-                  "contributions": [
-                    {
-                      "person": {
-                        "id": 8077,
-                        "name": "Antikainen, Hanna",
-                        "alt_name": "Hanna Antikainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 195,
-                        "name": "Kolehmainen, Annukka",
-                        "alt_name": "Annukka Kolehmainen"
-                      },
-                      "role": {
-                        "id": 2,
-                        "name": "Kääntäjä"
-                      },
-                      "description": "",
-                      "real_person": null
-                    },
-                    {
-                      "person": {
-                        "id": 8083,
-                        "name": "Holländer, Milja",
-                        "alt_name": "Milja Holländer"
-                      },
-                      "role": {
-                        "id": 4,
-                        "name": "Kansikuva"
-                      },
-                      "description": "",
-                      "real_person": null
-                    }
-                  ],
-                  "images": [
-                    {
-                      "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                      "id": 10270,
-                      "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                      "image_attr": null
-                    }
-                  ],
-                  "publisher": {
-                    "id": 528,
-                    "name": "Kolibri"
-                  },
-                  "owners": [],
-                  "wishlisted": [],
-                  "id": 10533,
-                  "title": "Keskiyön kummitusjuttuja",
-                  "subtitle": "",
-                  "pubyear": 2003,
-                  "editionnum": 1,
-                  "version": 1,
-                  "isbn": "952-16-0586-3",
-                  "printedin": null,
-                  "pubseriesnum": null,
-                  "coll_info": null,
-                  "pages": 127,
-                  "size": 18,
-                  "dustcover": 1,
-                  "coverimage": 1,
-                  "misc": null,
-                  "imported_string": null,
-                  "verified": false
-                }
-              ],
-              "genres": [
-                {
-                  "id": 10,
-                  "name": "Nuorten kauhu",
-                  "abbr": "nK"
-                }
-              ],
-              "bookseries": null,
-              "tags": [
-                {
-                  "id": 703,
-                  "name": "kummitukset",
-                  "type": {
-                    "id": 4,
-                    "name": "Toimija"
-                  }
-                }
-              ],
-              "language_name": {
-                "id": 19,
-                "name": "ruotsi"
-              },
-              "type": 2,
-              "subtitle": "",
-              "pubyear": 2003,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "",
-              "description": "<p><strong>Hurjia kummitusjuttuja koululaisille!</strong></p><p>Näiden hyytävien kummitusjuttujen maailma vie mukaansa: ullakon pöly yskittää henkitorvessa, vastatuuli tuntuu luissa ja ytimissä, narinat ja huokaukset karmivat taatusti lukijan selkäpiitä.</p><p>Nämä helppolukuiset maineikkaiden ruotsalaiskertojien tarinat ovat ennen suomentamattomia. Jos haluat pelätä sopivasti ja vatsanpohjaa kutkuttavasti, kädessäsi on juuri oikea kirja. Tämä opus on oiva eväs nuotioretkille tai yökylään kaverin luo.</p><p>Sopii siis myös heikkohermoisille!</p><p>Sinäkö et tosiaankaan usko kummituksiin? Lue nämä tarinat ja mieti asiaa vielä uudelleen...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": null
-            },
-            "editors": [],
-            "contributions": [
-              {
-                "person": {
-                  "id": 8077,
-                  "name": "Antikainen, Hanna",
-                  "alt_name": "Hanna Antikainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 195,
-                  "name": "Kolehmainen, Annukka",
-                  "alt_name": "Annukka Kolehmainen"
-                },
-                "role": {
-                  "id": 2,
-                  "name": "Kääntäjä"
-                },
-                "description": "",
-                "real_person": null
-              },
-              {
-                "person": {
-                  "id": 8083,
-                  "name": "Holländer, Milja",
-                  "alt_name": "Milja Holländer"
-                },
-                "role": {
-                  "id": 4,
-                  "name": "Kansikuva"
-                },
-                "description": "",
-                "real_person": null
-              }
-            ],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                "id": 10270,
-                "image_src": "/static/images/books/Johansson_Ewa_Christina_Keskiyonkummitusjuttuja_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 528,
-              "name": "Kolibri"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "binding": {
-              "id": 2,
-              "name": "Nidottu"
-            },
-            "id": 10533,
-            "title": "Keskiyön kummitusjuttuja",
-            "subtitle": "",
-            "pubyear": 2003,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "952-16-0586-3",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 127,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [],
-        "contributors": [
-          {
-            "person": {
-              "id": 8078,
-              "name": "Johansson, Ewa Christina",
-              "alt_name": "Ewa Christina Johansson"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 8077,
-              "name": "Antikainen, Hanna",
-              "alt_name": "Hanna Antikainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 195,
-              "name": "Kolehmainen, Annukka",
-              "alt_name": "Annukka Kolehmainen"
-            },
-            "role": {
-              "id": 2,
-              "name": "Kääntäjä"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "lang": {
-          "id": 19,
-          "name": "ruotsi"
-        },
-        "id": 15754,
-        "title": "Magian käsikirja",
-        "orig_title": "",
-        "pubyear": null,
+        "pubyear": 2026,
         "notes": ""
       }
     ],

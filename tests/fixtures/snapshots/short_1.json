@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/1",
@@ -212,7 +212,8 @@
           "misc": "",
           "description": "<p>Tieteiskirjallisuuden Grand Old Masterin Isaac Asimovin kuukausittain ilmestyvän nimikkolehden parhaista novelleista koottu valikoima. Mukana ovat Asimovin itsensä lisäksi Walter J. Williams, lan Watson, Gregory Feeley, Pat Murphy ja Julius Shepard, jonka tässä kirjassa julkaistava tarina \"R&R\" voitti vuoden 1986 Nebula-palkinnon pienoisromaanien sarjassa. Kaikki novellit ovat ennen suomentamattomia.</p>",
           "descr_attr": "Takakansi",
-          "imported_string": ""
+          "imported_string": "",
+          "kirjasampo_imported": null
         }
       ],
       "editions": [
@@ -358,7 +359,8 @@
             "misc": "",
             "description": "<p>Tieteiskirjallisuuden Grand Old Masterin Isaac Asimovin kuukausittain ilmestyvän nimikkolehden parhaista novelleista koottu valikoima. Mukana ovat Asimovin itsensä lisäksi Walter J. Williams, lan Watson, Gregory Feeley, Pat Murphy ja Julius Shepard, jonka tässä kirjassa julkaistava tarina \"R&R\" voitti vuoden 1986 Nebula-palkinnon pienoisromaanien sarjassa. Kaikki novellit ovat ennen suomentamattomia.</p>",
             "descr_attr": "Takakansi",
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [
             {
@@ -701,7 +703,8 @@
                   "misc": "",
                   "description": "<p>Tieteiskirjallisuuden Grand Old Masterin Isaac Asimovin kuukausittain ilmestyvän nimikkolehden parhaista novelleista koottu valikoima. Mukana ovat Asimovin itsensä lisäksi Walter J. Williams, lan Watson, Gregory Feeley, Pat Murphy ja Julius Shepard, jonka tässä kirjassa julkaistava tarina \"R&R\" voitti vuoden 1986 Nebula-palkinnon pienoisromaanien sarjassa. Kaikki novellit ovat ennen suomentamattomia.</p>",
                   "descr_attr": "Takakansi",
-                  "imported_string": ""
+                  "imported_string": "",
+                  "kirjasampo_imported": null
                 },
                 "editors": [
                   {

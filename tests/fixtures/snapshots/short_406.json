@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/shorts/406",
@@ -273,7 +273,8 @@
           "misc": "",
           "description": "",
           "descr_attr": null,
-          "imported_string": ""
+          "imported_string": "",
+          "kirjasampo_imported": null
         },
         {
           "id": 2261,
@@ -753,7 +754,8 @@
           "misc": "Osa novelleista ilmestynyt aikaisemmin teoksessa \"Kultakuoriainen\", WSOY 1927",
           "description": "<p>KORPPI-SARJA on uusi kirjavalikoima, jossa julkaistaan nykyajan edustavinta thriller-kirjallisuutta. Sarjan ensimmäinen tekijännimi on kuitenkin Edgar Allan Poe (1809-49), klassikko ja alan voittamaton mestari. Korppi ja kultakuoriainen sisältää Poen kuuluisan <em>Korppi</em>-runon uutena suomennoksena, kertomusvalikoiman »<em>Kultakuoriainen</em>» ja joukon muita kertomuksia. Niissä tämä ihmeen, arvoituksen ja mysteerin runoilija »<em>esittää pettämättömällä taidolla kauhua, epätoivoa, kuumehoureisia näkyjä ja mielentiloja koko sitä fantastista maailmaa, jonka kiihottuneet, sairaat aivot voivat keksiä ja joka Poella muodostaa eräänlaisen symbolisen peilikuvan todellisuudesta</em>», kuten V. A. Koskenniemi sanoo teokseen kirjoittamassaan esipuheessa.</p><p>Tämän kirjasarjan tunnus, Poen korppi, on velvoittava. Siksi sarjassa julkaistaankin vain nykyajan thriller-kirjallisuuden parhaita teoksia. Sarjan teoksille on ominaista, paitsi niiden kirjallista arvoa, se seikka, että ne vetoavat lukijoihinsa luomalla ahdistuksen, pelon ja kauhun tunnelman. Nämä thrillerit kertovat ihmisistä, jotka tavalla tai toisella ovat joutuneet skorpin mustaan varjoon». - Sarjan toimittajana on varatuomari Eero Ahmavaara.</p>",
           "descr_attr": "Takakansi",
-          "imported_string": ""
+          "imported_string": "",
+          "kirjasampo_imported": null
         },
         {
           "id": 2262,
@@ -886,7 +888,8 @@
           "misc": "",
           "description": "",
           "descr_attr": null,
-          "imported_string": ""
+          "imported_string": "",
+          "kirjasampo_imported": null
         },
         {
           "id": 2263,
@@ -1290,7 +1293,8 @@
           "misc": "",
           "description": null,
           "descr_attr": null,
-          "imported_string": ""
+          "imported_string": "",
+          "kirjasampo_imported": null
         }
       ],
       "editions": [
@@ -1426,7 +1430,8 @@
             "misc": "",
             "description": "",
             "descr_attr": null,
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -1896,7 +1901,8 @@
             "misc": "",
             "description": null,
             "descr_attr": null,
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -2455,7 +2461,8 @@
             "misc": "Osa novelleista ilmestynyt aikaisemmin teoksessa \"Kultakuoriainen\", WSOY 1927",
             "description": "<p>KORPPI-SARJA on uusi kirjavalikoima, jossa julkaistaan nykyajan edustavinta thriller-kirjallisuutta. Sarjan ensimmäinen tekijännimi on kuitenkin Edgar Allan Poe (1809-49), klassikko ja alan voittamaton mestari. Korppi ja kultakuoriainen sisältää Poen kuuluisan <em>Korppi</em>-runon uutena suomennoksena, kertomusvalikoiman »<em>Kultakuoriainen</em>» ja joukon muita kertomuksia. Niissä tämä ihmeen, arvoituksen ja mysteerin runoilija »<em>esittää pettämättömällä taidolla kauhua, epätoivoa, kuumehoureisia näkyjä ja mielentiloja koko sitä fantastista maailmaa, jonka kiihottuneet, sairaat aivot voivat keksiä ja joka Poella muodostaa eräänlaisen symbolisen peilikuvan todellisuudesta</em>», kuten V. A. Koskenniemi sanoo teokseen kirjoittamassaan esipuheessa.</p><p>Tämän kirjasarjan tunnus, Poen korppi, on velvoittava. Siksi sarjassa julkaistaankin vain nykyajan thriller-kirjallisuuden parhaita teoksia. Sarjan teoksille on ominaista, paitsi niiden kirjallista arvoa, se seikka, että ne vetoavat lukijoihinsa luomalla ahdistuksen, pelon ja kauhun tunnelman. Nämä thrillerit kertovat ihmisistä, jotka tavalla tai toisella ovat joutuneet skorpin mustaan varjoon». - Sarjan toimittajana on varatuomari Eero Ahmavaara.</p>",
             "descr_attr": "Takakansi",
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -3040,7 +3047,8 @@
             "misc": "Osa novelleista ilmestynyt aikaisemmin teoksessa \"Kultakuoriainen\", WSOY 1927",
             "description": "<p>KORPPI-SARJA on uusi kirjavalikoima, jossa julkaistaan nykyajan edustavinta thriller-kirjallisuutta. Sarjan ensimmäinen tekijännimi on kuitenkin Edgar Allan Poe (1809-49), klassikko ja alan voittamaton mestari. Korppi ja kultakuoriainen sisältää Poen kuuluisan <em>Korppi</em>-runon uutena suomennoksena, kertomusvalikoiman »<em>Kultakuoriainen</em>» ja joukon muita kertomuksia. Niissä tämä ihmeen, arvoituksen ja mysteerin runoilija »<em>esittää pettämättömällä taidolla kauhua, epätoivoa, kuumehoureisia näkyjä ja mielentiloja koko sitä fantastista maailmaa, jonka kiihottuneet, sairaat aivot voivat keksiä ja joka Poella muodostaa eräänlaisen symbolisen peilikuvan todellisuudesta</em>», kuten V. A. Koskenniemi sanoo teokseen kirjoittamassaan esipuheessa.</p><p>Tämän kirjasarjan tunnus, Poen korppi, on velvoittava. Siksi sarjassa julkaistaankin vain nykyajan thriller-kirjallisuuden parhaita teoksia. Sarjan teoksille on ominaista, paitsi niiden kirjallista arvoa, se seikka, että ne vetoavat lukijoihinsa luomalla ahdistuksen, pelon ja kauhun tunnelman. Nämä thrillerit kertovat ihmisistä, jotka tavalla tai toisella ovat joutuneet skorpin mustaan varjoon». - Sarjan toimittajana on varatuomari Eero Ahmavaara.</p>",
             "descr_attr": "Takakansi",
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -3523,7 +3531,8 @@
             "misc": "",
             "description": null,
             "descr_attr": null,
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -4075,7 +4084,8 @@
             "misc": "Osa novelleista ilmestynyt aikaisemmin teoksessa \"Kultakuoriainen\", WSOY 1927",
             "description": "<p>KORPPI-SARJA on uusi kirjavalikoima, jossa julkaistaan nykyajan edustavinta thriller-kirjallisuutta. Sarjan ensimmäinen tekijännimi on kuitenkin Edgar Allan Poe (1809-49), klassikko ja alan voittamaton mestari. Korppi ja kultakuoriainen sisältää Poen kuuluisan <em>Korppi</em>-runon uutena suomennoksena, kertomusvalikoiman »<em>Kultakuoriainen</em>» ja joukon muita kertomuksia. Niissä tämä ihmeen, arvoituksen ja mysteerin runoilija »<em>esittää pettämättömällä taidolla kauhua, epätoivoa, kuumehoureisia näkyjä ja mielentiloja koko sitä fantastista maailmaa, jonka kiihottuneet, sairaat aivot voivat keksiä ja joka Poella muodostaa eräänlaisen symbolisen peilikuvan todellisuudesta</em>», kuten V. A. Koskenniemi sanoo teokseen kirjoittamassaan esipuheessa.</p><p>Tämän kirjasarjan tunnus, Poen korppi, on velvoittava. Siksi sarjassa julkaistaankin vain nykyajan thriller-kirjallisuuden parhaita teoksia. Sarjan teoksille on ominaista, paitsi niiden kirjallista arvoa, se seikka, että ne vetoavat lukijoihinsa luomalla ahdistuksen, pelon ja kauhun tunnelman. Nämä thrillerit kertovat ihmisistä, jotka tavalla tai toisella ovat joutuneet skorpin mustaan varjoon». - Sarjan toimittajana on varatuomari Eero Ahmavaara.</p>",
             "descr_attr": "Takakansi",
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -4372,7 +4382,8 @@
             "misc": "",
             "description": "",
             "descr_attr": null,
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -4975,7 +4986,8 @@
             "misc": "Osa novelleista ilmestynyt aikaisemmin teoksessa \"Kultakuoriainen\", WSOY 1927",
             "description": "<p>KORPPI-SARJA on uusi kirjavalikoima, jossa julkaistaan nykyajan edustavinta thriller-kirjallisuutta. Sarjan ensimmäinen tekijännimi on kuitenkin Edgar Allan Poe (1809-49), klassikko ja alan voittamaton mestari. Korppi ja kultakuoriainen sisältää Poen kuuluisan <em>Korppi</em>-runon uutena suomennoksena, kertomusvalikoiman »<em>Kultakuoriainen</em>» ja joukon muita kertomuksia. Niissä tämä ihmeen, arvoituksen ja mysteerin runoilija »<em>esittää pettämättömällä taidolla kauhua, epätoivoa, kuumehoureisia näkyjä ja mielentiloja koko sitä fantastista maailmaa, jonka kiihottuneet, sairaat aivot voivat keksiä ja joka Poella muodostaa eräänlaisen symbolisen peilikuvan todellisuudesta</em>», kuten V. A. Koskenniemi sanoo teokseen kirjoittamassaan esipuheessa.</p><p>Tämän kirjasarjan tunnus, Poen korppi, on velvoittava. Siksi sarjassa julkaistaankin vain nykyajan thriller-kirjallisuuden parhaita teoksia. Sarjan teoksille on ominaista, paitsi niiden kirjallista arvoa, se seikka, että ne vetoavat lukijoihinsa luomalla ahdistuksen, pelon ja kauhun tunnelman. Nämä thrillerit kertovat ihmisistä, jotka tavalla tai toisella ovat joutuneet skorpin mustaan varjoon». - Sarjan toimittajana on varatuomari Eero Ahmavaara.</p>",
             "descr_attr": "Takakansi",
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -5471,7 +5483,8 @@
             "misc": "",
             "description": null,
             "descr_attr": null,
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [
@@ -5947,7 +5960,8 @@
             "misc": "",
             "description": null,
             "descr_attr": null,
-            "imported_string": ""
+            "imported_string": "",
+            "kirjasampo_imported": null
           },
           "editors": [],
           "contributions": [

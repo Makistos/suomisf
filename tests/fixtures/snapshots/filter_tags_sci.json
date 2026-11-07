@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-10-14T21:08:34.705434+00:00",
+    "generated_at": "2026-11-07T10:25:25.271750+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/filter/tags/sci",
@@ -12,15 +12,27 @@
     "data": [
       {
         "id": 11,
-        "name": "science fiction"
+        "name": "science fiction",
+        "type": {
+          "id": 1,
+          "name": "Aihe"
+        }
       },
       {
         "id": 80,
-        "name": "science fiction foundation"
+        "name": "science fiction foundation",
+        "type": {
+          "id": 1,
+          "name": "Aihe"
+        }
       },
       {
         "id": 93,
-        "name": "scifi"
+        "name": "scifi",
+        "type": {
+          "id": 1,
+          "name": "Aihe"
+        }
       }
     ],
     "error": null
