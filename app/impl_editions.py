@@ -7,7 +7,7 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
-from app.api_helpers import allowed_image
+from app.api_helpers import allowed_image, unique_filename
 from app.impl_helpers import objects_differ, str_differ
 from app.impl_logs import log_changes, log_list_change
 from app.impl_publishers import add_publisher
@@ -853,7 +853,8 @@ def edition_image_upload(editionid: str, image: FileStorage) -> ResponseType:
         return ResponseType("edition_image_upload: Virheellinen kuvan tyyppi.",
                             HttpResponseCode.BAD_REQUEST.value)
 
-    filename = secure_filename(image_name)
+    filename = unique_filename(app.config["BOOKCOVER_SAVELOC"],
+                               secure_filename(image_name))
     image.save(os.path.join(app.config["BOOKCOVER_SAVELOC"], filename))
 
     session = new_session()

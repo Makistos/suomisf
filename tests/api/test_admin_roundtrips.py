@@ -326,6 +326,39 @@ def test_edition_image_upload_and_delete(client, admin, upload_dirs):
             session.close()
 
 
+def test_edition_image_same_name_does_not_overwrite(client, admin, upload_dirs):
+    """Phones name every photo alike (iOS: image.jpg); a second upload with
+    the same name must not replace the first edition's cover file."""
+    folder = flask_app.config['BOOKCOVER_SAVELOC']
+    name = 'b2.samename.jpg'
+    try:
+        for _ in range(2):
+            resp = client.post(f'/api/editions/{EDITION_ID}/images', headers=admin,
+                               data={'file': (io.BytesIO(JPEG), name)},
+                               content_type='multipart/form-data')
+            assert resp.status_code in (200, 201), resp.get_json()
+        srcs = sorted(i['image_src'] for i in
+                      client.get(f'/api/editions/{EDITION_ID}').get_json()['images']
+                      if 'b2.samename' in i['image_src'])
+        assert [os.path.basename(s) for s in srcs] == ['b2.samename.jpg', 'b2.samename_2.jpg']
+        for src in srcs:
+            assert os.path.isfile(os.path.join(folder, os.path.basename(src)))
+    finally:
+        session = new_session()
+        try:
+            session.query(EditionImage).filter(
+                EditionImage.edition_id == EDITION_ID,
+                EditionImage.image_src.like('%b2.samename%')).delete(
+                    synchronize_session=False)
+            session.commit()
+        finally:
+            session.close()
+        for f in ('b2.samename.jpg', 'b2.samename_2.jpg'):
+            path = os.path.join(folder, f)
+            if os.path.exists(path):
+                os.remove(path)
+
+
 @pytest.mark.parametrize('name', ['b2.txt', 'b2.png', 'b2.jpg.exe', 'b2'])
 def test_edition_image_rejects_other_types(client, admin, upload_dirs, name):
     resp = client.post(f'/api/editions/{EDITION_ID}/images', headers=admin,

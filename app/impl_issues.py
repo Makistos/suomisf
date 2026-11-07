@@ -5,7 +5,7 @@ from typing import Any, Dict
 from sqlalchemy.exc import SQLAlchemyError
 from marshmallow import exceptions
 from werkzeug.utils import secure_filename
-from app.api_helpers import allowed_image
+from app.api_helpers import allowed_image, unique_filename
 from app.impl import ResponseType, check_int
 from app.impl_contributors import update_issue_contributors
 from app.impl_logs import log_changes, log_list_change, log_tag_change
@@ -677,7 +677,8 @@ def issue_image_add(issue_id: int, image: FieldStorage) -> ResponseType:
                             HttpResponseCode.BAD_REQUEST.value)
 
     try:
-        filename = secure_filename(image_name)
+        filename = unique_filename(app.config["MAGAZINECOVER_SAVELOC"],
+                                   secure_filename(image_name))
         file_loc = os.path.join(app.config["MAGAZINECOVER_SAVELOC"], filename)
         image.save(file_loc)
     except IOError as exp:

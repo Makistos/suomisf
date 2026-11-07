@@ -1,4 +1,5 @@
 import json
+import os
 from typing import Optional
 from flask import Response
 from app.impl import ResponseType
@@ -60,6 +61,30 @@ def allowed_image(filename: Optional[str]) -> bool:
     if not filename or "." not in filename:
         return False
     return filename.rsplit(".", 1)[1].lower() in ("jpg", "jpeg")
+
+
+def unique_filename(folder: str, filename: str) -> str:
+    """
+    Return a name for a new file in folder that doesn't overwrite one.
+
+    Phones often give every photo the same name (iOS: "image.jpg"), so
+    a second upload would replace another edition's or issue's cover.
+    The name gets _2, _3, ... before the extension until it is free.
+
+    Args:
+        folder (str): The directory the file will be saved in.
+        filename (str): The wanted (already secured) file name.
+
+    Returns:
+        str: filename, or filename with a numeric suffix.
+    """
+    stem, ext = os.path.splitext(filename)
+    candidate = filename
+    n = 2
+    while os.path.exists(os.path.join(folder, candidate)):
+        candidate = f"{stem}_{n}{ext}"
+        n += 1
+    return candidate
 
 
 def validate_positive_integer_id(value: str, field_name: str):
