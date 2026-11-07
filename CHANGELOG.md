@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-07 — Fix: incomplete works by missing binding
+**Commits:** `fcc92762`
+The "Sidonta" option of the random incomplete works search found
+nothing, because an unknown binding is stored as "Ei tietoa/muu" rather
+than left empty. Editions with that binding now count as missing it.
+
 ## 2026-11-07 — Change log: omnibus parts, links, deleted rows
 **Commits:** `fbdf1a3a`
 Changing an omnibus's parts is now recorded in the change log, with the
