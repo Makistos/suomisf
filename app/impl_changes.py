@@ -6,7 +6,8 @@ from marshmallow import exceptions
 
 from app.model import LogSchema
 from app.impl import ResponseType
-from app.orm_decl import Edition, Log
+from app.impl_change_history import add_new_values
+from app.orm_decl import Edition, Log, Work
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
@@ -17,6 +18,10 @@ def get_work_changes(workid: int) -> ResponseType:
     """
     Retrieves the changes made to the work and its editions with the given ID.
 
+    Each change also has "field" (the field's current name), "new_value"
+    and "new_value_source" (see impl_change_history.add_new_values), and
+    "target": "Teos", or for an edition e.g. "2. painos (1995)".
+
     Args:
         workid: The ID of the work to retrieve changes for.
 
@@ -25,10 +30,10 @@ def get_work_changes(workid: int) -> ResponseType:
     """
     session = new_session()
 
-    editions = [x[0] for x in
-                session.query(Edition.id)
-                .filter(Edition.work_id == workid)
-                .all()]
+    work = session.query(Work).filter(Work.id == workid).first()
+    edition_objs = session.query(Edition)\
+        .filter(Edition.work_id == workid).all()
+    editions = [x.id for x in edition_objs]
     try:
         changes = session.query(Log)\
             .filter(or_(
@@ -51,9 +56,31 @@ def get_work_changes(workid: int) -> ResponseType:
         return ResponseType(f'Skeemavirhe: {exp}.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
+    objects = {('Painos', e.id): e for e in edition_objs}
+    if work is not None:
+        objects[('Teos', work.id)] = work
+    add_new_values(retval, objects)
+    for row in retval:
+        row['target'] = _target_label(row, objects)
+
     session.close()
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def _target_label(row: dict, objects: dict) -> str:
+    """ "Teos", or an edition as "2. painos (1995)" or "Painos" if it is
+    gone. """
+    if row['table_name'] != 'Painos':
+        return row['table_name']
+    edition = objects.get(('Painos', row['table_id']))
+    if edition is None:
+        return 'Painos (poistettu)'
+    label = f'{edition.editionnum}. painos' if edition.editionnum \
+        else 'Painos'
+    if edition.version and edition.version > 1:
+        label = f'{edition.version}. laitos, {label}'
+    return f'{label} ({edition.pubyear})' if edition.pubyear else label
 
 
 def change_delete(changeid: int) -> ResponseType:

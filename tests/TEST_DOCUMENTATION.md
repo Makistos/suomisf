@@ -35,6 +35,7 @@ what they test, their parameter values, and expected behaviors.
 24. [Work Contributor Tests (test_work_contributors.py)](#work-contributor-tests)
 25. [Edition Work Link Tests (test_edition_work_link.py)](#edition-work-link-tests)
 26. [Kirjasampo Tag Fetch Tests (test_kirjasampo.py)](#kirjasampo-tag-fetch-tests)
+27. [Change Log Tests (test_change_log.py)](#change-log-tests)
 
 ---
 
@@ -2293,3 +2294,35 @@ links from `GET /api/works/<id>`.
 | `test_missing_link_returns_400` | `{}` | status 400 |
 | `test_nonexistent_work_returns_400` | work_id=999999999 | status 400 |
 | `test_requires_admin_auth` | unauthenticated, work_id=1 | status 401 or 403 |
+
+---
+
+## Change Log Tests
+
+**File:** `tests/api/test_change_log.py`
+
+Each test makes a change through the API and checks the change log
+(`suomisf.log`) rows written since it started, or the work change history
+`GET /api/work/<id>/changes`. Everything a test creates is removed.
+
+**Fixtures / helpers:** `admin_client`; `watch()` — a `LogWatch` whose
+`rows()` are the log rows written after it was created and whose
+`find(table, action, field, table_id)` also checks the user and date;
+`_new_work(client)` — creates a work (title `Lokitesti`, pubyear 2099,
+with a first edition); `new_tags` — deletes tags named `Lokitesti a/b`;
+`_history(client, work_id, field)` — history rows with that `field`.
+
+This section documents the change history tests; the file's earlier
+logging tests (publishers, series, people, tags, works, deletes) are not
+yet listed here.
+
+### Unchanged saves and change history (5 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_unchanged_save_logs_nothing` | PUT the work's first edition back unchanged; PUT `language` id 1 twice | no log rows for the edition save or the second language save (Kieli, Painosnro and Kustantajan sarja were logged on every save) |
+| `test_history_derives_new_values` | set `subtitle` to "Eka", then "Toka" | Alaotsikko rows newest first: ("Eka" → "Toka", source `current`), (initial subtitle → "Eka", source `next`); `target` "Teos" |
+| `test_history_undoes_tag_events` | PUT tags [a], then `PUT /api/work/<id>/tags/<b>` | newest row is the event `Lisätty: Lokitesti b` with `new_value` null; the list change before it has new value `Lokitesti a` (the event undone) |
+| `test_history_aliases_and_edition_target` | insert a Painos log row with the old field name `Sivumäärä` | row's `field` is `Sivuja` and `target` is "<editionnum>. painos (2099)" |
+| `test_history_hides_editor_email` | unauthenticated GET of the history | every `user` has only `id` and `name` |
+

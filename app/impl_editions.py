@@ -174,7 +174,14 @@ def _set_pubseries(
                                    returns None. Otherwise, returns a
                                    ResponseType object with an error message.
     """
-    if data["pubseries"] != edition.pubseries:
+    new_series = data["pubseries"]
+    if (isinstance(new_series, dict) and not new_series.get("id")
+            and not new_series.get("name")):
+        new_series = None  # The field was cleared.
+    # A dict naming a series without an id is a change too.
+    changed = (isinstance(new_series, dict) and "id" not in new_series) \
+        or objects_differ(new_series, edition.pubseries)
+    if changed:
         ps_id = None
         if old_values is not None:
             old_values["Kustantajan sarja"] = (edition.pubseries.name
@@ -482,7 +489,8 @@ def update_edition(params: Any) -> ResponseType:
     #     app.logger.error("update_edition: Invalid editionnum.")
     #     return ResponseType("Virheellinen painosnumero.",
     #                         HttpResponseCode.BAD_REQUEST.value)
-    old_values["Painosnro"] = edition.editionnum
+    if editionnum != edition.editionnum:
+        old_values["Painosnro"] = edition.editionnum
     edition.editionnum = editionnum
 
     # Version (laitos), not required

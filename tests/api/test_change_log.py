@@ -580,3 +580,121 @@ def test_change_delete_leaves_trace(admin_client, watch, caplog):
             f'/api/changes/{change_id}').status_code == 404
     finally:
         assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+# ---------------------------------------------------------------------------
+# Unchanged fields and the change history's derived new values
+# ---------------------------------------------------------------------------
+
+ENGLISH = 1  # language "englanti"
+
+
+def _edition_of(admin_client, work_id):
+    edition_id = admin_client.get(f'/api/works/{work_id}').data[
+        'editions'][0]['id']
+    return admin_client.get(f'/api/editions/{edition_id}').data
+
+
+def test_unchanged_save_logs_nothing(admin_client, watch):
+    """Saving an edition or a work's language unchanged writes no log
+    rows. Kieli, Painosnro and Kustantajan sarja used to be logged on
+    every save."""
+    work_id = _new_work(admin_client)
+    try:
+        edition = _edition_of(admin_client, work_id)
+        log = watch()
+        assert admin_client.put('/api/editions', data={'data': edition}
+                                ).status_code == 200
+        assert [r['field_name'] for r in log.rows()] == []
+
+        lang = {'id': work_id, 'language': {'id': ENGLISH}}
+        assert admin_client.put('/api/works', data={'data': lang}
+                                ).status_code == 200
+        log = watch()
+        assert admin_client.put('/api/works', data={'data': lang}
+                                ).status_code == 200
+        assert [r['field_name'] for r in log.rows()] == []
+    finally:
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+def _history(admin_client, work_id, field):
+    rows = admin_client.get(f'/api/work/{work_id}/changes').data
+    return [r for r in rows if r['field'] == field]
+
+
+def test_history_derives_new_values(admin_client):
+    """Each change's new value is the next change's old value; the newest
+    one's is the current value."""
+    work_id = _new_work(admin_client)
+    try:
+        initial = admin_client.get(f'/api/works/{work_id}').data['subtitle']
+        for subtitle in ('Eka', 'Toka'):
+            assert admin_client.put('/api/works', data={'data': {
+                'id': work_id, 'subtitle': subtitle}}).status_code == 200
+        rows = _history(admin_client, work_id, 'Alaotsikko')
+        assert [(r['old_value'], r['new_value'], r['new_value_source'])
+                for r in rows] == [('Eka', 'Toka', 'current'),
+                                   (initial, 'Eka', 'next')]
+        assert all(r['target'] == 'Teos' for r in rows)
+    finally:
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+def test_history_undoes_tag_events(admin_client, new_tags):
+    """A single tag addition is an event, not an old list: the list
+    change before it gets the list without that tag."""
+    work_id = _new_work(admin_client)
+    first = _create_tag(admin_client, f'{NAME} a')
+    second = _create_tag(admin_client, f'{NAME} b')
+    try:
+        assert admin_client.put('/api/works', data={'data': {
+            'id': work_id, 'tags': [{'id': first}]}}).status_code == 200
+        assert admin_client.put(
+            f'/api/work/{work_id}/tags/{second}').status_code == 200
+        rows = _history(admin_client, work_id, 'Asiasanat')
+        assert rows[0]['old_value'] == f'Lisätty: {NAME} b'
+        assert rows[0]['new_value'] is None
+        assert rows[1]['old_value'] == ''
+        assert rows[1]['new_value'] == f'{NAME} a'
+    finally:
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+def test_history_aliases_and_edition_target(admin_client):
+    """Old field names map to current ones and edition rows name the
+    edition."""
+    work_id = _new_work(admin_client)
+    session = new_session()
+    try:
+        edition = _edition_of(admin_client, work_id)
+        session.execute(text(
+            "INSERT INTO suomisf.log (table_name, field_name, table_id,"
+            " object_name, action, old_value, date) VALUES ('Painos',"
+            " 'Sivumäärä', :id, 'x', 'Päivitys', '99', now())"),
+            {'id': edition['id']})
+        session.commit()
+        rows = _history(admin_client, work_id, 'Sivuja')
+        assert [(r['field_name'], r['old_value']) for r in rows] == [
+            ('Sivumäärä', '99')]
+        assert rows[0]['target'] == f"{edition['editionnum']}. painos (2099)"
+    finally:
+        session.execute(text(
+            "DELETE FROM suomisf.log WHERE table_name = 'Painos'"
+            " AND table_id = :id"), {'id': edition['id']})
+        session.commit()
+        session.close()
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200
+
+
+def test_history_hides_editor_email(admin_client, api_client):
+    """The public history names the editor but never their email."""
+    work_id = _new_work(admin_client)
+    try:
+        assert admin_client.put('/api/works', data={'data': {
+            'id': work_id, 'subtitle': 'Posti'}}).status_code == 200
+        rows = api_client.get(f'/api/work/{work_id}/changes').data
+        assert rows and all(set(r['user']) == {'id', 'name'}
+                            for r in rows if r['user'])
+    finally:
+        assert admin_client.delete(f'/api/works/{work_id}').status_code == 200

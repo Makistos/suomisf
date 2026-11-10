@@ -97,7 +97,8 @@ class LogSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Log
-    user = fields.Nested(UserSchema)
+    # Public: name only, never the editor's email.
+    user = fields.Nested(UserSchema, only=('id', 'name'))
 
 
 class BindingBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore

@@ -439,12 +439,8 @@ def set_language(
         Union[ResponseType, None]: The response type or None.
     """
     lang_id: Union[int, None] = None
-
-    if old_values is not None:
-        if item.language_name:
-            old_values['Kieli'] = item.language_name.name
-        else:
-            old_values['Kieli'] = None
+    # Logged below only if the language changes.
+    old_name = item.language_name.name if item.language_name else None
 
     if not data['language'] or data['language'] is None:
         lang_id = None
@@ -466,6 +462,8 @@ def set_language(
                                  ', {lang_id')
                 return ResponseType('Kieltä ei löydy',
                                     status=HttpResponseCode.BAD_REQUEST)
+    if old_values is not None and lang_id != item.language:
+        old_values['Kieli'] = old_name
     item.language = lang_id
     return None
 
