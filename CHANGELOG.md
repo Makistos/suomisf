@@ -5,6 +5,15 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-10 — Work change history with new values
+**Commits:** `5a63476f`
+The work change history also gives each change's new value, worked out
+from the next change to the same field or the field's current value,
+the field's current name (old names such as "Sivumäärä" are mapped) and
+which edition it concerns. The public change lists no longer show
+editors' email addresses. Language, edition number and publisher's
+series are no longer logged on saves that don't change them.
+
 ## 2026-11-10 — Kirjasampo link from the tag import
 **Commits:** `8ed3094b`
 A new admin endpoint adds a Kirjasampo link to a work that has none.
