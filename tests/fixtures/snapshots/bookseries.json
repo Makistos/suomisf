@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-07T10:25:25.271750+00:00",
+    "generated_at": "2026-11-10T18:24:05.423672+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/bookseries",
@@ -11391,7 +11391,7 @@
             "description": "<p>Seitsenosaisen <em>Kuolemanportti</em>-fantasiasarjan ensimmäinen osa.</p><p>Aikojen alkuhämärissä sartanit aiheuttivat maailman eriytymisen neljäksi maailmaksi: tuleksi, kiveksi, ilmaksi ja vedeksi. Paha velho Xar yrittää saada valtaansa koko universumin. Hän valjastaa palvelijansa Haplon aiheuttamaan sekasortoa kaikkiin maailmoihin ja lähettää hänet Kuolemanportin kautta ensin Arianukseen, ilman valtakuntaan, jossa kaikki ei todellakaan ole sitä miltä näyttää.</p>",
             "descr_attr": "Takakansi",
             "imported_string": "",
-            "kirjasampo_imported": null,
+            "kirjasampo_imported": "2026-11-10T20:21:11.265645+02:00",
             "author_str": "Weis, Margaret & Hickman, Tracy"
           },
           {
@@ -22512,7 +22512,7 @@
             "description": "<p><strong>Rakkaus ei katso aikaa</strong></p><p>Aikakaudesta toiseen seikkaillut Gwendolyn on aivan maassa. Oliko Gideonin rakkaudentunnustus lainkaan todellinen? Särkynyttä sydäntä ei ole kuitenkaan aikaa jäädä parantelemaan, sillä sukunsa aikamatkaajageeniä kantavalla Gwenillä on pian aivan uusia huolia. Hänen pitäisi täyttää tehtävänsä aikamatkaajana, kun vain tietäisi mikä se on... Saint-Germainin kreivin menneisyydessä punoma verkko kiristyy, ja niinpä Gwenin ja Gideonin on selvitettävä salaisuus ja syöksyttävä seikkailuihin halki aikojen, olipa rakkaudessa ryppyjä tai ei.</p><p>SMARAGDINVIHREÄ ON JATKOA RUBIININPUNALLE JA SAFIIRINSINELLE JA SUOSITUN RAKKAUS EI KATSO AIKAA -TRILOGIAN PÄÄTÖSOSA.</p>",
             "descr_attr": "Takakansi",
             "imported_string": "",
-            "kirjasampo_imported": null,
+            "kirjasampo_imported": "2026-11-10T00:17:20.980027+02:00",
             "author_str": "Gier, Kerstin"
           }
         ],
