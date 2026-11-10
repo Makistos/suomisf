@@ -5,6 +5,13 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-10 — Kirjasampo link from the tag import
+**Commits:** `8ed3094b`
+A new admin endpoint adds a Kirjasampo link to a work that has none.
+The tag import uses it when the admin pastes the work's Kirjasampo
+address; only www.kirjasampo.fi addresses are accepted, a work gets at
+most one Kirjasampo link, and the addition is in the change log.
+
 ## 2026-11-07 — Fix: cover uploads overwriting each other
 **Commits:** `02dc7aae`
 Phones often give every photo the same name (iPhone: image.jpg), and an
