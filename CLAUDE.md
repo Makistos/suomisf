@@ -42,3 +42,13 @@ When adding or modifying API tests, always update the following files:
    `[tool.coverage.report] fail_under` floor in pyproject.toml)
    then `pdm run python tests/scripts/endpoint_coverage.py`.
    Only one pytest session at a time: each one re-clones `suomisf_test`.
+
+## Wiki (user and admin documentation)
+
+The user documentation is the frontend's GitHub wiki, cloned at
+`../suomisf-ui.wiki` (`SuomiSF‐ohje.md` user guide, `Ylläpito.md` admin
+guide). Every time a backend change alters behaviour the wiki describes
+(what a search or filter returns, validation, limits, file handling,
+permissions), update the wiki in the same task: grep it for the feature,
+fix the text, commit and push the wiki (no need to ask first). In the
+final summary say what was updated in the wiki, or that nothing needed it.
