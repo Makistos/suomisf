@@ -2273,3 +2273,23 @@ External HTTP calls to kirjasampo.fi are mocked via
 | `test_replace_entries_have_required_fields` | store a replace mapping | entry has name, tag_id, tag_name |
 | `test_omit_entries_appear_in_mapping` | store an omit | name appears in omit list |
 | `test_requires_admin_auth` | unauthenticated | status 401 or 403 |
+
+### TestWorkKirjasampoLinkAdd (10 tests)
+
+`POST /api/work/<work_id>/kirjasampo/link` with `{"link": ...}`; adds a
+Kirjasampo link to a work that has none (used by the tag import dialog).
+
+**Fixtures / helpers:** `unlinked_work` — `created_work`, its links
+deleted in teardown; `linked_work` — work with `VALID_URL` as its
+Kirjasampo link; `_link_url(work_id)`; `_work_links(client, work_id)` —
+links from `GET /api/works/<id>`.
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_adds_link_and_preview_uses_it` | `VALID_URL` with surrounding spaces; preview mocked with `PREVIEW_HTML` | status 201; work's only link is `VALID_URL` with description "Kirjasampo"; preview status 200 and fetches `VALID_URL` |
+| `test_logs_the_change` | `VALID_URL` | status 201; a `Log` row for table "Teos", the work, field "Linkit" |
+| `test_non_kirjasampo_address_returns_400` | parametrized: example.com, ftp scheme, "not a url", "" | status 400; work has no links |
+| `test_work_with_link_returns_400` | `linked_work`, another kirjasampo.fi address | status 400; work still has one link |
+| `test_missing_link_returns_400` | `{}` | status 400 |
+| `test_nonexistent_work_returns_400` | work_id=999999999 | status 400 |
+| `test_requires_admin_auth` | unauthenticated, work_id=1 | status 401 or 403 |

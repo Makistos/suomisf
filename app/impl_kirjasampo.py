@@ -11,15 +11,18 @@ from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 
 from app.impl import ResponseType
+from app.impl_links import links_old_value
 from app.impl_logs import log_changes
 from app.orm_decl import (
-    Tag, TagImportOmit, TagImportReplace, TagType, Work, WorkTag)
+    Tag, TagImportOmit, TagImportReplace, TagType, Work, WorkLink, WorkTag)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 from app import app
 from app.names import clean_name
 
 ALLOWED_HOST = "www.kirjasampo.fi"
+# Description (link source) of a work's Kirjasampo link.
+LINK_DESCRIPTION = "Kirjasampo"
 _HEADERS = {
     "User-Agent": (
         "SF-Bibliografia/1.0 (yp@sf-bibliografia.fi) Python requests"
@@ -448,6 +451,56 @@ def _tag_brief(tag: Tag) -> dict[str, Any]:
             if tag.type else None
         ),
     }
+
+
+def work_kirjasampo_link_add(work_id: int, link: str) -> ResponseType:
+    """Add a Kirjasampo link to a work that has none.
+
+    The link gets the description "Kirjasampo", like the existing ones,
+    and the change is logged. Only www.kirjasampo.fi addresses are
+    accepted.
+
+    Returns 201 with the new link's id; 400 if the work is missing, the
+    address isn't a Kirjasampo one or the work already has a Kirjasampo
+    link; 500 on a database error.
+    """
+    link = (link or "").strip()
+    if not _is_valid_kirjasampo_url(link):
+        return ResponseType(
+            "Virheellinen osoite. Anna Kirjasammon teossivun osoite "
+            f"(https://{ALLOWED_HOST}/...).",
+            HttpResponseCode.BAD_REQUEST,
+        )
+    session = new_session()
+    try:
+        work = session.query(Work).filter(Work.id == work_id).first()
+        if not work:
+            return ResponseType(
+                f"Teosta ei löydy: id={work_id}",
+                HttpResponseCode.BAD_REQUEST,
+            )
+        if any("kirjasampo.fi" in wl.link for wl in work.links):
+            return ResponseType(
+                "Teoksella on jo Kirjasampo-linkki.",
+                HttpResponseCode.BAD_REQUEST,
+            )
+        old_links = links_old_value(work.links)
+        new_link = WorkLink(work_id=work_id, link=link,
+                            description=LINK_DESCRIPTION)
+        session.add(new_link)
+        session.flush()
+        new_id = new_link.id
+        log_changes(session, obj=work, name_field='title',
+                    old_values={'Linkit': old_links})
+        session.commit()
+        return ResponseType(str(new_id), HttpResponseCode.CREATED)
+    except SQLAlchemyError as exc:
+        session.rollback()
+        app.logger.error(f"work_kirjasampo_link_add: {exc}")
+        return ResponseType(
+            "Tietokantavirhe.", HttpResponseCode.INTERNAL_SERVER_ERROR)
+    finally:
+        session.close()
 
 
 def work_import_preview(work_id: int) -> ResponseType:

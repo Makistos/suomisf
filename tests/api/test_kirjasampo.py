@@ -3,6 +3,7 @@ SuomiSF API Kirjasampo Integration Tests
 
 Tests for:
   GET  /api/kirjasampo/tags
+  POST /api/work/<work_id>/kirjasampo/link
   GET  /api/work/<work_id>/tags/import/preview
   POST /api/work/<work_id>/tags/import
   GET  /api/tags/import/mappings
@@ -844,6 +845,110 @@ class TestWorkTagImportPreview(BaseAPITest):
     def test_requires_admin_auth(self, api_client):
         """Unauthenticated GET returns 401 or 403."""
         resp = api_client.get(_preview_url(1))
+        assert resp.status_code in (401, 403)
+
+
+# ===================================================================
+# POST /api/work/<work_id>/kirjasampo/link
+# ===================================================================
+
+def _link_url(work_id: int) -> str:
+    return f"/api/work/{work_id}/kirjasampo/link"
+
+
+def _work_links(admin_client, work_id: int) -> list:
+    resp = admin_client.get(f"/api/works/{work_id}")
+    resp.assert_status(200)
+    return resp.data["links"]
+
+
+@pytest.fixture
+def unlinked_work(admin_client, created_work):
+    """created_work without links; links added by a test are removed."""
+    from app.route_helpers import new_session
+    from app.orm_decl import WorkLink
+
+    yield created_work
+    session = new_session()
+    session.query(WorkLink).filter(
+        WorkLink.work_id == created_work).delete(synchronize_session=False)
+    session.commit()
+
+
+class TestWorkKirjasampoLinkAdd(BaseAPITest):
+    """Adding a Kirjasampo link from the tag import dialog."""
+
+    @patch("app.impl_kirjasampo.requests.get")
+    def test_adds_link_and_preview_uses_it(
+        self, mock_get, admin_client, unlinked_work
+    ):
+        """The link is saved with the description "Kirjasampo" and the
+        preview then fetches that page."""
+        resp = admin_client.post(_link_url(unlinked_work),
+                                 data={"link": f"  {VALID_URL} "})
+        resp.assert_status(201)
+        links = _work_links(admin_client, unlinked_work)
+        assert [(x["link"], x["description"]) for x in links] == [
+            (VALID_URL, "Kirjasampo")]
+
+        mock_get.return_value = _make_mock_response(PREVIEW_HTML)
+        resp = admin_client.get(_preview_url(unlinked_work))
+        resp.assert_status(200)
+        assert mock_get.call_args.args[0] == VALID_URL
+
+    def test_logs_the_change(self, admin_client, unlinked_work):
+        """Adding the link is recorded in the change log."""
+        from app.route_helpers import new_session
+        from app.orm_decl import Log
+
+        resp = admin_client.post(_link_url(unlinked_work),
+                                 data={"link": VALID_URL})
+        resp.assert_status(201)
+        session = new_session()
+        logs = session.query(Log).filter(
+            Log.table_name == "Teos", Log.table_id == unlinked_work,
+            Log.field_name == "Linkit").all()
+        assert logs, "link addition should be logged"
+
+    @pytest.mark.parametrize("link", [
+        "https://example.com/fi/kulsa/x",
+        "ftp://www.kirjasampo.fi/fi/kulsa/x",
+        "not a url",
+        "",
+    ])
+    def test_non_kirjasampo_address_returns_400(
+        self, admin_client, unlinked_work, link
+    ):
+        """Only www.kirjasampo.fi addresses are accepted; nothing is
+        saved."""
+        resp = admin_client.post(_link_url(unlinked_work),
+                                 data={"link": link})
+        resp.assert_status(400)
+        assert _work_links(admin_client, unlinked_work) == []
+
+    def test_work_with_link_returns_400(self, admin_client, linked_work):
+        """A work that already has a Kirjasampo link gets no second
+        one."""
+        resp = admin_client.post(
+            _link_url(linked_work),
+            data={"link": "https://www.kirjasampo.fi/fi/kulsa/other"})
+        resp.assert_status(400)
+        assert len(_work_links(admin_client, linked_work)) == 1
+
+    def test_missing_link_returns_400(self, admin_client, unlinked_work):
+        """The body must have a link."""
+        resp = admin_client.post(_link_url(unlinked_work), data={})
+        resp.assert_status(400)
+
+    def test_nonexistent_work_returns_400(self, admin_client):
+        """An unknown work id is refused."""
+        resp = admin_client.post(_link_url(999999999),
+                                 data={"link": VALID_URL})
+        resp.assert_status(400)
+
+    def test_requires_admin_auth(self, api_client):
+        """Unauthenticated POST returns 401 or 403."""
+        resp = api_client.post(_link_url(1), data={"link": VALID_URL})
         assert resp.status_code in (401, 403)
 
 

@@ -13,6 +13,7 @@ from app.impl_kirjasampo import (
     kirjasampo_tags,
     work_import_preview,
     work_import_tags,
+    work_kirjasampo_link_add,
 )
 from app.types import HttpResponseCode
 
@@ -57,6 +58,40 @@ def api_kirjasampo_tags() -> Response:
             )
         )
     return make_api_response(kirjasampo_tags(url))
+
+
+@app.route("/api/work/<int:work_id>/kirjasampo/link", methods=["POST"])
+@jwt_admin_required()  # type: ignore
+def api_work_kirjasampo_link_add(work_id: int) -> Response:
+    """
+    Add a Kirjasampo link to a work (admin only).
+
+    URL: POST /api/work/<work_id>/kirjasampo/link
+
+    Authentication: Admin JWT required.
+
+    Used by the tag import when the work has no Kirjasampo link yet: the
+    admin pastes the work's Kirjasampo address, it is saved as a work
+    link with the description "Kirjasampo", and the import preview can
+    then be fetched as usual.
+
+    Request body (JSON):
+        { "link": "https://www.kirjasampo.fi/fi/kulsa/..." }
+
+    Responses:
+        201  "<new link id>"
+        400  { "msg": "..." }  Body or address invalid (only
+             https://www.kirjasampo.fi/... is accepted), work not found,
+             or the work already has a Kirjasampo link.
+        401/403  Authentication required.
+        500  { "msg": "..." }  Database error.
+    """
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict) or not isinstance(data.get("link"), str):
+        return make_api_response(
+            ResponseType("Virheellinen pyyntö: link puuttuu.",
+                         HttpResponseCode.BAD_REQUEST))
+    return make_api_response(work_kirjasampo_link_add(work_id, data["link"]))
 
 
 @app.route("/api/work/<int:work_id>/tags/import/preview", methods=["GET"])
