@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T18:24:05.423672+00:00",
+    "generated_at": "2026-11-11T20:42:10.777566+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/personcounts",
@@ -267,7 +267,7 @@
             "Päätoimittaja": 0
           },
           "nF": {
-            "Kirjoittaja": 1277,
+            "Kirjoittaja": 1276,
             "Kääntäjä": 0,
             "Toimittaja": 2,
             "Kansikuva": 0,
@@ -330,7 +330,7 @@
             "Päätoimittaja": 0
           },
           "kok": {
-            "Kirjoittaja": 415,
+            "Kirjoittaja": 416,
             "Kääntäjä": 0,
             "Toimittaja": 152,
             "Kansikuva": 0,
@@ -339,7 +339,7 @@
             "Päätoimittaja": 0
           },
           "lF": {
-            "Kirjoittaja": 480,
+            "Kirjoittaja": 481,
             "Kääntäjä": 0,
             "Toimittaja": 4,
             "Kansikuva": 0,

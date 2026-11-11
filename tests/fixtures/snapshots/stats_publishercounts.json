@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T18:24:05.423672+00:00",
+    "generated_at": "2026-11-11T20:42:10.777566+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/publishercounts",
@@ -16,10 +16,10 @@
         "fullname": "Werner Söderström Oy",
         "genres": {
           "F": 545,
-          "K": 93,
+          "K": 94,
           "Paleof": 41,
           "PF": 46,
-          "SF": 425,
+          "SF": 426,
           "VEH": 17,
           "Utopia": 5,
           "nF": 461,
@@ -34,7 +34,7 @@
           "lF": 418,
           "R": 8
         },
-        "total": 2256
+        "total": 2258
       },
       {
         "id": 318,
@@ -47,14 +47,14 @@
           "PF": 14,
           "SF": 246,
           "VEH": 10,
-          "nF": 326,
+          "nF": 325,
           "nSF": 62,
           "nK": 15,
           "lSF": 17,
           "eiSF": 35,
           "rajatap": 21,
           "kok": 61,
-          "lF": 69
+          "lF": 70
         },
         "total": 1148
       },
@@ -220,22 +220,22 @@
           "K": 510,
           "Paleof": 28,
           "PF": 40,
-          "SF": 1075,
+          "SF": 1076,
           "VEH": 48,
           "Utopia": 22,
-          "nF": 377,
+          "nF": 378,
           "nSF": 92,
           "nK": 88,
           "lSF": 10,
           "satu": 5,
           "rajatap": 58,
           "lasten kuvakirja": 9,
-          "kok": 471,
+          "kok": 473,
           "lF": 184,
           "R": 31,
           "eiSF": 44
         },
-        "total": 3472
+        "total": 3474
       }
     ],
     "error": null

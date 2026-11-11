@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T18:24:05.423672+00:00",
+    "generated_at": "2026-11-11T20:42:10.777566+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/pubseries",
@@ -2988,7 +2988,7 @@
               "description": "<p>Sota on saapunut Vanaheimin portille. Aasat lähestyvät vaaneja idästä polttaen ja ryöstellen tiloja. Vaanit lähettävät viimeisenä sovittelukeinonaan nuoren kuun papittaren, Freijan, rauhanneuvottelumatkalle. Kohtaaminen aasojen päällikön Odinin pojan Torin kanssa muuttaa kohtalon kulkua, sillä näin kiellettyä rakkautta ei ole maailmassa ennen nähty.</p><p><em>Freija - Valhallan tarinoita</em> on henkeäsalpaavan jännittävä kertomus täynnä intohimoa ja noituutta. Tarina perustuu muinaisskandinaaviseen mytologiaan ja kertoo fantasian hengessä ihmisistä, joista tuli kertomuksen tapahtumien myötä pohjoismaisia jumalia ja jumalattaria. Freija kutsuu lukijansa kiehtovalle matkalle aina 2700 vuoden taakse, legendojen ja sankarittarien maailmaan, veriuhrien ja villien hedelmällisyysriittien maailmaan.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Freija</b>. Valhallan tarinoita 1. (Freja - Saga om Valhalla, 2002). Suom Saara Villa. Schildts Kustannus Oy 2004. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T17:26:36.982870+02:00",
               "author_str": "Hildebrandt, Johanne"
             },
             "owners": [],
@@ -3333,7 +3333,7 @@
               "description": "<p>Miksi Uuden testamentin Jumala on niin erilainen kuin Vanhan testamentin? Raamatun ensimmäisissä kirjoissa kuvattu Jumala on ihmisille erittäin läsnä. konkreettinen. Hän luo ihmisen, omaksi kuvakseen. Toisaalta hän on laskelmoiva ja julma. Eikä hän valitettavasti pidä ollenkaan naisista. Hän puhuu paljon. Mutta vähitellen Jumala muuttuu ja alkaa vetäytyä ihmisten keskuudesta. Viimeiset sanansa hän osoittaa Job-raukalle, jonka hän on tuhonnut ilman mitään syytä. Tästä lähtien Jumala suostuu puhumaan vain edustajansa välityksellä - kunnes vaikenee kokonaan... Erik Wahlströmin romaanissa Jumalan käytös saa selityksensä yksinkertaisesti siitä, että tämä vanhenee.</p><p>Se Jumala, joka loi maailman ja ompeli vaatteet Aatamille, oli nuori ja täynnä energiaa. Mutta hän kasvaa aikuiseksi, saa pojan, tulee keski-ikäiseksi. Lopulta Nietzsche väittää Jumalan olevan kuollut - mutta se nyt ei olisi ollenkaan Hänen tapaistaan.</p><p>Erik Wahlström tulkitsee jälleen merkkihenkilöä jäljittelemättömään tapaansa, pelottomasti ja kuvia kumartamatta. Jumala on uhkarohkea komedia, jonka pohjavire on vakava. Se on romaani paitsi Jumalasta myös ihmisistä.</p><p>\"<em>ERIK WAHLSTRÖMIN ROMAANI ON ÄLYKÄS, IRONINEN JA HAUSKA.- WAHLSTRÖM EI LÄHESTY JUMALALLISTA KOHDETTA POLVILLAAN VAAN RÄMÄPÄISEN UTELIAANA</em>.\" AAMULEHTI</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Jumala</b>. (Gud, 2006). Suom Leena Vallisaari. Schildt 2006. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T21:56:18.294589+02:00",
               "author_str": "Wahlström, Erik"
             },
             "owners": [],
@@ -3659,7 +3659,7 @@
               "description": "<p>Lontoolaisen esikaupungin talo, jonka ikkunasta avautuu näkymä taianomaiseen paratiisimaisemaan. Omituisia lapsia, jotka toimittavat salaperäisiä uhrimenoja syrjäisten kujien kätköissä ja merenrantojen varjoisissa lehdoissa. Ylimaallisen hohteen ympäröimä armeija, joka ilmestyy sotilaiden avuksi ensimmäisen maailmansodan taistelukentällä.</p><p>Arthur Machenin (1863-1947) kertomuksissa näkyvä maailma paljastuu mysteerien tyyssijaksi, jossa mikään ei ole silkkaa hengetöntä ja tunnotonta materiaa.</p><p>Walesilaissyntyinen Machen on yliluonnollisen fiktion moderni klassikko, jonka niin H. P. Lovecraft, Stephen King kuin Guillermo del Toro tunnustavat innoittajakseen. Tähän teokseen on koottu parhaita osia hänen myöhäistuotannostaan, jossa kaipuu salattuun todellisuuteen jalostuu kummiksi käänteiksi, hätkähdyttäviksi havainnoiksi ja viipyileviksi tunnelmiksi.</p><p>*</p><p>Tarinat on valikoinut ja suomentanut filosofian tohtori ja kirjallisuudentutkija Hannu Poutiainen, jolta on ilmestynyt aiemmin Basam Booksin kustantamana muun muassa M. R. Jamesin kauhunovellien suomennoskokoelma Kummitustarinoita (2019) sekä hänen oma teoksensa Sijaltainen: kaksoisolennon käsikirja (2017). Poutiainen on myös kirjoittanut teokseen Machenin tuotantoa ja ajattelua laajasti taustoittavan esipuheen.</p>",
               "descr_attr": "Basam Books",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T20:55:33.733922+02:00",
               "author_str": "Machen, Arthur"
             },
             "owners": [],
@@ -5690,7 +5690,7 @@
               "description": "<p><strong>Karski sankari Dirk Pitt ja kansainväliset konnat aarrejahdissa Grönlannin hyisillä vesillä. Nostakaa Titanic ja Kyklooppi -kirjojen tekijä loistovedossa!</strong></p><p>Grönlannin jäätiköltä löytyy hämmästyttävä esine: arvokas, vanhan Rooman aikainen kultaraha. Samaan aikaan Yhdistyneiden Kansakuntien tilauslentokone kaapataan, ja se tekee pakkolaskun Grönlantiin.</p><p>Tiedustelijanero Dirk Pitt järjestää pelastuspartion, mutta häntä kohtaa outo ja kammottava näky. Vahingoittumattomilta vaikuttavat matkustajat ovat kuolleet selittämättömästä syystä. Vain neljä on elossa, heidän joukossaan YK:n pääsihteeri.</p><p>Kuka kaappasi koneen? Miten matkustajat kuolivat? Mitä tekemistä näillä tapauksilla on vanhan kultakolikon kanssa? Dirk Pittin yhdeksäs seikkailu lyö mielikuvituksellisuudellaan kaikki Cusslerin aikaisemmat ennätykset.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T09:25:57.557024+02:00",
               "author_str": "Cussler, Clive"
             },
             "owners": [],
@@ -7131,7 +7131,7 @@
               "description": "<p><strong>\"KOLME LASTA, YKSI TARINA. KERTOJA OLEN MINÄ VAIN KOSKA OLEN MEISTÄ AINOA, JOKA EI OLE KALTEREIDEN TAKANA.\"</strong></p><p>Vanhempiaan ei voi kukaan valita, mutta he voivat tehdä lapsensa puolesta valintoja. Hurjia, koko elämän mullistavia valintoja.</p><p>Lapsena Rosemary puhua pälpätti lakkaamatta, joten miksi nyt, opiskelijatyttönä, hän ei puhu juuri mitään? Hänellä oli samanikäinen sisar, Fern, ja isoveli, Lowell. Hän rakasti heitä palavasti, mutta nyt molemmat ovat kadonneet. Veljen odottamaton yhteydenotto auttaa Rosemarya selvittämään, mitä lopulta tapahtui. Samalla lukija joutuu pohtimaan perustavanlaatuisia kysymyksiä ihmisen suhteesta muuhun luomakuntaan.</p><p>Tämä on Rosemaryn poikkeuksellinen tarina: naurattava, surullinen ja ajatuksia herättävä.</p><p><em>\"Romaani on niin ahmittavan mehukas ja ovelan älykäs, että se ansaitsee kaiken huomion jonka se voi saada.\"</em> - Barbara Kingsolver, The New York Times Book Review</p>",
               "descr_attr": "Takakansi",
               "imported_string": null,
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T21:24:30.330168+02:00",
               "author_str": "Fowler, Karen Joy"
             },
             "owners": [],
@@ -7527,7 +7527,7 @@
               "description": "<p>ÄRHÄKÄN VAMPYYRITRILOGIAN PÄÄTÖSOSA</p><p>Vampyyrit ovat olleet vallassa kaksi vuotta. Taistelu Mestarin johtamien vampyyrien ylivoimaa vastaan on lähes mahdotonta, mutta kaikki eivät ole lannistuneet. Epidemiologit Eph Goodweather ja Nora Martinez, tuholaistorjuja Vasily Fet ja rikollisjengiläinen Augustin Elizalde jatkavat maanalaista vastarintaansa, vaikka vaikeat ajat ovat verottaneet heidänkin voimiaan. Mukana taistelussa on puoliverinen vampyyri, arvoituksellinen herra Quinlan. Eph ja kumppanit punovat vaarallisen suunnitelman vampyyrien valtakunnan tuhoamiseksi ja Ephin Zack-pojan pelastamiseksi. Mutta onko Mestari liian taitava manipuloimaan heikkoa ihmismieltä? Voiko kehenkään enää luottaa?</p><p>\"<em>Janoan lisää! Janoan lisää! Tuokaa minulle kolmas osa</em>.\" - NÄIN VAATI SAN FRANCISCO CHRONICLE LANKEEMUKSEN LUETTUAAN. ODOTUS PALKITAAN.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T21:35:01.216927+02:00",
               "author_str": "del Toro, Guillermo & Hogan, Chuck"
             },
             "owners": [],
@@ -7835,7 +7835,7 @@
               "description": "<p><em>Pelko ei ole riittävä sana kuvaamaan sitä mitä tunnen. Kaksi hahmoa taistelee revenneen taivaan alla. Saatan vain katsoa vierestä, kun he käyvät toisiinsa kiinni yhä uudestaan ja uudestaan. Toisen katse on täynnä raivoa, toisen päättäväisyyttä. En tiedä, kummalla on etulyöntiasema. Potkut ja lyönnit leikkaavat taivaalta alas sinkoutuvaa vesiverhoa henkeäsalpaavissa kaarissa. Sellaisten liikkeiden ei pitäisi olla edes mahdollisia. Eivätkä ne olisikaan tavallisille ihmisille.</em></p><p><em>Se, mitä todistan, on kuitenkin kaikkea muuta kuin tavallista: edes näytöksen ympärille kerääntynyt ihmissusilauma ei näytä tietävän, uskoako silmiään vai ei.</em></p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T22:17:03.691415+02:00",
               "author_str": "Rouhiainen, Elina"
             },
             "owners": [],
@@ -9729,10 +9729,10 @@
               "bookseriesnum": "1",
               "bookseriesorder": 1,
               "misc": "",
-              "description": "<p><strong>Rakkautta ennen ensisilmäystä</strong></p><p>Gatlinin uneliaassa pikku kylässä kuka tahansa uusi tyttö herättäisi huomiota. Lena Duchannes ei edes ole kuka tahansa, ja Ethan Watelle hän on jotain vielä enemmän. Lena on tyttö, josta Ethan on nähnyt unia. Tyttö, jonka putoamista hän ei voi estää.</p><p>Lenalla ja Ethanilla on yhteys, jota kumpikaan ei voi hallita. Yhdessä he nousevat yhteisön ennakkoluuloja vastaan ja astuvat maailmaan, johon kuolevaiset eivät ole astuneet. Salaisuus, lumoava kirous, on valmis nousemaan esiin, vaientamaan kylässä huutaneen hiljaisuuden.</p><p>Lumoava kirous aloittaa eeppisen rakkausdraaman. Historiallinen noitasaaga on myyty jo 39 maahan ja sen pohjalta on tehty myös elokuva.</p><p>”Taitavasti punottu, tunnelmallinen ja omaperäinen.” – Melissa Marr, Ilki ihanan ja Sala kavalan kirjoittaja</p><p>”Nokkela, täyteläinen ja romanttinen.” – Kirkus Reviews</p>",
+              "description": "<p><strong>Rakkautta ennen ensisilmäystä</strong></p><p>Gatlinin uneliaassa pikku kylässä kuka tahansa uusi tyttö herättäisi huomiota. Lena Duchannes ei edes ole kuka tahansa, ja Ethan Watelle hän on jotain vielä enemmän. Lena on tyttö, josta Ethan on nähnyt unia. Tyttö, jonka putoamista hän ei voi estää.</p><p>Lenalla ja Ethanilla on yhteys, jota kumpikaan ei voi hallita. Yhdessä he nousevat yhteisön ennakkoluuloja vastaan ja astuvat maailmaan, johon kuolevaiset eivät ole astuneet. Salaisuus, lumoava kirous, on valmis nousemaan esiin, vaientamaan kylässä huutaneen hiljaisuuden.</p><p><em>Lumoava kirous</em> aloittaa eeppisen rakkausdraaman. Historiallinen noitasaaga on myyty jo 39 maahan ja sen pohjalta on tehty myös elokuva.</p><p><em>”Taitavasti punottu, tunnelmallinen ja omaperäinen.”</em> – Melissa Marr, Ilki ihanan ja Sala kavalan kirjoittaja</p><p><em>”Nokkela, täyteläinen ja romanttinen.” </em>– Kirkus Reviews</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Lumoava kirous</b>. Loihtijakronikka 1. (Beautiful Creatures, 2009). Suom Aila Herronen. WSOY 2013. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T09:18:51.106175+02:00",
               "author_str": "Garcia, Kami & Stohl, Margaret"
             },
             "owners": [],
@@ -10208,7 +10208,7 @@
               "description": "<p>Weird Tales-lehti on legenda kauhukirjallisuuden ystävien parissa. Tämä kirja esittelee sen parhaat tarinat kahdenkymmenen vuoden taipaleelta - alkuperäiskuvin.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T17:32:16.991799+02:00",
               "author_str": "Haining, Peter (toim.)"
             },
             "owners": [],
@@ -10697,50 +10697,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Gogol_Nikolai_Pietarilaisnovelleja_1p.jpg",
-                "id": 7406,
-                "image_src": "/static/images/books/Gogol_Nikolai_Pietarilaisnovelleja_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2643,
-              "title": "Pietarilaisnovelleja",
-              "subtitle": "",
-              "orig_title": "Pietarilaisnovelleja",
-              "pubyear": 1972,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p>Novellit <em>Nenä</em>, <em>Päällystakki </em>ja <em>Hullun päiväkirja</em> ovat <em>Kuolleiden sielujen</em> ohella venäläisen Nikolai Gogolin (1809- 1852) keskeistä tuotantoa. Pietarilaisnovelleissaan kirjailija kuvaa kuin suurennuslasin läpi vähäväkisiä konttoristeja, pikkukauppiaita, nälkiintyneitä taiteilijoita ja opiskelijoita, jotka mahtava tsaristinen virkakoneisto murskaa rattaisiinsa. Yhtä terävästi kuin hän kuvaa nenän ja siihen eilen ilmestyneen näppylän, hän kuvaa ne suuret haaveet jotka murtavat ihmisen. Ihmisiäkin todempana näissä novelleissa elää Pietari, tsaarin Venäjän byrokraattinen sydän virastoineen ja valtakatuineen.</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n\n<b>Pietarilaisnovelleja</b>. Suom Esa Adrian. Delfiinikirjat. Otava 1972. [F,kok].",
-              "kirjasampo_imported": null,
-              "author_str": "Gogol, Nikolai"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8614,
-            "title": "Pietarilaisnovelleja",
-            "subtitle": "",
-            "pubyear": 1975,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "951-1-03545-2",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 124,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Carpelan_Bo_Myohaisetaanet_2p.jpg",
                 "id": 1775,
                 "image_src": "/static/images/books/Carpelan_Bo_Myohaisetaanet_2p.jpg",
@@ -10820,6 +10776,50 @@
             "coll_info": "",
             "pages": 377,
             "size": null,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Gogol_Nikolai_Pietarilaisnovelleja_1p.jpg",
+                "id": 7406,
+                "image_src": "/static/images/books/Gogol_Nikolai_Pietarilaisnovelleja_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2643,
+              "title": "Pietarilaisnovelleja",
+              "subtitle": "",
+              "orig_title": "Pietarilaisnovelleja",
+              "pubyear": 1972,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p>Novellit <em>Nenä</em>, <em>Päällystakki </em>ja <em>Hullun päiväkirja</em> ovat <em>Kuolleiden sielujen</em> ohella venäläisen Nikolai Gogolin (1809- 1852) keskeistä tuotantoa. Pietarilaisnovelleissaan kirjailija kuvaa kuin suurennuslasin läpi vähäväkisiä konttoristeja, pikkukauppiaita, nälkiintyneitä taiteilijoita ja opiskelijoita, jotka mahtava tsaristinen virkakoneisto murskaa rattaisiinsa. Yhtä terävästi kuin hän kuvaa nenän ja siihen eilen ilmestyneen näppylän, hän kuvaa ne suuret haaveet jotka murtavat ihmisen. Ihmisiäkin todempana näissä novelleissa elää Pietari, tsaarin Venäjän byrokraattinen sydän virastoineen ja valtakatuineen.</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n\n<b>Pietarilaisnovelleja</b>. Suom Esa Adrian. Delfiinikirjat. Otava 1972. [F,kok].",
+              "kirjasampo_imported": null,
+              "author_str": "Gogol, Nikolai"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8614,
+            "title": "Pietarilaisnovelleja",
+            "subtitle": "",
+            "pubyear": 1975,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "951-1-03545-2",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 124,
+            "size": 19,
             "dustcover": 1,
             "coverimage": 1,
             "misc": "",
@@ -15657,7 +15657,7 @@
               "description": "<p>Minun on pakko kirjoittaa kaikki muistiin. Kaikki uskomattomat, mahdottomat asiat. Tapahtuivatko ne oikeasti? Olen tolkuttanut itselleni, että se on mahdotonta. Ja olen oikeassa, sillä mikään ei ollut mahdollista. Mutta se ei muuta sitä tosiasiaa, että kaikki oli totisinta totta.</p><p>Päivä alkoi niin kuin ensimmäinen lomapäivä yleensäkin. Isä luki lauantain lehteä sängyssä kahvikuppi kädessään, Äiti puhui puhelimessa isoäidin kanssa. Isoveljeni Jamie oli jo töissä keskustan musiikkiliikkeessä. Minä maleksin huoneessani ja mietin, mitä pukisin ylleni. Sillä hetkellä suurin huoleni oli, mikä vyö sopii topin kanssa yhteen ja laitanko ponnarin. Sitten äiti lopetti puhelun ja kutsui minut keittiöön. Ja silloin elämäni muuttui lopullisesti...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Pohjoisen tuolla puolen</b>. (North of Nowhere, 2013). Suom Nina Mäki-Kihniä. GIRL:IT-sarja. Stabenfeldt 2014. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T19:51:01.903124+02:00",
               "author_str": "Kessler, Liz"
             },
             "owners": [],
@@ -22168,7 +22168,7 @@
               "description": "<p>H. P. Lovecraft oli vuosisatamme merkittävin kauhukirjailija. Tämä toinen Lovecraft-valikoimamme on koottu hänen Cthulhu-kertomuksistaan. Cthulhu-mytologia on keskeistä kauhun alalla; maapallon muinaiset jumalat pyrkivät takaisin maan pinnalle tuottamaan kauhua ja kuolemaa...</p><p>H. P. Lovecraft on yliluonnollisen kauhun mestari. Vaikka nämä tarinat on kirjoitettu yli viisikymmentä vuotta sitten edustavat ne hyytävintä kauhua mitä koskaan on kirjoitettu.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T22:45:42.300885+02:00",
               "author_str": "Lovecraft, H. P."
             },
             "owners": [],
@@ -22256,7 +22256,7 @@
               "description": "<p>Kari Nenonen on noussut nopeasti scifi- ja kauhuromaaneillaan MESSIAS ja SE KEN TULEE VIIMEISEKSI ON KUOLEMA suomalaisten lukijoiden tietoisuuteen.</p><p>Hänen uusi novellikokoelmansa NOITAROVIO sisältää kuusi hyytävää kauhutarinaa tämän päivän Suomesta ja tulevaisuudesta. Ruumisarkkujen kysyntä nousee äkillisesti Helsingissä - huikea vampyyritarina. Nuoren parin loppiaisvierailu anoppilassa päättyy yllätyksellisesti - kuka onkaan isäntänä? Kirjailija hankkii jättiläishämähäkin lemmikikseen - ja rakastuu siihen. Nuori nainen väittää poliisille tappaneensa aviomiehensä noituuden avulla - uskooko poliisi häntä?</p><p>Tässä muutamia teemoja Nenosen kauhunovellikokoelmasta, joka aukoo uusia uria kotimaisessa novellitaiteessa.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<a href=\"novkok/nen-nr.htm\">\n<b>Noitarovio</b></a>. Kauhusarja 6. Kustannus Oy Jalava 1989. [K,SF,kok].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T20:08:08.422636+02:00",
               "author_str": "Nenonen, Kari"
             },
             "owners": [],
@@ -22628,7 +22628,7 @@
               "description": "<p>Kauhun modernin mestarin Clive Barkerin kolmas novellikokoelma on nyt tullut suomeksi. Kirjassa on neljä toinen toistaan rajumpaa novellia. <em>Valkokankaan poika</em> esittelee elokuvateatterin ikioman kummituksen, <em>Rawhead Rex</em> on maasta kaivettu ikivanha hirviö, joka tuhoaa koko englantilaisen kylän.</p><p><em>(Pornokauppiaan) käärinliinan tunnustukset</em> on tarina, jossa kuollut mies kostaa kiduttajilleen. <em>Syntipukit</em>-novellissa hukkuneet merimiehet nousevat vetisestä haudastaan. <em>Ihmisen jäännökset</em> on kertomus, jossa miesprostituoitu kohtaa muinaisen olennon, joka vie hänen persoonansa.</p><p><em>Veren kirjat 3</em> on vahva todiste Barkerin kertojanlahjoista.</p>",
               "descr_attr": null,
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T19:04:30.919289+02:00",
               "author_str": "Barker, Clive"
             },
             "owners": [
@@ -23235,7 +23235,7 @@
               "description": "<p>PAINAJAINEN OLI ALKANUT...</p><p>Boone tiesi, ettei hänellä ollut enää paikkaa tässä maailmassa, ei onnea edes Lorin kanssa. Yhtä varmasti hän tiesi, ettei hän ollut ansainnut pelastusta taivaassa. Hän vastaisi helvetin kutsuun, antaisi kuoleman viedä hänet sinne.</p><p>Kuolema kuitenkin väisteli häntä. Ei mikään ihme, jos hän oli se hirviö, joka oli repinyt riekaleiksi niin monen ihmisen elämän. Decker oli näyttänyt todistuskappaleet - kammottavat valokuvat uhreista.</p><p>Hänellä ei ollut paikkaa taivaassa, helvetissä eikä maan päällä. Ainoa toivo oli Midian, legendaarinen kaupunki joka sulki hirviömäiseen syleilyynsä puolikuolleen Yön kansan. Boone lähti etsimään Midiania yksin, välittämättä siitä seuraisivatko Decker ja Lori häntä. Hän halusi vain päästä eroon painajaisestaan. Mutta painajainen oli vasta alussa...</p><p>Clive Barker (s. 1952) on modernin kauhun kiistattomia mestareita. <em>Veren Kirjat </em>-sarjan lisäksi häneltä on aikaisemmin suomennettu<em> Kadotuksen peli.</em> <em>Yön kansa</em> tunnetaan myös elokuvana, jonka Barker itse ohjasi.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T19:58:08.001595+02:00",
               "author_str": "Barker, Clive"
             },
             "owners": [],
@@ -23367,7 +23367,7 @@
               "description": "<p>Vanha 60-luvun chevy kaahaa maaseudulla. Tähän autolliseen teini-ikäisiä ruumillistuu raamatulliset mittasuhteet saavuttava tunteeton julmuus. Nuoret kiihdyttävät pahuuden kierrettä seksin ja väkivallan moraliteetissa. Samaan aikaan nuori pariskunta koettaa paeta muinaisen tragedian muistoa aavistamatta ympärilleen kutoutuvaa kauhun verkkoa.</p><p>\"<em>Joe R. Lansdale on splatterpunkkari, mutta myös teräväkielinen satiirikko, mustan huumorin taituri. Hän näyttää miten raadollisia ihmiset ovat sivistyksen kulissien takana</em>.\". - M. Kumpulainen, Tähtivaeltaja</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Yöjuoksijat</b>. (The Nightrunners, 1987). Suom Anita Puumalainen. Jalava 1996. [K].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T12:15:09.923909+02:00",
               "author_str": "Lansdale, Joe R."
             },
             "owners": [],
@@ -24701,7 +24701,7 @@
               "description": "<p>Arvostetun tšuktšikirjailijan Juri Rytheun tarinoiden miljöönä on Pohjoinen Jäämeri vähäisine rantakylineen, aiheena synnyinheimon elintavat, myytit, uskomukset sekä ennen muuta ihmisen ja luonnon erottamaton yhteys.</p><p>Ihmissusi on pieni kertomus rakastavaisista nimeltä Goigoi ja Tin Tin. Hylkeenmetsästysmatkallaan Goigoi joutuu jäähän aukeavan railon yllättämäksi ja ajelehtivan jäälautan vangiksi. Sitkeä elämänhalu, metsästystaito ja nuoren eroottisen rakkauden muisto pitävät nuorukaisen hengissä läpi koettelemusten, mutta pitkä eristyneisyys muuttaa hänet ihmissudeksi niinkuin ikivanha legenda on ennalta määrännyt.</p><p>Tämä vanhan myytin voimallinen toisinto on yhtä aikaa romanttinen rakkauskertomus, ylistyslaulu jäämeren julmalle kauneudelle ja unohtumassa olevan elämänmuodon vaikuttava kuvaus.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T18:01:18.254991+02:00",
               "author_str": "Rytheu, Juri"
             },
             "owners": [],
@@ -25130,7 +25130,7 @@
               "description": "<p>Kuuluisan saksalaisen kauhuromantikon erikoislaatuinen tarina kertoo, miten paholainen saa hurskaan munkin valtaansa ja johdattaa hänet kauhistuttaviin tekoihin. Paholaisen eliksiiri saa munkki Medarduksen lähtemään maailmalle, missä uskomattomat seikkailut odottavat häntä. Vuonna 1815 ilmestynyt teos on kauhuromaanien varhainen klassikko, josta ei puutu nokkelan mielikuvituksen luomia lennokkaita juonenkäänteitä.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:25:23.034208+02:00",
               "author_str": "Hoffmann, E. T. A."
             },
             "owners": [],
@@ -30841,6 +30841,50 @@
           {
             "images": [
               {
+                "thumb_src": "/static/images/books/Saramago_Jose_Kertomussokeudesta_2p.jpg",
+                "id": 7320,
+                "image_src": "/static/images/books/Saramago_Jose_Kertomussokeudesta_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 981,
+              "title": "Kertomus sokeudesta",
+              "subtitle": "",
+              "orig_title": "Ensaio sobre a Cegueira",
+              "pubyear": 1995,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "Prémio Camões -palkinto 1995.",
+              "description": "<p><strong><em>Kertomus sokeudesta</em> kutsuu ajattelemaan maailmaa, jossa elämme.</strong></p><p>Kaupungissa riehuu outo epidemia. Ihmiset menettävät yhtäkkiä näkönsä, alkavat nähdä pelkkää valkoista. Jotta sairauden leviäminen voitaisiin estää, sokeille perustetaan reservaatteja. Heiltä kielletään kaikki muu apu ruokahuoltoa lukuunottamatta. Näkevien pelko sokeutumisesta ajaa inhimillisyyden ohi.</p><p>Reservaateissa syntyy eloonjäämistaistelu. Tilannetta seurataan silmälääkärin vaimon kautta, joka on näkevänä seurannut sokeutunutta miestään eristykseen. Pariskunnan ympärille muodostuu pieni ystävien piiri, joka yrittää säilyttää ihmisyytensä kaaoksen keskellä. Vaimo on ainoa joka näkee reservaatin alennustilan. Ennen pitkää hän alkaa toivoa olevansa itsekin sokea, mutta halu auttaa muita pitää hänet vahvana.</p><p>Kun <em>Kertomus sokeudesta</em> ilmestyi alkukielellä vuonna 1995, José Saramago sai Prémio Camoes -palkinnon, joka on portugalilaisen kielialueen merkittävin kirjallisuuspalkinto. Saramagon romaanin merkitys on kuitenkin yleismaailmallinen. Se paljastaa kulttuurin haurauden, sen miten kenestä tahansa voi poikkeustilanteessa paljastua peto. Romaani on perustaltaan jännittävä katastrofikertomus, mutta se on myös allegoria todellisen maailman sokeudesta, jonka seurauksista lukemattomat ihmiset tälläkin hetkellä kärsivät.</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Kertomus sokeudesta</b>. (Ensaio sobre a Cegueira, 1995). Suom Erkki Kirjalainen. Keltainen kirjasto 299. Tammi 1997. [F].",
+              "kirjasampo_imported": "2026-11-06T15:11:59.624573+02:00",
+              "author_str": "Saramago, José"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8589,
+            "title": "Kertomus sokeudesta",
+            "subtitle": "",
+            "pubyear": 2009,
+            "editionnum": 4,
+            "version": 1,
+            "isbn": "978-951-31-5110-2",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 371,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
                 "thumb_src": "/static/images/books/Ishiguro_Kazuo_Haudattujattilainen_3p.jpg",
                 "id": 2029,
                 "image_src": "/static/images/books/Ishiguro_Kazuo_Haudattujattilainen_3p.jpg",
@@ -30859,7 +30903,7 @@
               "description": "<p><em>Haudattu jättiläinen</em> on tarunhohtoinen vaellus Kuningas Arthurin valtakunnan raunioilla. Se kertoo kadonneista muistoista, vuosikymmeniä kestäneestä rakkaudesta, itsepetoksesta, kostosta ja sodasta.</p><p><em>\"Sukupolvensa paras ja omaperäisin kirjoittaja.\"</em> - MAIL ON SUNDAY</p><p><em>\"Palkinto myönnetään Kazuo Ishigurolle, joka tunnevoimaisissa teoksissaan paljastaa kuilun sen illuusion takana, että voimme täysin ymmärtää tätä maailmaa.\"</em> - NOBEL-LAUTAKUNNAN PERUSTELUT</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T00:36:41.519248+02:00",
               "author_str": "Ishiguro, Kazuo"
             },
             "owners": [],
@@ -31237,50 +31281,6 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.4246553",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Saramago_Jose_Kertomussokeudesta_2p.jpg",
-                "id": 7320,
-                "image_src": "/static/images/books/Saramago_Jose_Kertomussokeudesta_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 981,
-              "title": "Kertomus sokeudesta",
-              "subtitle": "",
-              "orig_title": "Ensaio sobre a Cegueira",
-              "pubyear": 1995,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "Prémio Camões -palkinto 1995.",
-              "description": "<p><strong><em>Kertomus sokeudesta</em> kutsuu ajattelemaan maailmaa, jossa elämme.</strong></p><p>Kaupungissa riehuu outo epidemia. Ihmiset menettävät yhtäkkiä näkönsä, alkavat nähdä pelkkää valkoista. Jotta sairauden leviäminen voitaisiin estää, sokeille perustetaan reservaatteja. Heiltä kielletään kaikki muu apu ruokahuoltoa lukuunottamatta. Näkevien pelko sokeutumisesta ajaa inhimillisyyden ohi.</p><p>Reservaateissa syntyy eloonjäämistaistelu. Tilannetta seurataan silmälääkärin vaimon kautta, joka on näkevänä seurannut sokeutunutta miestään eristykseen. Pariskunnan ympärille muodostuu pieni ystävien piiri, joka yrittää säilyttää ihmisyytensä kaaoksen keskellä. Vaimo on ainoa joka näkee reservaatin alennustilan. Ennen pitkää hän alkaa toivoa olevansa itsekin sokea, mutta halu auttaa muita pitää hänet vahvana.</p><p>Kun <em>Kertomus sokeudesta</em> ilmestyi alkukielellä vuonna 1995, José Saramago sai Prémio Camoes -palkinnon, joka on portugalilaisen kielialueen merkittävin kirjallisuuspalkinto. Saramagon romaanin merkitys on kuitenkin yleismaailmallinen. Se paljastaa kulttuurin haurauden, sen miten kenestä tahansa voi poikkeustilanteessa paljastua peto. Romaani on perustaltaan jännittävä katastrofikertomus, mutta se on myös allegoria todellisen maailman sokeudesta, jonka seurauksista lukemattomat ihmiset tälläkin hetkellä kärsivät.</p>",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Kertomus sokeudesta</b>. (Ensaio sobre a Cegueira, 1995). Suom Erkki Kirjalainen. Keltainen kirjasto 299. Tammi 1997. [F].",
-              "kirjasampo_imported": "2026-11-06T15:11:59.624573+02:00",
-              "author_str": "Saramago, José"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8589,
-            "title": "Kertomus sokeudesta",
-            "subtitle": "",
-            "pubyear": 2009,
-            "editionnum": 4,
-            "version": 1,
-            "isbn": "978-951-31-5110-2",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 371,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
             "verified": false
           },
           {
@@ -31945,7 +31945,7 @@
               "description": "<p>Vaarikummitus ei ole palannut sovittuun aikaan Haamusuolta. Ei kai vaarille ole sattunut mitään? Kummituslapset ja Sihis, maailman pienin koira, lähtevät vaaralliselle etsintämatkalle Haamusuolle.</p><p>Haamusuo on jännittävä paikka. Matkan aikana pelastuspartiolaiset tutustuvat moneen outoon olentoon. Uudet ystävät auttavat lapsia ja Sihistä vaarikummituksen etsimisessä.</p><p>Lopulta selviää, että vaari on ollut matkalla salaperäiselle Vanhalle myllylle... Onko vaarikummitus eksynyt matkalla? Entä mitä Vanhassa myllyssä oikein. tapahtuu?</p><p>Sihis ja kiltit kummitukset ovat tuttuja kirjoista <em>Sihis ja kummituslaiva</em> sekä <em>Sihis Aavehotellissa.</em></p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T17:22:28.577672+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -31989,7 +31989,7 @@
               "description": "<p>Sihis ja kummitusperhe purjehtivat Marinamerellä ja löytävät pieneltä kalliosaarelta kummitusteatterin. Teatterinjohtaja marionettinukke Emeraldo on pulassa: onnea tuova teatterilepakko Ripsu on kateissa. Ilman lepakkoa ei mistään tule mitään.</p><p>Teatterissa onkin varsinainen sekasotku. Lavastaja aavesiili Elsa, valomies marsilainen Zipzi, merikäärme Karoliina ja karvaolento Löyhkä ovat kauhuissaan. Ehtivätkö Sihis ja kummituslapset löytämään Ripsun ja vielä valmistamaan näytelmän maantierosvoista ensi-iltaansa?</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:07:47.394882+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -32033,7 +32033,7 @@
               "description": "<p>Maailman pienin koira, chihuahua Sihis, saa hälyttäviä uutisia Valittavan Aaveen autiomaasta: Kummituskameli on kadonnut!</p><p>Sihis ja hänen ystävänsä suuntaavat kummituslaivansa kurssin kohti kuumaa etelää ja Ontelokäärmeen jokea. Matkalla joukkio törmää niin laulaviin kaktuksiin kuin luurankojen turnajaisiinkin. Mutta mikä onkaan kummituskamelin tarkoin varjeltu salaisuus?</p><p>Reipas pieni Sihis-koira kummitusystävineen seikkailee kahdeksatta kertaa Keltanokka-sarjan kirjassa.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:08:28.589317+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -32077,7 +32077,7 @@
               "description": "<p>Sihis ja sen kummitusystävät lähtevät merenalaiseen valtakuntaan etsimään kuningatar Neptuniaksen varastettua kruunua. Apuna seikkailussa on puhuva viikinkilaiva ja laivan räväkkä kapteeni Sillipää. Seikkailijat tutustuvat merihirviö Karakuraan, liukkaisiin mustekaloihin, merihämähäkkeihin sekä sirkukseen, jota johtaa viekas merivampyyri. Merisirkuksessa Sihis kohtaa rakkaita tuttuja, jotka auttavat ratkaisemaan kuningatar Neptuniaksen varastetun kruunun arvoituksen.</p><p>Sihis ja reipas kummitusperhe seikkailevat yhdeksännessä Keltanokka-sarjan kirjassa.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:09:23.178431+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -32121,7 +32121,7 @@
               "description": "<p>Maailman pienin koira Sihis kohtaa pienen yksisarvisen. Se ei osaa puhua, mutta vaikuttaa eksyneeltä. Sihis ja kummitusperhe päättävät auttaa sitä löytämään vanhempansa.</p><p>Se ei kuitenkaan ole ihan helppoa. Aluksi joudutaan selvittämään, minne kummitusperheen laiva on kadonnut. Yksisarvisen kotipaikan selvittämiseksi on pysähdyttävä Sumujen saarella, joka yhtäkkiä puhkeaa puhumaan! Jännittävällä matkalla apua saadaan myös pahoinvoivalta aavevalaalta ja Sulevi Sukkanauhasammakolta, joka vartioi merenalaista kaupunkia. Onnistuvatko Sihis ja kaverit apureineen auttamaan yksisarvista?</p><p><em>Sihis ja yksisarvinen</em> on Keltanokka-sarjan kuudes Sihis-seikkailu.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:06:33.608809+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -32165,7 +32165,7 @@
               "description": "<p>Marinameri on kadonnut. Armas von Varvas, vanha tuttu koppakuoriainen, kertoo kummitusperheelle ja Sihikselle, maailman pienimmälle koiralle, mihin meri on joutunut. Kummituslaivan kurssi otetaankin tällä kertaa kohti kuuta.</p><p>Kuussa Sihikselle ja kummituksille paljastuu, että ihmissudet Pate ja Arska ovat kaapanneet Marinameren ja monta muutakin merta perustaakseen kuuhun lomaparatiisin. Onnistuuko Sihis vanhojen ja uusien ystäviensä avulla palauttamaan Marinameren takaisin Kummitusmaailmaan?</p><p>Ponteva pikku Sihis kummitusystävineen seikkailee viidennessä Keltanokka-sarjan kirjassa.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:05:41.069567+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -32209,7 +32209,7 @@
               "description": "<p>Sihis, maailman pienin koira, jäljittää tällä kertaa ilkeää aavetaikuria. Taikuri Talismaani nimittäin taikoo hurjan taikatemppuesityksensä aikana luurankokissa Melindan olemattomiin ja katoaa itsekin sen siliän tien, avustajalepakot perässään. Onneksi päätön mies, jonka pään taikuri on taikonut kadoksiin, osaa neuvoa Kummitusperheen ja Sihiksen aavetaikurin linnaan. Matkaan liittyy myös arka kummituskana, jonka rakkaan munan Talismaani on pihistänyt.</p><p>Unissakävelijät ja puhuvat kaktukset, Poltettu metsä ja pyykkäämään noiduttu aaveorkesteri ovat kaikki aavetaikurin aikaansaannosta. Talismaanin linnan pihasta löytyy salaperäinen patsaspuisto - ja linnan uumenista vihdoin myös Melinda.</p><p>Sihis ja Kummitusperhe seikkailevat Kummitusmaailmassa neljättä kertaa.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:04:52.154604+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -32253,7 +32253,7 @@
               "description": "<p>Pikkuruinen Sihis-koira on lomalla kummitusperheen kanssa. Matkaseurue yöpyy jännittävässä Aavehotellissa, jossa asuu kirjava joukko kummajaisia ja kummituksia. Yöllä huomataan, että läheisen majakan valo on sammunut ja purjelaiva on vaarassa ajaa karille!</p><p>Sihis ja kummituslapset syöksyvät rohkeasti seikkailuun. He tutustuvat majakanvartija Pöllö-Petterssoniin, merirosvolaivan luurankomiehistöön ja kavaliin hylynryöstäjiin. Mutta ehtivätkö he pelastaa laivan ja sen ruumaan kätketyn aarteen?</p><p>Sihis ja avuliaat kummitukset ovat aiemmin seikkailleet Keltanokka-kirjassa<em> Sihis ja kummituslaiva.</em></p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T17:23:17.096870+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -32297,7 +32297,7 @@
               "description": "<p>Sihis on pieni ja pelokas koira. Se on rodultaan chi-hu-a-hu-a eli kääpiökoira. Sihis on eksynyt perheestään, joka on lähtenyt etsimään esi-isiensä kadonnutta kaupunkia ja aarretta. Se tutustuu kummitusperheeseen, joka haluaa auttaa pientä koiraa löytämään perheensä.</p><p>Kummituslaiva lennättää matkustajat kohti seikkailua. Salamatkustajina laivalla seuraavat kavala muumio sekä koppakuoriainen Armas von Varvas. Myös ne ovat kiinnostuneet koirien aarteesta. Mutta löytyvätkö koiraperhe ja kadonneen kaupungin aarre? Entä miten pelokas Sihis selviää kummitusten mukana huimissa seikkailuissa?</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T17:23:59.971159+02:00",
               "author_str": "Mäki, Harri István"
             },
             "owners": [],
@@ -38410,7 +38410,7 @@
               "description": "<p>Hän oli ainutlaatuinen... mutta ei yksin. Hän oli uuden sukupolven mies jolla oli visioita, mies joka aikoi muokata tulevaisuuden mielensä mukaiseksi. Ja hänellä oli keinot tehdä se. Hän tarvitsi vain päättäväisyyttä, ehdotonta mielenhallintaa ja vielä kerran päättäväisyyttä... ja jonain päivänä sadat miljoonat ihmiset seuraisivat häntä.</p><p>\"<em>Vuoden laadukkain trilleri.</em>\" - TIME OUT, LONTOO</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:40:15.974572+02:00",
               "author_str": "Coffey, Brian"
             },
             "owners": [],
@@ -38824,7 +38824,7 @@
               "description": "<p>\"YÖN PUOLELLA ON NIIN KYLMÄÄ, ETTÄ HUUTOKIN ON TÄYNNÄ JÄÄHILEITÄ.\"</p><p>Kansainvälisen avaruusaseman miehistö joutuu seuraamaan Maahan syöksyvän meteoriitin aiheuttamaa tuhoa Jatkosodan lentäjä-ässää seuraa liiankin hyvä onni. Jääplaneetan tutkimusasemalla sattuu mystisiä kuolemantapauksia, eikä planeetta ole ollenkaan niin autio kuin aluksi vaikutti. Puolueen uskollinen pikkuvirkamies saa salaperäisen kirjeen ja päätyy tekemisiin salatun menneisyytensä kanssa, Rakastavaiset pakenevat kielletyn rakkautensa aiheuttamaa tuomiota ja löytävät kaukaiselta planeetalta yllättävän suojelijan.</p><p>Petri Laine ja Anne Leinonen ovat aiemmin julkaisseet tahoillaan novelleja niin lehdissä kuin kirjojen kansissa. <em>Kuulen laulun kaukaisen</em> on heidän ensimmäinen yhteinen kokoelmansa.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T17:54:05.535696+02:00",
               "author_str": "Leinonen, Anne & Laine, Petri"
             },
             "owners": [],
@@ -40648,7 +40648,7 @@
               "description": "<p><strong>KAKSI PIENOISROMAANIA HÄMÄRÄN RAJAMAILTA</strong></p><p>PIMEYDEN SAKRAMENTTI. Thora elää hienossa talossa kauniin ruusutarhan keskellä, hoitaa edustustaloutta ja perhettään, kirjoittaa kirjoja. Päältä katsoen kaikki on hyvin, mutta pinnan alla on jännitystä, repiviä luovan ihmisen ristiriitoja. Ja mitä pitäisi ajatella valo-olennosta, joka öisin saapuu tapaamaan Thoraa tämän nukkuessa? Entiset huolet tuntuvat kuitenkin vähäisiltä kun ruusutarhaan tunkeutuu kyy, kaunis, noitamainen lumoajatar, joka uhkaa ottaa valtaansa aviomiehen ja pojan, kaiken...</p><p>PUOLUKANVARPUSEPPELE. Herra Moore ja Napoleon ovat mielisairaalan hoidokkeja. Heidät on sijoitettu varmaan paikkaan väitteidensä takia - tai ehkä siksi että he tietävät liikaa tietyn lepokodin asioista. Vapaus kuitenkin järjestyy aikanaan, ja miehet lähtevät tutkimusmatkalle lepokotiin. Karmea totuus paikkaa hallitsevista olennoista alkaa pian paljastua, ja tapahtumat huipentuvat vääjäämättä kohti yllättävää loppuratkaisua. Ensimmäisiä suomalaisia ihmissusitarinoita, ellei peräti ensimmäinen!</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Pimeyden sakramentti</b>. Kyöpeli-sarja 7. Pirkanmaan Kirjapaino ja Lehtikustannus Oy 1987. [K].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-06T23:27:47.158448+02:00",
               "author_str": "Pelttari, Tuula"
             },
             "owners": [],
@@ -40904,7 +40904,7 @@
               "description": "<p>\"<strong>MUKAANSATEMPAAVA, NEROKAS JA SUUREELLINEN KERTOMUS</strong>.\" - Washington Post Book World</p><p>\"<strong>VOIMAKAS TEOS. ÄLYKÄS LUKUKOKEMUS JA VIISAS KIRJA. YKSINKERTAISESTI LOISTAVA</strong>.\" - New York Review of Science Fiction</p><p>Orjatyttö Jane pakenee lohikäärmetehtaasta. Mutta uusillakaan kotikonnuilla ei ole helppoa pärjätä. Ihmiset, peikot, velhot, haltiat ja maahiset elävät oudossa, eroottisessa ja julmassa kilpailuyhteiskunnassa. Viekas Jane joutuu taistelemaan onnensa puolesta. Kaikkea hallitsee Jumalatar, joka varmistaa, että mikään ei ole ilmaista. Ja usein hinta, jonka nuori Jane ja hänen rakkaansa joutuvat maksamaan, on korvaamattoman kallis.</p><p>Kunnianhimoinen Jane perehtyy hengen ja tieteen saloihin koettaen keksiä miten päästä oman kohtalonsa valtiattareksi. Tärkeintä olisi löytää pakotie, jotta matka kohti rauhaa voisi alkaa...</p><p>Yhdysvaltalainen Michael Swanwick on voittanut arvostetut Hugo-, Nebula- ja Arthur C. Clarke -palkinnot.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Rautalohikäärmeen tytär</b>. (The Iron Dragon's Daughter, 1994). Suom Hannu Tervaharju. Like 2003. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T09:00:58.592966+02:00",
               "author_str": "Swanwick, Michael"
             },
             "owners": [],
@@ -41186,50 +41186,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Aapeli_Kokokaupunginvinski_8p.jpg",
-                "id": 4963,
-                "image_src": "/static/images/books/Aapeli_Kokokaupunginvinski_8p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 4250,
-              "title": "Koko kaupungin Vinski",
-              "subtitle": "",
-              "orig_title": "Koko kaupungin Vinski",
-              "pubyear": 1954,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p>\"Saisinko näkymättömyyspulveria?\" kysyy eräs matalahko pisamanaamainen henkilö apteekissa. \"Sitä vanhaa, vai tätä uutta ranskalaista?\" tiedustelee apteekkari. \"Tätä uutta tietysti\", vastaa Henkilö. Tästä vuorokeskustelusta alkaa merkillisten tapahtumien ketju, joka täydestä syystä saa koko Hömpstadin kaupungin haukkomaan henkeään. Suomen lastenkirjallisuus on saanut punatukkaisesta Vinskistä uuden, kerrassaan riemukkaan henkilöhahmon - kuten voimme arvatakin, kun kynänpäässä on Aapeli. Kirjassa on Maija Karman herkullinen kuvitus. Hauskoja ovat myös Aapelin kuviin lisäämät kuvatekstit, joissa kirjailijan tarkka ihmiskuvaus ja lämmin huumori pääsevät oikeuksiinsa.</p><p>Humoristi Simo Puupponen (1915-1967) käytti työssään nimimerkkiä Aapeli. Simo Puupponen muutti perheineen Kuopiosta Helsinkiin vuonna 1952 ja kirjoittamisesta tuli hänen päätyönsä. Aapelin tuotteliain kausi osui 1950-luvun puoliväliin.</p><p>Voit jatkaa Vinskin seikkailujen parissa lukemalla kirjan <em>Vinski ja Vinsentti.</em></p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n<b>Koko kaupungin Vinski</b>. Lasten toivekirjasto 7. WSOY 1954. [nF].",
-              "kirjasampo_imported": null,
-              "author_str": "Aapeli"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 7738,
-            "title": "Koko kaupungin Vinski",
-            "subtitle": "",
-            "pubyear": 1978,
-            "editionnum": 8,
-            "version": 1,
-            "isbn": "951-0-08517-0",
-            "printedin": null,
-            "pubseriesnum": 7,
-            "coll_info": "",
-            "pages": 124,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 3,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Aapeli_Kokokaupunginvinski_1p.jpg",
                 "id": 4962,
                 "image_src": "/static/images/books/Aapeli_Kokokaupunginvinski_1p.jpg",
@@ -41269,6 +41225,50 @@
             "coverimage": 3,
             "misc": "",
             "imported_string": "\n<b>Koko kaupungin Vinski</b>. Lasten toivekirjasto 7. WSOY 1954. [nF].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Aapeli_Kokokaupunginvinski_8p.jpg",
+                "id": 4963,
+                "image_src": "/static/images/books/Aapeli_Kokokaupunginvinski_8p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 4250,
+              "title": "Koko kaupungin Vinski",
+              "subtitle": "",
+              "orig_title": "Koko kaupungin Vinski",
+              "pubyear": 1954,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p>\"Saisinko näkymättömyyspulveria?\" kysyy eräs matalahko pisamanaamainen henkilö apteekissa. \"Sitä vanhaa, vai tätä uutta ranskalaista?\" tiedustelee apteekkari. \"Tätä uutta tietysti\", vastaa Henkilö. Tästä vuorokeskustelusta alkaa merkillisten tapahtumien ketju, joka täydestä syystä saa koko Hömpstadin kaupungin haukkomaan henkeään. Suomen lastenkirjallisuus on saanut punatukkaisesta Vinskistä uuden, kerrassaan riemukkaan henkilöhahmon - kuten voimme arvatakin, kun kynänpäässä on Aapeli. Kirjassa on Maija Karman herkullinen kuvitus. Hauskoja ovat myös Aapelin kuviin lisäämät kuvatekstit, joissa kirjailijan tarkka ihmiskuvaus ja lämmin huumori pääsevät oikeuksiinsa.</p><p>Humoristi Simo Puupponen (1915-1967) käytti työssään nimimerkkiä Aapeli. Simo Puupponen muutti perheineen Kuopiosta Helsinkiin vuonna 1952 ja kirjoittamisesta tuli hänen päätyönsä. Aapelin tuotteliain kausi osui 1950-luvun puoliväliin.</p><p>Voit jatkaa Vinskin seikkailujen parissa lukemalla kirjan <em>Vinski ja Vinsentti.</em></p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n<b>Koko kaupungin Vinski</b>. Lasten toivekirjasto 7. WSOY 1954. [nF].",
+              "kirjasampo_imported": null,
+              "author_str": "Aapeli"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 7738,
+            "title": "Koko kaupungin Vinski",
+            "subtitle": "",
+            "pubyear": 1978,
+            "editionnum": 8,
+            "version": 1,
+            "isbn": "951-0-08517-0",
+            "printedin": null,
+            "pubseriesnum": 7,
+            "coll_info": "",
+            "pages": 124,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 3,
+            "misc": "",
+            "imported_string": "",
             "verified": false
           },
           {
@@ -41363,7 +41363,7 @@
             "images": [
               {
                 "thumb_src": "/static/images/books/Travers_PL_Maijapoppanen_5p.jpg",
-                "id": 8006,
+                "id": 8005,
                 "image_src": "/static/images/books/Travers_PL_Maijapoppanen_5p.jpg",
                 "image_attr": null
               }
@@ -41385,11 +41385,11 @@
             },
             "owners": [],
             "wishlisted": [],
-            "id": 8812,
+            "id": 8811,
             "title": "Maija Poppanen",
             "subtitle": "",
-            "pubyear": 1965,
-            "editionnum": 4,
+            "pubyear": 1963,
+            "editionnum": 3,
             "version": 1,
             "isbn": null,
             "printedin": null,
@@ -41451,7 +41451,7 @@
             "images": [
               {
                 "thumb_src": "/static/images/books/Travers_PL_Maijapoppanen_5p.jpg",
-                "id": 8005,
+                "id": 8006,
                 "image_src": "/static/images/books/Travers_PL_Maijapoppanen_5p.jpg",
                 "image_attr": null
               }
@@ -41473,11 +41473,11 @@
             },
             "owners": [],
             "wishlisted": [],
-            "id": 8811,
+            "id": 8812,
             "title": "Maija Poppanen",
             "subtitle": "",
-            "pubyear": 1963,
-            "editionnum": 3,
+            "pubyear": 1965,
+            "editionnum": 4,
             "version": 1,
             "isbn": null,
             "printedin": null,
@@ -43712,8 +43712,8 @@
               "subtitle": "",
               "orig_title": "Alas",
               "pubyear": 2013,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
+              "bookseriesnum": "2",
+              "bookseriesorder": 2,
               "misc": "",
               "description": "<p>Paluu Alshainin maailmaan!</p>\r\n\r\n<p>Viisi ihmistä joutuu keskelle kaaosta ja kuolemaa, kun planeetan pinnan ja kiertoradan välistä liikennettä hoitava avaruushissi tuhoutuu. Turistiopas, hänen entinen miehensä, tämän uusi kumppani, pennittömästä planeetallemuuttajasta vauraaksi yrittäjäksi noussut nainen ja kummallisen kultin piirissä kasvanut poika näkevät kukin tapahtumat eri tavoin ja reagoivat niihin omalla tavallaan. Jokaisella on myös oma käsityksensä siitä, mistä onnettomuus johtuu ja kuka sen takana on.</p>\r\n\r\n<p>Onko kukaan henkilöistä lopulta lainkaan oikeilla jäljillä, vai tapahtuuko Alshain-tähteä kiertävällä planeetalla kaikki edelleenkin siellä, minne yksikään ihminen ei katso?</p>",
               "descr_attr": null,
@@ -43761,8 +43761,8 @@
               "subtitle": "",
               "orig_title": "Alshain",
               "pubyear": 2006,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
               "misc": "Tähtivaeltaja-palkintoehdokas 2006.",
               "description": "<p>Alshainissa kaikki tapahtuu siellä, minne yksikään ihminen ei katso.</p>\r\n\r\n<p>Ihminen on levittäytynyt avaruuteen, jopa muihin aurinkokuntiin asti. Kaukaisin siirtokunta, Alshain, sijaitsee meren miltei kokonaan peittämällä planeetalla viidenkymmenen valovuoden päässä Maasta. Silläkin on jo takanaan vaiheikas historia vallankumouksineen, kapinoineen ja ihmiskohtaloineen.</p>\r\n\r\n<p>Tähtialuksen putoaminen planeetalle muuttaa viiden asukkaan elämän peruuttamattomasti. Maasta saapunut siirtolainen eli maalainen, vakavasti vammautuneen miehen morsian, vanha mies, työtovereidensa murhia selvittelevä poliisi ja nuori merentutkija joutuvat kohtaamaan asioita, joita eivät ole koskaan osanneet edes kuvitella.</p>",
               "descr_attr": null,
@@ -44625,7 +44625,7 @@
               "description": "<p>Himalajan vuorilta, Kalaharin autiomaasta, Bosniasta sodan keskeltä ja Galapagossaarilta löytyy yllättäen kuiluja. Ne johtavat ennennäkemättömän syviin maanalaisiin käytäviin, joita kansoittavat julmat villit.</p><p>Retkikunta lähtee selvittämään, onko Jules Vernen kuvittelema maanalainen maailma sittenkin olemassa vai onko tämä painajaismainen verkosto enemmän sukua uskontojen helvetille? Ja jos on, missä piilottelee itse Saatana?</p><p>Ihmiskunta oivaltaa pian, että manala on laaja geologinen labyrintti, joka lävistää mantereita ja merenpohjia. Helvetin kallisarvoiset rikkaudet ja voitettavat alueet käynnistävät maailmanlaajuisen kilpa-ajon. Kansakunnat, armeijat, uskonnot ja teollisuus ryntäävät asuttamaan maanalaista raja-aluetta ja hyötymään siitä...</p><p>Vernen ja H.G. Wellsin tyyliin <em>Helvetin pirit</em> on eeppinen seikkailu ihmeellisissä maisemissa, kertomus jossa ihminen on sekä jumala että lihaa. Se on kauhistuttava mysteeri, joka lävistää uskon ja järjen valtakunnan.</p><p>Coloradon Boulderissa asuva Jeff Long on kokenut Himalajan kiipeilijä, joka on työskennellyt toimittajana ja historiantutkijana. Hän oli myös tarkkailijana Bosnian ensimmäisissä demokraattisissa vaaleissa.</p><p>\"<em>Jeff Long on kirjoittanut kirjan, joka on paitsi pelottava, myös uskomattoman älykäs. Jos olet lainkaan kiinnostunut mytologiasta, teologiasta, antropologiasta, lingvistiikasta, geologiasta, politiikasta, arvoituksista tai jännityksestä, sinun on luettava tämä kirja.</em>\" - Megan O'Laughlin, Bookpeople.net</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Helvetin piirit</b>. (The Descent, 1999). Suom Tarmo Haarala. Like 2001. [F].",
-              "kirjasampo_imported": "2026-11-10T20:21:49.432580+02:00",
+              "kirjasampo_imported": null,
               "author_str": "Long, Jeff"
             },
             "owners": [],
@@ -45585,7 +45585,7 @@
               "description": "<p>\"<em>Risti huojahti haudalla ja siitä nousi äänettä kuivettunut vainaja. Parta vyöhön saakka; sormissa pitkät kynnet, sormiakin pitemmät. Hiljaa kohotti se kätensä ylös. Sen kasvot vavahtelivat ja vääntyilivät. Se näytti kärsivän kauheita kipuja. 'Minua ahdistaa! Ahdistaal se vaikeroi hurjalla, epäinhimillisellä äänellä.</em>..\"</p><p>Ukrainan kasakoiden kansanuskomuksiin pohjautuvat kauhu- ja kummitusjutut ovat ominta Gogolia, verevää, värikylläistä ja hauskaa luettavaa. Suuri venäläinen klassikko on myös fantasia- ja kauhuromantiikan taitaja.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<a href=\"novkok/gog-kk.htm\">\n<b>Kadonnut kirje</b></a>. (Vetzera na hutore bliz dikanki, 1830-32). Suom Jukka Mallinen. Kustannus Oy Taifuuni 1992. [K,kok].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T22:04:34.473709+02:00",
               "author_str": "Gogol, Nikolai"
             },
             "owners": [],
@@ -45991,7 +45991,7 @@
               "description": "<p>Lapsuudenkotiinsa palannut tuhlaajapoika Joel vie dementoituneen äitinsä Monikan laitoshoitoon. Pian muuton jälkeen Monikan tila romahtaa, ja Joel seuraa avuttomana, kun äiti vajoaa yhä syvemmälle omaan kauhujen täyttämään maailmaansa. Mutta ovatko Monikan näyt harhoja vai käykö hoivakodissa kutsumattomia, pahansuopia vieraita?</p><p>\"<em>Mats Strandbergilla on verraton kyky sekoittaa klassista kauhua arkeen.</em>\" - DAGENS NYHETER.</p><p>\"<em>Stephen Kingin tavoin Strandberg todella ymmärtää kovia kokeneita, haavoittuvaisia ihmisiä.</em>\" - AFTONBLADET</p><p>\"<em>Jo parin minuutin lukemisen jälkeen huomaa, että tämä on nerokas kauhuromaani.</em>\" - M-MAGASIN</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T21:07:23.696434+02:00",
               "author_str": "Strandberg, Mats & Elfgren, Sara B."
             },
             "owners": [],
@@ -46035,7 +46035,7 @@
               "description": "<p>TERVETULOA ELÄMÄSI VIIMEISELLE RISTEILYLLE</p><p>HILPEÄT RISTEILYMATKUSTAJAT nousevat Tukholmassa laivaan suurin odotuksin. Kummallinen nainen ja hänen poikansa herättävät kuitenkin levottomuutta, sillä parivaljakossa on jotain uhkaavaa.</p><p>Kun äidin silmä välttää, poika käynnistää karmivan tapahtumaketjun, ja risteily muuttuu verilöylyksi veden päällä. Laiva lipuu vääjäämättä kohti Suomea ja aamua, joka voi muuttaa ihmiskunnan historian lopullisesti. Alkaa kilpajuoksu aikaa vastaan.</p><p><em>\"Strandbergin maalaamassa kauhussa on paljon samaa kuin Kingin kauhuromaaneissa - se sama koukku, joka kestää viidensadan sivun verran kepoisasti. Kertaakaan en pitkästynyt, ahmin luvun toisensa perään voimatta jättää kirjaa lepäämään. Tätä on hyvä kirjallisuus!\"</em> - LUKUTOUKAN KULTTUURIBLOGI</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T17:31:09.221545+02:00",
               "author_str": "Strandberg, Mats & Elfgren, Sara B."
             },
             "owners": [],
@@ -47409,7 +47409,7 @@
               "description": "<p>Himalajan vuorilta, Kalaharin autiomaasta, Bosniasta sodan keskeltä ja Galapagossaarilta löytyy yllättäen kuiluja. Ne johtavat ennennäkemättömän syviin maanalaisiin käytäviin, joita kansoittavat julmat villit.</p><p>Retkikunta lähtee selvittämään, onko Jules Vernen kuvittelema maanalainen maailma sittenkin olemassa vai onko tämä painajaismainen verkosto enemmän sukua uskontojen helvetille? Ja jos on, missä piilottelee itse Saatana?</p><p>Ihmiskunta oivaltaa pian, että manala on laaja geologinen labyrintti, joka lävistää mantereita ja merenpohjia. Helvetin kallisarvoiset rikkaudet ja voitettavat alueet käynnistävät maailmanlaajuisen kilpa-ajon. Kansakunnat, armeijat, uskonnot ja teollisuus ryntäävät asuttamaan maanalaista raja-aluetta ja hyötymään siitä...</p><p>Vernen ja H.G. Wellsin tyyliin <em>Helvetin pirit</em> on eeppinen seikkailu ihmeellisissä maisemissa, kertomus jossa ihminen on sekä jumala että lihaa. Se on kauhistuttava mysteeri, joka lävistää uskon ja järjen valtakunnan.</p><p>Coloradon Boulderissa asuva Jeff Long on kokenut Himalajan kiipeilijä, joka on työskennellyt toimittajana ja historiantutkijana. Hän oli myös tarkkailijana Bosnian ensimmäisissä demokraattisissa vaaleissa.</p><p>\"<em>Jeff Long on kirjoittanut kirjan, joka on paitsi pelottava, myös uskomattoman älykäs. Jos olet lainkaan kiinnostunut mytologiasta, teologiasta, antropologiasta, lingvistiikasta, geologiasta, politiikasta, arvoituksista tai jännityksestä, sinun on luettava tämä kirja.</em>\" - Megan O'Laughlin, Bookpeople.net</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Helvetin piirit</b>. (The Descent, 1999). Suom Tarmo Haarala. Like 2001. [F].",
-              "kirjasampo_imported": "2026-11-10T20:21:49.432580+02:00",
+              "kirjasampo_imported": null,
               "author_str": "Long, Jeff"
             },
             "owners": [],
@@ -48206,7 +48206,7 @@
               "description": "<p>Himalajan vuorilta, Kalaharin autiomaasta, Bosniasta sodan keskeltä ja Galapagossaarilta löytyy yllättäen kuiluja. Ne johtavat ennennäkemättömän syviin maanalaisiin käytäviin, joita kansoittavat julmat villit.</p><p>Retkikunta lähtee selvittämään, onko Jules Vernen kuvittelema maanalainen maailma sittenkin olemassa vai onko tämä painajaismainen verkosto enemmän sukua uskontojen helvetille? Ja jos on, missä piilottelee itse Saatana?</p><p>Ihmiskunta oivaltaa pian, että manala on laaja geologinen labyrintti, joka lävistää mantereita ja merenpohjia. Helvetin kallisarvoiset rikkaudet ja voitettavat alueet käynnistävät maailmanlaajuisen kilpa-ajon. Kansakunnat, armeijat, uskonnot ja teollisuus ryntäävät asuttamaan maanalaista raja-aluetta ja hyötymään siitä...</p><p>Vernen ja H.G. Wellsin tyyliin <em>Helvetin pirit</em> on eeppinen seikkailu ihmeellisissä maisemissa, kertomus jossa ihminen on sekä jumala että lihaa. Se on kauhistuttava mysteeri, joka lävistää uskon ja järjen valtakunnan.</p><p>Coloradon Boulderissa asuva Jeff Long on kokenut Himalajan kiipeilijä, joka on työskennellyt toimittajana ja historiantutkijana. Hän oli myös tarkkailijana Bosnian ensimmäisissä demokraattisissa vaaleissa.</p><p>\"<em>Jeff Long on kirjoittanut kirjan, joka on paitsi pelottava, myös uskomattoman älykäs. Jos olet lainkaan kiinnostunut mytologiasta, teologiasta, antropologiasta, lingvistiikasta, geologiasta, politiikasta, arvoituksista tai jännityksestä, sinun on luettava tämä kirja.</em>\" - Megan O'Laughlin, Bookpeople.net</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Helvetin piirit</b>. (The Descent, 1999). Suom Tarmo Haarala. Like 2001. [F].",
-              "kirjasampo_imported": "2026-11-10T20:21:49.432580+02:00",
+              "kirjasampo_imported": null,
               "author_str": "Long, Jeff"
             },
             "owners": [],
@@ -49814,7 +49814,7 @@
               "description": "<p>Petri Laineen ensimmäinen novellikokoelma <em>\"Taivaan kaikki värit\"</em> esitteli kirjailijan scifi-novellistina. Kokoelma sai erinomaiset arvostelut. Petri Laine osoitti kuuluvansa siihen harvalukuiseen suomalaiseen kirjailijajoukkoon, joka kirjoittaa sekä klassista kovaa scifiä että fantasiasävytteistä modernia tieteiskirjallisuutta ja hallitsee lajin suvereenisesti.</p><p>Petri Laineen toinen kokoelma osoittaa, että Laine on kotonaan myös kauhu-ja fantasianovellien parissa. <em>\"Surunkorento\"</em> -kokoelman novellit piirtävät kuvaa monitasoisesta ja -lähtöisestä kauhusta. Sekä kauhunovellien perinne että modernimpi kauhufantasia ovat näissä novelleissa läsnä niin, että tarinat eivät pysy yhden genren rajoissa - rajoja rikkoen ne osoittavat, että genrenovelli, hyvin kirjoitettuna, on kirjallisuutta parhaimmillaan.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<a href=\"novkok/lai-sk.htm\">\n<b>Surunkorento</b></a>. M-novellit 15. Turbator 2009. [K,kok].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T19:41:53.884393+02:00",
               "author_str": "Laine, Petri"
             },
             "owners": [],
@@ -49902,7 +49902,7 @@
               "description": "<p>J.K. Miettinen on viime vuosien suomalaisen scifin ja fantasian salaperäisimpiä ja omintakeisimpia kirjailijoita. Vahvasti varjellun salanimen taakse kätkeytyvä kirjoittaja luo novelleillaan kokonaan uusia maailmoja, ja avaa samalla näkymän omaan maailmaamme - maailmaamme jossa teknologia on ottanut ohjat, ja inhimillisyys viime kädessä vain jäänne muinaisuudesta, joka jo pian unohtuu.</p><p>Lohduttomuudessaankin J.K.Miettisen novellit edustavat uuden suomalaisen spefin humanistisinta kärkeä. Ihminen on peto - ja petomaisuudessaankin silti aina ihminen.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<a href=\"novkok/mie-ht.htm\">\n<b>Häiriötekijä</b></a>. M-novellit 17. Turbator 2010. [SF,kok].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T22:00:32.389323+02:00",
               "author_str": "Miettinen, J. K."
             },
             "owners": [],
@@ -51141,7 +51141,7 @@
               "description": "<p>Fantasiaseikkailussa palataan takaisin Narniaan, missä kaikki on mahdollista. Uskomaton matka voi alkaa, kun kesälomaansa viettävät Edmund ja Lucy löytävät taulun, joka toimii porttina Narniaan ja Sarastus-laivalle.</p><p>Sarastus on ensimmäinen laiva, joka on nähty Narniassa vuosisatoihin. Kuningas Kaspian on rakentanut sen löytääkseen seitsemän lordia, hyvät miehet jotka hänen ilkeä setänsä Miraz on karkoittanut pois valtakunnasta.</p><p>Edmund, Lucy, heidän serkkunsa Eustace ja Kaspian matkaavat kohti jännittäviä seikkailuja ja Aslanin valtakuntaa.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Kaspianin matka maailman ääriin</b>. Narnia-sarja 3. (The Voyage of the Dawn Treader, 1952). \nSuom Kyllikki Hämäläinen. Meidän lasten kirjasto. Otava 1963. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T18:05:43.977777+02:00",
               "author_str": "Lewis, C. S."
             },
             "owners": [],
@@ -51229,7 +51229,7 @@
               "description": "<p><strong>UUSI AIKA ON KOITTANUT!</strong></p><p>Vuosisatojen kuluessa Narnia on joutunut ihmisten ja pahan kuninkaan hallintaan. Moni ei enää edes usko kääpiöiden, puiden henkien tai puhuvien eläinten olemassaoloon. Nuori prinssi Kaspian ryhtyy taisteluun palauttaakseen Narnian kadonneen kukoistuksen. Siihen hän tarvitsee lasten ja suuren Aslan-leijonan apua...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T18:06:40.495747+02:00",
               "author_str": "Lewis, C. S."
             },
             "owners": [],
@@ -51266,7 +51266,7 @@
               "description": "",
               "descr_attr": null,
               "imported_string": "\n\n<b>Taikurin sisarenpoika</b>. Narnia-sarja 6. (The Magician's Nephew, 1955). Suom Kyllikki Hämäläinen. Meidän lasten kirjasto. Otava 1959. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T18:11:09.083379+02:00",
               "author_str": "Lewis, C. S."
             },
             "owners": [],
@@ -51310,7 +51310,7 @@
               "description": "<p><strong>Matkoja maailman ääriin, ihmeellisiä olentoja ja elämää suurempia taisteluja hyvän ja pahan välillä - kun olet avannut oven Narniaan, mikään ei ole ennallaan</strong></p><p>Peter, Susan, Edmund ja Lucy löytävät tien vaatekaapin kautta tarumaailma Narniaan. Siellä he kohtaavat mahtavan leijonan, Aslanin, ja liittoutuvat hänen kanssaan taistellakseen Valkoista Noitaa vastaan ja pelastaakseen Narnian pimeyden voimilta.</p><p>Vuosikymmenten kuluessa Narnian tarinat ovat siirtyneet fantasiakirjallisuudesta klassikkojen kaanoniin. Jokainen seikkailusarjan seitsemästä osasta on mestariteos, jossa todellisuus ja taikuus kietoutuvat toisiinsa unohtumattomalla tavalla. <em>Velho ja leijona</em> on Narnia-sarjan ensimmäinen osa.</p><p>\"<em>C. S. Lewisin rinnakkaisuniversumin taika ei koskaan haihdu.</em>\" - The Times</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Velho ja leijona</b>. Narnia-sarja 1. (The Lion, the Witch and the Wardrobe, 1950). Suom Kyllikki Hämäläinen. Meidän lasten kirjasto. Otava 1960. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T18:07:45.307323+02:00",
               "author_str": "Lewis, C. S."
             },
             "owners": [],
@@ -52728,182 +52728,6 @@
           {
             "images": [
               {
-                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaranmuistot_1p.jpg",
-                "id": 7653,
-                "image_src": "/static/images/books/Shayne_Maggie_Hamaranmuistot_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1054,
-              "title": "Hämärän muistot",
-              "subtitle": "",
-              "orig_title": "Twilight Memories",
-              "pubyear": 1994,
-              "bookseriesnum": "2",
-              "bookseriesorder": 2,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "\n<b>Hämärän muistot</b>. Yön siivet 2. (Twilight Memories, 1994). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
-              "kirjasampo_imported": null,
-              "author_str": "Shayne, Maggie"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 1230,
-            "title": "Hämärän muistot",
-            "subtitle": "",
-            "pubyear": 2011,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-91-640-8222-0",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 333,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "\n<b>Hämärän muistot</b>. Yön siivet 2. (Twilight Memories, 1994). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaranprinssi_1p.jpg",
-                "id": 7660,
-                "image_src": "/static/images/books/Shayne_Maggie_Hamaranprinssi_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1055,
-              "title": "Hämärän prinssi",
-              "subtitle": "",
-              "orig_title": "Prince of Twilight",
-              "pubyear": 2006,
-              "bookseriesnum": "9",
-              "bookseriesorder": 9,
-              "misc": "",
-              "description": null,
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Hämärän prinssi</b>. Yön siivet 9. (Prince of Twilight, 2006). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
-              "kirjasampo_imported": null,
-              "author_str": "Shayne, Maggie"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 1231,
-            "title": "Hämärän prinssi",
-            "subtitle": "",
-            "pubyear": 2012,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-91-640-8661-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 316,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "\n\n<b>Hämärän prinssi</b>. Yön siivet 9. (Prince of Twilight, 2006). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaranreunalla_1p.jpg",
-                "id": 7658,
-                "image_src": "/static/images/books/Shayne_Maggie_Hamaranreunalla_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1056,
-              "title": "Hämärän reunalla",
-              "subtitle": "",
-              "orig_title": "Edge of Twilight",
-              "pubyear": 2004,
-              "bookseriesnum": "7",
-              "bookseriesorder": 7,
-              "misc": "",
-              "description": "<p>Amber Lily on ainutlaatuinen. Hänen ei kuuluisi olla olemassa, vampyyreiden ei nimittäin pitäisi kyetä lisääntymään. Ainutlaatuisuudestaan Amber on joutunut maksamaan kovan hinnan, hänen vanhempansa ovat aina suhtautuneet häneen ylisuojelevasti.</p><p>Amber on jo pidemmän aikaa nähnyt merkillisen unen uudestaan ja uudestaan. Komea mies ojentaa hänelle kauniin koristeellisen puurasian, mutta Amber ei halua katsoa sen sisälle.</p><p>Amber on ajamassa ystäviensä luokse, kun hän on ajaa miehen päälle. Mies - Edge - on hänen unestaan ja hän on vampyyri. Amber aistii miehessä aggressiivista voimaa, mutta ei voi vastustaa tämän herättämää halua.</p><p>Amberilla ja Edgellä on yhteinen vihollinen Stiles, joka on jo vuosia saalistanut Amberia. Kohta suuri yllätys hätkähdyttää heitä ja koko heidän suurta vampyyriperhettään; Amberilla ja Edgellä on muutakin yhteistä kuin vihollinen... Jälleen kerran Amberin elämä osoittautuu kerrassaan ainutlaatuiseksi.</p><p>Kauan odotetun <em>Yön siivet</em> -sarjan jatko-osa on vihdoinkin täällä! Tiesithän, että voit ostaa sarjan aikaisemmat osat osoitteesta eharlequin.fi</p><p><em>\"Maggie Shaynella on aivan loistava taito hyppysissään, kun hän sekoittelee fantasiaa ja rakkautta ainutlaatuiseksi lukukokemukseksi.\"</em> - RT Book Reviews romaanista Hämärän syleily</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n\n<b>Hämärän reunalla</b>. Yön siivet 7. (Edge of Twilight, 2004). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
-              "kirjasampo_imported": null,
-              "author_str": "Shayne, Maggie"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 1232,
-            "title": "Hämärän reunalla",
-            "subtitle": "",
-            "pubyear": 2012,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-91-640-8550-4",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 429,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "\n\n<b>Hämärän reunalla</b>. Yön siivet 7. (Edge of Twilight, 2004). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaransyleily_1p.jpg",
-                "id": 7657,
-                "image_src": "/static/images/books/Shayne_Maggie_Hamaransyleily_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 1057,
-              "title": "Hämärän syleily",
-              "subtitle": "",
-              "orig_title": "Embrace the Twilight",
-              "pubyear": 2003,
-              "bookseriesnum": "6",
-              "bookseriesorder": 6,
-              "misc": "",
-              "description": "<p>Eversti Willem Stone on joutunut sotavangiksi ja saa kärsiä yli-inhimillisiä tuskia. Kovassa kuumeessa hän näkee näkyjä naisesta, jolla on villit mustat kiharat.</p><p>Sarafina on heimonsa syrjimä taitava ennustaja, erilainen kuin muut, liian erilainen ollakseen enää yksi heistä. Hänellä on henki, joka puhuu tälle, vaikka vaikuttaisikin siltä, että henki on täysin tavallinen kuolevainen.</p><p>Teinitytöt Amber ja Alicia haluavat lähteä koittamaan itsenäistä elämää loman merkeissä New Yorkiin. Amberin vanhemmat eivät ole ollenkaan innoissaan tyttöjen aikeista, sillä Amber on harvinainen luonnonoikku - kahden vampyyrin jälkeläinen – ja vampyyreitä vastaan taistelevan ryhmän halutuin saalis.</p><p>Amberin isä palkkaa lehdistön ylistämän sotasankarin Willem Stonen vahtimaan tyttöjä. Hämärän syleilyssä tapahtumat ja henkilöt kietoutuvat oudolla tavalla toisiinsa...</p><p>Tämä on kuudes itsenäinen osa minisarjasta <em>Yön siivet.</em> Tiesithän, että voit ostaa sarjan aikaisemmat osat osoitteesta eharlequin.fi</p><p><em>\"Sekoittamalla fantasiaa ja romantiikkaa Maggie Shayne todistaa erinomaisuutensa ja luo mahtavan lukukokemuksen.\"</em> - RT Book Reviews romaanista Hämärän syleily</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n\n<b>Hämärän syleily</b>. Yön siivet 6. (Embrace the Twilight, 2003). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
-              "kirjasampo_imported": null,
-              "author_str": "Shayne, Maggie"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 1233,
-            "title": "Hämärän syleily",
-            "subtitle": "",
-            "pubyear": 2011,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-91-640-8440-8",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 380,
-            "size": 19,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "\n\n<b>Hämärän syleily</b>. Yön siivet 6. (Embrace the Twilight, 2003). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
-            "verified": false
-          },
-          {
-            "images": [
-              {
                 "thumb_src": "/static/images/books/Shayne_Maggie_Ikiyontarinoita_1p.jpg",
                 "id": 7652,
                 "image_src": "/static/images/books/Shayne_Maggie_Ikiyontarinoita_1p.jpg",
@@ -53075,6 +52899,182 @@
             "coverimage": 1,
             "misc": "",
             "imported_string": "\n\n<b>Uusi elämä</b>. Yön siivet 4. (Born in Twilight, 1997). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaranmuistot_1p.jpg",
+                "id": 7653,
+                "image_src": "/static/images/books/Shayne_Maggie_Hamaranmuistot_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1054,
+              "title": "Hämärän muistot",
+              "subtitle": "",
+              "orig_title": "Twilight Memories",
+              "pubyear": 1994,
+              "bookseriesnum": "2",
+              "bookseriesorder": 2,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n<b>Hämärän muistot</b>. Yön siivet 2. (Twilight Memories, 1994). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
+              "kirjasampo_imported": null,
+              "author_str": "Shayne, Maggie"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 1230,
+            "title": "Hämärän muistot",
+            "subtitle": "",
+            "pubyear": 2011,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-91-640-8222-0",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 333,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "\n<b>Hämärän muistot</b>. Yön siivet 2. (Twilight Memories, 1994). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaranprinssi_1p.jpg",
+                "id": 7660,
+                "image_src": "/static/images/books/Shayne_Maggie_Hamaranprinssi_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1055,
+              "title": "Hämärän prinssi",
+              "subtitle": "",
+              "orig_title": "Prince of Twilight",
+              "pubyear": 2006,
+              "bookseriesnum": "9",
+              "bookseriesorder": 9,
+              "misc": "",
+              "description": null,
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Hämärän prinssi</b>. Yön siivet 9. (Prince of Twilight, 2006). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
+              "kirjasampo_imported": null,
+              "author_str": "Shayne, Maggie"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 1231,
+            "title": "Hämärän prinssi",
+            "subtitle": "",
+            "pubyear": 2012,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-91-640-8661-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 316,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "\n\n<b>Hämärän prinssi</b>. Yön siivet 9. (Prince of Twilight, 2006). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaranreunalla_1p.jpg",
+                "id": 7658,
+                "image_src": "/static/images/books/Shayne_Maggie_Hamaranreunalla_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1056,
+              "title": "Hämärän reunalla",
+              "subtitle": "",
+              "orig_title": "Edge of Twilight",
+              "pubyear": 2004,
+              "bookseriesnum": "7",
+              "bookseriesorder": 7,
+              "misc": "",
+              "description": "<p>Amber Lily on ainutlaatuinen. Hänen ei kuuluisi olla olemassa, vampyyreiden ei nimittäin pitäisi kyetä lisääntymään. Ainutlaatuisuudestaan Amber on joutunut maksamaan kovan hinnan, hänen vanhempansa ovat aina suhtautuneet häneen ylisuojelevasti.</p><p>Amber on jo pidemmän aikaa nähnyt merkillisen unen uudestaan ja uudestaan. Komea mies ojentaa hänelle kauniin koristeellisen puurasian, mutta Amber ei halua katsoa sen sisälle.</p><p>Amber on ajamassa ystäviensä luokse, kun hän on ajaa miehen päälle. Mies - Edge - on hänen unestaan ja hän on vampyyri. Amber aistii miehessä aggressiivista voimaa, mutta ei voi vastustaa tämän herättämää halua.</p><p>Amberilla ja Edgellä on yhteinen vihollinen Stiles, joka on jo vuosia saalistanut Amberia. Kohta suuri yllätys hätkähdyttää heitä ja koko heidän suurta vampyyriperhettään; Amberilla ja Edgellä on muutakin yhteistä kuin vihollinen... Jälleen kerran Amberin elämä osoittautuu kerrassaan ainutlaatuiseksi.</p><p>Kauan odotetun <em>Yön siivet</em> -sarjan jatko-osa on vihdoinkin täällä! Tiesithän, että voit ostaa sarjan aikaisemmat osat osoitteesta eharlequin.fi</p><p><em>\"Maggie Shaynella on aivan loistava taito hyppysissään, kun hän sekoittelee fantasiaa ja rakkautta ainutlaatuiseksi lukukokemukseksi.\"</em> - RT Book Reviews romaanista Hämärän syleily</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n\n<b>Hämärän reunalla</b>. Yön siivet 7. (Edge of Twilight, 2004). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
+              "kirjasampo_imported": null,
+              "author_str": "Shayne, Maggie"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 1232,
+            "title": "Hämärän reunalla",
+            "subtitle": "",
+            "pubyear": 2012,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-91-640-8550-4",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 429,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "\n\n<b>Hämärän reunalla</b>. Yön siivet 7. (Edge of Twilight, 2004). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2012. [F].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Shayne_Maggie_Hamaransyleily_1p.jpg",
+                "id": 7657,
+                "image_src": "/static/images/books/Shayne_Maggie_Hamaransyleily_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 1057,
+              "title": "Hämärän syleily",
+              "subtitle": "",
+              "orig_title": "Embrace the Twilight",
+              "pubyear": 2003,
+              "bookseriesnum": "6",
+              "bookseriesorder": 6,
+              "misc": "",
+              "description": "<p>Eversti Willem Stone on joutunut sotavangiksi ja saa kärsiä yli-inhimillisiä tuskia. Kovassa kuumeessa hän näkee näkyjä naisesta, jolla on villit mustat kiharat.</p><p>Sarafina on heimonsa syrjimä taitava ennustaja, erilainen kuin muut, liian erilainen ollakseen enää yksi heistä. Hänellä on henki, joka puhuu tälle, vaikka vaikuttaisikin siltä, että henki on täysin tavallinen kuolevainen.</p><p>Teinitytöt Amber ja Alicia haluavat lähteä koittamaan itsenäistä elämää loman merkeissä New Yorkiin. Amberin vanhemmat eivät ole ollenkaan innoissaan tyttöjen aikeista, sillä Amber on harvinainen luonnonoikku - kahden vampyyrin jälkeläinen – ja vampyyreitä vastaan taistelevan ryhmän halutuin saalis.</p><p>Amberin isä palkkaa lehdistön ylistämän sotasankarin Willem Stonen vahtimaan tyttöjä. Hämärän syleilyssä tapahtumat ja henkilöt kietoutuvat oudolla tavalla toisiinsa...</p><p>Tämä on kuudes itsenäinen osa minisarjasta <em>Yön siivet.</em> Tiesithän, että voit ostaa sarjan aikaisemmat osat osoitteesta eharlequin.fi</p><p><em>\"Sekoittamalla fantasiaa ja romantiikkaa Maggie Shayne todistaa erinomaisuutensa ja luo mahtavan lukukokemuksen.\"</em> - RT Book Reviews romaanista Hämärän syleily</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n\n<b>Hämärän syleily</b>. Yön siivet 6. (Embrace the Twilight, 2003). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
+              "kirjasampo_imported": null,
+              "author_str": "Shayne, Maggie"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 1233,
+            "title": "Hämärän syleily",
+            "subtitle": "",
+            "pubyear": 2011,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-91-640-8440-8",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 380,
+            "size": 19,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "\n\n<b>Hämärän syleily</b>. Yön siivet 6. (Embrace the Twilight, 2003). Suom Hanna Arvonen. Nocturne-sarja. Förlaget Harlequin AB 2011. [F].",
             "verified": false
           },
           {
@@ -55098,7 +55098,7 @@
               "description": "<p>Oslon Raatihuoneen tornissa on merkillinen tähtitieteellinen kello, joka näyttää vuorokauden ajan, päivämäärän ja vuoden, kuunvaiheet ja tähtien kierron. Viggo ja Mona, kaksi reipasta norjalaista sisarusta, pääsevät katsomaan tätä harvinaista laitetta ja joutuvat sitä tietä mitä ihmeellisimpiin seikkailuihin.</p><p>Kun he kiipeävät kellon koneiston vuosisatarenkaan läpi, he yhtäkkiä joutuvat sala vuotta taaksepäin ajassa ja huomaavat olevansa aivan vieraassa maailmassa, esivanhempiensa pienessä Kristianiassa. Eikä siinä kyllin, vielä kauemmaksikin vievät nämä \"portaat halki aikojen\". Reippaat sisarukset vaeltavat läpi aurinkoisen Tanskan, he tapaavat Välskärin kertomuksista tuntemansa vanhan sotaurhon, tutustuvat Englannissa Anna Boleynin pyöveliin, näkevät renessanssin loiston Firenzessä ja kokevat jännittäviä seikkailuja ristiretkeläisten parissa. Laaja ja värikäs historiallinen maailmankartta avautuu eteemme ja ihmeelliset seikkailut pitävät mielenkiinnon koko ajan vireillä.</p><p>Odd Bang-Hansen on kirjoittanut romaanin, joka vetoaa nuoren lukijan mielikuvitukseen ja tiedonhaluun. Teos voitti ensimmäisen palkinnon suuressa pohjoismaisessa nuorisonkirjakilpailussa v. 1952.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Portaat halki aikojen</b>. (Trapp med ni trinn, 1952). Suom A. Kolula. Nuorten sarja 12. Tammi 1952. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T21:36:14.596461+02:00",
               "author_str": "Bang-Hansen, Odd"
             },
             "owners": [],
@@ -56662,7 +56662,7 @@
               "description": "<p>Seitsenosaisen <em>Kuolemanportti</em>-fantasiasarjan ensimmäinen osa.</p><p>Aikojen alkuhämärissä sartanit aiheuttivat maailman eriytymisen neljäksi maailmaksi: tuleksi, kiveksi, ilmaksi ja vedeksi. Paha velho Xar yrittää saada valtaansa koko universumin. Hän valjastaa palvelijansa Haplon aiheuttamaan sekasortoa kaikkiin maailmoihin ja lähettää hänet Kuolemanportin kautta ensin Arianukseen, ilman valtakuntaan, jossa kaikki ei todellakaan ole sitä miltä näyttää.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": "2026-11-10T20:21:11.265645+02:00",
+              "kirjasampo_imported": "2026-11-10T19:22:47.047829+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -56706,7 +56706,7 @@
               "description": "<p>Aikojen alkuhämärissä mahtavat sartanit aiheuttivat maailman eriytymisen tulen, kiven, ilman ja veden valtakunniksi. Nexuksen valtias haluaa valtaansa koko universumin. Nyt hänen palvelijansa Haplo on käynyt jokaisessa neljässä maailmassa ja päässyt selville kansaansa uhkaavasta vaarasta. Petolliset lohikäärmeliskot aikovat tuhota koko universumin.</p><p>Haplon on palattava Nexukseen varoittamaan herraansa. Mutta mitä tapahtuu, kun hän saa selville, että hirviömäiset lohikäärmeliskot ovat onnistuneet pakenemaan Kuolemanportin kautta?</p><p>Margaret Weis ja Tracy Hickman aloittivat uransa fantasiapelien suunnittelijoina. Heidän seitsenosaisen KUOLEMANPORTTI-sarjansa kirjat ovat Yhdysvaltain myyntilistojen kärkeä. Aiemmin suomennetut neljä osaa ovat <em>Lohikäärmeen siipi</em>, <em>Haltioiden tähti,</em> <em>Tulimeri </em>ja <em>Käärmemaagi</em>.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:18:34.238603+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -56750,7 +56750,7 @@
               "description": "<p>Seitsenosaisen Kuolemanportti-fantasiasarjan toinen osa. Nexuksen valtias, paha velho Xar, haluaa haltuunsa koko universumin: ilman, tulen, kiven ja veden valtakunnat. Hän lähettää nopeaälyisen ja taikuudessa pätevän palvelijansa Haplon Kuolemanportin kautta Pryaniin, tulen valtakuntaan. Haplo laskeutuu lohikäärmelaivallaan keskelle kaaosta, jossa karmeat tytaanit eli jättiläiset tekevät tuhojaan. Miten Haplo suoriutuu Xarilta saamastaan tehtävästä? Selviytyvätkö tulen valtakunnan asukkaat tytaanien julmista kynsistä?</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:21:44.680481+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -56794,7 +56794,7 @@
               "description": "<p><strong>Hengenvaarallinen ja uhkarohkea matka Uuteen Vinnengaeliin</strong></p><p>Vuosikymmeniä kestäneen etsinnän jälkeen valtalordi Gustav onnistuu löytämään ihmisten osan Kaikkeuden kivestä, jonka siunattua voimaa tarvitaan nyt enemmän kuin koskaan.</p><p>Bashae ja Jessan saavat tehtäväkseen viedä kiven turvaan haltijoiden maille. Matka on pitkä ja vaarallinen, ja pahaa-aavistamaton kaksikko vetää pimeyden voimia puoleensa. Jos kuolematon, musta Dagnarus saa kiven käsiinsä, koko maailma joutuu hänen valtaansa.</p><p>Margaret Weis ja Tracy Hickman ovat kirjoittaneet ja julkaisseet yhdessä yli neljäkymmentä kirjaa. <em>Kaikkeuden kivi</em> -sarja on ollut jättimenestys kaikkialla. Sarjassa on suomeksi ilmestynyt kirja <em>Pimeyden kaivo</em>.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T00:00:10.652438+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -56838,7 +56838,7 @@
               "description": "<p>Aikojen alkuhämärissä mahtavat sartanit aiheuttivat maailman eriytymisen tulen, kiven, ilman ja veden valtakunniksi. Nexuksen valtias haluaa valtaansa koko universumin ja lähettää palvelijansa Haplon levittämään Kuolemanportin kautta kaaosta kaikkiin maailmoihin. Tällä kertaa matka suuntautuu Chelestraan, veden valtakuntaan, jonne aikovat asettua myös ihmiset, kääpiöt ja haltiat.</p><p>Valtavien lohikäärmeliskojen yllättävä ilmaantuminen vaarantaa yhteisöjen rauhan. Sillä välin kun Haplo osallistuu taisteluun näitä hirviöitä vastaan, sartani Alfred löytää viimein esi-isiensä lepopaikan ja herättää heidät henkiin – kohtalokkain seurauksin.</p><p>Margaret Weis ja Tracy Hickman aloittivat uransa fantasia- pelien suunnittelijoina. Heidän seitsenosaisen KUOLEMANPORTTI-sarjansa kirjat ovat Yhdysvaltain myyntilistojen kärkeä. Aiemmin suomennetut kolme osaa ovat <em>Lohikäärmeen siipi, Haltioiden tähti</em> ja <em>Tulimeri.</em></p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:19:28.278055+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -56882,7 +56882,7 @@
               "description": "<p>Aikojen alkuhämärissä mahtavat sartanit aiheuttivat maailman eriytymisen tulen, kiven, ilman ja veden valtakunniksi. Nexuksen valtias Xar haluaa saada valtaansa koko universumin. Suunnitelmat ovat kuitenkin mutkistuneet: palvelija Haplo on kääntänyt isännälleen selkänsä.</p><p>Nyt Xar yrittää keinoja kaihtamatta löytää tiensä maagisen seitsemännen portin sisään, missä alun alkaen pantiin toimeen maailman Eriytyminen.</p><p>Samanaikaisesti Haplo ja Alfred harhailevat vankeina Labyrintissä, joka on täynnä julmaa magiaa ja josta vain harvat onnistuvat pakenemaan. Kokevatko he saman kohtalon kuin kokonainen patryni-sukupolvi?</p><p>Margaret Weis ja Tracy Hickman aloittivat uransa fantasiaperien suunnittelijoina. Heidän seitsenosaisen KUOLEMANPORTTI-sarjansa kirjat ovat Yhdysvaltain myyntilistojen kärkeä. Aiemmin suomennetut viisi osaa ovat<em> Lohikäärmeen siipi, Haltioiden tähti, Tulimeri, Käärmemaa</em>gi ja <em>Kaaoksen käsi.</em></p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:17:42.195821+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -56926,7 +56926,7 @@
               "description": "<p>Rotujen väliset ristiriidat repivät Loerenin mannerta. Haltiat, kääpiöt, orkit ja muutama ihmiskuningaskin havittelevat suurempaa valtaa. Kuningas Tamaroksen työ sovun ylläpitämiseksi alkaa murentua. Pahuus itää myös hänen omassa hovissaan, sillä kateuden myrkyttämä prinssi Dagnarus janoaa veljensä, kruununperijä Helmoksen valta-asemaa.</p><p>Ratkaisu tuntuu löytyvän, kun jumalat lahjoittavat Tamarokselle Kaikkeuden kiven. Se on kallisarvoinen, pyhä jalokivi, jonka avulla Tamaros haluaa luoda hyvää tahtoa maailmaan. Mutta kenelläkään ei ole aavistustakaan, millaisia pimeyden voimia ja synkkiä salaisuuksia tuo kivi pitää sisällään.</p><p><strong>Pimeyden kaivo </strong>aloittaa maineikkaiden kirjoittajien <strong>Kaikkeuden kivi</strong> -fantasiatrilogian, joka perustuu suosittuun, tekijäparin suunnittelemaan <em>Sovereign Stone</em> -roolipelin maailmaan.</p><p>Margaret Weis ja Tracy Hickman ovat fantasiakirjallisuuden kiintotähtiä. He ovat kirjoittaneet yhdessä vuodesta 1985 lähtien ja julkaisseet yli neljäkymmentä kirjaa, joista kansainvälisiksi jättimenestyksiksi ovat nousseet muun muassa Dragonlance- ja Kuolemanportti-sarjojen romaanit. Kuolemanportti-kirjat ovat ilmestyneet Otavan fantasiaromaaneina.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T00:01:18.960152+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -56970,7 +56970,7 @@
               "description": "<p>Aikojen alkuhämärissä mahtavat sartanit aiheuttivat maailman eriytymisen tulen, kiven, ilman ja veden valtakunniksi. Nexuksen valtias Xar haluaa valtaansa koko universumin. Hän on lähettänyt palvelijansa patryni Haplon Kuolemanportin kautta aiheuttamaan sekasortoa kaikkiin maailmoihin, mutta nyt Haplo on pettänyt isäntänsä. Xar suunnittelee käyttävänsä Haploon nekromantian taitoa saadakseen selville seitsemännen portin sijainnin.</p><p>Marit, Käsi-Hugh ja Alfred voivat pelastaa Haplon, mutta onnistuakseen heidän on kuljettava seitsemännestä portista. Jos portin sijainti paljastuu Xarille, koko universumin kohtalo on vaarassa. Suoriutuuko kolmikko tehtävästään vai siirtyykö maailmankaikkeuden herruus Xarille?</p><p>Margaret Weis ja Tracy Hickman aloittivat uransa fantasiapelien suunnittelijoina. Heidän KUOLEMANPORTTI-sarjansa kirjat ovat Yhdysvaltain myyntilistojen kärkeä. SEITSEMÄS PORTTI päättää sarjan, aiemmin suomennetut kuusi osaa ovat LOHIKÄÄRMEEN SIIPI, HALTIOIDEN TÄHTI, TULIMERI, KÄÄRMEMAAGI, KAAOKSEN KÄSI ja LABYRINTTIIN.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:16:52.512974+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -57014,7 +57014,7 @@
               "description": "<p>Aikojen alkuhämärissä mahtavat sartanit aiheuttivat maailman eriytymisen tulen, kiven, ilman ja veden valtakunniksi. Saadakseen haltuunsa koko universumin Nexuksen herra lähettää palvelijansa patryni Haplon Kuolemanportin kautta aiheuttamaan sekasortoa kaikkiin maailmoihin.</p><p>Arianuksen ja Pryanin jälkeen matka jatkuu Abarrachiin, kiven valtakuntaan. Yllätyksekseen Haplo saa seuraa sartani Alfredista, vihollisrodun jäsenestä.</p><p>Asiat Abarrachissa ovat heikolla tolalla: sartanit ovat kadottamassa taikavoimansa. Koko valtakunta on vain kiveä ja laavaa ja pimeyttä, sillä suuri kivipylväs, joka aiemmin säteili maailmaan valoa ja lämpöä, on lakannut toimimasta. Joku käy äärimmäisen salakavalaa sotaa tuhotakseen koko kansan - mutta miksi?</p><p>Perillä Abarrachissa Haplo ja Alfred tekevät löydön, joka voi tervehdyttää kaikki neljä maailmaa - tai tuhota koko universumin.</p><p>Margaret Weis ja Tracy Hickman aloittivat uransa fantasiapelien suunnittelijoina ja ovat sittemmin kirjoittaneet joukon kansainvälisiä bestsellereitä. Seitsenosainen KUOLEMANPORTTI-sarja on tämän fantasiakirjallisuuden kenties tunnetuimman tekijäparin mielikuvituksellinen, vauhdikas ja humoristinen seikkailukertomus. Sarjan aiemmat osat ovat Lohikäärmeen siipi ja Haltioiden tähti.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:20:29.189777+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -57894,7 +57894,7 @@
               "description": "<p>Hurja taistelu saukkoheimon legendaarisista helmistä! Sampetran saaren pelottava näätähallitsija Ublaz suunnittelee ryöstöretkeä Redwallin luostariin. Samaan aikaan siilineito Villakko ja muut Redwallin asukkaat yrittävät selvittää vaikeaa arvoitusta löytääkseen Lutran saukkoheimon ruusunpunaiset jalokivet. Mitä lähemmäksi arvoituksen ratkaisemista luostarin asukkaat pääsevät, sitä lähemmäksi Redwallia uhkaava Ublazin laivarotta- ja varaaniarmeija etenee.</p><p>Ja eräänä päivänä armeija ilmestyy luostarin portille vaatimaan Lutran helmiä itselleen.</p><p><em>Jalokivien jäljillä</em> on maailmanlaajuiseen suosioon nousseen, kiitetyn ja palkitun Redwall-fantasiaromaanisarjan yhdeksäs kirja. Sarjan kirjoittaja Brian Jacques (s. 1939) on aikaisemmin työskennellyt muun muassa merimiehenä, koomikkona ja näytelmäkirjailijana. Internetissä on laajat Redwall-sarjalle omistetut fanisivut.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Jalokivien jäljillä</b>. Redwallin taru 9. (The Pearls of Lutra, 1996). Suom Mika Kivimäki. Runojen suom Jukka Itkonen. Otava 2002. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T18:12:55.036788+02:00",
               "author_str": "Jacques, Brian"
             },
             "owners": [],
@@ -61439,7 +61439,7 @@
               "description": "<p>Lunalla ja Solalla menee huonosti! Kaksoset eivät ole ilon aihe kenellekään, vaan he kylvävät ympärilleen eripuraa. Maankiertäjät, jotka aikoinaan adoptoivat Lunan, käyttäytyvät kaksosia kohtaan oudosti, jopa uhkaavasti. Varjohaltijat jahtaavat tyttöjä. Merkillinen, muotoaan muuttava sumu tunkeutuu leiriin. Mitä kauheuksia vielä tapahtuukaan?</p><p>Lunan pikkuveli Brenn katoaa salaperäisesti. Sola ja Luna lähtevät hevosineen jäljittämään poikaa, mutta päätyvät itsekin satimeen - ja vankityrmän avaimenhaltija lähettää sanan varjohaltijoille!</p><p>Luna ja Sola haluavat pelastaa Brennin, mutta miten? Eiväthän he pysty pelastamaan edes itseään!</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T12:02:37.603393+02:00",
               "author_str": "Dorsey, Angela & Miral, Marina"
             },
             "owners": [],
@@ -63338,7 +63338,7 @@
               "description": "<p><em>Riemastuttava käytännön opas jokaiselle lohikäärmeen omistajalle. \"Klassikko\" </em>- Viikinkisanomat.</p><p>Perustuu kuuluisan viikinkisankarin ja lohikäärmekuiskaajan Hikotus Kauhistus Koljakala III:nnen kokemuksiin hänen kouluttaessaan todella pientä ja tottelematonta lohikäärmettä nimeltä Hampaaton.</p><p>Kun Hikotus valitsee itselleen koulutettavaa lohikäärmeenpoikasta, kaikki menee pieleen. Hänen luolasta sieppaamansa otuksen ainoa erityinen piirre on, että se on todella pieni ja hampaaton - täysin haluton tottelemaan minkäänlaisia käskyjä. Varsinkaan professori Räyhän kultainen sääntö \"huuda sille\" ei todellakaan tuota tuloksia.</p><p>Niinpä Hikotuksen on koulutettava Hampaaton aivan omalla tavallaan. Ja se on yksi viikinkimaailman vaikeimmista tehtävistä, sillä lohikäärmeet ovat ahneita ja turhamaisia, eikä niihin koskaan voi luottaa. Mutta Hikotus saa selville yhden asian, jota ne rakastavat yli kaiken...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T20:27:57.032366+02:00",
               "author_str": "Cowell, Cressida"
             },
             "owners": [],
@@ -63902,7 +63902,7 @@
               "description": "<p>Idea lukitusta huoneesta rikoksen näyttämönä syntyi Poen nerokkaissa aivoissa kuten itse asiassa koko nykyaikainen salapoliisikirjallisuus. Tähän ideaan perustuu kuuluisa kertomus Rue Morguen murhat, joka edelleen on eräs kaikkien aikojen vertahyytävimmistä rikosnovelleista. Väkivaltainen kuolema ja yliluonnollinen, painajaisunenomainen kauhu toisaalta. viileä ja älyllinen erittely toisaalta luovat siinä, kuten muissakin</p><p>tämän kirjan kertomuksissa juuri sitä värisyttävää tunnelmaa, jonka kehittelyssä Poe on lyömätön mestari, korpinnaurun kuolematon klassikko.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T20:13:00.643833+02:00",
               "author_str": "Poe, Edgar Allan"
             },
             "owners": [],
@@ -63939,7 +63939,7 @@
               "description": "<p>Idea lukitusta huoneesta rikoksen näyttämönä syntyi Poen nerokkaissa aivoissa kuten itse asiassa koko nykyaikainen salapoliisikirjallisuus. Tähän ideaan perustuu kuuluisa kertomus Rue Morguen murhat, joka edelleen on eräs kaikkien aikojen vertahyytävimmistä rikosnovelleista. Väkivaltainen kuolema ja yliluonnollinen, painajaisunenomainen kauhu toisaalta. viileä ja älyllinen erittely toisaalta luovat siinä, kuten muissakin</p><p>tämän kirjan kertomuksissa juuri sitä värisyttävää tunnelmaa, jonka kehittelyssä Poe on lyömätön mestari, korpinnaurun kuolematon klassikko.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T20:13:00.643833+02:00",
               "author_str": "Poe, Edgar Allan"
             },
             "owners": [],
@@ -64693,7 +64693,7 @@
               "description": "<p><em>\"Ihmiskunnan vanhin ja voimakkain tunne on pelko, ja pelon vanhin ja voimakkain muoto on tuntemattoman pelko.\"</em></p><p>Pitkässä esseessään <em>Yliluonnollinen kauhu kirjallisuudessa</em> H. P. Lovecraft kuvailee kauhukirjallisuuden historiaa aina ihmiskunnan alkuajoista saakka.</p><p>Howard Phillips Lovecraft (1890-1937) oli amerikkalainen klassikkokirjailija, joka julkaisi kauhistuttavat tarinansa aikansa kioskilehdissä, mutta on 2000-luvulla noussut yhdeksi tärkeimmistä kauhukirjailijoista kautta aikojen.</p><p>Teokseen sisältyvät myös suomentaja Juri Nummelinin esipuhe sekä laaja huomautusosio.</p>",
               "descr_attr": null,
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T21:39:36.776083+02:00",
               "author_str": "Lovecraft, H. P."
             },
             "owners": [],
@@ -66602,7 +66602,7 @@
               "description": "<p>Dyyni eli Arrakis on keisarikunnan planeetoista syrjäisin, karuin ja vihamielisin. Kuitenkin siitä on taisteltu verisesti vuosisatojen ajan. Sillä ainoastaan Arrakisissa kasvaa kallisarvoinen rohto, elämän pidentäjä. Rohdon kasvupaikkoja vartioivat jättimäiset hiekkamadot ja beduiineja muistuttava fremen-kansa, Dyynin alkuasukkaat, jotka ovat kehittäneet nerokkaita keinoja hankkia vettä ja säilyä hengissä polttavan kuumalla aavikolla.</p>\r\n\r\n<p>Dyyni-sarjan toisessa romaanissa kerrotaan nuoresta, ylhäissyntyisestä Paul Atreidesista, joka saapuu pakolaisena fremenien luo. Aavikon heimo näkee Paulissa odotetun messiaansa ja auttaa häntä taistelussa vaarallista vihollista, paroni Harkonnenia, vastaan. </p>",
               "descr_attr": null,
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T00:08:42.554525+02:00",
               "author_str": "Herbert, Frank"
             },
             "owners": [
@@ -70129,7 +70129,7 @@
               "description": null,
               "descr_attr": null,
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T21:59:27.027229+02:00",
               "author_str": "Spider, E."
             },
             "owners": [],
@@ -74056,7 +74056,7 @@
               "description": "<p>Kaikki ovat varmasti kuulleet puhuttavan kummituksista. Monet tuntevat ainakin sen pienikokoisen kummituksen, joka äidin liinavaatekaapista lainattu lakana päällä ilmestyy joskus nurkan takaa ja sanoo huu.</p><p>Suomessa kummituksia on vähän, meillä ovat peikot ja tontut olleet tutumpia joskus kauan sitten. Mutta Englanti on kummitusten kotimaa. Siellä kulkevat aaveet vanhoissa linnoissa kahleitaan kalistellen ja portaita naristellen joka yö täsmälleen kello kaksitoista. Englannissa jollakin suvulla saattaa olla oma kummitus, joka ilmestyy aina kun jotakin tärkeätä tapahtuu. Ja sopivassa tienristeyksessä voi kuutamoisena yönä nähdä nuoren kalpean neidon kulkevan tai maantierosvon istuvan hevosensa selässä.</p><p>Englantilaiset kirjailijat ovat varmasti maailman parhaita kummitusjuttujen kertojia. Osan he ovat kuulleet tarinoina muilta, osan sepittäneet itse. Siksi monet tämän kirjan tarinoista ovat englantilaisten kirjoittamia. Eivätkä ne ole mitenkään karmean pelottavia, ihan sopivasti vain.</p><p><em>Kokematon kummitus</em> on maailmankirjallisuuden novellistiikasta koottu valikoima kummituskertomuksia. Valikoiman on toimittanut kirjastonhoitaja ja lastenkirjakriitikko Ritva-Liisa Pilhjerta.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Kokematon kummitus</b>. Valikoima kummituskertomuksia. Suom Raija Mattila. Tam tam -kirjat. Tammi 1973. [nK,kok].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T21:37:06.579306+02:00",
               "author_str": "Pilhjerta, Ritva-Liisa (toim.)"
             },
             "owners": [],
@@ -80273,7 +80273,7 @@
               "description": "<p>EHDOTON LUKUELÄMYS, VÄKEVÄ KUIN LOITSU</p><p>Desirée makaa sairaalassa. Hän ei pysty kävelemään eikä puhumaan, mutta hänellä on näkijän kyky. Hän osaa myös leijua ja ottaa ihmisen haltuunsa...</p><p>Desiréen kolme kasvattisiskoa eivät tiedä hänen olemassaolostaan, mutta eräänä päivänä he saavat kukin salaperäisen kirjeen. Se pakottaa heidät muistamaan, miten heidän kauan sitten oli jätettävä kasvatuskotinsa, ainoa turvansa. Lääkäri Christina silmäilee sormiaan - näkyykö, että joku mursi ne tahallaan? Fyysikko Margareta muistaa, kuinka hän epävarmana 17-vuotiaana ryhtyi suhteeseen opettajansa kanssa. Narkomaani Birgitta taas mutisee lauseen, jota hän on hokenut koko ikänsä: \"Ei se minun vikani ollut!\"</p><p>Menestyskirjailijan dramaattinen ja jännittävä romaani tempaa lukijan vastustamattomasti mukaansa neljän naisen elämään.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T21:38:38.269143+02:00",
               "author_str": "Axelsson, Majgull"
             },
             "owners": [],
@@ -80293,50 +80293,6 @@
             "dustcover": 1,
             "coverimage": 1,
             "misc": "Päällyksen suunnittelu: Design Team München. Päällyksen kuva: ZEFA / Index Stock.",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Fitzpatrick_Becca_Langennutenkeli_2p.jpg",
-                "id": 7397,
-                "image_src": "/static/images/books/Fitzpatrick_Becca_Langennutenkeli_2p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 2509,
-              "title": "Langennut enkeli",
-              "subtitle": "",
-              "orig_title": "Hush, Hush",
-              "pubyear": 2009,
-              "bookseriesnum": "1",
-              "bookseriesorder": 1,
-              "misc": "",
-              "description": "<p>Romanssinpoikaset, illat hämyisessä pelihallissa ja yön selkään kiitävät moottoripyörät eivät olleet kuuluneet Nora Greyn elämään. Kunnes hänen biologian opiskeluparikseen ilmestyy kuin tyhjästä Patch-niminen salaperäinen muukalainen. Tumman ja synkeänkomean Patchin tutkimaton hymy ja ihmeelliset silmät kiehtovat Noraa kuin yölamppu perhosta. Kuka Patch oikein on ja mistä hän on tullut? Ja kuinka hän on saanut hiilenmustat arvet selkäänsä? Poika tuntuu olevan kaikkialla missä Norakin, lukevan tämän ajatuksia ja tietävän hänestä jopa ystäviä enemmän. Rakastuminen ei ole koskaan ollut näin enkelimäisen ihanaa - ja äkkiä myös tappavan vaarallista.</p><p>\"<em>Osa minusta halusi juosta hänen luotaan kirkuen: Tulipalo! Huimapäisempi puoli tunsi houkutusta katsoa, kuinka lähelle pääsisin leimahtamatta liekkeihin</em>.\"</p><p>Patchin ilmaantumiseen kytkeytyy sarja selittämättömiä ja pelottavia tapahtumia, jotka saavat Noran epäluuloiseksi. Voiko Patchiin turvautua vai pitäisikö juuri häntä varoa? Noran etsiessä vastauksia hän törmää totuuteen, joka on kaikkea muuta kuin yksiselitteinen. Hän huomaa olevansa osa kostonhimosta, uhrimurhista, lankeemuksista ja kielletystä rakkaudesta koostuvaa vyyhteä. Käynnissä on ikiaikainen taistelu, joka käydään kuolemattomien ja langenneiden sielujen kesken...</p>",
-              "descr_attr": "Takakansi",
-              "imported_string": "\n\n<b>Langennut enkeli</b>. Langennut enkeli 1. (Hush, Hush, 2009). Suom Pirjo Ruti. WSOY 2011. [F].",
-              "kirjasampo_imported": null,
-              "author_str": "Fitzpatrick, Becca"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 8613,
-            "title": "Langennut enkeli",
-            "subtitle": "",
-            "pubyear": 2012,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-951-0-38726-9",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": "",
-            "pages": 381,
-            "size": 18,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
             "imported_string": "",
             "verified": false
           },
@@ -80894,7 +80850,7 @@
               "description": "<p><strong>Muinainen kirja on kadonnut - maailma saattaa on reveta liitoksistaan hetkellä millä hyvänsä</strong></p><p>TOTUUS: Nicholas Flamel syntyi Pariisissa 28. syyskuuta 1330. Likimain 700 vuotta myöhemmin hänet muistetaan aikansa suurimpana alkemistina, jonka huhuttiin pitelevän käsissään ikuisen elämän salaisuutta. Historiankirjojen mukaan Flamel kuoli vuonna 1418, mutta hänen hautansa on tyhjä.</p><p>LEGENDA: Aikamme suurin alkemisti elää, mutta vain vuosisatojen ajan nauttimansa elämän eliksiirin voimin. Himottu salaisuus on piilotettu kirjaan jota hän suojelee, kaikkien aikojen mahtavimpaan teokseen. Vääriin käsiin joutuessaan se tuhoaa koko maailman.</p><p>Kaiken inhimillisen hävitys on myös alhaisen tohtori John Deen perimmäinen aikomus hänen kaapatessaan sekä kirjan että Flamelin puolison. Ihmiskunta uinuu autuaan tietämättömänä kohtalostaan, ja vanhan ennustuksen mukaan teinikaksoset Sophie ja Josh Newman ovat ainoat, joilla on mahdollisuus estää paholaismainen suunnitelma.</p><p><em>Kirjanvartija </em>on irlantilaisen kirjailijan Michael Scottin seikkailuhenkinen fantasiaromaani, joka vie lukijansa San Franciscosta Alcatrazin kellareihin ja salaperäiseen varjovaltakuntaan. Teos vietti 12 viikkoa New York Timesin bestseller-listalla ja sen kaikki hahmot kaksosia lukuun ottamatta perustuvat aitoihin historiallisiin henkilöihin tai mytologian olentoihin. Sormusten herra -elokuvista vastannut New Line Cinema tuottaa kirjasta version valkokankaalle.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T21:21:49.595009+02:00",
               "author_str": "Scott, Michael"
             },
             "owners": [],
@@ -81526,7 +81482,7 @@
               "description": "<p>Dyyni eli Arrakis on keisarikunnan planeetoista syrjäisin, karuin ja vihamielisin. Kuitenkin siitä on taisteltu verisesti vuosisatojen ajan. Sillä ainoastaan Arrakisissa kasvaa kallisarvoinen rohto, elämän pidentäjä. Rohdon kasvupaikkoja vartioivat jättimäiset hiekkamadot ja beduiineja muistuttava fremen-kansa, Dyynin alkuasukkaat, jotka ovat kehittäneet nerokkaita keinoja hankkia vettä ja säilyä hengissä polttavan kuumalla aavikolla.</p>\r\n\r\n<p>Dyyni-sarjan toisessa romaanissa kerrotaan nuoresta, ylhäissyntyisestä Paul Atreidesista, joka saapuu pakolaisena fremenien luo. Aavikon heimo näkee Paulissa odotetun messiaansa ja auttaa häntä taistelussa vaarallista vihollista, paroni Harkonnenia, vastaan. </p>",
               "descr_attr": null,
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T00:08:42.554525+02:00",
               "author_str": "Herbert, Frank"
             },
             "owners": [],
@@ -82108,7 +82064,7 @@
               "description": "<p><em>Magiaa on täynnä ihmeitä, loitsuja ja yllätyksiä. Kauniisti kirjoitettu teos on osoitus loistavasta mielikuvituksesta ja vie lukijansa maailmaan, josta ei enää tahtoisi poistua.</em> - Clive Barker</p><p><strong>LUMOAVAN FANTASIASARJAN ALOITUSOSA</strong></p><p>Perusvelho Silas Heap taivaltaa hyisessä pakkassäässä halki talvisen Metsän kohti Linnan Sokkelikkoa, kunnes löytää maasta avuttoman kapalolapsen. Vaikka Silaksen ja hänen vaimonsa Sarahin perheeseen oli aiemmin samana päivänä syntynyt jo seitsemäs poikalapsi, Septimus, hyväsydäminen Silas majoittaa vielä yhden nälkäisen pikkusuun.</p><p>Niinpä Jenna, tummakutrinen löytölapsi, varttuu Heapien velhoperheen hellässä huomassa veljiensä rinnalla. Kymmenvuotispäivänään hän saa tietää olevansa salamurhaajan aikoinaan surmaaman kuningattaren tytär - siis oikea prinsessa! Kuningattarenvesa Jenna on pian suuressa vaarassa, sillä manaaja DomDanielin vakoojat ja vainolaiset ovat jo hänen kintereillään...</p><p><em>Magiaa </em>on englantilaisen Angie Sagen humoristinen ja hyväsydäminen seikkailukertomus taikojen ja loitsujen valtakunnasta.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Magiaa</b>. Septimus Heap 1. (Magyk, 2005). Suom Kaisa Kattelus. WSOY 2007. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T21:41:10.447332+02:00",
               "author_str": "Sage, Angie"
             },
             "owners": [],
@@ -82124,6 +82080,50 @@
             "pubseriesnum": null,
             "coll_info": "",
             "pages": 467,
+            "size": 18,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Fitzpatrick_Becca_Langennutenkeli_2p.jpg",
+                "id": 7397,
+                "image_src": "/static/images/books/Fitzpatrick_Becca_Langennutenkeli_2p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 2509,
+              "title": "Langennut enkeli",
+              "subtitle": "",
+              "orig_title": "Hush, Hush",
+              "pubyear": 2009,
+              "bookseriesnum": "1",
+              "bookseriesorder": 1,
+              "misc": "",
+              "description": "<p>Romanssinpoikaset, illat hämyisessä pelihallissa ja yön selkään kiitävät moottoripyörät eivät olleet kuuluneet Nora Greyn elämään. Kunnes hänen biologian opiskeluparikseen ilmestyy kuin tyhjästä Patch-niminen salaperäinen muukalainen. Tumman ja synkeänkomean Patchin tutkimaton hymy ja ihmeelliset silmät kiehtovat Noraa kuin yölamppu perhosta. Kuka Patch oikein on ja mistä hän on tullut? Ja kuinka hän on saanut hiilenmustat arvet selkäänsä? Poika tuntuu olevan kaikkialla missä Norakin, lukevan tämän ajatuksia ja tietävän hänestä jopa ystäviä enemmän. Rakastuminen ei ole koskaan ollut näin enkelimäisen ihanaa - ja äkkiä myös tappavan vaarallista.</p><p>\"<em>Osa minusta halusi juosta hänen luotaan kirkuen: Tulipalo! Huimapäisempi puoli tunsi houkutusta katsoa, kuinka lähelle pääsisin leimahtamatta liekkeihin</em>.\"</p><p>Patchin ilmaantumiseen kytkeytyy sarja selittämättömiä ja pelottavia tapahtumia, jotka saavat Noran epäluuloiseksi. Voiko Patchiin turvautua vai pitäisikö juuri häntä varoa? Noran etsiessä vastauksia hän törmää totuuteen, joka on kaikkea muuta kuin yksiselitteinen. Hän huomaa olevansa osa kostonhimosta, uhrimurhista, lankeemuksista ja kielletystä rakkaudesta koostuvaa vyyhteä. Käynnissä on ikiaikainen taistelu, joka käydään kuolemattomien ja langenneiden sielujen kesken...</p>",
+              "descr_attr": "Takakansi",
+              "imported_string": "\n\n<b>Langennut enkeli</b>. Langennut enkeli 1. (Hush, Hush, 2009). Suom Pirjo Ruti. WSOY 2011. [F].",
+              "kirjasampo_imported": "2026-11-08T19:52:14.162338+02:00",
+              "author_str": "Fitzpatrick, Becca"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 8613,
+            "title": "Langennut enkeli",
+            "subtitle": "",
+            "pubyear": 2012,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-951-0-38726-9",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": "",
+            "pages": 381,
             "size": 18,
             "dustcover": 1,
             "coverimage": 1,
@@ -82672,7 +82672,7 @@
               "description": "<p><strong>Hätkähdyttävä ja kiihkeätempoinen teknologiatrilleri ilmaston lämpenemisestä ja ekoterrorismista</strong></p><p>Peter Evans on osakkaana lakifirmassa, jonka tärkein asiakas on oikukas monimiljonääri George Morton. Ympäristönsuojelijana ja avokätisenä hyväntekeväisyyden harjoittajana tunnetun Mortonin viimeisin tempaus on kohua herättänyt päätös rahoittaa Vanutun saarivaltion Yhdysvaltain ympäristönsuojeluvirastoa vastaan nostama oikeusjuttu.</p><p>Miljonäärifilantrooppi katoaa kuitenkin hämärissä olosuhteissa, ja Evans huomaa olevansa keskellä mutkikasta juonittelujen verkkoa, joka kiristyy uhkaavana myös hänen ympärilleen.</p><p>Ratkaisun avaimet tuntuvat olevan Mortonin Evansille jättämissä vihjeissä. Ensin on kuitenkin selvitettävä, ketkä ovat ystäviä ja ketkä vihollisia pelissä, jonka panoksena voi olla tuhansien ihmisten henki.</p><p>\"<em>Tämä Teho-osaston käsikirjoittaja ja tuottaja on pistänyt parastaan, ja lukija tempautuu mukaan</em>.\" - Tuula Pelttari, Pohjolan Työ</p><p>\"<em>Nykypäivän median sovinnaisessa mössötodellisuudessa on mukava lukea vastavirtaan pyrkivää kirjailijaa</em>.\" -Kyösti Salovaara, Ruumiin Kulttuuri</p>",
               "descr_attr": "Takakansi",
               "imported_string": null,
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T14:23:08.385907+02:00",
               "author_str": "Crichton, Michael"
             },
             "owners": [],
@@ -83149,7 +83149,7 @@
               "description": "<p>Meidän maailmamme rinnalla on muita maailmoja, ja niihin voi suunnistaa kultaisen kompassin avulla...</p><p>Kolmas osa Philip Pullmanin palkitusta Universumien tomu -trilogiasta.</p><p>Ensimmäinen osa, KULTAINEN KOMPASSI nyt upeana elokuvana.</p><p>Rouva Coulter on siepannut Lyran vangikseen ja vaivuttanut hänet uneen yrttilääkkeillä. Kun Lyra herää, hän ymmärtää heti unen viestin: hänen ja Willin on lähdettävä Kuolleiden maahan ja pelastettava Roger, Lyran ystävä. Tehtävä on vaarallinen ja miltei mahdoton, sillä kukaan ei ole koskaan palannut Kuolleiden maasta. Ja mitä oikein on Tomu - mikä on sen perimmäinen tarkoitus?</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Maaginen kaukoputki</b>. Universumien Tomu 3. (His Dark Materials III, The Amber Spyglass, 2000). Suom Helene Bützow. Tammi 2001. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T18:13:11.730268+02:00",
               "author_str": "Pullman, Philip"
             },
             "owners": [],
@@ -84208,7 +84208,7 @@
               "description": "<p>\"Ihmeellinen poika\", Walt sanoi. \"Ja ihmeellistä tavata sinut täällä.\"</p><p>Lucas kokosi itsensä. Hän sanoi: \"Saanko minä kysyä yhtä asiaa?\"</p><p>\"Tietysti. Kysy pois. Minä vastaan jos osaan.\"</p><p>\"Palaavatko vainajat tänne ruohossa?\"</p><p>\"Palaavat, poika kulta. He ovat ruohossa ja puissa.\"</p><p>\"Pelkästään niissä?\"</p><p>\"Ei, ei pelkästään niissä. He ovat kaikkialla meidän ympärillämme. Ilmassa ja vedessä. Maassa ja taivaalla. Meidän ajatuksissamme ja sydämissämme.\"</p><p>\"Entä koneissa?\"</p><p>\"Kyllä vain. He ovat myös koneissa. He ovat kaikkialla.\"</p><p><em>Cunninghamin romaani on yksi vuoden valovoimaisimmista ja vaikuttavimmista kirjoista </em>- Time</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:55:46.458440+02:00",
               "author_str": "Cunningham, Michael"
             },
             "owners": [],
@@ -84252,7 +84252,7 @@
               "description": "<p>Seitsenosaisen <em>Kuolemanportti</em>-fantasiasarjan ensimmäinen osa.</p><p>Aikojen alkuhämärissä sartanit aiheuttivat maailman eriytymisen neljäksi maailmaksi: tuleksi, kiveksi, ilmaksi ja vedeksi. Paha velho Xar yrittää saada valtaansa koko universumin. Hän valjastaa palvelijansa Haplon aiheuttamaan sekasortoa kaikkiin maailmoihin ja lähettää hänet Kuolemanportin kautta ensin Arianukseen, ilman valtakuntaan, jossa kaikki ei todellakaan ole sitä miltä näyttää.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": "2026-11-10T20:21:11.265645+02:00",
+              "kirjasampo_imported": "2026-11-10T19:22:47.047829+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -84296,7 +84296,7 @@
               "description": "<p>Seitsenosaisen Kuolemanportti-fantasiasarjan toinen osa. Nexuksen valtias, paha velho Xar, haluaa haltuunsa koko universumin: ilman, tulen, kiven ja veden valtakunnat. Hän lähettää nopeaälyisen ja taikuudessa pätevän palvelijansa Haplon Kuolemanportin kautta Pryaniin, tulen valtakuntaan. Haplo laskeutuu lohikäärmelaivallaan keskelle kaaosta, jossa karmeat tytaanit eli jättiläiset tekevät tuhojaan. Miten Haplo suoriutuu Xarilta saamastaan tehtävästä? Selviytyvätkö tulen valtakunnan asukkaat tytaanien julmista kynsistä?</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:21:44.680481+02:00",
               "author_str": "Weis, Margaret & Hickman, Tracy"
             },
             "owners": [],
@@ -85346,7 +85346,7 @@
               "description": "<p>Noidat ovat jo tuhansia vuosia tienneet toisista maailmoista, rinnakkaismaailmoista, jotka ovat olemassa limittäin meidän maailmamme kanssa. He elävät lähellä paikkaa, jossa maailmojen välinen verho on ohut ja he ovat kuulleet puhuttavan lapsesta, jolla on suuri kohtalo. Tuo lapsi on Lyra, vilkas, itsepäinen ja utelias tyttö, joka on elänyt koko lapsuutensa tiedemiesten parissa Jordan Collegessa ilman sen kummempaa perhettä tai kotiväkeä. Eräänä iltana Lyra päättää vilkaista collegen oleskeluhuonetta, johon häneltä on ehdottomasti pääsy kielletty. Siitä alkaa henkeäsalpaavan jännittävä seikkailu, joka vie Lyran ja hänen daimoninsa Pantalaimonin kauas Pohjoiseen, panssarikarhujen, jäätiköiden ja noitien maahan - kadonneitten lasten, salaperäisen Tomun ja pohjantulien arvoitusten äärelle. Apunaan Lyralla on aletiometri, symboleihin perustuva kultainen kompassi, joka kertoo vastauksen sille, joka osaa sitä tulkita.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T18:18:11.041252+02:00",
               "author_str": "Pullman, Philip"
             },
             "owners": [],
@@ -85390,7 +85390,7 @@
               "description": "<p>Lyra on matkannut synnyinmaailmastaan toiseen maailmaan ja joutunut siellä Cittàgazzeen, autiokaupunkiin, josta kaikki aikuiset ovat kadonneet. Oudossa kaupungissa Lyra tapaa Willin, joka Lyran tapaan on tullut toisesta maailmasta, mutta kuitenkin eri maailmasta kuin Lyra. Will vie Lyran vierailulle omaan maailmaansa, Oxfordiin. Lyran järkytykseksi se on täysin erilainen kuin Lyran aiemmin tuntema Oxford. Willin maailmassa Lyra pääsee Tomun arvoituksen jäljille, mutta aletiometri antaa Lyralle selvän käskyn: hänen tärkein tehtävänsä on auttaa Williä löytämään tämän kauan sitten kadonnut isä. Will perii haltuunsa maagisia voimia sisältävän salaperäisen veitsen, jonka kantamiseen liittyy suuri vastuu. Maailmojen väliset rajat hämärtyvät ja moninaiset vaarat seuraavat toisiaan Lyran ja Willin suunnatessa kohti päämääräänsä. Tietämättään he ovat osana suurta tapahtumaketjua, joka tulee koskettamaan kaikkia maailmoja ja kaikkia eläviä olentoja.</p><p><em>Salaperäinen veitsi</em> on <em>Universumien Tomu</em> -trilogian toinen osa. Se on jatkoa kirjalle <em>Kultainen kompassi.</em></p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Salaperäinen veitsi</b>. Universumien Tomu 2. (His Dark Materials II, The Subtle Knife, 1997). Suom Helene Bützow. Tammi 1997. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T18:13:49.079666+02:00",
               "author_str": "Pullman, Philip"
             },
             "owners": [],
@@ -85434,7 +85434,7 @@
               "description": "<p>27 herkullista murhaa talon tapaan</p><p>Herkullinen keitos hyvistä resepteistä ja karmaisevista murhista, tarjoilijoina eturivin rikoskirjailijat. Iloiset vieraat kokoontuvat unohtumattomaan gastronomisen nautinnon ääreen aavistamatta lainkaan mikä heidän kohtalonsa on oleva...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T18:07:29.173838+02:00",
               "author_str": "Haining, Peter (toim.)"
             },
             "owners": [],
@@ -85828,7 +85828,7 @@
               "description": "<p><strong>Matkoja maailman ääriin, ihmeellisiä olentoja ja elämää suurempia taisteluja hyvän ja pahan välillä - kun olet avannut oven Narniaan, mikään ei ole ennallaan</strong></p><p>Peter, Susan, Edmund ja Lucy löytävät tien vaatekaapin kautta tarumaailma Narniaan. Siellä he kohtaavat mahtavan leijonan, Aslanin, ja liittoutuvat hänen kanssaan taistellakseen Valkoista Noitaa vastaan ja pelastaakseen Narnian pimeyden voimilta.</p><p>Vuosikymmenten kuluessa Narnian tarinat ovat siirtyneet fantasiakirjallisuudesta klassikkojen kaanoniin. Jokainen seikkailusarjan seitsemästä osasta on mestariteos, jossa todellisuus ja taikuus kietoutuvat toisiinsa unohtumattomalla tavalla. <em>Velho ja leijona</em> on Narnia-sarjan ensimmäinen osa.</p><p>\"<em>C. S. Lewisin rinnakkaisuniversumin taika ei koskaan haihdu.</em>\" - The Times</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Velho ja leijona</b>. Narnia-sarja 1. (The Lion, the Witch and the Wardrobe, 1950). Suom Kyllikki Hämäläinen. Meidän lasten kirjasto. Otava 1960. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T18:07:45.307323+02:00",
               "author_str": "Lewis, C. S."
             },
             "owners": [],
@@ -86146,7 +86146,7 @@
               "description": "<p>Linnunrata-\"trilogian\" viides osa: hauskempi kuin Psyko, jännittävämpi kuin veroilmoituksen täyttöopas, lyhyempi kuin Sota ja Rauha!</p><p>Arthur Dentillä menee muuten hyvin, mutta kaksi häneltä on hukassa: nainen, jota hän rakastaa, ja maailma, jossa hän on elänyt. Oudon hyperavaruusonnettomuuden seurauksena hän on muljahtanut rinnakkaismaailmaan, jossa onneksi on kysyntää hyvälle voileiväntekijälle. Ford Prefect taas kokee kovia ravintolakriitikoksi alennettuna. Soppaa maustavat kaiken huipuksi aivonsa hukanneet avaruusoliot, joiden kapteenilla on horoskooppien mukaan luvassa huono kuukausi...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T00:18:45.080079+02:00",
               "author_str": "Adams, Douglas"
             },
             "owners": [],
@@ -86190,7 +86190,7 @@
               "description": "<p>EHDOTON LUKUELÄMYS, VÄKEVÄ KUIN LOITSU</p><p>Desirée makaa sairaalassa. Hän ei pysty kävelemään eikä puhumaan, mutta hänellä on näkijän kyky. Hän osaa myös leijua ja ottaa ihmisen haltuunsa...</p><p>Desiréen kolme kasvattisiskoa eivät tiedä hänen olemassaolostaan, mutta eräänä päivänä he saavat kukin salaperäisen kirjeen. Se pakottaa heidät muistamaan, miten heidän kauan sitten oli jätettävä kasvatuskotinsa, ainoa turvansa. Lääkäri Christina silmäilee sormiaan - näkyykö, että joku mursi ne tahallaan? Fyysikko Margareta muistaa, kuinka hän epävarmana 17-vuotiaana ryhtyi suhteeseen opettajansa kanssa. Narkomaani Birgitta taas mutisee lauseen, jota hän on hokenut koko ikänsä: \"Ei se minun vikani ollut!\"</p><p>Menestyskirjailijan dramaattinen ja jännittävä romaani tempaa lukijan vastustamattomasti mukaansa neljän naisen elämään.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T21:38:38.269143+02:00",
               "author_str": "Axelsson, Majgull"
             },
             "owners": [],
@@ -87602,7 +87602,7 @@
               "description": "<p>MAAHISILLA ON SORMENSA PELISSÄ, KUN LAPSIA ALKAA KADOTA JÄLJETTÖMIIN.</p><p>Neljäsluokkalainen Liina yrittää totutella uuteen kaupunkiin ja kouluun. Kaikki muuttuu kun Liina löytää kirjastoreissulla oven, joka johtaa outoon maailmaan.</p><p>Liina huomaa kuuluvansa joukkoon, jolla on kyky nähdä asioita, joita muut ihmiset eivät näe. Hän pääsee mukaan \"taikatunneille\", joilla lapsille opetetaan asioita maahisista, tontuista ja veden väestä. Tunneilla Liina tutustuu punatukkaiseen Siriin ja ujoon Eetuun, ja pian he ovat tiivis kolmikko. Kun koulun pihalta ja tarhasta alkaa kadota lapsia, vain Liina, Siri ja Eetu ymmärtävät, mistä todella on kyse.</p><p><em>\"Vetävästi kirjoitettu fantasiaseikkailu yhdistää kansanperinteen ja nykyarjen uskottavasti.\" </em>- Ilkka</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T22:03:46.395305+02:00",
               "author_str": "Aarnio, Reeta"
             },
             "owners": [],
@@ -88939,10 +88939,10 @@
               "bookseriesnum": "V",
               "bookseriesorder": 5,
               "misc": "",
-              "description": "<p><strong>Rakkaus. Veri. Petos. Kosto. Miten paljon Clary on valmis maksamaan pelastaakseen poikaystävänsä?</strong></p><p>Kun Clary Fray saa vihdoin tavata poikaystävänsä Jacen, hän huomaa kauhukseen, että Jacen ja Claryn ilkeän veljen Sebastianin kohtalot on kiedottu yhteen, ja että Jacesta on tullut pahuuden palvelija. Clary on valmis tekemään mitä tahansa rakkaansa puolesta, jopa kuolemaan mutta voiko hän lunastaa Jacen hengen antamalla tämän sielun joutua kadotukseen?</p><p>Hauska, tummasävyinen ja tulikuuma Varjojen kaupungit -menestyssarja!</p>",
+              "description": "<p><strong>Rakkaus. Veri. Petos. Kosto. Miten paljon Clary on valmis maksamaan pelastaakseen poikaystävänsä?</strong></p><p>Kun Clary Fray saa vihdoin tavata poikaystävänsä Jacen, hän huomaa kauhukseen, että Jacen ja Claryn ilkeän veljen Sebastianin kohtalot on kiedottu yhteen, ja että Jacesta on tullut pahuuden palvelija. Clary on valmis tekemään mitä tahansa rakkaansa puolesta, jopa kuolemaan mutta voiko hän lunastaa Jacen hengen antamalla tämän sielun joutua kadotukseen?</p><p>Hauska, tummasävyinen ja tulikuuma <em>Varjojen kaupungit</em> -menestyssarja!</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T00:37:23.983929+02:00",
               "author_str": "Clare, Cassandra"
             },
             "owners": [],
@@ -89074,7 +89074,7 @@
               "description": "<p>TULI TARRASI ENSIN NAISEN HOUSUIHIN JA SITTEN PUSEROON. KUN LIEKKIEN KÄRJET ISKIVÄT HÄNEN LEUKAANSA, HÄN ALKOI KIRKUA. VÄREILEVÄN ILMAN LÄPI HÄN EHTI NÄHDÄ, ETTÄ TUTUT KASVOT ASUNNOSSA KADUN TOISELLA PUOLELLA KÄÄNTYIVÄT KOHTI IKKUNAA.</p><p>Palava nainen puussa. Kansakunta räjähdyspisteessä. Pirullinen suunnitelma, jonka toteutuessa maailma ei olisi enää se jonka tunnemme. Tuomas Niskakankaan esikoistrilleri nostaa sykkeen ja salpaa hengityksen.</p><p><em>\"Paras kotimainen - tai ulkomainen trilleri - jonka olen pitkään aikaan lukenut.\"</em>- Kerran elämässä -blogi</p><p><em>\"Niskakangas onnistuu punomaan vauhdikkaat juonenkäänteet yhteen niin, ettei kirjaa malta laskea käsistään.\"</em> - Maaseudun tulevaisuus</p><p><em>\"Roihu on näyttävä osoitus ammattimaisesta kirjoittajanotteesta. Niskakangas on tehnyt hienon jännitysromaanin, jossa on mukana aimo annos yleissivistävää asiatietoa maantieteestä, historiasta kuin erilaisista talousteorioistakin.\"</em> - Satakunnan Kansa</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T17:20:05.629311+02:00",
               "author_str": "Niskakangas, Tuomas"
             },
             "owners": [],
@@ -89431,7 +89431,7 @@
               "description": "<p>MAGISTERIUMIN SALAISET PORTIT OVAT NYT AUKI, ASTU SISÄÄN KOUKUTTAVAAN SEIKKAILUUN.</p><p><em>Älä koskaan luota taikuriin. Mitä ikinä teetkin, älä missään tapauksessa luota taikuriin.</em></p><p>Nämä sanat eväänään Callum Hunt osallistuu maagien koulun pääsykokeeseen. Jos hän onnistuu, Call joutuu eroon isästään ja hänet valitaan opiskelemaan maagiksi kaukana kotoa. Mikäli hän epäonnistuu kokeessa, hän saa olla rauhassa ja elämä säilyy ennallaan.</p><p>Pahaenteinen tulevaisuus odottaa Callia, joka on yhtä aikaa sekä innostunut että kauhuissaan.</p><p><em>Seikkailusarjan lupaava avaus tutkii hyvän ja pahan suhdetta sekä ystävyyden luottamusta</em>. - KIRKUS REVIEW</p><p>Holly Blackin (@hollyblack) kynästä on fantasiasarja <em>Spiderwickin kronikat</em>. Hän asuu Massachusettsissa talossa, jossa on salainen kirjasto.</p><p>Cassandra Clare (@cassieclare) on kirjoittanut menestyssarja <em>Varjojen kaupungin, Infernal Devices</em>-trilogian sekä<em> Bane Chonicles</em>-sarjan. Hänen kirjojaan on käännetty yli 35 kielelle.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-06T23:38:22.987394+02:00",
               "author_str": "Black, Holly & Clare, Cassandra"
             },
             "owners": [],
@@ -89695,7 +89695,7 @@
               "description": "<p>Veden päälle kurottui jyrkkä kallioseinämä. Hän kastoi sormensa punaiseen maaliin, joka oli sekoitettu jäniksen verestä ja punaisesta savesta. Hän piirsi kallioon kolme ihmishahmoa pitämään toisiaan kädestä. <em>Siinä me olemme. Arni, Troi ja Aile. Sinun on aika muistaa.</em></p><p>Aistivoimainen esikoisromaani loihtii maagisesti eloon muinaissuomalaisen maiseman, jota hallitsevat vanhat mahdit ja ikiaikainen rakkaus.</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-07T22:49:29.396826+02:00",
               "author_str": "Waris, Helena"
             },
             "owners": [],
@@ -90573,7 +90573,7 @@
               "description": "<p><strong>Matkoja maailman ääriin, ihmeellisiä olentoja ja elämää suurempia taisteluja hyvän ja pahan välillä - kun olet avannut oven Narniaan, mikään ei ole ennallaan</strong></p><p>Peter, Susan, Edmund ja Lucy löytävät tien vaatekaapin kautta tarumaailma Narniaan. Siellä he kohtaavat mahtavan leijonan, Aslanin, ja liittoutuvat hänen kanssaan taistellakseen Valkoista Noitaa vastaan ja pelastaakseen Narnian pimeyden voimilta.</p><p>Vuosikymmenten kuluessa Narnian tarinat ovat siirtyneet fantasiakirjallisuudesta klassikkojen kaanoniin. Jokainen seikkailusarjan seitsemästä osasta on mestariteos, jossa todellisuus ja taikuus kietoutuvat toisiinsa unohtumattomalla tavalla. <em>Velho ja leijona</em> on Narnia-sarjan ensimmäinen osa.</p><p>\"<em>C. S. Lewisin rinnakkaisuniversumin taika ei koskaan haihdu.</em>\" - The Times</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Velho ja leijona</b>. Narnia-sarja 1. (The Lion, the Witch and the Wardrobe, 1950). Suom Kyllikki Hämäläinen. Meidän lasten kirjasto. Otava 1960. [nF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T18:07:45.307323+02:00",
               "author_str": "Lewis, C. S."
             },
             "owners": [],
@@ -91453,7 +91453,7 @@
               "description": "<p>PAKOLAISKRIISI RÄJÄHTÄÄ KÄSIIN</p><p>Talousromahdus on saanut kymmenet miljoonat kehitysmaiden ihmiset etsimään parempaa tulevaisuutta lännestä.</p><p>Maahanmuuttovastaiset puolueet ympäri Eurooppaa nousevat valtaan lupaamalla maanosaa takaisin kantaväestölle. Helsingin huippukokouksessa valmiiksi räjähdysherkkä tilanne leimahtaa salamurhan seurauksena liekkeihin.</p><p>Suomen entinen pääministeri Leo Koski joutuu tahtomattaan keskelle ääriliikkeiden taistelukenttää. Hänellä on vain tunteja aikaa selvittää, kuka on luonut pirullisen juonen Euroopan tulevaisuuden muuttamiseksi.</p><p><em>\"Suomalaisten mahtipontisten dekkarien aatelia.\"</em> - ETELÄ-SUOMEN SANOMAT</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T17:18:11.037159+02:00",
               "author_str": "Niskakangas, Tuomas"
             },
             "owners": [],
@@ -93817,7 +93817,7 @@
               "description": "<p><strong>Pelon piiri...</strong></p><p>Maria ei ole kertonut kenellekään löytämästään oudosta, hehkuvasta sormuksesta. Sormuksen avulla hän näkee toiseen maailmaan. Maailmaan, johon hän on jo kauan halunnut päästä. Saako Maria viimein tietää, mitä Michael tuntee häntä kohtaan?</p><p>Michael tuntee olonsa orvoksi maan päällä, hakien kuumeisesti omaa paikkaansa. Hän on aina kuvitellut, ettei Roswellissa ole ketään häntä varten, mutta nyt poika on ihastumassa parhaaseen ystäväänsä. Tietämättä, että Maria on teoillaan saattamassa heidät kaikki vaaraan...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Etsijä</b>. Roswell High 3. (Roswell High, The Seeker, 1999). Suom Anu \nLaitinen. Sanoma Magazines Finland Oy 2002. [nSF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T12:13:24.037259+02:00",
               "author_str": "Metz, Melinda"
             },
             "owners": [],
@@ -95123,7 +95123,7 @@
               "description": "<p><span style=\"background-color: rgb(255, 255, 255); color: rgb(60, 60, 60);\">Hyytävä romaani lähitulevaisuuden islamistisesta Suomesta.</span></p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n<b>Khilafa!</b>. Valtakunta. Johnny Kniga 2011. [SF].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T12:50:25.957921+02:00",
               "author_str": "Paulow, Ari"
             },
             "owners": [],
@@ -95805,7 +95805,7 @@
               "description": "<p><strong>Patarouva ja muita kertomuksia</strong></p><p>Vanha kreivitär, joka on ollut intohimoinen peluri, tietää kolmen kortin salaisuuden, joka tuottaa pelissä varman voiton. Nuori insinööri Herman ei kaihda keinoja saadakseen selville kreivittären salaisuuden. Hän pyrkii ensin vanhan rouvan kasvattitytön suosioon ja uhkaa lopulta vanhusta pistoolillakin. Tämä kuolee Hermanin silmien edessä. Mutta hautajaisten jälkeen kreivittären haamu ilmestyy yllättäen Hermanille...</p><p><strong>Kaksintaistelussa </strong>toinen osapuoli on täysin välinpitämätön kuoleman vaarasta. Upseeri Silvio kokee tämän henkilökohtaiseksi loukkaukseksi ja päättää odottaa hetkeä, jolloin elämä on käynyt vastustajalle rakkaammaksi. Tästä on muistona kaksi laukausta.</p><p>Novellissa Aatelisneiti talonpoikaistyttönä Puškin parodioi suosittuja rakkauskertomuksia. Shakespearekaan ei säästy hänen ivansa miekalta.</p><p>Aleksandr Puškin (1799-1837) tunnetaan varsinaisesti suurena venäläisenä runoilijana, mutta myös hänen proosatuotantonsa on huomattava. Patarouva on esitetty myös oopperana.</p>",
               "descr_attr": "Takakansi",
               "imported_string": null,
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T19:11:09.908282+02:00",
               "author_str": "Pushkin, Alexander"
             },
             "owners": [],
@@ -96449,7 +96449,7 @@
               "description": "<p><strong>Jos pelkoa et omaa, voit saada jotain somaa...</strong></p><p>Maassa oli merkki kohdassa, jossa Noitapuu oli seissyt. Montereyn ja Carmelin asukkaat arvostivat luontoa. Turistit tulivat usein lukemaan merkin sanoja tai vain seisoivat ja katselivat veistoksellisia vanhoja puita, kallioista rantaviivaa ja auringossa paistattelevia kirjohylkeitä.</p><p>Paikalliset, jotka olivat itse nähneet puun ja jotka muistivat päivän, jona se oli kaatunut, mainitsivat usein, että Morgana Donovan oli syntynyt sinä yönä.</p><p>Toiset sanoivat, että se oli merkki, toiset kohauttivat olkapäitään ja pitivät sitä sattumana. Monet vain ihmettelivät. Mutta kukaan ei kiistänyt sitä, että tuskin kivenheiton päässä maineikkaasta puusta syntynyt, itseään noidaksi kutsuva nainen antoi paikalle erinomaista lisäväriä.</p><p>Käsikirjoittaja Nash Kirklandin mielestä tapahtuma oli huvittava mutta käyttökelpoinen vetonaula elokuvateollisuudessa. Hän lähtee mielessään naureskellen tutkimaan tarinan taustoja, mutta huomaa pian ottaneensa askeleen kohti jotain järjellä selittämätöntä...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Noidan lumoissa</b>. Noitakronikat 1. (Captivated, 1992). Suom Päivi Paju. Harlequin 2012. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T10:07:54.109215+02:00",
               "author_str": "Roberts, Nora"
             },
             "owners": [],
@@ -96713,7 +96713,7 @@
               "description": "<p><strong>Jos pelkoa et omaa, voit saada jotain somaa...</strong></p><p>Maassa oli merkki kohdassa, jossa Noitapuu oli seissyt. Montereyn ja Carmelin asukkaat arvostivat luontoa. Turistit tulivat usein lukemaan merkin sanoja tai vain seisoivat ja katselivat veistoksellisia vanhoja puita, kallioista rantaviivaa ja auringossa paistattelevia kirjohylkeitä.</p><p>Paikalliset, jotka olivat itse nähneet puun ja jotka muistivat päivän, jona se oli kaatunut, mainitsivat usein, että Morgana Donovan oli syntynyt sinä yönä.</p><p>Toiset sanoivat, että se oli merkki, toiset kohauttivat olkapäitään ja pitivät sitä sattumana. Monet vain ihmettelivät. Mutta kukaan ei kiistänyt sitä, että tuskin kivenheiton päässä maineikkaasta puusta syntynyt, itseään noidaksi kutsuva nainen antoi paikalle erinomaista lisäväriä.</p><p>Käsikirjoittaja Nash Kirklandin mielestä tapahtuma oli huvittava mutta käyttökelpoinen vetonaula elokuvateollisuudessa. Hän lähtee mielessään naureskellen tutkimaan tarinan taustoja, mutta huomaa pian ottaneensa askeleen kohti jotain järjellä selittämätöntä...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Noidan lumoissa</b>. Noitakronikat 1. (Captivated, 1992). Suom Päivi Paju. Harlequin 2012. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T10:07:54.109215+02:00",
               "author_str": "Roberts, Nora"
             },
             "owners": [],
@@ -96995,7 +96995,7 @@
               "description": "<p><strong>Jos pelkoa et omaa, voit saada jotain somaa...</strong></p><p>Maassa oli merkki kohdassa, jossa Noitapuu oli seissyt. Montereyn ja Carmelin asukkaat arvostivat luontoa. Turistit tulivat usein lukemaan merkin sanoja tai vain seisoivat ja katselivat veistoksellisia vanhoja puita, kallioista rantaviivaa ja auringossa paistattelevia kirjohylkeitä.</p><p>Paikalliset, jotka olivat itse nähneet puun ja jotka muistivat päivän, jona se oli kaatunut, mainitsivat usein, että Morgana Donovan oli syntynyt sinä yönä.</p><p>Toiset sanoivat, että se oli merkki, toiset kohauttivat olkapäitään ja pitivät sitä sattumana. Monet vain ihmettelivät. Mutta kukaan ei kiistänyt sitä, että tuskin kivenheiton päässä maineikkaasta puusta syntynyt, itseään noidaksi kutsuva nainen antoi paikalle erinomaista lisäväriä.</p><p>Käsikirjoittaja Nash Kirklandin mielestä tapahtuma oli huvittava mutta käyttökelpoinen vetonaula elokuvateollisuudessa. Hän lähtee mielessään naureskellen tutkimaan tarinan taustoja, mutta huomaa pian ottaneensa askeleen kohti jotain järjellä selittämätöntä...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Noidan lumoissa</b>. Noitakronikat 1. (Captivated, 1992). Suom Päivi Paju. Harlequin 2012. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T10:07:54.109215+02:00",
               "author_str": "Roberts, Nora"
             },
             "owners": [],
@@ -97039,7 +97039,7 @@
               "description": "<p><strong>Jos pelkoa et omaa, voit saada jotain somaa...</strong></p><p>Maassa oli merkki kohdassa, jossa Noitapuu oli seissyt. Montereyn ja Carmelin asukkaat arvostivat luontoa. Turistit tulivat usein lukemaan merkin sanoja tai vain seisoivat ja katselivat veistoksellisia vanhoja puita, kallioista rantaviivaa ja auringossa paistattelevia kirjohylkeitä.</p><p>Paikalliset, jotka olivat itse nähneet puun ja jotka muistivat päivän, jona se oli kaatunut, mainitsivat usein, että Morgana Donovan oli syntynyt sinä yönä.</p><p>Toiset sanoivat, että se oli merkki, toiset kohauttivat olkapäitään ja pitivät sitä sattumana. Monet vain ihmettelivät. Mutta kukaan ei kiistänyt sitä, että tuskin kivenheiton päässä maineikkaasta puusta syntynyt, itseään noidaksi kutsuva nainen antoi paikalle erinomaista lisäväriä.</p><p>Käsikirjoittaja Nash Kirklandin mielestä tapahtuma oli huvittava mutta käyttökelpoinen vetonaula elokuvateollisuudessa. Hän lähtee mielessään naureskellen tutkimaan tarinan taustoja, mutta huomaa pian ottaneensa askeleen kohti jotain järjellä selittämätöntä...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Noidan lumoissa</b>. Noitakronikat 1. (Captivated, 1992). Suom Päivi Paju. Harlequin 2012. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T10:07:54.109215+02:00",
               "author_str": "Roberts, Nora"
             },
             "owners": [],
@@ -97083,7 +97083,7 @@
               "description": "<p><strong>Jos pelkoa et omaa, voit saada jotain somaa...</strong></p><p>Maassa oli merkki kohdassa, jossa Noitapuu oli seissyt. Montereyn ja Carmelin asukkaat arvostivat luontoa. Turistit tulivat usein lukemaan merkin sanoja tai vain seisoivat ja katselivat veistoksellisia vanhoja puita, kallioista rantaviivaa ja auringossa paistattelevia kirjohylkeitä.</p><p>Paikalliset, jotka olivat itse nähneet puun ja jotka muistivat päivän, jona se oli kaatunut, mainitsivat usein, että Morgana Donovan oli syntynyt sinä yönä.</p><p>Toiset sanoivat, että se oli merkki, toiset kohauttivat olkapäitään ja pitivät sitä sattumana. Monet vain ihmettelivät. Mutta kukaan ei kiistänyt sitä, että tuskin kivenheiton päässä maineikkaasta puusta syntynyt, itseään noidaksi kutsuva nainen antoi paikalle erinomaista lisäväriä.</p><p>Käsikirjoittaja Nash Kirklandin mielestä tapahtuma oli huvittava mutta käyttökelpoinen vetonaula elokuvateollisuudessa. Hän lähtee mielessään naureskellen tutkimaan tarinan taustoja, mutta huomaa pian ottaneensa askeleen kohti jotain järjellä selittämätöntä...</p>",
               "descr_attr": "Takakansi",
               "imported_string": "\n\n<b>Noidan lumoissa</b>. Noitakronikat 1. (Captivated, 1992). Suom Päivi Paju. Harlequin 2012. [F].",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-10T10:07:54.109215+02:00",
               "author_str": "Roberts, Nora"
             },
             "owners": [],
@@ -102564,55 +102564,6 @@
             "images": [
               {
                 "thumb_src": "/static/images/books/Hoeg_Peter_Nainenjaapina_1p.jpg",
-                "id": 5452,
-                "image_src": "/static/images/books/Hoeg_Peter_Nainenjaapina_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3224,
-              "title": "Nainen ja apina",
-              "subtitle": "",
-              "orig_title": "Kvinden og aben",
-              "pubyear": 1996,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p>Høegin uusi romaani tapahtuu nykyhetken Lontoossa. ”Nainen” on englantilaisen eläintieteilijän ja eläintarhan johtajan tanskalaissyntyinen vaimo Madeleine Burden, toimeton ylellisyysrouva, joka pitää itsensä käynnissä ja hermonsa kurissa siemailemalla kaiket päivät laimennettua spriitä. ”Apina” taas on Erasmus, eräänlainen simpanssi jossa on oudon ihmismäisiä piirteitä. Se on salakuljetettu Englantiin ja päätynyt Madelenen miehen Adam Burdenin koekaniiniksi.</p><p>Madelene kiinnostuu Erasmuksesta ja vapauttaa tämän. He pakenevat yhdessä yli Lontoon kattojen Pohjois-Englannissa sijaitsevaan eläinpuistoon. Heidän välilleen kehittyy rakkaussuhde ja Erasmus oppii Madelenen opastuksella pian puhumaan englantia. Lopuksi he palaavat Lontooseen, missä Erasmus aiheuttaa koko kansakunnan identiteettiä järisyttävän skandaalin uuden eläintarhan avajaisissa.</p><p>Tämä kirja on yhtä ällistyttävän erilainen kuin Høegin muutkin romaanit. Vanhat kliseet tulevat uuteen käyttöön: tiedemies joka antaa sielunsa löytääkseen uuden eläinlajin, nainen joka menee lääpälleen villimiehen edessä. Tuloksena on aikuisten tieteissatu tai filosofinen traktaatti tai eläinten oikeuksia puolustava ja inhimillistä sivilisaatiota kritisoiva pamfletti tai rakkauskertomus – tai näitä kaikkia yhdessä.</p>",
-              "descr_attr": null,
-              "imported_string": "\n\n<b>Nainen ja apina</b>. (Kvinden og aben, 1996). Suom Pirkko Talvio-Jaatinen. Keltainen kirjasto 293. Tammi 1996. [F].",
-              "kirjasampo_imported": "2026-11-06T17:12:11.222991+02:00",
-              "author_str": "Høeg, Peter"
-            },
-            "owners": [
-              {
-                "id": 2,
-                "name": "mep"
-              }
-            ],
-            "wishlisted": [],
-            "id": 3673,
-            "title": "Nainen ja apina",
-            "subtitle": "",
-            "pubyear": 1997,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "951-31-0827-9",
-            "printedin": "Hämeenlinna",
-            "pubseriesnum": 293,
-            "coll_info": "",
-            "pages": 279,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Hoeg_Peter_Nainenjaapina_1p.jpg",
                 "id": 9687,
                 "image_src": "/static/images/books/Hoeg_Peter_Nainenjaapina_1p.jpg",
                 "image_attr": null
@@ -102657,6 +102608,55 @@
             "misc": "",
             "imported_string": "",
             "verified": true
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Hoeg_Peter_Nainenjaapina_1p.jpg",
+                "id": 5452,
+                "image_src": "/static/images/books/Hoeg_Peter_Nainenjaapina_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3224,
+              "title": "Nainen ja apina",
+              "subtitle": "",
+              "orig_title": "Kvinden og aben",
+              "pubyear": 1996,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p>Høegin uusi romaani tapahtuu nykyhetken Lontoossa. ”Nainen” on englantilaisen eläintieteilijän ja eläintarhan johtajan tanskalaissyntyinen vaimo Madeleine Burden, toimeton ylellisyysrouva, joka pitää itsensä käynnissä ja hermonsa kurissa siemailemalla kaiket päivät laimennettua spriitä. ”Apina” taas on Erasmus, eräänlainen simpanssi jossa on oudon ihmismäisiä piirteitä. Se on salakuljetettu Englantiin ja päätynyt Madelenen miehen Adam Burdenin koekaniiniksi.</p><p>Madelene kiinnostuu Erasmuksesta ja vapauttaa tämän. He pakenevat yhdessä yli Lontoon kattojen Pohjois-Englannissa sijaitsevaan eläinpuistoon. Heidän välilleen kehittyy rakkaussuhde ja Erasmus oppii Madelenen opastuksella pian puhumaan englantia. Lopuksi he palaavat Lontooseen, missä Erasmus aiheuttaa koko kansakunnan identiteettiä järisyttävän skandaalin uuden eläintarhan avajaisissa.</p><p>Tämä kirja on yhtä ällistyttävän erilainen kuin Høegin muutkin romaanit. Vanhat kliseet tulevat uuteen käyttöön: tiedemies joka antaa sielunsa löytääkseen uuden eläinlajin, nainen joka menee lääpälleen villimiehen edessä. Tuloksena on aikuisten tieteissatu tai filosofinen traktaatti tai eläinten oikeuksia puolustava ja inhimillistä sivilisaatiota kritisoiva pamfletti tai rakkauskertomus – tai näitä kaikkia yhdessä.</p>",
+              "descr_attr": null,
+              "imported_string": "\n\n<b>Nainen ja apina</b>. (Kvinden og aben, 1996). Suom Pirkko Talvio-Jaatinen. Keltainen kirjasto 293. Tammi 1996. [F].",
+              "kirjasampo_imported": "2026-11-06T17:12:11.222991+02:00",
+              "author_str": "Høeg, Peter"
+            },
+            "owners": [
+              {
+                "id": 2,
+                "name": "mep"
+              }
+            ],
+            "wishlisted": [],
+            "id": 3673,
+            "title": "Nainen ja apina",
+            "subtitle": "",
+            "pubyear": 1997,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "951-31-0827-9",
+            "printedin": "Hämeenlinna",
+            "pubseriesnum": 293,
+            "coll_info": "",
+            "pages": 279,
+            "size": 21,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "",
+            "verified": false
           },
           {
             "images": [
@@ -103088,50 +103088,6 @@
             "images": [
               {
                 "thumb_src": "/static/images/books/Hoeg_Peter_Hiljainentytto_1p.jpg",
-                "id": 9817,
-                "image_src": "/static/images/books/Hoeg_Peter_Hiljainentytto_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 3221,
-              "title": "Hiljainen tyttö",
-              "subtitle": "",
-              "orig_title": "Den stille pige",
-              "pubyear": 2006,
-              "bookseriesnum": "",
-              "bookseriesorder": 0,
-              "misc": "",
-              "description": "<p><em>Hiljainen tyttö</em> sijoittuu maanjäristyksen jälkeiseen Tanskaan, jossa Kööpenhamina on vajonnut osittain veden alle. Romaanin päähenkilö on Kasper Krone, maailmankuulu sirkustaiteilija, klovni, joka pelaa mielellään pokeria ja kuuntelee Johann Sebastian Bachin musiikkia. Kasperilla on ilmiömäinen kuulo: maailma on hänelle äänikartta, jossa kaikella on ominaissointinsa, myös ihmisillä. Hänellä on myös ilmiömäisen suuri verovelka, minkä vuoksi hän joutuu jatkuvasti pakenemaan viranomaisia. Kasperia ei ole kuitenkaan helppo pyydystää. Hän on taitava pakenija, huijari ja ilveilijä, mutta myös totuuden tavoittelija, etsijä.</p><p>Sirkuksen ollessa talvileirillä lähellä Kööpenhaminaa, Kasperin luo ilmaantuu 10-vuotias KlaraMaria, joka kertoo, että hänet on siepattu. Toisin kuin lapset yleensä, tyttö on täysin keskittynyt ja hänen ominaissointinsa takana on jotain sellaista mitä Kasper ei ole koskaan kokenut: täydellinen hiljaisuus. Pian Kasperille selviää, ettei KlaraMaria ole ainoa lajissaan. Samanlaisia hiljaisia lapsia on kymmenkunta. Kerran vuodessa heidät tuodaan Kööpenhaminaan eri puolilta maailmaa. Kuka heitä ohjailee ja mihin heitä on tarkoitus käyttää?</p><p>Peter Høegin odotettu uutuusromaani on monisyinen, jännittävä ja täynnä kiehtovia henkilöhahmoja. Hänen aiempien kirjojensa ystävät saavat sekä yllättyä että löytää tuttuja elementtejä. Peter Høegin kirjalliseen ominaissointiin on nyt tullut uutta täyteläisyyttä ja rauhaa.</p>",
-              "descr_attr": null,
-              "imported_string": "\n<b>Hiljainen tyttö</b>. (Den stille pige, 2006). Suom Pirkko Talvio-Jaatinen. Keltainen kirjasto 377. Tammi 2007. [SF].",
-              "kirjasampo_imported": "2026-11-06T16:56:08.492073+02:00",
-              "author_str": "Høeg, Peter"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10237,
-            "title": "Hiljainen tyttö",
-            "subtitle": "",
-            "pubyear": 2008,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-951-31-3781-6",
-            "printedin": null,
-            "pubseriesnum": 377,
-            "coll_info": "",
-            "pages": 566,
-            "size": 21,
-            "dustcover": 3,
-            "coverimage": 1,
-            "misc": "Kannen alkuperäiskuva Randy Faris",
-            "imported_string": "",
-            "verified": false
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Hoeg_Peter_Hiljainentytto_1p.jpg",
                 "id": 5446,
                 "image_src": "/static/images/books/Hoeg_Peter_Hiljainentytto_1p.jpg",
                 "image_attr": null
@@ -103180,6 +103136,50 @@
             "coverimage": 1,
             "misc": "Kannen alkuperäiskuva Randy Faris",
             "imported_string": "\n<b>Hiljainen tyttö</b>. (Den stille pige, 2006). Suom Pirkko Talvio-Jaatinen. Keltainen kirjasto 377. Tammi 2007. [SF].",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Hoeg_Peter_Hiljainentytto_1p.jpg",
+                "id": 9817,
+                "image_src": "/static/images/books/Hoeg_Peter_Hiljainentytto_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 3221,
+              "title": "Hiljainen tyttö",
+              "subtitle": "",
+              "orig_title": "Den stille pige",
+              "pubyear": 2006,
+              "bookseriesnum": "",
+              "bookseriesorder": 0,
+              "misc": "",
+              "description": "<p><em>Hiljainen tyttö</em> sijoittuu maanjäristyksen jälkeiseen Tanskaan, jossa Kööpenhamina on vajonnut osittain veden alle. Romaanin päähenkilö on Kasper Krone, maailmankuulu sirkustaiteilija, klovni, joka pelaa mielellään pokeria ja kuuntelee Johann Sebastian Bachin musiikkia. Kasperilla on ilmiömäinen kuulo: maailma on hänelle äänikartta, jossa kaikella on ominaissointinsa, myös ihmisillä. Hänellä on myös ilmiömäisen suuri verovelka, minkä vuoksi hän joutuu jatkuvasti pakenemaan viranomaisia. Kasperia ei ole kuitenkaan helppo pyydystää. Hän on taitava pakenija, huijari ja ilveilijä, mutta myös totuuden tavoittelija, etsijä.</p><p>Sirkuksen ollessa talvileirillä lähellä Kööpenhaminaa, Kasperin luo ilmaantuu 10-vuotias KlaraMaria, joka kertoo, että hänet on siepattu. Toisin kuin lapset yleensä, tyttö on täysin keskittynyt ja hänen ominaissointinsa takana on jotain sellaista mitä Kasper ei ole koskaan kokenut: täydellinen hiljaisuus. Pian Kasperille selviää, ettei KlaraMaria ole ainoa lajissaan. Samanlaisia hiljaisia lapsia on kymmenkunta. Kerran vuodessa heidät tuodaan Kööpenhaminaan eri puolilta maailmaa. Kuka heitä ohjailee ja mihin heitä on tarkoitus käyttää?</p><p>Peter Høegin odotettu uutuusromaani on monisyinen, jännittävä ja täynnä kiehtovia henkilöhahmoja. Hänen aiempien kirjojensa ystävät saavat sekä yllättyä että löytää tuttuja elementtejä. Peter Høegin kirjalliseen ominaissointiin on nyt tullut uutta täyteläisyyttä ja rauhaa.</p>",
+              "descr_attr": null,
+              "imported_string": "\n<b>Hiljainen tyttö</b>. (Den stille pige, 2006). Suom Pirkko Talvio-Jaatinen. Keltainen kirjasto 377. Tammi 2007. [SF].",
+              "kirjasampo_imported": "2026-11-06T16:56:08.492073+02:00",
+              "author_str": "Høeg, Peter"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10237,
+            "title": "Hiljainen tyttö",
+            "subtitle": "",
+            "pubyear": 2008,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-951-31-3781-6",
+            "printedin": null,
+            "pubseriesnum": 377,
+            "coll_info": "",
+            "pages": 566,
+            "size": 21,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": "Kannen alkuperäiskuva Randy Faris",
+            "imported_string": "",
             "verified": false
           },
           {
@@ -103840,7 +103840,7 @@
               "description": "<p><em>Haudattu jättiläinen</em> on tarunhohtoinen vaellus Kuningas Arthurin valtakunnan raunioilla. Se kertoo kadonneista muistoista, vuosikymmeniä kestäneestä rakkaudesta, itsepetoksesta, kostosta ja sodasta.</p><p><em>\"Sukupolvensa paras ja omaperäisin kirjoittaja.\"</em> - MAIL ON SUNDAY</p><p><em>\"Palkinto myönnetään Kazuo Ishigurolle, joka tunnevoimaisissa teoksissaan paljastaa kuilun sen illuusion takana, että voimme täysin ymmärtää tätä maailmaa.\"</em> - NOBEL-LAUTAKUNNAN PERUSTELUT</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T00:36:41.519248+02:00",
               "author_str": "Ishiguro, Kazuo"
             },
             "owners": [],
@@ -103884,7 +103884,7 @@
               "description": "<p><em>Haudattu jättiläinen</em> on tarunhohtoinen vaellus Kuningas Arthurin valtakunnan raunioilla. Se kertoo kadonneista muistoista, vuosikymmeniä kestäneestä rakkaudesta, itsepetoksesta, kostosta ja sodasta.</p><p><em>\"Sukupolvensa paras ja omaperäisin kirjoittaja.\"</em> - MAIL ON SUNDAY</p><p><em>\"Palkinto myönnetään Kazuo Ishigurolle, joka tunnevoimaisissa teoksissaan paljastaa kuilun sen illuusion takana, että voimme täysin ymmärtää tätä maailmaa.\"</em> - NOBEL-LAUTAKUNNAN PERUSTELUT</p>",
               "descr_attr": "Takakansi",
               "imported_string": "",
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-11T00:36:41.519248+02:00",
               "author_str": "Ishiguro, Kazuo"
             },
             "owners": [
@@ -104218,6 +104218,50 @@
             "images": [
               {
                 "thumb_src": "/static/images/books/Murakami_Vieterilintukronikka_p1.jpg",
+                "id": 5160,
+                "image_src": "/static/images/books/Murakami_Vieterilintukronikka_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "work": {
+              "id": 5453,
+              "title": "Vieterilintukronikka",
+              "subtitle": "",
+              "orig_title": "Nejimakidori kuronikuru",
+              "pubyear": 1994,
+              "bookseriesnum": "",
+              "bookseriesorder": null,
+              "misc": "Alkuteos ilmestyi kolmena osana vuosina 1994-1995.",
+              "description": "<p>Myyttiseen asemaan noussut Vieterilintukronikka on yksi Murakamin pääteoksista, eeppinen matka, jossa eksynyt sielu voi löytää tien takaisin vain vieterilintua seuraamalla.</p>\r\n\r\n<p>Toru Okadan vaimo on poissa tolaltaan, sillä heidän kissansa on kadonnut. Muutenkin vaimo tuntuu etääntyvän Torusta päivä päivältä. Ehkä juuri siksi Toru päättää olla kertomatta kummallisista puhelinsoitoista, joita hän on alkanut saada. Niiden soittaja tuntuu tietävän hänestä kaiken. Vähä vähältä Torun siisti, moitteeton ja arkisen harmaa elämä alkaa purkautua. Edessä on yliluonnollisesti sävyttynyt matka, jolla oppaina toimii vaihteleva joukko hahmoja, joista jokaisella on oma tarinansa kerrottavanaan. </p>",
+              "descr_attr": null,
+              "imported_string": "",
+              "kirjasampo_imported": "2026-11-05T16:42:46.004129+02:00",
+              "author_str": "Murakami, Haruki"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 7864,
+            "title": "Vieterilintukronikka",
+            "subtitle": "",
+            "pubyear": 2024,
+            "editionnum": 2,
+            "version": 1,
+            "isbn": "978-952-04-4498-3",
+            "printedin": null,
+            "pubseriesnum": 519,
+            "coll_info": "",
+            "pages": 878,
+            "size": null,
+            "dustcover": 1,
+            "coverimage": 1,
+            "misc": "",
+            "imported_string": "https://www.tammi.fi/kirja/haruki-murakami/vieterilintukronikka/9789520424916",
+            "verified": false
+          },
+          {
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Murakami_Vieterilintukronikka_p1.jpg",
                 "id": 2384,
                 "image_src": "/static/images/books/Murakami_Vieterilintukronikka_p1.jpg",
                 "image_attr": null
@@ -104266,50 +104310,6 @@
             "misc": "",
             "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.5489486",
             "verified": true
-          },
-          {
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Murakami_Vieterilintukronikka_p1.jpg",
-                "id": 5160,
-                "image_src": "/static/images/books/Murakami_Vieterilintukronikka_p1.jpg",
-                "image_attr": null
-              }
-            ],
-            "work": {
-              "id": 5453,
-              "title": "Vieterilintukronikka",
-              "subtitle": "",
-              "orig_title": "Nejimakidori kuronikuru",
-              "pubyear": 1994,
-              "bookseriesnum": "",
-              "bookseriesorder": null,
-              "misc": "Alkuteos ilmestyi kolmena osana vuosina 1994-1995.",
-              "description": "<p>Myyttiseen asemaan noussut Vieterilintukronikka on yksi Murakamin pääteoksista, eeppinen matka, jossa eksynyt sielu voi löytää tien takaisin vain vieterilintua seuraamalla.</p>\r\n\r\n<p>Toru Okadan vaimo on poissa tolaltaan, sillä heidän kissansa on kadonnut. Muutenkin vaimo tuntuu etääntyvän Torusta päivä päivältä. Ehkä juuri siksi Toru päättää olla kertomatta kummallisista puhelinsoitoista, joita hän on alkanut saada. Niiden soittaja tuntuu tietävän hänestä kaiken. Vähä vähältä Torun siisti, moitteeton ja arkisen harmaa elämä alkaa purkautua. Edessä on yliluonnollisesti sävyttynyt matka, jolla oppaina toimii vaihteleva joukko hahmoja, joista jokaisella on oma tarinansa kerrottavanaan. </p>",
-              "descr_attr": null,
-              "imported_string": "",
-              "kirjasampo_imported": "2026-11-05T16:42:46.004129+02:00",
-              "author_str": "Murakami, Haruki"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 7864,
-            "title": "Vieterilintukronikka",
-            "subtitle": "",
-            "pubyear": 2024,
-            "editionnum": 2,
-            "version": 1,
-            "isbn": "978-952-04-4498-3",
-            "printedin": null,
-            "pubseriesnum": 519,
-            "coll_info": "",
-            "pages": 878,
-            "size": null,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": "",
-            "imported_string": "https://www.tammi.fi/kirja/haruki-murakami/vieterilintukronikka/9789520424916",
-            "verified": false
           },
           {
             "images": [
@@ -105697,7 +105697,7 @@
               "description": "<p><strong>\"Sinulla ja minulla, rakkaudellamme, on viikko aikaa.\"</strong></p><p>Hohtava juna ilmestyy asemalle vähän ennen syyslomaa, kello 18.10. Junasta ilmestyy Hohtavia, olentoja, jotka saapuvat merkitsemään ihmisiä valolla. He kertovat, että ihmiskunnalla on viikko aikaa. Koskeeko varoitus vain merkittyjä?:</p><p>Lukiolaiset Ani ja Kapri ovat rakastaneet toisiaan vuoden. Kaikki on alussa, kaikki on mahdollista. Kunnes Hohtavien saapuminen muuttaa suunnitelmat, maailman - ja heidät. Mitä ehtii vielä viikossa? Mitkä salaisuudet täytyy kertoa ennen maailmanloppua?</p><p>Palkitun kirjailijan hätkähdyttävä nuorten aikuisten romaani ihmisistä, joista osa saa ilmoituksen maailmanlopusta. Voiko kohtalonsa vielä valita?</p>",
               "descr_attr": "Takakansi",
               "imported_string": null,
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-08T00:17:15.194570+02:00",
               "author_str": "Kolu, Siri"
             },
             "owners": [],
@@ -105741,7 +105741,7 @@
               "description": "<p>Mitä tekisit, jos löytäisit kotitalostasi salaisen huoneen?</p><p>Jännittävä ja koskettava lastenromaani kahdesta pojasta, jotka asuvat samassa talossa mutta eri todellisuuksissa. Voiko ystävyys ylittää maailmoja erottavan rajan?</p><p>10-vuotiaan Alexiksen perhe muuttaa taloon, josta hän saa unelmiensa ullakkohuoneen. Niin ikään 10-vuotiaan Maxin perhe muuttaa taloon, jossa häntä odottaa upea kellarihuone. Pian pojat huomaavat, että heidän kotitaloissaan on jotain omituista: Alexis kuulee ääniä talon alta, vaikka heillä ei ole kellaria. Maxin korviin kantautuu soittoa ullakolta, vaikka siellä ei ole ketään.</p><p>Kun pojat viimein kohtaavat, heille käy selväksi, että vain he kaksi pystyvät öiseen aikaan vierailemaan toistensa maailmoissa. Mutta vaarantaako heidän ystävyytensä kaiken, kun maailmat alkavat sekoittua toisiinsa?</p><p><em>\"Onko tämä unta vai totta? Sekä että. Parhaat unet usein ovat.\"</em></p>",
               "descr_attr": "Tammi",
               "imported_string": null,
-              "kirjasampo_imported": null,
+              "kirjasampo_imported": "2026-11-09T21:52:48.874254+02:00",
               "author_str": "Simukka, Salla"
             },
             "owners": [],

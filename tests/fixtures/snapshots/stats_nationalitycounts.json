@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T18:24:05.423672+00:00",
+    "generated_at": "2026-11-11T20:42:10.777566+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/nationalitycounts",
@@ -186,7 +186,7 @@
             "Kirjoittaja": 6
           },
           "nF": {
-            "Kirjoittaja": 106
+            "Kirjoittaja": 105
           },
           "nSF": {
             "Kirjoittaja": 18,
@@ -213,11 +213,11 @@
             "Kirjoittaja": 3
           },
           "kok": {
-            "Kirjoittaja": 28,
+            "Kirjoittaja": 29,
             "Toimittaja": 3
           },
           "lF": {
-            "Kirjoittaja": 40,
+            "Kirjoittaja": 41,
             "Toimittaja": 2
           },
           "R": {

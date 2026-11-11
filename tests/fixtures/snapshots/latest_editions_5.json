@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T18:24:05.423672+00:00",
+    "generated_at": "2026-11-11T20:42:10.777566+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/editions/5",
@@ -10,6 +10,1403 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "work": {
+          "id": 3186,
+          "title": "Hylätty ranta",
+          "orig_title": "The Loney",
+          "author_str": "Hurley, Andrew Michael",
+          "contributions": [
+            {
+              "person": {
+                "id": 2063,
+                "name": "Hurley, Andrew Michael",
+                "alt_name": "Andrew Michael Hurley"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 488,
+                  "name": "Kankaanpää, Jaakko",
+                  "alt_name": "Jaakko Kankaanpää"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 488,
+                    "name": "Kankaanpää, Jaakko",
+                    "alt_name": "Jaakko Kankaanpää"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Hurley_HylattyRanta_p1_valkoinen.jpg",
+                  "id": 10392,
+                  "image_src": "/static/images/books/Hurley_HylattyRanta_p1_valkoinen.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 10631,
+              "title": "Hylätty ranta",
+              "subtitle": "",
+              "pubyear": 2016,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-951-0-41720-1",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 427,
+              "size": 22,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 488,
+                  "name": "Kankaanpää, Jaakko",
+                  "alt_name": "Jaakko Kankaanpää"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 488,
+                    "name": "Kankaanpää, Jaakko",
+                    "alt_name": "Jaakko Kankaanpää"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Hurley_HylattyRanta_p1_musta.jpg",
+                  "id": 10390,
+                  "image_src": "/static/images/books/Hurley_HylattyRanta_p1_musta.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 3632,
+              "title": "Hylätty ranta",
+              "subtitle": "",
+              "pubyear": 2016,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-951-0-42111-6",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 427,
+              "size": 22,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 2,
+              "name": "Kauhu",
+              "abbr": "K"
+            }
+          ],
+          "bookseries": null,
+          "tags": [
+            {
+              "id": 1379,
+              "name": "goottilainen kauhu",
+              "type": {
+                "id": 2,
+                "name": "Alagenre"
+              }
+            },
+            {
+              "id": 773,
+              "name": "esikoisteokset",
+              "type": {
+                "id": 7,
+                "name": "Lista"
+              }
+            },
+            {
+              "id": 445,
+              "name": "jännitys",
+              "type": {
+                "id": 3,
+                "name": "Tyyli"
+              }
+            },
+            {
+              "id": 1180,
+              "name": "ihmissuhteet",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 932,
+              "name": "katolilaisuus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 696,
+              "name": "matkat",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 870,
+              "name": "muistelu",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1002,
+              "name": "muistot",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1125,
+              "name": "nuoruus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 661,
+              "name": "paranormaalit ilmiöt",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1043,
+              "name": "perhe",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 1889,
+              "name": "puhekyvyttömyys",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1481,
+              "name": "pyhiinvaellukset",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1230,
+              "name": "riitit",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 890,
+              "name": "salaisuudet",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 2684,
+              "name": "uskonnollisuus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 973,
+              "name": "veljet",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 4217,
+              "name": "rannat",
+              "type": {
+                "id": 5,
+                "name": "Paikka"
+              }
+            },
+            {
+              "id": 537,
+              "name": "menneisyys",
+              "type": {
+                "id": 6,
+                "name": "Aika"
+              }
+            },
+            {
+              "id": 4218,
+              "name": "pääsiäinen",
+              "type": {
+                "id": 6,
+                "name": "Aika"
+              }
+            }
+          ],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2014,
+          "bookseriesnum": "",
+          "bookseriesorder": 0,
+          "misc": "",
+          "description": "<p>»<em>Hylätty ranta ei ole vain hyvä, se on suurenmoinen. Hämmästyttävää kirjallisuutta</em>.» - STEPHEN KING</p><p>LONEY ON KAVALA, jumalanhylkäämä rantakaistale Luoteis-Englannissa. Teini-ikäinen Tonto ja hänen mykkä veljensä Hanny viettävät rannan ränsistyneessä rinnetalossa perinteistä pääsiäisretriittiä. Katolilaisen perheen äiti uskoo, että paikallisen kappelin pyhä vesi vielä parantaa hänen poikansa.</p><p>Odotettua ihmettä ei kuulu, mutta riittejä ja uskomuksia vaalivassa kyläyhteisössä tapahtuu outoja. Kylänmiehen sokea äiti saa näkönsä yllättäen takaisin, ja vaikka kevät on vasta aluillaan, rinnetalon omenapuut kantavat satoa. Samoihin aikoihin Hanny ja Tonto todistavat kuinka viimeisillään raskaana olevaa teinityttöä kuljetetaan laskuveden aikaan pahamaineiselle Coldbarrown saarelle.</p><p>Coldbarrow ja sen nuori asukas vetävät Hannya vääjäämättömästi puoleensa. Veljesten tutkimusmatka saaren ytimeen laukaisee hämmästyttävien ja kauhistuttavien tapahtumien ketjun, joka muuttaa molempien poikien elämän peruuttamattomasti.</p><p><em>Hylätty ranta </em>palkittiin Britanniassa vuoden 2015 parhaana esikoisromaanina.</p><p>»<em>Ihmeellinen... ytimiä myöten kylmäävä ja runollinen</em>.» - THE TIMES</p>",
+          "descr_attr": "Takakansi",
+          "imported_string": "\n<b>Hylätty ranta</b>. (The Loney, 2014). Suom Jaakko Kankaanpää. WSOY 2016. [K].",
+          "kirjasampo_imported": "2026-11-11T12:21:19.187636+02:00"
+        },
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 488,
+              "name": "Kankaanpää, Jaakko",
+              "alt_name": "Jaakko Kankaanpää"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": null,
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Hurley_HylattyRanta_p1_valkoinen.jpg",
+            "id": 10392,
+            "image_src": "/static/images/books/Hurley_HylattyRanta_p1_valkoinen.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 387,
+          "name": "WSOY"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 3,
+          "name": "Sidottu"
+        },
+        "id": 10631,
+        "title": "Hylätty ranta",
+        "subtitle": "",
+        "pubyear": 2016,
+        "editionnum": 1,
+        "version": 1,
+        "isbn": "978-951-0-41720-1",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": "",
+        "pages": 427,
+        "size": 22,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": "",
+        "imported_string": "",
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 1182,
+          "title": "Marsin ikävä ja muita kertomuksia",
+          "orig_title": "Marsin ikävä",
+          "author_str": "Soikkeli, M. G.",
+          "contributions": [
+            {
+              "person": {
+                "id": 781,
+                "name": "Soikkeli, M. G.",
+                "alt_name": "M. G. Soikkeli"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": {
+                "id": 4637,
+                "name": "Soikkeli, Markku",
+                "alt_name": "Markku Soikkeli"
+              }
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 4180,
+                    "name": "Murtosaari, Jukka",
+                    "alt_name": "Jukka Murtosaari"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Soikkeli_MG_Marsinikava_1p.jpg",
+                  "id": 1325,
+                  "image_src": "/static/images/books/Soikkeli_MG_Marsinikava_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 338,
+                "name": "Turbator/Pelipeitto"
+              },
+              "owners": [
+                {
+                  "id": 2,
+                  "name": "mep"
+                }
+              ],
+              "wishlisted": [],
+              "id": 1370,
+              "title": "Marsin ikävä ja muita kertomuksia",
+              "subtitle": "",
+              "pubyear": 2007,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-952-5666-07-6",
+              "printedin": "Turku",
+              "pubseriesnum": 2,
+              "coll_info": "",
+              "pages": 221,
+              "size": 21,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": true
+            },
+            {
+              "editors": [],
+              "translators": [],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 4180,
+                    "name": "Murtosaari, Jukka",
+                    "alt_name": "Jukka Murtosaari"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Soikkeli_MG_Marsinikava_2l1p.jpg",
+                  "id": 10387,
+                  "image_src": "/static/images/books/Soikkeli_MG_Marsinikava_2l1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 169,
+                "name": "Helmivyö"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 10630,
+              "title": "Marsin ikävä ja muita kertomuksia",
+              "subtitle": "",
+              "pubyear": 2026,
+              "editionnum": 1,
+              "version": 2,
+              "isbn": "978-952-432-002-3",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 328,
+              "size": 19,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 5,
+              "name": "Science Fiction",
+              "abbr": "SF"
+            },
+            {
+              "id": 16,
+              "name": "Kokoelma",
+              "abbr": "kok"
+            }
+          ],
+          "bookseries": null,
+          "tags": [],
+          "language_name": {
+            "id": 7,
+            "name": "suomi"
+          },
+          "type": 2,
+          "subtitle": "",
+          "pubyear": 2007,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "",
+          "description": "<p>Fil.tri, kirjallisuudentutkija Markku Soikkeli kuuluu kirjailijanimellään M.G.Soikkeli uuden suomalaisen tieteiskirjallisuuden ehdottomiin kärkinimiin. Soikkelin novellit science fiction -fanzineissa ovat jo pitkään olleet aina kärkisijoilla kun lajin vuosittaisista palkinnoista on päätetty. Merkittävimmän suomalaisen scifipalkinnon Soikkeli on voittanut jo useita kertoja. Portin novellikilpailun voitto - ja moneen kertaan - on Suomessa todella merkittävä saavutus.</p><p>Soikkeli on tieteiskirjailija, joka tuo tieteisfiktioon tieteen monella tavalla ja tasolla mukaan. Hän tutkii novelleissaan genren eri suuntausten mahdollisuuksia ja täydentää niitä syvällisellä yhteiskunnallisella analyysilla. Soikkelia voi pitää myös yhteiskuntapoliittisena kirjailijana. Hänen novelleissaan on kuitenkin myös runsain mitoin jännitystä, science fictioniin harvemmin liittyvää hillittyä huumoria ja huimaa spekulaatiota sekä tieteiden että yhteiskunnan kehityksestä. Soikkeli on aito science fiction -kirjailija, ja hänen tekstinsä ovat kaikessa kurinalaisessa tylyydessäänkin kiehtovia ja runsaita - ja omalla tavallaan myös intohimoisia tutkielmia ihmisenä olemisen mahdollisuuksista yhä vain teknistyvämmässä tulevaisuuden maailmassa.</p>",
+          "descr_attr": "Takakansi",
+          "imported_string": "",
+          "kirjasampo_imported": "2026-11-03T09:13:46.643673+02:00"
+        },
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 4180,
+              "name": "Murtosaari, Jukka",
+              "alt_name": "Jukka Murtosaari"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Soikkeli_MG_Marsinikava_2l1p.jpg",
+            "id": 10387,
+            "image_src": "/static/images/books/Soikkeli_MG_Marsinikava_2l1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 169,
+          "name": "Helmivyö"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 10630,
+        "title": "Marsin ikävä ja muita kertomuksia",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 1,
+        "version": 2,
+        "isbn": "978-952-432-002-3",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": "",
+        "pages": 328,
+        "size": 19,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": "",
+        "imported_string": "",
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 1560,
+          "title": "Helsingin alla",
+          "orig_title": "Underfors",
+          "author_str": "Turtschaninoff, Maria",
+          "contributions": [
+            {
+              "person": {
+                "id": 1066,
+                "name": "Turtschaninoff, Maria",
+                "alt_name": "Maria Turtschaninoff"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 452,
+                  "name": "Kyrö, Marja",
+                  "alt_name": "Marja Kyrö"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 452,
+                    "name": "Kyrö, Marja",
+                    "alt_name": "Marja Kyrö"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 5477,
+                    "name": "Söderberg, Ea",
+                    "alt_name": "Ea Söderberg"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "Kansi",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Turtschaninoff_Maria_Helsinginalla_1p.jpg",
+                  "id": 1240,
+                  "image_src": "/static/images/books/Turtschaninoff_Maria_Helsinginalla_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 318,
+                "name": "Tammi"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 1813,
+              "title": "Helsingin alla",
+              "subtitle": "",
+              "pubyear": 2012,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-951-31-6643-4",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 493,
+              "size": 22,
+              "dustcover": 3,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "<b>Helsingin alla</b>. (Underfors, 2010). Suom Marja Kyrö. Tammi 2012. [nF].",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [],
+              "contributions": [],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/Turtschaninoff_Maria_Helsinginalla_2l1p.jpg",
+                  "id": 10386,
+                  "image_src": "/static/images/books/Turtschaninoff_Maria_Helsinginalla_2l1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 463,
+                "name": "Kehitysvammaliitto"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 10629,
+              "title": "Helsingin alla",
+              "subtitle": "",
+              "pubyear": 2016,
+              "editionnum": 1,
+              "version": 2,
+              "isbn": "978-951-580-660-4",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 127,
+              "size": 20,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "Selkokirja. Selkomukautus Leena Kaivosoja-Jukkola Marja Kyrön suomennoksen pohjalta.",
+              "imported_string": "",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 8,
+              "name": "Nuorten fantasia",
+              "abbr": "nF"
+            }
+          ],
+          "bookseries": null,
+          "tags": [
+            {
+              "id": 548,
+              "name": "urbaani fantasia",
+              "type": {
+                "id": 2,
+                "name": "Alagenre"
+              }
+            },
+            {
+              "id": 2798,
+              "name": "young adult",
+              "type": {
+                "id": 2,
+                "name": "Alagenre"
+              }
+            },
+            {
+              "id": 4024,
+              "name": "suomenruotsalainen kirjallisuus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 889,
+              "name": "alkuperä",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 942,
+              "name": "erilaisuus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 637,
+              "name": "hyvän ja pahan taistelu",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 3625,
+              "name": "kansanusko",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 824,
+              "name": "keijut",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 2686,
+              "name": "murrosikäiset",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 826,
+              "name": "peikot",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 2629,
+              "name": "satuolennot",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 1019,
+              "name": "yliluonnolliset olennot",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 577,
+              "name": "maanalainen maailma",
+              "type": {
+                "id": 5,
+                "name": "Paikka"
+              }
+            },
+            {
+              "id": 108,
+              "name": "helsinki",
+              "type": {
+                "id": 5,
+                "name": "Paikka"
+              }
+            },
+            {
+              "id": 1425,
+              "name": "2000-luku",
+              "type": {
+                "id": 6,
+                "name": "Aika"
+              }
+            }
+          ],
+          "language_name": {
+            "id": 19,
+            "name": "ruotsi"
+          },
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2010,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "",
+          "description": "<p><span style=\"background-color: rgb(255, 255, 255); color: rgb(33, 37, 41);\">Maria Turtschaninoffin urbaani fantasia tenhoaa lukijansa niin, että kirjaa on vaikea laskea käsistään. Hätkähdyttävän taitavaa kerrontaa!</span></p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(33, 37, 41);\">Jo pienestä saakka helsinkiläistyttö Alva on kontrolloinut ympäristöään. Hän muistaa valokuvantarkasti aivan kaikki tapaamansa ihmiset. Hän on myös rekisteröinyt mieleensä kaikki mahdolliset pakoreitit kotikortteleissan, hän on mestari piiloutumaan ja tarkkailemaan muita. Mutta Alva ei tajua, miksi hän on erilainen kuin muut. Alva ei nimittäin muista eikä tiedä mitään kolmesta ensimmäisestä vuodestaan. Siksi hänen epäilyksensä eivät herää, kun nahkatakkinen ja karismaattinen nuori mies, Nide, etsii hänet käsiinsä. Hätkähdyttävän komea Nide haluaa näyttää Alvalle, mihin tyttö oikein kuuluu: kaupunkiin joka sijaitsee Helsingin alla. Siellä, outojen olentojen kansoittamassa maailmassa Alvan muistot alkavat vähitellen palata, mutta niistä ei ole enää hyötyä. Nide ei nimittäin olekaan mikään tavallinen mies, ensinnäkin hänellä on häntä</span></p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(33, 37, 41);\">Parkouria harrastava Joel on Alvan rinnakkaisluokalla, hän on aina ollut salaa rakastunut tyttöön. Kun Joel näkee Alvan katoavan maan alle, hänen on pakko seurata perässä. Yhdessä he joutuvat järisyttäviin seikkailuihin, joissa heidän pitää taistella pahuutta ja aikaa vastaan. Kirjassa joudutaan perimmäisten kysymysten äärelle -- olemmeko vastuussa esi-isiemme teoista? Nykypäivän sykkivä Suomi kohtaa kansanperinteen tarinassa, jossa rakkaus ja luottamus punnitaan.</span></p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(33, 37, 41);\">Sydän pamppaillen lukija seuraa rohkeita yläasteikäisiä nuoria, jotka joutuvat vaarallisesta tilanteesta toiseen. Samalla lukija saa seurata nuorten minuuden kehitystä äärimmäisissä olosuhteissa, samoin kuin ystävyyden kehittymistä rakkaudeksi. Myös Helsinki herää hienosti eloon huikeassa tarinassa.</span></p>",
+          "descr_attr": "Tammi",
+          "imported_string": "",
+          "kirjasampo_imported": "2026-11-09T22:03:59.177301+02:00"
+        },
+        "editors": [],
+        "contributions": [],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/Turtschaninoff_Maria_Helsinginalla_2l1p.jpg",
+            "id": 10386,
+            "image_src": "/static/images/books/Turtschaninoff_Maria_Helsinginalla_2l1p.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 463,
+          "name": "Kehitysvammaliitto"
+        },
+        "owners": [],
+        "wishlisted": [],
+        "binding": {
+          "id": 2,
+          "name": "Nidottu"
+        },
+        "id": 10629,
+        "title": "Helsingin alla",
+        "subtitle": "",
+        "pubyear": 2016,
+        "editionnum": 1,
+        "version": 2,
+        "isbn": "978-951-580-660-4",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": "",
+        "pages": 127,
+        "size": 20,
+        "dustcover": 1,
+        "coverimage": 1,
+        "misc": "Selkokirja. Selkomukautus Leena Kaivosoja-Jukkola Marja Kyrön suomennoksen pohjalta.",
+        "imported_string": "",
+        "verified": false
+      },
+      {
+        "work": {
+          "id": 5882,
+          "title": "Tie",
+          "orig_title": "The Road",
+          "author_str": "McCarthy, Cormac",
+          "contributions": [
+            {
+              "person": {
+                "id": 5347,
+                "name": "McCarthy, Cormac",
+                "alt_name": "Cormac McCarthy"
+              },
+              "role": {
+                "id": 1,
+                "name": "Kirjoittaja"
+              },
+              "description": null,
+              "real_person": null
+            }
+          ],
+          "editions": [
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 405,
+                  "name": "Sivill, Kaijamari",
+                  "alt_name": "Kaijamari Sivill"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 405,
+                    "name": "Sivill, Kaijamari",
+                    "alt_name": "Kaijamari Sivill"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/McCarthy_Cormac_Tie_1p.jpg",
+                  "id": 4467,
+                  "image_src": "/static/images/books/McCarthy_Cormac_Tie_1p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "owners": [],
+              "wishlisted": [],
+              "id": 7572,
+              "title": "Tie",
+              "subtitle": "",
+              "pubyear": 2008,
+              "editionnum": 1,
+              "version": 1,
+              "isbn": "978-951-0-33805-6",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 245,
+              "size": 22,
+              "dustcover": 3,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "",
+              "verified": false
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 405,
+                  "name": "Sivill, Kaijamari",
+                  "alt_name": "Kaijamari Sivill"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 405,
+                    "name": "Sivill, Kaijamari",
+                    "alt_name": "Kaijamari Sivill"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": null,
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/McCarthy_Cormac_Tie_2p.jpg",
+                  "id": 4468,
+                  "image_src": "/static/images/books/McCarthy_Cormac_Tie_2p.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "owners": [
+                {
+                  "id": 2,
+                  "name": "mep"
+                }
+              ],
+              "wishlisted": [],
+              "id": 7573,
+              "title": "Tie",
+              "subtitle": "",
+              "pubyear": 2009,
+              "editionnum": 2,
+              "version": 1,
+              "isbn": "978-952-239-063-9",
+              "printedin": "Juva",
+              "pubseriesnum": null,
+              "coll_info": null,
+              "pages": 238,
+              "size": 18,
+              "dustcover": 1,
+              "coverimage": 1,
+              "misc": "Elokuvakansi.",
+              "imported_string": "",
+              "verified": true
+            },
+            {
+              "editors": [],
+              "translators": [
+                {
+                  "id": 405,
+                  "name": "Sivill, Kaijamari",
+                  "alt_name": "Kaijamari Sivill"
+                }
+              ],
+              "contributions": [
+                {
+                  "person": {
+                    "id": 405,
+                    "name": "Sivill, Kaijamari",
+                    "alt_name": "Kaijamari Sivill"
+                  },
+                  "role": {
+                    "id": 2,
+                    "name": "Kääntäjä"
+                  },
+                  "description": "",
+                  "real_person": null
+                },
+                {
+                  "person": {
+                    "id": 6168,
+                    "name": "Laihonen, Ville",
+                    "alt_name": "Ville Laihonen"
+                  },
+                  "role": {
+                    "id": 4,
+                    "name": "Kansikuva"
+                  },
+                  "description": "Päällys",
+                  "real_person": null
+                }
+              ],
+              "images": [
+                {
+                  "thumb_src": "/static/images/books/IMG_4806.jpg",
+                  "id": 10384,
+                  "image_src": "/static/images/books/IMG_4806.jpg",
+                  "image_attr": null
+                }
+              ],
+              "publisher": {
+                "id": 387,
+                "name": "WSOY"
+              },
+              "owners": [
+                {
+                  "id": 11,
+                  "name": "Kirjokerttu"
+                }
+              ],
+              "wishlisted": [],
+              "id": 10627,
+              "title": "Tie",
+              "subtitle": "",
+              "pubyear": 2026,
+              "editionnum": 3,
+              "version": 1,
+              "isbn": "978-951-0-53607-0",
+              "printedin": null,
+              "pubseriesnum": null,
+              "coll_info": "",
+              "pages": 245,
+              "size": 23,
+              "dustcover": 3,
+              "coverimage": 1,
+              "misc": "",
+              "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.5945056/Versions?sid=5679239927",
+              "verified": false
+            }
+          ],
+          "genres": [
+            {
+              "id": 5,
+              "name": "Science Fiction",
+              "abbr": "SF"
+            }
+          ],
+          "bookseries": null,
+          "tags": [
+            {
+              "id": 89,
+              "name": "yhdysvallat",
+              "type": {
+                "id": 5,
+                "name": "Paikka"
+              }
+            },
+            {
+              "id": 406,
+              "name": "apokalyptinen scifi",
+              "type": {
+                "id": 2,
+                "name": "Alagenre"
+              }
+            },
+            {
+              "id": 521,
+              "name": "dystopia",
+              "type": {
+                "id": 2,
+                "name": "Alagenre"
+              }
+            },
+            {
+              "id": 586,
+              "name": "katastrofit",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 684,
+              "name": "rakkaus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 696,
+              "name": "matkat",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 797,
+              "name": "vaellusromaani",
+              "type": {
+                "id": 3,
+                "name": "Tyyli"
+              }
+            },
+            {
+              "id": 821,
+              "name": "pako",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 865,
+              "name": "elämän tarkoitus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 866,
+              "name": "ihmisyys",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 867,
+              "name": "uhkakuvat",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1037,
+              "name": "isät",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 1038,
+              "name": "pojat",
+              "type": {
+                "id": 4,
+                "name": "Toimija"
+              }
+            },
+            {
+              "id": 1046,
+              "name": "syrjäseudut",
+              "type": {
+                "id": 5,
+                "name": "Paikka"
+              }
+            },
+            {
+              "id": 1134,
+              "name": "tuhon jälkeinen maailma",
+              "type": {
+                "id": 5,
+                "name": "Paikka"
+              }
+            },
+            {
+              "id": 1180,
+              "name": "ihmissuhteet",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1432,
+              "name": "vanhempi-lapsisuhde",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1794,
+              "name": "toivottomuus",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 1821,
+              "name": "eläimellisyys",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 2165,
+              "name": "itsetuho",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 2184,
+              "name": "apokalyptiikka",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 2208,
+              "name": "matkakirjallisuus",
+              "type": {
+                "id": 3,
+                "name": "Tyyli"
+              }
+            },
+            {
+              "id": 2401,
+              "name": "toivo",
+              "type": {
+                "id": 1,
+                "name": "Aihe"
+              }
+            },
+            {
+              "id": 401,
+              "name": "elokuva",
+              "type": {
+                "id": 7,
+                "name": "Lista"
+              }
+            }
+          ],
+          "language_name": {
+            "id": 1,
+            "name": "englanti"
+          },
+          "type": 1,
+          "subtitle": "",
+          "pubyear": 2006,
+          "bookseriesnum": "",
+          "bookseriesorder": null,
+          "misc": "Parhaan romaanin Pulitzer-palkinto 2007. Locus-palkintoehdokas 2007. Vuonna 2019 The Guardianin listalla The 100 best books of the 21st century sijalla 17.",
+          "description": "<p><strong>Tuhon jälkeen tulee hiljaisuus</strong></p><p>Pimeä, tuhkan peittämä maisema. Puut ovat lehdistä paljaat, tuulella ei ole mitä liikuttaa ja on hiljaista. Isä ja poika vaeltavat palaneen maan läpi kohti etelärannikkoa. Mukanaan heillä on vain vaatteensa, kellareista löydettyä ruokaa, revolveri – ja toisensa.</p><p>Mestarillisen lakonisesti, vähäeleisyyden voimaan luottaen Cormac McCarthy kuvaa kahden ihmisen arkea maailmassa, jossa elämä on elämisen arvoista vain vaivoin. Kuten lumihiutaleet putoilevat mustaan maahan kuin armon muistutuksena, laskeutuvat sanat tämän romaanin sivuille. José Saramagon ja Samuel Beckettin romaaneihin verrattu <em>Tie</em> luo katseen allegoriseen, mutta mahdollisen kautta realistiseen maailmaan.</p>",
+          "descr_attr": null,
+          "imported_string": "",
+          "kirjasampo_imported": "2026-11-04T11:34:48.796539+02:00"
+        },
+        "editors": [],
+        "contributions": [
+          {
+            "person": {
+              "id": 405,
+              "name": "Sivill, Kaijamari",
+              "alt_name": "Kaijamari Sivill"
+            },
+            "role": {
+              "id": 2,
+              "name": "Kääntäjä"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 6168,
+              "name": "Laihonen, Ville",
+              "alt_name": "Ville Laihonen"
+            },
+            "role": {
+              "id": 4,
+              "name": "Kansikuva"
+            },
+            "description": "Päällys",
+            "real_person": null
+          }
+        ],
+        "images": [
+          {
+            "thumb_src": "/static/images/books/IMG_4806.jpg",
+            "id": 10384,
+            "image_src": "/static/images/books/IMG_4806.jpg",
+            "image_attr": null
+          }
+        ],
+        "publisher": {
+          "id": 387,
+          "name": "WSOY"
+        },
+        "owners": [
+          {
+            "id": 11,
+            "name": "Kirjokerttu"
+          }
+        ],
+        "wishlisted": [],
+        "binding": {
+          "id": 3,
+          "name": "Sidottu"
+        },
+        "id": 10627,
+        "title": "Tie",
+        "subtitle": "",
+        "pubyear": 2026,
+        "editionnum": 3,
+        "version": 1,
+        "isbn": "978-951-0-53607-0",
+        "printedin": null,
+        "pubseriesnum": null,
+        "coll_info": "",
+        "pages": 245,
+        "size": 23,
+        "dustcover": 3,
+        "coverimage": 1,
+        "misc": "",
+        "imported_string": "https://kansalliskirjasto.finna.fi/Record/fikka.5945056/Versions?sid=5679239927",
+        "verified": false
+      },
       {
         "work": {
           "id": 7343,
@@ -134,588 +1531,6 @@
         "coll_info": null,
         "pages": 220,
         "size": 20,
-        "dustcover": 1,
-        "coverimage": 1,
-        "misc": null,
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7342,
-          "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
-          "orig_title": "",
-          "author_str": "anonyymi (toim.)",
-          "contributions": [
-            {
-              "person": {
-                "id": 3329,
-                "name": "anonyymi",
-                "alt_name": "anonyymi"
-              },
-              "role": {
-                "id": 3,
-                "name": "Toimittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [
-                {
-                  "person": {
-                    "id": 7199,
-                    "name": "Berghäll, Ruska J. J.",
-                    "alt_name": "Ruska J. J. Berghäll"
-                  },
-                  "role": {
-                    "id": 4,
-                    "name": "Kansikuva"
-                  },
-                  "description": "Kansi",
-                  "real_person": null
-                },
-                {
-                  "person": {
-                    "id": 7199,
-                    "name": "Berghäll, Ruska J. J.",
-                    "alt_name": "Ruska J. J. Berghäll"
-                  },
-                  "role": {
-                    "id": 5,
-                    "name": "Kuvittaja"
-                  },
-                  "description": "",
-                  "real_person": null
-                }
-              ],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
-                  "id": 10382,
-                  "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 534,
-                "name": "Taikasana"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10625,
-              "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
-              "subtitle": "",
-              "pubyear": 2026,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-952-88-2038-3",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 183,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 1,
-              "name": "Fantasia",
-              "abbr": "F"
-            }
-          ],
-          "bookseries": null,
-          "tags": [],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 2,
-          "subtitle": "",
-          "pubyear": 2026,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "",
-          "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
-          "descr_attr": "Taikasana",
-          "imported_string": null,
-          "kirjasampo_imported": null
-        },
-        "editors": [],
-        "contributions": [
-          {
-            "person": {
-              "id": 7199,
-              "name": "Berghäll, Ruska J. J.",
-              "alt_name": "Ruska J. J. Berghäll"
-            },
-            "role": {
-              "id": 4,
-              "name": "Kansikuva"
-            },
-            "description": "Kansi",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 7199,
-              "name": "Berghäll, Ruska J. J.",
-              "alt_name": "Ruska J. J. Berghäll"
-            },
-            "role": {
-              "id": 5,
-              "name": "Kuvittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "images": [
-          {
-            "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
-            "id": 10382,
-            "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 534,
-          "name": "Taikasana"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 2,
-          "name": "Nidottu"
-        },
-        "id": 10625,
-        "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
-        "subtitle": "",
-        "pubyear": 2026,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "978-952-88-2038-3",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 183,
-        "size": 21,
-        "dustcover": 1,
-        "coverimage": 1,
-        "misc": null,
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7341,
-          "title": "Se on hengen menoa",
-          "orig_title": "",
-          "author_str": "Mäkinen, Marja & Puustinen, Henna",
-          "contributions": [
-            {
-              "person": {
-                "id": 8145,
-                "name": "Mäkinen, Marja",
-                "alt_name": "Marja Mäkinen"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 8146,
-                "name": "Puustinen, Henna",
-                "alt_name": "Henna Puustinen"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
-                  "id": 10381,
-                  "image_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 39,
-                "name": "Books on Demand"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10624,
-              "title": "Se on hengen menoa",
-              "subtitle": "",
-              "pubyear": 2026,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-952-89-2945-1",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 100,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 1,
-              "name": "Fantasia",
-              "abbr": "F"
-            }
-          ],
-          "bookseries": {
-            "partof": null,
-            "id": 905,
-            "name": "Muumiomummot",
-            "orig_name": null,
-            "description": null,
-            "important": false,
-            "image_src": null,
-            "image_attr": null
-          },
-          "tags": [],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 1,
-          "subtitle": "",
-          "pubyear": 2026,
-          "bookseriesnum": "2",
-          "bookseriesorder": 2,
-          "misc": "",
-          "description": "<p>Muumiomummot Lilja ja Ruusu olivat välitilaan juuttuneita entisiä soteammattilaisia, jotka asustelivat hautausmaalla ja ihmettelivät maailman menoa. Elettiin aikaa jälkeen 2,5 maailmansodan, joka oli tuonut mukanaan monenlaisia muutoksia.</p><p>Aikaa tappaakseen mummot päättivät lähteä rengasmatkalle Itä-Suomeen, koska niin teki mieli karjalanpiirakkaa. Reissuun lähdettiin liftaten ja mitä kaikkea sitten tapahtuikaan...</p><p>Tämä on <em>Muumiomummojen </em>toinen kirja ja jatkaa samaa genreä, joka on sekoitus komediaa, tragediaa, scifiä sekä kokemuksellista faktaa.</p>",
-          "descr_attr": "Books on Demand",
-          "imported_string": null,
-          "kirjasampo_imported": null
-        },
-        "editors": [],
-        "contributions": [],
-        "images": [
-          {
-            "thumb_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
-            "id": 10381,
-            "image_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 39,
-          "name": "Books on Demand"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 2,
-          "name": "Nidottu"
-        },
-        "id": 10624,
-        "title": "Se on hengen menoa",
-        "subtitle": "",
-        "pubyear": 2026,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "978-952-89-2945-1",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 100,
-        "size": 21,
-        "dustcover": 1,
-        "coverimage": 1,
-        "misc": null,
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7340,
-          "title": "Muumiomummot sotesotkuissa",
-          "orig_title": "",
-          "author_str": "Mäkinen, Marja & Puustinen, Henna",
-          "contributions": [
-            {
-              "person": {
-                "id": 8145,
-                "name": "Mäkinen, Marja",
-                "alt_name": "Marja Mäkinen"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            },
-            {
-              "person": {
-                "id": 8146,
-                "name": "Puustinen, Henna",
-                "alt_name": "Henna Puustinen"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
-                  "id": 10380,
-                  "image_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 39,
-                "name": "Books on Demand"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10623,
-              "title": "Muumiomummot sotesotkuissa",
-              "subtitle": "",
-              "pubyear": 2026,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-952-80-7596-7",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 74,
-              "size": 21,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 1,
-              "name": "Fantasia",
-              "abbr": "F"
-            }
-          ],
-          "bookseries": {
-            "partof": null,
-            "id": 905,
-            "name": "Muumiomummot",
-            "orig_name": null,
-            "description": null,
-            "important": false,
-            "image_src": null,
-            "image_attr": null
-          },
-          "tags": [],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 1,
-          "subtitle": "",
-          "pubyear": 2026,
-          "bookseriesnum": "1",
-          "bookseriesorder": 1,
-          "misc": "",
-          "description": "<p>Lilja ja Ruusu ovat Sote-alan muumioituneita ammattilaisia, Lilja entinen sairaanhoitaja ja Ruusu entinen suuhygienisti. He ovat hengettömiä, mutta jääneet välitilaan, koska hoitotakuu ei koskenut kuolleita. He tarkastelevat maailmanmenoa vanhoin silmin tulevaisuuden maailmassa globaalien kriisien keskellä. Ensimmäisessä kirjassa mummot seikkailevat Sote-keskuksessa ja sen läheisyydessä. He majailevat hautausmaalla, koska muualle heitä ei huolita. Tarina on sekoitus komediaa, tragediaa, scifiä ja kokemuksellista faktaa. Jokainen lukija ottakoon itse selvää missä genressä milloinkin liikutaan.</p>",
-          "descr_attr": "Books on Demand",
-          "imported_string": null,
-          "kirjasampo_imported": null
-        },
-        "editors": [],
-        "contributions": [],
-        "images": [
-          {
-            "thumb_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
-            "id": 10380,
-            "image_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 39,
-          "name": "Books on Demand"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 2,
-          "name": "Nidottu"
-        },
-        "id": 10623,
-        "title": "Muumiomummot sotesotkuissa",
-        "subtitle": "",
-        "pubyear": 2026,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "978-952-80-7596-7",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 74,
-        "size": 21,
-        "dustcover": 1,
-        "coverimage": 1,
-        "misc": null,
-        "imported_string": null,
-        "verified": false
-      },
-      {
-        "work": {
-          "id": 7339,
-          "title": "Saastamoinen ja maapallonpysähdys",
-          "orig_title": "",
-          "author_str": "Kastarinen, Lasse",
-          "contributions": [
-            {
-              "person": {
-                "id": 8144,
-                "name": "Kastarinen, Lasse",
-                "alt_name": "Lasse Kastarinen"
-              },
-              "role": {
-                "id": 1,
-                "name": "Kirjoittaja"
-              },
-              "description": "",
-              "real_person": null
-            }
-          ],
-          "editions": [
-            {
-              "editors": [],
-              "translators": [],
-              "contributions": [],
-              "images": [
-                {
-                  "thumb_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
-                  "id": 10379,
-                  "image_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
-                  "image_attr": null
-                }
-              ],
-              "publisher": {
-                "id": 39,
-                "name": "Books on Demand"
-              },
-              "owners": [],
-              "wishlisted": [],
-              "id": 10622,
-              "title": "Saastamoinen ja maapallonpysähdys",
-              "subtitle": "",
-              "pubyear": 2015,
-              "editionnum": 1,
-              "version": 1,
-              "isbn": "978-952-318-127-4",
-              "printedin": null,
-              "pubseriesnum": null,
-              "coll_info": null,
-              "pages": 324,
-              "size": 22,
-              "dustcover": 1,
-              "coverimage": 1,
-              "misc": null,
-              "imported_string": null,
-              "verified": false
-            }
-          ],
-          "genres": [
-            {
-              "id": 1,
-              "name": "Fantasia",
-              "abbr": "F"
-            }
-          ],
-          "bookseries": null,
-          "tags": [],
-          "language_name": {
-            "id": 7,
-            "name": "suomi"
-          },
-          "type": 1,
-          "subtitle": "",
-          "pubyear": 2015,
-          "bookseriesnum": "",
-          "bookseriesorder": null,
-          "misc": "",
-          "description": "<p>Talvella 2018 maanjäristys ravistaa Helsinkiä, kun suomalaisessa ydinvoimalassa räjähtää. Maapallon pyöriminen pysähtyy ja saa liikkeelle Fartum Energyn turvallisuusanalyytikko Harri Saastamoisen. Suomesta tulee rantaparatiisi pysyvässä auringonpaisteessa, valtiomuoto muuttuu ja suurvaltojen sota-alukset saapuvat Suomenlahdelle.</p><p>Saastamoinen on sosiaalisesti rajoittunut älykkö, joka saa sanotuksi seikkailun puoliväliin mennessä vajaat toistakymmentä sanaa. Riskejä minimoivalle puusilmälle tulevat vaivoiksi niin gangsterit, sotilaat, irronneet ruumiinosat kuin poliitikotkin. Lähipiiristä huolta aiheuttavat Saastamoisen poika, tämän raivohullu Susa-äiti sekä papisto. Telluksen ongelmista puhumattakaan.</p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Esikoiskirjailija Lasse Kastarinen (s. 1965) on pitkän linjan AV ammattilainen, harrastelijamuusikko, sekatyöläinen sekä opettaja.</span></p>",
-          "descr_attr": "Books on Demand",
-          "imported_string": null,
-          "kirjasampo_imported": null
-        },
-        "editors": [],
-        "contributions": [],
-        "images": [
-          {
-            "thumb_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
-            "id": 10379,
-            "image_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
-            "image_attr": null
-          }
-        ],
-        "publisher": {
-          "id": 39,
-          "name": "Books on Demand"
-        },
-        "owners": [],
-        "wishlisted": [],
-        "binding": {
-          "id": 2,
-          "name": "Nidottu"
-        },
-        "id": 10622,
-        "title": "Saastamoinen ja maapallonpysähdys",
-        "subtitle": "",
-        "pubyear": 2015,
-        "editionnum": 1,
-        "version": 1,
-        "isbn": "978-952-318-127-4",
-        "printedin": null,
-        "pubseriesnum": null,
-        "coll_info": null,
-        "pages": 324,
-        "size": 22,
         "dustcover": 1,
         "coverimage": 1,
         "misc": null,

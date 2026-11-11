@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T18:24:05.423672+00:00",
+    "generated_at": "2026-11-11T20:42:10.777566+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/origworksbyyear",
@@ -4434,7 +4434,7 @@
       },
       {
         "year": 2013,
-        "count": 70,
+        "count": 71,
         "language_id": 1,
         "language_name": "englanti"
       },
@@ -4482,7 +4482,7 @@
       },
       {
         "year": 2013,
-        "count": 80,
+        "count": 79,
         "language_id": 7,
         "language_name": "suomi"
       },

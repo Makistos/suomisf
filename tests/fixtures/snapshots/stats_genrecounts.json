@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T18:24:05.423672+00:00",
+    "generated_at": "2026-11-11T20:42:10.777566+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/genrecounts",
@@ -17,15 +17,15 @@
       "SF": 1855,
       "VEH": 72,
       "Utopia": 14,
-      "nF": 1295,
+      "nF": 1294,
       "nSF": 415,
       "nK": 199,
       "lSF": 44,
       "satu": 8,
       "rajatap": 123,
       "lasten kuvakirja": 14,
-      "kok": 663,
-      "lF": 468,
+      "kok": 664,
+      "lF": 469,
       "R": 37,
       "eiSF": 68
     },
