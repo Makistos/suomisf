@@ -91,18 +91,27 @@ spec's rule). With the 3-tag eligibility a missing type is informative.
 
 ### D: description
 
-Phase 2. TF-IDF + cosine over the HTML-stripped description:
+Phase 2 compared three ways on the eligible works (2026-11-12):
 
-- Voikko base forms (word unigrams and bigrams; Voikko is already used by
-  the tag job and the search) together with character 3–5-grams, since
-  Finnish compounds defeat plain word matching. Evaluation decides the mix.
-- Boilerplate: 3 038 descriptions are back-cover texts ("Takakansi"), with
-  marketing and author bios. Sentences that repeat across many works
-  (document frequency over a threshold) are dropped before vectorising;
-  the evaluation script shows what was dropped.
-- Multilingual sentence embeddings (fastembed, the models the tag job
-  already uses) are compared side by side in the evaluation script; they
-  replace or join TF-IDF only if the results are better.
+| Way | Found | Problem |
+|---|---|---|
+| TF-IDF over Voikko base forms (+ compound parts, bigrams) | same-series works (0.3–0.4) | otherwise 0.06–0.16, half noise; names in the text leak ("Playground" by Lars Kepler → the Kepler62 books, worse with character n-grams) |
+| paraphrase-multilingual-mpnet | some good (Bulgakov → Gogol's "Nenä") | noisy; reads only the first 128 tokens |
+| **multilingual-e5-large** | themes: "Tik-Tok" → Dick's "Rakennamme sinut", Bulgakov → "Saatanalliset säkeet", "Pimenevä maa" → other post-apocalyptic books | first run 12 minutes |
+
+**D is the cosine of e5-large vectors** of the plain-text description
+(prefix `query: `), rescaled per run so that the median pair is 0 and the
+top 0.1 % of pairs is 1 (e5 cosines bunch near 0.8). The vectors are
+stored (`work_embedding`, migration 052) with a hash of the text, so a run
+embeds only new and changed descriptions; the first run on the dev DB
+embedded 2 509 descriptions in 12.5 minutes, later runs take seconds. The
+model is loaded only when something needs embedding. No boilerplate
+removal: the repeated sentences found (38) were mostly duplicate works,
+and e5 copes with back-cover phrasing. `--no-description` runs without D.
+
+When D ≥ the minimum-evidence level it is also a reason
+(`{"type": "description"}`, shown as "Samankaltainen kuvaus"), ordered by
+its contribution among the tag reasons.
 
 ### G: genre
 
@@ -225,7 +234,8 @@ read access to what the job reads and write access to the two new tables:
 GRANT SELECT ON suomisf.work, suomisf.workgenre, suomisf.workcontributor,
     suomisf.bookseries, suomisf.omnibus TO tag_similarity;
 GRANT SELECT, INSERT, UPDATE, DELETE
-    ON suomisf.work_similarity, suomisf.work_similarity_run TO tag_similarity;
+    ON suomisf.work_similarity, suomisf.work_similarity_run,
+    suomisf.work_embedding TO tag_similarity;
 ```
 
 (`tag` and `worktag` it can already read.)
@@ -289,8 +299,13 @@ weights can't be judged without it.
    of lists of series works show one of the same series, author diversity
    0.97. Weak spot: works whose own tags are rare lean on one common tag
    ("seikkailu") plus genre and year — what D is for.
-2. **Description similarity (D)**, TF-IDF with boilerplate removal;
-   embeddings compared in the report. Review again.
+2. **Description similarity (D)** — done 2026-11-12 with e5-large
+   embeddings (see D above; 29 tests). Every eligible work now gets a list
+   (0.2 % fewer than 3), same-series works show in 0.3 % of lists, author
+   diversity 0.98. Lists for works with few shared tags (e.g. "Pimenevä
+   maa", "Painajaisakatemia 3", "Tik-Tok", "Ubik") are clearly better.
+   To watch: D often dominates; some lists now rest on the description
+   alone (T 0).
 3. **API** with tests and docs.
 4. **Frontend (admin-only button)** with tests; wiki (Ylläpito while it is
    admin-only, Teossivu in the user guide once opened to everyone; the

@@ -68,7 +68,7 @@ what they test, their parameter values, and expected behaviors.
 | test_work_contributors.py | WorkContributor CRUD, migration integrity | 9 |
 | test_edition_work_link.py | Edition.work_id direct FK (Migration 004) | 10 |
 | test_people_aliases.py | Person alias linking, work merge, filter endpoint | 4 |
-| test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 24 |
+| test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 29 |
 
 ---
 
@@ -2334,16 +2334,18 @@ yet listed here.
 
 `tests/test_work_similarity.py` tests `scripts/work_similarity.py` (see
 `docs/work-similarity-plan.md`). Most tests build a few works by hand and
-call `compute_lists`; the last three run against the test database
+call `compute_lists`; the last four run against the test database
 inside a transaction that is rolled back.
 
 **Helpers:** `W(id, tags, genres, year, words, ...)` — a `Work` with tags
 as `{type: [ids]}`, genre SF, year 2000 and a 30-word description by
 default; `lists(works, **config)` — the computed lists with config
-changes; `rec(result, source, target)`; `conn` — a test-database
-connection with the stored lists and run record emptied.
+changes; `rec(result, source, target)`; `unit(*values)` — a unit
+vector; `conn` — a test-database connection with the stored lists, run
+record and description vectors emptied. No embedding model is loaded:
+description tests pass vectors or a fake `embed` function.
 
-### Rules (21 tests)
+### Rules (25 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
@@ -2367,12 +2369,17 @@ connection with the stored lists and run record emptied.
 | `test_same_series_is_penalised_and_capped` | two same-series exact matches, one weaker outsider | outsider first, then one same-series work |
 | `test_one_work_per_other_series_and_two_per_author` | two in series 5, three by author 50 | [2, 4, 5]: one of the series, two by the author |
 | `test_reasons_strongest_type_first` | shared Alagenre and Aihe tags | Alagenre reason first; tags listed |
+| `test_embed_missing_embeds_only_new_and_changed_texts` | one stored text unchanged, one changed, one new; then `rebuild` | only the changed and new are embedded and returned for storing; `rebuild` embeds all three |
+| `test_description_scale_median_pair_is_zero` | ten vectors on an arc | D 0 for the median pair and below, 1 for the closest |
+| `test_similar_description_alone_is_enough_and_is_a_reason` | no shared tags, works 1 and 2 with the same vector | 2 recommended for 1 with D 1.0 and the single reason `description` |
+| `test_without_vectors_d_is_unavailable` | no description model | D is None |
 | `test_plan_changes_rewrites_only_changed_lists` | stored lists equal / an extra source / an old version | nothing rewritten, extra removed; old version rewritten |
 
-### Against the test database (3 tests)
+### Against the test database (4 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
 | `test_run_stores_lists_and_a_rerun_changes_nothing` | full run and `apply` | stored targets in rank order from 1; run record has the input hash; a reload hashes the same and plans no rewrites |
 | `test_lista_tags_are_not_loaded_and_pseudonyms_count_as_the_person` | a Lista tag on a work | the tag isn't loaded; a pseudonym's work lists the real person as author |
+| `test_vectors_are_stored_and_read_back` | store vectors for a work and for a missing work id | only the existing work's vector is stored, with its hash, and reads back equal |
 | `test_single_work_update_leaves_the_run_record` | `only={id}` update | only that list computed; no run record written |

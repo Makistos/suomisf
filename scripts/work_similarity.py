@@ -12,14 +12,18 @@ Usage:
     python scripts/work_similarity.py --dry-run    # compute and report only
     python scripts/work_similarity.py --rebuild    # even if nothing changed
     python scripts/work_similarity.py --work 63    # one work's list only
+    python scripts/work_similarity.py --no-description  # tags etc. only
+    python scripts/work_similarity.py --reembed    # embed all descriptions
     python scripts/work_similarity.py --report FILE [--works 63,1731]
     python scripts/work_similarity.py --prod       # production database
     python scripts/work_similarity.py --db postgresql://...
 
 The database is DATABASE_URL from .env; --prod uses
 DATABASE_URL_TAG_SIMILARITY_PROD (the tag_similarity role, see migrations
-044 and 051). Needs numpy from the similarity group:
-pdm install -G similarity.
+044, 051 and 052). Needs the similarity group: pdm install -G similarity.
+Descriptions are embedded with multilingual-e5-large (about 2 GB, shared
+with the tag job); the first run embeds every eligible description (about
+12 minutes on a workstation CPU), later runs only new and changed ones.
 """
 import argparse
 import hashlib
@@ -45,7 +49,7 @@ dotenv.load_dotenv(os.path.join(directory_path, '.env'))
 
 # Bump whenever the config or the scoring changes: the next run then
 # rewrites every list.
-ALGORITHM_VERSION = 1
+ALGORITHM_VERSION = 2
 
 # Tag types (tagtype.id).
 AIHE, ALAGENRE, TYYLI, TOIMIJA, PAIKKA, AIKA, LISTA = 1, 2, 3, 4, 5, 6, 7
@@ -94,6 +98,20 @@ SIMILARITY_CONFIG: Dict[str, Any] = {
     'min_tags': 3,
 }
 
+# Description similarity: cosine of multilingual embeddings (phase 2
+# compared TF-IDF, mpnet and e5; e5 found the most thematic neighbours).
+# Vectors are stored in work_embedding, so only new and changed
+# descriptions are embedded.
+EMBED_MODEL = 'intfloat/multilingual-e5-large'
+EMBED_PREFIX = 'query: '   # e5's prefix for symmetric similarity
+# e5 cosines bunch near 0.8; D rescales them so that the median pair is 0
+# and this percentile of pairs is 1.
+D_TOP_PERCENTILE = 99.9
+D_SAMPLE_ROWS = 1000      # rows used to find the median and the top
+
+# texts -> unit vectors, one row per text
+Embed = Callable[[List[str]], np.ndarray]
+
 # Rows scored at a time: bounds memory to a few (CHUNK x works) arrays.
 CHUNK = 256
 
@@ -133,6 +151,15 @@ def word_count(description: Optional[str]) -> int:
     """Words in a description, HTML tags and entities removed."""
     plain = html.unescape(re.sub(r'<[^>]+>', ' ', description or ''))
     return len(plain.split())
+
+
+def plain_text(description: Optional[str]) -> str:
+    plain = html.unescape(re.sub(r'<[^>]+>', ' ', description or ''))
+    return ' '.join(plain.split())
+
+
+def text_hash(value: str) -> str:
+    return hashlib.sha256(value.encode()).hexdigest()[:16]
 
 
 def eligible(work: Work, config: Dict[str, Any]) -> bool:
@@ -340,11 +367,15 @@ class Scorer:
 
 
 def reasons_for(a: Work, b: Work, per_type: Dict[int, float],
-                weights: Dict[int, float],
-                rarity_of: Dict[int, float]) -> List[Dict[str, Any]]:
-    """Shared tags by type, the biggest contribution first; tags within a
-    type rarest first."""
-    out = []
+                config: Dict[str, Any], rarity_of: Dict[int, float],
+                d: Optional[float] = None) -> List[Dict[str, Any]]:
+    """Shared tags by type and a similar description, the biggest
+    contribution to S first; tags within a type rarest first. The
+    description is a reason when D passes the minimum-evidence level."""
+    weights = config['tag_types']
+    signal = config['signals']
+    t_den = sum(weights[t] for t in per_type) or 1
+    out: List[Dict[str, Any]] = []
     for ttype, weight in weights.items():
         shared = a.tags.get(ttype, frozenset()) & b.tags.get(ttype,
                                                               frozenset())
@@ -352,8 +383,12 @@ def reasons_for(a: Work, b: Work, per_type: Dict[int, float],
             continue
         tags = sorted(shared, key=lambda t: (-rarity_of.get(t, 0), t))
         out.append({'type': ttype, 'tags': tags,
-                    'contribution': weight * (per_type.get(ttype) or 0)})
-    out.sort(key=lambda r: (-r['contribution'], r['type']))
+                    'contribution': signal['T'] * weight
+                    * (per_type.get(ttype) or 0) / t_den})
+    if d is not None and d >= config['min_description_similarity']:
+        out.append({'type': 'description', 'tags': [],
+                    'contribution': signal['D'] * d})
+    out.sort(key=lambda r: (-r['contribution'], str(r['type'])))
     for r in out:
         r['contribution'] = round(r['contribution'], 4)
     return out
@@ -433,13 +468,110 @@ def compute_lists(all_works: List[Work],
                     target=works[j].id, score=round(float(row[j]), 6),
                     signals=signals,
                     reasons=reasons_for(works[i], works[j], per_type,
-                                        config['tag_types'],
-                                        scorer.rarity)))
+                                        config, scorer.rarity,
+                                        signals['D'])))
             lists[works[i].id] = recs
     return works, lists
 
 
 # --- Database ----------------------------------------------------------
+
+def fastembed_embedder() -> Embed:
+    """e5 embeddings from fastembed (ONNX), the model cached in
+    ~/.cache/fastembed (shared with scripts/tag_similarity.py)."""
+    from fastembed import TextEmbedding  # pylint: disable=C0415
+    model = TextEmbedding(EMBED_MODEL,
+                          cache_dir=os.path.expanduser('~/.cache/fastembed'))
+
+    def embed(texts: List[str]) -> np.ndarray:
+        vectors = np.array(list(model.embed(
+            [EMBED_PREFIX + t for t in texts], batch_size=16)),
+            dtype=np.float32)
+        return vectors / np.linalg.norm(vectors, axis=1, keepdims=True)
+    return embed
+
+
+def embed_missing(texts: Dict[int, str],
+                  stored: Dict[int, Tuple[str, bytes]], embed: Embed,
+                  rebuild: bool = False
+                  ) -> Tuple[Dict[int, np.ndarray],
+                             List[Tuple[int, str, bytes]]]:
+    """(vector per work, new vectors to store as (work, hash, bytes)).
+    Only texts with no stored vector or a changed hash are embedded."""
+    vectors: Dict[int, np.ndarray] = {}
+    todo = []
+    for wid, txt in texts.items():
+        old = stored.get(wid)
+        if old and old[0] == text_hash(txt) and not rebuild:
+            vectors[wid] = np.frombuffer(old[1], dtype='<f4')
+        else:
+            todo.append(wid)
+    new: List[Tuple[int, str, bytes]] = []
+    if todo:
+        start = time.monotonic()
+        for wid, vector in zip(todo, embed([texts[w] for w in todo]),
+                               strict=True):
+            vector = vector.astype('<f4')
+            vectors[wid] = vector
+            new.append((wid, text_hash(texts[wid]), vector.tobytes()))
+        print(f'Embedded {len(todo)} descriptions in '
+              f'{time.monotonic() - start:.0f} s.')
+    return vectors, new
+
+
+def description_model(vectors: Dict[int, np.ndarray]) -> DescriptionModel:
+    """D from the vectors: cosine rescaled so the median pair is 0 and the
+    top D_TOP_PERCENTILE is 1. Works without a vector have no D."""
+    def factory(works: List[Work]) -> Callable[[int, int], np.ndarray]:
+        dim = len(next(iter(vectors.values())))
+        have = np.array([w.id in vectors for w in works])
+        m = np.vstack([vectors.get(w.id, np.zeros(dim, dtype=np.float32))
+                       for w in works]).astype(np.float32)
+        rng = np.random.default_rng(0)
+        rows = np.nonzero(have)[0]
+        sample = rng.choice(rows, size=min(D_SAMPLE_ROWS, len(rows)),
+                            replace=False)
+        cos = m[sample] @ m[have].T
+        off = cos[cos < 0.9999]   # leave out each row's own work
+        lo = float(np.median(off))
+        hi = float(np.percentile(off, D_TOP_PERCENTILE))
+        span = hi - lo if hi > lo else 1.0
+
+        def block(i0: int, i1: int) -> np.ndarray:
+            d = np.clip((m[i0:i1] @ m.T - lo) / span, 0, 1)
+            d[~have[i0:i1], :] = np.nan
+            d[:, ~have] = np.nan
+            return d
+        return block
+    return factory
+
+
+def load_texts(conn: Any, ids: Iterable[int]) -> Dict[int, str]:
+    """Plain-text descriptions of the given works."""
+    return {r.id: plain_text(r.description) for r in conn.execute(text(
+        'SELECT id, description FROM work WHERE id = ANY(:ids)'),
+        {'ids': list(ids)})}
+
+
+def stored_vectors(conn: Any) -> Dict[int, Tuple[str, bytes]]:
+    return {r.work_id: (r.text_hash, bytes(r.vector)) for r in
+            conn.execute(text(
+                'SELECT work_id, text_hash, vector FROM work_embedding '
+                'WHERE model = :m'), {'m': EMBED_MODEL})}
+
+
+def store_vectors(conn: Any, new: List[Tuple[int, str, bytes]]) -> None:
+    if not new:
+        return
+    # Works deleted since they were read are left out.
+    conn.execute(text(
+        'INSERT INTO work_embedding (work_id, model, text_hash, vector) '
+        'SELECT :w, :m, :h, :v WHERE EXISTS (SELECT 1 FROM work '
+        'WHERE id = :w) ON CONFLICT (work_id, model) DO UPDATE SET '
+        'text_hash = EXCLUDED.text_hash, vector = EXCLUDED.vector, '
+        'updated = now()'),
+        [{'w': w, 'm': EMBED_MODEL, 'h': h, 'v': v} for w, h, v in new])
+
 
 def load_works(conn: Any) -> Tuple[List[Work], str]:
     """Every work with the inputs the scores use, and a hash of them."""
@@ -643,17 +775,19 @@ def report(conn: Any, works: List[Work], lists: Dict[int, List[Rec]],
             out.append('No recommendations.')
             out.append('')
             continue
-        out.append('| # | Work | Score | T | G | Y | Cov. | Reasons |')
-        out.append('|---|---|---|---|---|---|---|---|')
+        out.append('| # | Work | Score | T | D | G | Y | Cov. | Reasons |')
+        out.append('|---|---|---|---|---|---|---|---|---|')
         for rank, rec in enumerate(recs, start=1):
             s = rec.signals
             reasons = '; '.join(
+                'Kuvaus' if r['type'] == 'description' else
                 f'{TAG_TYPE_NAMES[r["type"]]}: '
                 + ', '.join(tag_names.get(t, str(t)) for t in r['tags'][:4])
                 for r in rec.reasons[:3])
             flag = ' (sama sarja)' if s['same_series'] else ''
             out.append(f'| {rank} | {label(rec.target)}{flag} | '
-                       f'{rec.score:.3f} | {fmt(s["T"])} | {fmt(s["G"])} | '
+                       f'{rec.score:.3f} | {fmt(s["T"])} | {fmt(s["D"])} | '
+                       f'{fmt(s["G"])} | '
                        f'{fmt(s["Y"])} | {s["coverage"]:.2f} | {reasons} |')
         out.append('')
     return '\n'.join(out)
@@ -676,6 +810,10 @@ def main() -> int:
                         help='compute and print, write nothing')
     parser.add_argument('--rebuild', action='store_true',
                         help='compute even if the inputs have not changed')
+    parser.add_argument('--no-description', action='store_true',
+                        help='leave out description similarity (no model)')
+    parser.add_argument('--reembed', action='store_true',
+                        help='embed every description again')
     parser.add_argument('--work', type=int, metavar='ID',
                         help="recompute this work's list only")
     parser.add_argument('--report', metavar='FILE',
@@ -703,32 +841,61 @@ def main() -> int:
 
     start = time.monotonic()
     only = {args.work} if args.work else None
+    use_d = not args.no_description
     with engine.connect() as conn:
         conn.execute(text('SET search_path = suomisf'))
         all_works, input_hash = load_works(conn)
+        # Lists computed without D are not the same as ones with it.
+        input_hash = text_hash(input_hash + ('+D' if use_d else '-D'))
         previous = last_run(conn)
         unchanged = (previous is not None
                      and previous.input_hash == input_hash
                      and previous.algorithm_version == ALGORITHM_VERSION)
         if unchanged and not (args.rebuild or args.work or args.report
-                              or args.dry_run):
+                              or args.dry_run or args.reembed):
             assert previous is not None
             print(f'{database}: no changes since '
                   f'{previous.computed_at:%Y-%m-%d %H:%M}; nothing to do.')
             conn.rollback()
             engine.dispose()
             return 0
-        works, lists = compute_lists(all_works, only=only)
-        seconds = time.monotonic() - start
+        eligible_ids = [w.id for w in all_works
+                        if eligible(w, SIMILARITY_CONFIG)]
+        texts = load_texts(conn, eligible_ids) if use_d else {}
+        vectors_stored = stored_vectors(conn) if use_d else {}
         stored = stored_lists(conn)
-        if args.report:
-            sample = ([int(x) for x in args.works.split(',') if x.strip()]
-                      if args.works else default_sample(works))
-            with open(args.report, 'w', encoding='utf-8') as f:
-                f.write(report(conn, works, lists, sample, database,
-                               seconds) + '\n')
-            print(f'Report: {args.report}')
         conn.rollback()
+
+    # Embedding can take minutes; no connection is held meanwhile.
+    vectors: Dict[int, np.ndarray] = {}
+    new_vectors: List[Tuple[int, str, bytes]] = []
+    if use_d:
+        # The model (2 GB) is loaded only if something needs embedding.
+        vectors, new_vectors = embed_missing(
+            texts, vectors_stored,
+            lambda batch: fastembed_embedder()(batch), args.reembed)
+        if new_vectors and not args.dry_run:
+            # Saved at once: embedding is the slow part, and a later
+            # error shouldn't make the next run do it again.
+            with engine.begin() as conn:
+                conn.execute(text('SET search_path = suomisf'))
+                store_vectors(conn, new_vectors)
+            new_vectors = []
+    works, lists = compute_lists(
+        all_works, only=only,
+        description=description_model(vectors) if vectors else None)
+    seconds = time.monotonic() - start
+
+    if args.report:
+        sample = ([int(x) for x in args.works.split(',') if x.strip()]
+                  if args.works else default_sample(works))
+        with engine.connect() as conn:
+            conn.execute(text('SET search_path = suomisf'))
+            body = report(conn, works, lists, sample, database, seconds)
+            conn.rollback()
+        with open(args.report, 'w', encoding='utf-8') as f:
+            f.write(body + '\n')
+        print(f'Report: {args.report}')
 
     if args.work and args.work not in lists:
         print(f'Work {args.work} is not eligible (needs a description of '
@@ -747,8 +914,10 @@ def main() -> int:
     if args.dry_run:
         verb = 'Would rewrite'
     else:
+        # One short transaction for the vectors and the lists.
         with engine.begin() as conn:
             conn.execute(text('SET search_path = suomisf'))
+            store_vectors(conn, new_vectors)
             apply(conn, lists, changes, None if only else input_hash,
                   len(works))
         verb = 'Rewrote'

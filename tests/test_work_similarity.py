@@ -8,6 +8,7 @@ import math
 import os
 from typing import Any, Dict
 
+import numpy as np
 import pytest
 from sqlalchemy import create_engine, text
 
@@ -216,6 +217,64 @@ def test_reasons_strongest_type_first():
     assert reasons[1]['tags'] == [1, 2]
 
 
+# --- Description similarity --------------------------------------------
+
+def unit(*values):
+    v = np.array(values, dtype=np.float32)
+    return v / np.linalg.norm(v)
+
+
+def test_embed_missing_embeds_only_new_and_changed_texts():
+    calls = []
+
+    def embed(texts):
+        calls.extend(texts)
+        return np.array([unit(1, len(t)) for t in texts])
+
+    texts = {1: 'sama', 2: 'muuttunut', 3: 'uusi'}
+    old = unit(0, 1).astype('<f4').tobytes()
+    stored = {1: (ws.text_hash('sama'), old),
+              2: (ws.text_hash('vanha'), old)}
+    vectors, new = ws.embed_missing(texts, stored, embed)
+    assert calls == ['muuttunut', 'uusi']
+    assert [w for w, _, _ in new] == [2, 3]
+    assert np.allclose(vectors[1], unit(0, 1))
+    _, again = ws.embed_missing(texts, stored, embed, rebuild=True)
+    assert len(again) == 3
+
+
+def test_description_scale_median_pair_is_zero():
+    # Ten works on a circle: the median pair gets D 0, the closest 1.
+    vectors = {i: unit(math.cos(i / 10), math.sin(i / 10))
+               for i in range(10)}
+    works = [W(i) for i in range(10)]
+    d = ws.description_model(vectors)(works)(0, 10)
+    off = d[~np.eye(10, dtype=bool)]
+    assert off.min() == 0.0 and off.max() == pytest.approx(1.0, abs=0.02)
+    assert np.median(off) == pytest.approx(0.0, abs=0.05)
+
+
+def test_similar_description_alone_is_enough_and_is_a_reason():
+    # No shared tags; works 1 and 2 have the same description vector.
+    works = [W(1, {AIHE: [1, 2, 3]}), W(2, {AIHE: [4, 5, 6]}),
+             W(3, {AIHE: [7, 8, 9]}), W(4, {AIHE: [10, 11, 12]})]
+    vectors = {1: unit(1, 0, 0), 2: unit(1, 0, 0), 3: unit(0, 1, 0),
+               4: unit(0, 0, 1)}
+    _, result = ws.compute_lists(
+        works, description=ws.description_model(vectors))
+    assert targets(result, 1) == [2]
+    r = rec(result, 1, 2)
+    assert r.signals['D'] == pytest.approx(1.0)
+    assert r.reasons == [{'type': 'description', 'tags': [],
+                          'contribution': pytest.approx(0.35)}]
+
+
+def test_without_vectors_d_is_unavailable():
+    result = lists([W(1, {ALAGENRE: [1, 2, 3]}),
+                    W(2, {ALAGENRE: [1, 2, 3]})])
+    assert rec(result, 1, 2).signals['D'] is None
+
+
 # --- Changes -----------------------------------------------------------
 
 def test_plan_changes_rewrites_only_changed_lists():
@@ -244,6 +303,7 @@ def conn(app):  # pylint: disable=unused-argument
             c.execute(text('SET search_path = suomisf'))
             c.execute(text('DELETE FROM work_similarity'))
             c.execute(text('DELETE FROM work_similarity_run'))
+            c.execute(text('DELETE FROM work_embedding'))
             yield c
         finally:
             trans.rollback()
@@ -289,6 +349,18 @@ def test_lista_tags_are_not_loaded_and_pseudonyms_count_as_the_person(conn):
         assert any(alias.real_person_id in w.authors
                    and alias.person_id not in w.authors
                    for w in works.values())
+
+
+def test_vectors_are_stored_and_read_back(conn):
+    work = conn.execute(text('SELECT id FROM work LIMIT 1')).scalar()
+    conn.execute(text('DELETE FROM work_embedding'))
+    vector = unit(3, 4)
+    ws.store_vectors(conn, [(work, 'h1', vector.astype('<f4').tobytes()),
+                            (-1, 'h2', vector.tobytes())])
+    stored = ws.stored_vectors(conn)
+    assert set(stored) == {work}   # a missing work is left out
+    assert stored[work][0] == 'h1'
+    assert np.allclose(np.frombuffer(stored[work][1], dtype='<f4'), vector)
 
 
 def test_single_work_update_leaves_the_run_record(conn):
