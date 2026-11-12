@@ -306,7 +306,10 @@ weights can't be judged without it.
    maa", "Painajaisakatemia 3", "Tik-Tok", "Ubik") are clearly better.
    To watch: D often dominates; some lists now rest on the description
    alone (T 0).
-3. **API** with tests and docs.
+3. **API** with tests and docs — done 2026-11-12
+   (`app/impl_work_similarity.py`, `tests/api/test_work_similarity_api.py`,
+   6 tests). Reasons come with tag names and a `type_name`; tags deleted
+   since the last run are left out.
 4. **Frontend (admin-only button)** with tests; wiki (Ylläpito while it is
    admin-only, Teossivu in the user guide once opened to everyone; the
    job in Ylläpito); changelog.

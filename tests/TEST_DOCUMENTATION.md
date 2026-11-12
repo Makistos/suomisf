@@ -37,6 +37,7 @@ what they test, their parameter values, and expected behaviors.
 26. [Kirjasampo Tag Fetch Tests (test_kirjasampo.py)](#kirjasampo-tag-fetch-tests)
 27. [Change Log Tests (test_change_log.py)](#change-log-tests)
 28. [Work Similarity Tests (test_work_similarity.py)](#work-similarity-tests)
+29. [Similar Works API Tests (test_work_similarity_api.py)](#similar-works-api-tests)
 
 ---
 
@@ -69,6 +70,7 @@ what they test, their parameter values, and expected behaviors.
 | test_edition_work_link.py | Edition.work_id direct FK (Migration 004) | 10 |
 | test_people_aliases.py | Person alias linking, work merge, filter endpoint | 4 |
 | test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 29 |
+| api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
 
 ---
 
@@ -2383,3 +2385,27 @@ description tests pass vectors or a fake `embed` function.
 | `test_lista_tags_are_not_loaded_and_pseudonyms_count_as_the_person` | a Lista tag on a work | the tag isn't loaded; a pseudonym's work lists the real person as author |
 | `test_vectors_are_stored_and_read_back` | store vectors for a work and for a missing work id | only the existing work's vector is stored, with its hash, and reads back equal |
 | `test_single_work_update_leaves_the_run_record` | `only={id}` update | only that list computed; no run record written |
+
+---
+
+## Similar Works API Tests
+
+`tests/api/test_work_similarity_api.py` tests `GET /api/works/{id}/similar`
+with list rows the test writes itself; the job that computes the lists is
+tested in `tests/test_work_similarity.py`.
+
+**Fixture:** `similar_rows` — for a source work (the first work without a
+cover), writes two rows: rank 1 a work with a cover, with reasons Aika,
+Alagenre and description; rank 2 another work, with an Aika reason and a
+reason whose only tag doesn't exist. Yields (source, best, second, tag id,
+tag name) and removes the rows.
+
+### TestWorkSimilar (6 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_list_in_rank_order_with_reasons_and_cover` | GET the source's list | works in rank order; title and cover (`image_src`, `thumb_src`); the best work's reasons are Alagenre (with the tag's id and name) then description (no tags), Aika dropped as a stronger reason exists; the second's only reason is Aika, the deleted tag's reason dropped |
+| `test_limit` | `?limit=1` | only the best work |
+| `test_work_without_list_gives_empty_list` | work 999999999 | 200 with `[]` |
+| `test_invalid_id_or_limit` (×3) | id `abc`, `limit=0`, `limit=x` | 400 |
+

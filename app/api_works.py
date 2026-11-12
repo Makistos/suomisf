@@ -11,6 +11,7 @@ from app.api_jwt import (jwt_admin_required, jwt_self_or_admin_required,
 from app.api_helpers import make_api_response, validate_positive_integer_id
 from app.impl import ResponseType
 from app.impl_awards import get_awards_for_work
+from app.impl_work_similarity import DEFAULT_LIMIT, get_similar_works
 from app.impl_works import (get_author_works, get_latest_works, get_omnibus,
                             get_work, get_work_shorts, save_omnibus,
                             save_work_shorts,
@@ -240,6 +241,54 @@ def api_workawards(workid: str) -> Response:
                                 HttpResponseCode.BAD_REQUEST.value)
         return make_api_response(response)
     return make_api_response(get_awards_for_work(int_id))
+
+
+@app.route('/api/works/<workid>/similar', methods=['get'])
+def api_work_similar(workid: str) -> Response:
+    """
+    @api {get} /api/works/:id/similar?limit=8 Similar works
+    @apiName Get Similar Works
+    @apiGroup Work
+    @apiPermission none
+    @apiDescription The works most similar to a work, best first, as
+    computed by scripts/work_similarity.py (see
+    docs/work-similarity-plan.md). A work with no computed list (one
+    without a description or with fewer than three tags) gives an empty
+    list.
+    @apiParam {Number} id Work id.
+    @apiQuery {Number{1-40}} [limit=8] Number of works.
+    @apiSuccess {Object[]} response Similar works: id, title, author_str,
+    pubyear, image ({image_src, thumb_src} of the earliest edition's
+    cover, or null) and reasons, strongest first.
+    @apiSuccessExample {json} Success-Response:
+        HTTP/1.1 200 OK
+        [
+          {
+            "id": 2390,
+            "title": "Ennustusten aika",
+            "author_str": "Eddings, David",
+            "pubyear": 1982,
+            "image": {"image_src": "/images/books/x.jpg",
+                      "thumb_src": "/images/books/thumbs/x.webp"},
+            "reasons": [
+              {"type": 2, "type_name": "Alagenre",
+               "tags": [{"id": 1033, "name": "korkea fantasia"}]},
+              {"type": "description", "type_name": "Kuvaus", "tags": []}
+            ]
+          }
+        ]
+    @apiError (Error 400) {String} response Invalid id or limit.
+    """
+    int_id, error = validate_positive_integer_id(workid, 'teoksen id')
+    if error is not None or int_id is None:
+        return make_api_response(error or ResponseType(
+            'Virheellinen teoksen id.', HttpResponseCode.BAD_REQUEST.value))
+    limit_arg = request.args.get('limit', str(DEFAULT_LIMIT))
+    if not limit_arg.isdigit() or int(limit_arg) < 1:
+        return make_api_response(ResponseType(
+            f'Virheellinen limit: {limit_arg}.',
+            HttpResponseCode.BAD_REQUEST.value))
+    return make_api_response(get_similar_works(int_id, int(limit_arg)))
 
 
 @app.route('/api/works/<workid>', methods=['delete'])
