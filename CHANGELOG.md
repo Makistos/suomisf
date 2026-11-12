@@ -5,6 +5,15 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-12 — Similar works job (phase 1)
+**Commits:** `d66fbe09`, `99bfad50`
+A batch job, `scripts/work_similarity.py`, computes for every work with a
+description and at least three tags a ranked list of similar works, from
+tags weighted by type and rarity, genre and original year, with rules
+for age groups, non-fiction, omnibuses, series and authors. Lists are
+stored in a new table (migration 051) for an upcoming API; a run with
+unchanged data does nothing. Plan: `docs/work-similarity-plan.md`.
+
 ## 2026-11-10 — Work change history with new values
 **Commits:** `5a63476f`
 The work change history also gives each change's new value, worked out
