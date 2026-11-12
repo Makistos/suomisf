@@ -50,7 +50,8 @@ dev = [
     "freezegun>=1.5.5",
     "ruff>=0.16.9",
 ]
-# scripts/tag_similarity.py only; not needed by the web app.
+# scripts/tag_similarity.py and work_similarity.py only; not needed by
+# the web app.
 similarity = [
     "fastembed>=0.7",
     "libvoikko>=0.20",

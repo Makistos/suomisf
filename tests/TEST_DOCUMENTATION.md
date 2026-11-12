@@ -36,6 +36,7 @@ what they test, their parameter values, and expected behaviors.
 25. [Edition Work Link Tests (test_edition_work_link.py)](#edition-work-link-tests)
 26. [Kirjasampo Tag Fetch Tests (test_kirjasampo.py)](#kirjasampo-tag-fetch-tests)
 27. [Change Log Tests (test_change_log.py)](#change-log-tests)
+28. [Work Similarity Tests (test_work_similarity.py)](#work-similarity-tests)
 
 ---
 
@@ -67,6 +68,7 @@ what they test, their parameter values, and expected behaviors.
 | test_work_contributors.py | WorkContributor CRUD, migration integrity | 9 |
 | test_edition_work_link.py | Edition.work_id direct FK (Migration 004) | 10 |
 | test_people_aliases.py | Person alias linking, work merge, filter endpoint | 4 |
+| test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 24 |
 
 ---
 
@@ -2326,3 +2328,51 @@ yet listed here.
 | `test_history_aliases_and_edition_target` | insert a Painos log row with the old field name `Sivumäärä` | row's `field` is `Sivuja` and `target` is "<editionnum>. painos (2099)" |
 | `test_history_hides_editor_email` | unauthenticated GET of the history | every `user` has only `id` and `name` |
 
+---
+
+## Work Similarity Tests
+
+`tests/test_work_similarity.py` tests `scripts/work_similarity.py` (see
+`docs/work-similarity-plan.md`). Most tests build a few works by hand and
+call `compute_lists`; the last three run against the test database
+inside a transaction that is rolled back.
+
+**Helpers:** `W(id, tags, genres, year, words, ...)` — a `Work` with tags
+as `{type: [ids]}`, genre SF, year 2000 and a 30-word description by
+default; `lists(works, **config)` — the computed lists with config
+changes; `rec(result, source, target)`; `conn` — a test-database
+connection with the stored lists and run record emptied.
+
+### Rules (21 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_word_count_strips_html` | `<p>yksi<br/>kaksi&nbsp;kolme</p>`, None | 3, 0 |
+| `test_eligibility_needs_description_and_three_tags` | 3 tags / 2 tags / 19 words | eligible only with 20+ words and 3+ tags |
+| `test_ineligible_works_are_neither_sources_nor_targets` | 3 alike works, one with 5 words | the short one has no list and is in none |
+| `test_rarity` | df = n, df = 0, huge n | 1.0, 1 + ln(n+1), capped at 4 |
+| `test_year_similarity_halves_every_30_years` | same year, 30 years apart | 1.0, 0.5 |
+| `test_base_genres_fold_age_groups_and_drop_non_content` | Nuorten fantasia, Lasten SF, Kokoelma | {Fantasia, SF} |
+| `test_series_root_follows_parents` | series 3 → 2 → 1 | root 1; None stays None |
+| `test_weighted_jaccard_uses_rarity` | Alagenre {1,2,3} vs {1,2,4}, a third work | per-type score = shared rarity / union rarity |
+| `test_missing_tag_type_both_rule_vs_either_rule` | b lacks the Tyyli tag a has | `both`: T = 1; `either`: T = 0.45 / 0.70 |
+| `test_weights_renormalise_over_available_signals` | b has no genre, 30 years apart | G None, S = (0.40·T + 0.05·Y) / 0.45 |
+| `test_era_and_actor_tags_alone_are_not_enough` | only Aika and Toimija shared | no recommendation |
+| `test_two_shared_general_tags_are_enough_one_is_not` | 2 vs 1 shared Aihe tags of 10 | recommended vs not |
+| `test_a_shared_style_tag_is_enough` | one shared Tyyli tag | recommended |
+| `test_works_sharing_an_omnibus_are_left_out` | works 1, 2 in omnibus 9 | only the unrelated work 3 for work 1 |
+| `test_non_fiction_only_with_non_fiction` | Tietokirja, Romaani, Tietokirja | only the other Tietokirja |
+| `test_childrens_books_only_with_childrens_books` | Lasten fantasia, Fantasia, Lasten fantasia | children's book only with the other; never for the adult one |
+| `test_young_adult_and_adult_get_half_the_score` | Fantasia source, Nuorten fantasia and Fantasia candidates | adult first, young adult at half the score |
+| `test_same_series_is_penalised_and_capped` | two same-series exact matches, one weaker outsider | outsider first, then one same-series work |
+| `test_one_work_per_other_series_and_two_per_author` | two in series 5, three by author 50 | [2, 4, 5]: one of the series, two by the author |
+| `test_reasons_strongest_type_first` | shared Alagenre and Aihe tags | Alagenre reason first; tags listed |
+| `test_plan_changes_rewrites_only_changed_lists` | stored lists equal / an extra source / an old version | nothing rewritten, extra removed; old version rewritten |
+
+### Against the test database (3 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_run_stores_lists_and_a_rerun_changes_nothing` | full run and `apply` | stored targets in rank order from 1; run record has the input hash; a reload hashes the same and plans no rewrites |
+| `test_lista_tags_are_not_loaded_and_pseudonyms_count_as_the_person` | a Lista tag on a work | the tag isn't loaded; a pseudonym's work lists the real person as author |
+| `test_single_work_update_leaves_the_run_record` | `only={id}` update | only that list computed; no run record written |

@@ -69,7 +69,15 @@ T   = Σ w_c·T_c / Σ w_c      over types both works have
 ```
 
 `N_c` = eligible works with a tag of type c, `df_t` = eligible works with
-tag t. A type that either work lacks is unavailable (neither 0 nor a match).
+tag t.
+
+**Missing types (changed from the spec, to be confirmed).** The spec makes a
+type that either work lacks unavailable (neither 0 nor a match). In phase 1
+that let a sparsely tagged work match perfectly on one shared common tag:
+"Etelän tähti" got eight works sharing only "seikkailu", each with T = 1.0.
+The job now counts a type when *either* work has it, so a type missing on
+one side is no match (`tag_type_available: 'either'`; `'both'` is the
+spec's rule). With the 3-tag eligibility a missing type is informative.
 
 | Spec name | Tag type in the DB | Weight |
 |---|---|---|
@@ -145,10 +153,14 @@ candidates qualify, 3 are stored; the list is not padded.
 
 ## Candidates and speed
 
-Candidates: eligible works sharing an informative tag (r_t above the
-median), sharing a base genre, or among the 100 nearest by description.
-With ~2 500 works brute force over all pairs (~3 M) is a few numpy matrix
-operations; the first phase measures it before anything smarter is built.
+No separate candidate generation: every pair is scored, a block of 256
+source rows at a time, as numpy matrix products (per tag type: rarity-
+weighted works × tags times works × tags transposed). Measured in phase 1
+on 2 509 eligible works: **3 s and 640 MB** for the whole run (0.3 s for
+`--work`), so there is nothing to optimise. Memory grows with the block
+size × the number of works, not with the square, so the growing number of
+tagged works is no concern. The spec's genre candidate set would add
+nothing anyway: genre alone never passes the minimum evidence.
 
 ## Storage (migration 051)
 
@@ -196,7 +208,7 @@ reads `DATABASE_URL`, `--prod` for production through the SSH tunnel
 **Run as needed (decided).** The job hashes every input it reads (eligible
 works' tags, genres, descriptions, years, series, authors, types, omnibus
 links) together with `algorithm_version`. If the hash equals the stored
-one, it prints "Ei muutoksia" and exits in a second or two. Otherwise it
+one, it prints "no changes" and exits in a second or two. Otherwise it
 recomputes everything (rarity and description weights depend on all works,
 so a partial update would drift) and rewrites, in one transaction at the
 end, only the lists that changed. It prints eligible works, lists changed,
@@ -271,8 +283,12 @@ weights can't be judged without it.
 ## Phases
 
 1. **Migration 051, the job with T + G + Y, all rules, storage,
-   fingerprint, evaluation report, tests.** Measure the speed. Review the
-   report together.
+   fingerprint, evaluation report, tests** — done 2026-11-12
+   (`tests/test_work_similarity.py`, 24 tests). On the dev DB: 2 509
+   eligible works, 99.3 % get recommendations, 2.4 % fewer than 3, 3.8 %
+   of lists of series works show one of the same series, author diversity
+   0.97. Weak spot: works whose own tags are rare lean on one common tag
+   ("seikkailu") plus genre and year — what D is for.
 2. **Description similarity (D)**, TF-IDF with boilerplate removal;
    embeddings compared in the report. Review again.
 3. **API** with tests and docs.
