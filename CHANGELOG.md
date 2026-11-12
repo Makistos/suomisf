@@ -5,6 +5,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-12 — Similar works: description similarity (phase 2)
+**Commits:** `d4eceebd`
+The similar-works job also compares descriptions, with a multilingual
+embedding model (e5-large). Each description is embedded once and the
+vector stored (migration 052), so later runs only embed new and changed
+descriptions. Every eligible work now gets recommendations, and works
+with few shared tags get much better ones.
+
 ## 2026-11-12 — Similar works job (phase 1)
 **Commits:** `d66fbe09`, `99bfad50`
 A batch job, `scripts/work_similarity.py`, computes for every work with a
