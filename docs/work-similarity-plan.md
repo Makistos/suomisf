@@ -312,7 +312,10 @@ weights can't be judged without it.
    since the last run are left out.
 4. **Frontend (admin-only button)** with tests; wiki (Ylläpito while it is
    admin-only, Teossivu in the user guide once opened to everyone; the
-   job in Ylläpito); changelog.
+   job in Ylläpito); changelog — done 2026-11-12 (frontend `e08e776`,
+   `src/features/work/components/similar-works.tsx`, 4 Vitest tests; wiki
+   Ylläpito "Samankaltaiset teokset"). The button sits in the work page's
+   right column under the Kirjasampo import.
 5. **Production**: grants, migration, first `--prod` run.
 
 Each phase is its own commit (or a few), changelog entries separately.
