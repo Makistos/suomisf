@@ -5,6 +5,13 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-12 — Similar works API (phase 3)
+**Commits:** `6f2ea8d6`
+`GET /api/works/<id>/similar` returns a work's similar works, best first,
+with the author, original year, cover and the reasons (shared tags by
+type, or a similar description). It only reads the lists the job
+computed; a work without one gets an empty list.
+
 ## 2026-11-12 — Similar works: description similarity (phase 2)
 **Commits:** `d4eceebd`
 The similar-works job also compares descriptions, with a multilingual
