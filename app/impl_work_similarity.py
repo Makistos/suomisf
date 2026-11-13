@@ -50,14 +50,16 @@ def get_similar_works(work_id: int, limit: int = DEFAULT_LIMIT
     Each item: id, title, author_str, pubyear (original year), image (the
     first cover of the earliest edition that has one, with thumb_src, or
     None) and reasons ({type, type_name, tags: [{id, name}]}, strongest
-    first; type is a tag type id or "description"). A work with no
+    first; type is a tag type id or "description"), score (the ranking
+    score) and signals (its parts as the job stored them). A work with no
     computed list gives an empty list.
     """
     limit = max(1, min(limit, MAX_LIMIT))
     session = new_session()
     try:
         rows = session.execute(text(
-            'SELECT w.id, w.title, w.author_str, w.pubyear, s.reasons '
+            'SELECT w.id, w.title, w.author_str, w.pubyear, s.reasons, '
+            's.score, s.signal_scores '
             'FROM work_similarity s '
             'JOIN work w ON w.id = s.target_work_id '
             'WHERE s.source_work_id = :id ORDER BY s.rank LIMIT :limit'),
@@ -91,5 +93,10 @@ def get_similar_works(work_id: int, limit: int = DEFAULT_LIMIT
             'image': ({'image_src': src, 'thumb_src': thumb_src(src)}
                       if src else None),
             'reasons': _reasons(r.reasons, tags),
+            # For evaluating the results: the ranking score and its parts
+            # (S, T, T_raw, D, G, Y, coverage, types: {tag type id: value},
+            # same_series), as stored by the job.
+            'score': r.score,
+            'signals': r.signal_scores,
         })
     return ResponseType(items, HttpResponseCode.OK.value)

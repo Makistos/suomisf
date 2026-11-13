@@ -259,7 +259,9 @@ def api_work_similar(workid: str) -> Response:
     @apiQuery {Number{1-40}} [limit=8] Number of works.
     @apiSuccess {Object[]} response Similar works: id, title, author_str,
     pubyear, image ({image_src, thumb_src} of the earliest edition's
-    cover, or null) and reasons, strongest first.
+    cover, or null), reasons (strongest first), score (the ranking score)
+    and signals (its parts: S, T, T_raw, D, G, Y, coverage, types by tag
+    type id, same_series).
     @apiSuccessExample {json} Success-Response:
         HTTP/1.1 200 OK
         [
@@ -274,7 +276,12 @@ def api_work_similar(workid: str) -> Response:
               {"type": 2, "type_name": "Alagenre",
                "tags": [{"id": 1033, "name": "korkea fantasia"}]},
               {"type": "description", "type_name": "Kuvaus", "tags": []}
-            ]
+            ],
+            "score": 0.56,
+            "signals": {"S": 0.68, "T": 0.81, "T_raw": 0.62, "D": 0.34,
+                        "G": 1.0, "Y": 0.51, "coverage": 0.89,
+                        "types": {"1": 0.41, "2": 1.0},
+                        "same_series": false}
           }
         ]
     @apiError (Error 400) {String} response Invalid id or limit.

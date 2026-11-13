@@ -47,9 +47,11 @@ def similar_rows():
         session.execute(text(
             'INSERT INTO work_similarity (source_work_id, target_work_id, '
             'rank, score, signal_scores, reasons, algorithm_version) '
-            "VALUES (:s, :t, :r, 0.5, '{}', CAST(:reasons AS jsonb), 0)"),
+            "VALUES (:s, :t, :r, 0.5, CAST(:sig AS jsonb), "
+            'CAST(:reasons AS jsonb), 0)'),
             {'s': source, 't': target, 'r': rank,
-             'reasons': json.dumps(reasons)})
+             'reasons': json.dumps(reasons),
+             'sig': json.dumps({'S': 0.7, 'T': 0.9, 'types': {'2': 1.0}})})
     session.commit()
     try:
         yield source, covered, second, tag.id, tag.name
@@ -72,7 +74,8 @@ class TestWorkSimilar(BaseAPITest):
         - era/actor/place reasons are dropped when a stronger one exists,
           and kept when they are all there is;
         - a reason whose tags no longer exist is dropped;
-        - the description reason has no tags.
+        - the description reason has no tags;
+        - the score and the stored signal values are passed on.
         """
         source, best, second, tag_id, tag_name = similar_rows
         response = api_client.get(f'/api/works/{source}/similar')
@@ -89,6 +92,8 @@ class TestWorkSimilar(BaseAPITest):
             'tags': [{'id': tag_id, 'name': tag_name}]}
         assert first['reasons'][1]['tags'] == []
         assert [r['type_name'] for r in data[1]['reasons']] == ['Aika']
+        assert first['score'] == pytest.approx(0.5)
+        assert first['signals'] == {'S': 0.7, 'T': 0.9, 'types': {'2': 1.0}}
 
     def test_limit(self, api_client, similar_rows):
         """?limit=1 gives only the best work."""
