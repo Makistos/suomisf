@@ -1,7 +1,7 @@
 # Similar works: the algorithm
 
 How `scripts/work_similarity.py` ranks similar works, as of **algorithm
-version 4** (2026-11-13). This describes the current state only; why each
+version 7** (2026-11-13). This describes the current state only; why each
 choice was made, what was tried and how the results changed is in
 `work-similarity-plan.md`. All weights and thresholds are in
 `SIMILARITY_CONFIG` in the script; changing any of them means bumping
@@ -56,6 +56,21 @@ T_c = Σ r_t² (shared tags) / ( √Σ r_t² (A's tags) · √Σ r_t² (B's tags
 
 A type counts for the pair if **either** work has tags of it. If only one
 does, `T_c` = 0 (no match).
+
+**Subgenre and style by rarity.** A work has one subgenre (Alagenre) and
+one style (Tyyli) as a rule, so their cosine is 1 whenever the tag is
+shared, whatever the tag. For these two types, `T_c` is therefore also
+multiplied by the mean weight of the shared tags relative to the weight
+of the rarest tag that can be shared (one on two works):
+
+```
+T_c ← T_c × mean(r_t, shared tags) / r(df = 2)
+```
+
+A shared "dystopia" (292 works) counts 0.34, "korkea fantasia" (64) 0.56,
+"kova scifi" (26) 0.69, "biopunk" (4) 0.93; a shared "seikkailu" (Tyyli,
+about 400 works) about 0.3. Other types use the cosine alone
+(`rarity_scaled_types`).
 
 **Combined**, as a weighted mean over the types that count:
 
@@ -119,7 +134,8 @@ either work has none.
 Y = 2^(−|yearA − yearB| / 30)
 ```
 
-Y halves every 30 years. It is unavailable if either year is missing.
+Y halves every 30 years. It is unavailable if either year is missing. Its
+weight is small (0.01): it only settles near ties.
 
 ## 4. The score
 
@@ -127,7 +143,7 @@ Y halves every 30 years. It is unavailable if either year is missing.
 
 ```
 S = Σ w_s · signal_s / Σ w_s      over the available signals
-w: T 0.40, D 0.35, G 0.10, Y 0.05
+w: T 0.40, D 0.35, G 0.10, Y 0.01
 ```
 
 **Coverage** is the share of the full comparison that was available. The
@@ -135,7 +151,7 @@ tag part counts only the share of tag-type weight that counted:
 
 ```
 coverage = (0.40 · Σw_c(counted)/Σw_c(all) + 0.35·[D] + 0.10·[G]
-            + 0.05·[Y]) / 0.90
+            + 0.01·[Y]) / 0.86
 ```
 
 **Final score:**
@@ -214,9 +230,17 @@ In `work_similarity`, per (source, target):
 |---|---|
 | rank | 1 = best |
 | score | the final score |
-| signal_scores | S, T, T_raw, D, G, Y, coverage, types ({tag type id: T_c}), same_series |
+| signal_scores | S, T, T_raw, D, G, Y, coverage, types ({tag type id: T_c}), same_series, multiplier (series × age group), parts, type_parts (see below) |
 | reasons | [{type, tags, contribution}], type is a tag type id or "description" |
-| algorithm_version | 4 |
+| algorithm_version | 7 |
+
+**Weighted parts**, for reading the values: `parts` is each signal's share
+of S, `w_s · signal_s / Σ w_s (available)`, so the parts add up to S;
+`type_parts` splits `parts.T` between the tag types in proportion to
+`w_c · T_c`. The admin dialog shows each part with the signal's own value
+in brackets ("Vuosi 0,01 (0,52)": the years are fairly close, but the year
+hardly counts), the tag types' parts, and `score = S × (0.5 + 0.5 ·
+coverage) × multiplier`.
 
 ## 9. When lists change
 

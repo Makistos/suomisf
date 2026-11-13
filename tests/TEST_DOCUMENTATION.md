@@ -69,7 +69,7 @@ what they test, their parameter values, and expected behaviors.
 | test_work_contributors.py | WorkContributor CRUD, migration integrity | 9 |
 | test_edition_work_link.py | Edition.work_id direct FK (Migration 004) | 10 |
 | test_people_aliases.py | Person alias linking, work merge, filter endpoint | 4 |
-| test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 32 |
+| test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 34 |
 | api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
 
 ---
@@ -2347,7 +2347,7 @@ vector; `conn` — a test-database connection with the stored lists, run
 record and description vectors emptied. No embedding model is loaded:
 description tests pass vectors or a fake `embed` function.
 
-### Rules (28 tests)
+### Rules (30 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
@@ -2360,10 +2360,12 @@ description tests pass vectors or a fake `embed` function.
 | `test_series_root_follows_parents` | series 3 → 2 → 1 | root 1; None stays None |
 | `test_weighted_jaccard_uses_rarity` | Alagenre {1,2,3} vs {1,2,4}, a third work; Jaccard, unique tags kept, cap 4 | per-type score = shared rarity / union rarity |
 | `test_cosine_uses_rarity_and_ignores_unique_tags` | the same works with the default cosine | with unique tags kept: shared weight² / (shared + own weight²); by default tags 3 and 4 (one work each) are left out and the score is 1.0 |
+| `test_a_shared_subgenre_counts_by_its_rarity` | subgenre 1 on six works, 2 on two (one each) | a shared 2 scores 1.0, a shared 1 its rarity weight / the weight of a tag on two works; with `rarity_scaled_types=()` both 1.0 |
 | `test_cosine_does_not_penalise_a_richly_tagged_work` | work 1 has 23 Aihe tags, work 2 the same three of them | cosine more than twice the Jaccard value |
 | `test_missing_tag_type_both_rule_vs_either_rule` | b lacks the Tyyli tag a has (unique tags kept) | `both`: T = 1; `either`: T = 0.30 / 0.55 |
-| `test_weights_renormalise_over_available_signals` | b has no genre, 30 years apart | G None, S = (0.40·T + 0.05·Y) / 0.45 |
+| `test_weights_renormalise_over_available_signals` | b has no genre, 30 years apart | G None, S = (w_T·T + w_Y·Y) / (w_T + w_Y) with the configured weights |
 | `test_tag_score_is_rescaled_like_the_description` | twelve works on a chain of overlapping Alagenre tags | the best T is 1.0 after rescaling while the best `T_raw` is below 1; a pair's `T_raw` equals its T with `rescale_tags=False` and is below its rescaled T |
+| `test_weighted_parts_add_up_to_s_and_t` | eight works with overlapping tags and different years | in every stored item the signal shares add up to S, the tag-type shares to the tags' share, the year's share is its weight × value / available weights; multiplier 1 |
 | `test_era_and_actor_tags_alone_are_not_enough` | only Aika and Toimija shared | no recommendation |
 | `test_two_shared_general_tags_are_enough_one_is_not` | 2 vs 1 shared Aihe tags of 10 (unique tags kept) | recommended vs not |
 | `test_a_shared_style_tag_is_enough` | one shared Tyyli tag | recommended |
@@ -2371,7 +2373,7 @@ description tests pass vectors or a fake `embed` function.
 | `test_non_fiction_only_with_non_fiction` | Tietokirja, Romaani, Tietokirja | only the other Tietokirja |
 | `test_childrens_books_only_with_childrens_books` | Lasten fantasia, Fantasia, Lasten fantasia | children's book only with the other; never for the adult one |
 | `test_young_adult_and_adult_get_half_the_score` | Fantasia source, Nuorten fantasia and Fantasia candidates | adult first, young adult at half the score |
-| `test_same_series_is_penalised_and_capped` | two same-series exact matches, one weaker outsider | outsider first, then one same-series work |
+| `test_same_series_is_penalised_and_capped` | two same-series exact matches, one weaker outsider (rarity scaling and rescaling off) | outsider first, then one same-series work |
 | `test_one_work_per_other_series_and_two_per_author` | two in series 5, three by author 50 | [2, 4, 5]: one of the series, two by the author |
 | `test_reasons_strongest_type_first` | shared Alagenre and Aihe tags, both full matches | Aihe reason first (weight 0.35 vs 0.30); tags listed |
 | `test_embed_missing_embeds_only_new_and_changed_texts` | one stored text unchanged, one changed, one new; then `rebuild` | only the changed and new are embedded and returned for storing; `rebuild` embeds all three |

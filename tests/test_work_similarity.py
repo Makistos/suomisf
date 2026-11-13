@@ -127,6 +127,24 @@ def test_cosine_uses_rarity_and_ignores_unique_tags():
         pytest.approx(1.0)
 
 
+def test_a_shared_subgenre_counts_by_its_rarity():
+    # Subgenre 1 is on six works, 2 on two; each work has one subgenre.
+    works = ([W(i, {ALAGENRE: [1], AIHE: [100 + i, 200 + i, 300 + i]})
+              for i in range(1, 7)]
+             + [W(i, {ALAGENRE: [2], AIHE: [100 + i, 200 + i, 300 + i]})
+                for i in (7, 8)])
+    result = lists(works, ignore_unique_tags=False)
+    n = 8
+    common = rec(result, 1, 2).signals['types'][str(ALAGENRE)]
+    rare = rec(result, 7, 8).signals['types'][str(ALAGENRE)]
+    r_max = ws.rarity(2, n, None)
+    assert rare == pytest.approx(1.0)
+    assert common == pytest.approx(ws.rarity(6, n, None) / r_max, abs=1e-4)
+    off = lists(works, ignore_unique_tags=False, rarity_scaled_types=())
+    assert rec(off, 1, 2).signals['types'][str(ALAGENRE)] == \
+        pytest.approx(1.0)
+
+
 def test_cosine_does_not_penalise_a_richly_tagged_work():
     # Work 1 has many more themes than 2; both share the same three.
     common = [1, 2, 3]
@@ -156,9 +174,10 @@ def test_weights_renormalise_over_available_signals():
     result = lists([W(1, {ALAGENRE: [1, 2, 3]}, year=1990),
                     W(2, {ALAGENRE: [1, 2, 3]}, genres=(), year=1960)])
     s = rec(result, 1, 2).signals
+    w = ws.SIMILARITY_CONFIG['signals']
     assert s['G'] is None
-    assert s['S'] == pytest.approx((0.40 * 1.0 + 0.05 * 0.5) / 0.45,
-                                   abs=1e-4)
+    assert s['S'] == pytest.approx(
+        (w['T'] * 1.0 + w['Y'] * 0.5) / (w['T'] + w['Y']), abs=1e-4)
 
 
 def test_tag_score_is_rescaled_like_the_description():
@@ -173,6 +192,25 @@ def test_tag_score_is_rescaled_like_the_description():
     pair = rec(scaled, 5, 6).signals
     assert pair['T_raw'] == pytest.approx(rec(raw, 5, 6).signals['T'])
     assert pair['T'] > pair['T_raw']
+
+
+def test_weighted_parts_add_up_to_s_and_t():
+    works = [W(i, {ALAGENRE: [i, i + 1, i + 2], AIHE: [50 + i, 51 + i]},
+               year=1950 + 5 * i) for i in range(1, 9)]
+    for recs in lists(works).values():
+        for r in recs:
+            s = r.signals
+            assert sum(s['parts'].values()) == pytest.approx(s['S'],
+                                                             abs=2e-3)
+            assert sum(s['type_parts'].values()) == \
+                pytest.approx(s['parts']['T'], abs=2e-3)
+            # The year's share is its weight's share of its value.
+            w = ws.SIMILARITY_CONFIG['signals']
+            available = sum(w[n] for n in ('T', 'D', 'G', 'Y')
+                            if s[n] is not None)
+            assert s['parts']['Y'] == pytest.approx(
+                w['Y'] * s['Y'] / available, abs=1e-3)
+            assert s['multiplier'] == 1.0
 
 
 # --- Minimum evidence --------------------------------------------------
@@ -242,8 +280,11 @@ def test_young_adult_and_adult_get_half_the_score():
 def test_same_series_is_penalised_and_capped():
     tags = {ALAGENRE: [1, 2, 3]}
     other = {ALAGENRE: [1, 2, 4]}   # a weaker match
+    # Subgenre rarity and rescaling off (with four works the weaker match
+    # falls below the median): this tests the series rules alone.
     result = lists([W(1, tags, series=7), W(2, tags, series=7),
-                    W(3, tags, series=7), W(4, other)])
+                    W(3, tags, series=7), W(4, other)],
+                   rarity_scaled_types=(), rescale_tags=False)
     # The weaker match outranks the same-series one (x 0.25), and only one
     # work of the source's series is kept.
     assert targets(result, 1) == [4, 2]

@@ -49,7 +49,7 @@ dotenv.load_dotenv(os.path.join(directory_path, '.env'))
 
 # Bump whenever the config or the scoring changes: the next run then
 # rewrites every list.
-ALGORITHM_VERSION = 4
+ALGORITHM_VERSION = 7
 
 # Tag types (tagtype.id).
 AIHE, ALAGENRE, TYYLI, TOIMIJA, PAIKKA, AIKA, LISTA = 1, 2, 3, 4, 5, 6, 7
@@ -74,7 +74,9 @@ SIMILARITY_CONFIG: Dict[str, Any] = {
     # S = weighted mean of the signals both works have.
     # Genre is nearly always shared (Fantasia, SF), so it weighs little:
     # at 0.20 it made up 37 % of the scores without telling works apart.
-    'signals': {'T': 0.40, 'D': 0.35, 'G': 0.10, 'Y': 0.05},
+    # Year only settles near ties: at 0.05 a close year was enough to lift
+    # a weak match ("Kongo" for "Avaruuden portti").
+    'signals': {'T': 0.40, 'D': 0.35, 'G': 0.10, 'Y': 0.01},
     # T is rescaled like D (median pair 0, top percentile 1), so the
     # weights above compare like with like. Unscaled, a weighted Jaccard
     # of 0.3 was already a good tag match while D reached 0.9.
@@ -93,6 +95,13 @@ SIMILARITY_CONFIG: Dict[str, Any] = {
     # Tags that only one eligible work has can't be shared; left out, they
     # don't dilute that work's similarity to every other.
     'ignore_unique_tags': True,
+    # Types whose score is also multiplied by the rarity of the shared
+    # tags (mean weight / the weight of a tag on two works). Works have
+    # one subgenre as a rule, so its cosine is 1 whenever it is shared:
+    # "dystopia" (292 works) counted as much as "biopunk" (4). Now a
+    # shared "dystopia" counts 0.34, "kova scifi" (26) 0.69. Tyyli is the
+    # same (median one per work): "seikkailu" (400 works) counted 1.0.
+    'rarity_scaled_types': (ALAGENRE, TYYLI),
     # A tag type counts for a pair when 'both' works have it (the spec)
     # or when 'either' has it (missing on one side = no match).
     'tag_type_available': 'either',
@@ -279,7 +288,9 @@ class Scorer:
             weighted = b * r
             self.types[ttype] = {
                 'b': b, 'w': weighted, 'sum': weighted.sum(axis=1),
-                'norm': np.sqrt((weighted * weighted).sum(axis=1))}
+                'norm': np.sqrt((weighted * weighted).sum(axis=1)),
+                # The weight of the rarest tag that can be shared.
+                'r_max': rarity(2, len(have), cap)}
 
         genres = [base_genres(w.genres) for w in works]
         g_ids = sorted({g for gs in genres for g in gs})
@@ -323,6 +334,14 @@ class Scorer:
                 inter = m['w'][rows] @ m['b'].T
                 denom = m['sum'][rows, None] + m['sum'][None, :] - inter
             tc = np.where(avail, inter / np.where(denom > 0, denom, 1), 0)
+            if ttype in cfg.get('rarity_scaled_types', ()):
+                # Mean weight of the shared tags, relative to the rarest.
+                shared_n = m['b'][rows] @ m['b'].T
+                shared_r = m['b'][rows] @ m['w'].T
+                tc = tc * np.where(
+                    shared_n > 0,
+                    shared_r / np.where(shared_n > 0, shared_n, 1)
+                    / m['r_max'], 0)
             per_type[ttype] = np.where(avail, tc, np.nan)
             t_num += weight * tc
             t_den += weight * avail
@@ -434,7 +453,26 @@ class Scorer:
                 'G': np.where(g_avail, g, np.nan),
                 'Y': np.where(y_avail, y, np.nan),
                 'coverage': coverage, 'types': per_type,
-                'same_series': same_series}
+                'same_series': same_series, 'multiplier': mult}
+
+
+def weighted_parts(signals: Dict[str, Any], per_type: Dict[int, float],
+                   config: Dict[str, Any]) -> Dict[str, Any]:
+    """How much each signal adds to S, and each tag type to the tags'
+    share: {"parts": {T, D, G, Y}, "type_parts": {tag type id: ...}}.
+    The parts add up to S, the type parts to parts["T"]."""
+    weights = config['signals']
+    available = {n: signals[n] for n in ('T', 'D', 'G', 'Y')
+                 if signals.get(n) is not None}
+    den = sum(weights[n] for n in available) or 1
+    parts = {n: round(weights[n] * v / den, 4)
+             for n, v in available.items()}
+    typed = {t: config['tag_types'][t] * v for t, v in per_type.items()}
+    total = sum(typed.values())
+    t_part = weights['T'] * available.get('T', 0) / den
+    type_parts = {str(t): round(t_part * v / total, 4) if total else 0.0
+                  for t, v in typed.items()}
+    return {'parts': parts, 'type_parts': type_parts}
 
 
 def _ratio(scaled: Optional[float], raw: Optional[float]) -> float:
@@ -541,6 +579,9 @@ def compute_lists(all_works: List[Work],
                 signals['types'] = {str(t): round(v, 4)
                                     for t, v in per_type.items()}
                 signals['same_series'] = bool(blk['same_series'][k, j])
+                signals['multiplier'] = round(float(blk['multiplier'][k, j]),
+                                              4)
+                signals.update(weighted_parts(signals, per_type, config))
                 recs.append(Rec(
                     target=works[j].id, score=round(float(row[j]), 6),
                     signals=signals,

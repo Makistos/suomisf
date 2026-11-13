@@ -102,6 +102,35 @@ to 20th.
 The API also returns each item's `score` and `signals`, and the admin
 dialog shows them, with the shared themes whenever there are two or more.
 
+**Subgenre by rarity (algorithm version 5, 2026-11-13).** The values in the
+dialog showed that a shared subgenre always scored 1.0 (one tag each, so
+the cosine can't see its rarity): "dystopia" carried nearly the whole
+"Egalian tyttäret" list and "kova scifi" put "Yksin Marsissa" in the
+"Synkkä metsä" list with a near-average description. The Alagenre score
+is now multiplied by the shared subgenre's rarity weight relative to a
+tag on two works ("dystopia" 0.34, "kova scifi" 0.69). Pairs sharing 3+
+themes in the top 8 241 → 283, items with 2+ shared themes 1 590 →
+1 826, items sharing no tag 1 432 → 1 286. "Egalian tyttäret" gained
+"Naisten planeetta" and "Valmiissa maailmassa". "Synkkä metsä" barely
+changed: nearly all its candidates share "kova scifi", so the discount
+hits them equally.
+
+**Year and style (algorithm version 6, 2026-11-13).** "Kongo" was 7th for
+"Avaruuden portti": the only shared tag was "seikkailu" (Tyyli, on ~400
+works, but one Tyyli tag per work as a rule, so it scored 1.0 like the
+subgenre did), and a close year settled the near tie. Year now weighs
+0.01 instead of 0.05, and Tyyli is discounted by rarity like Alagenre
+(a shared "seikkailu" counts ~0.3). "Kongo" fell to 36th. Pairs sharing
+3+ themes in the top 8 283 → 337, items with 2+ shared themes 1 826 →
+2 287, items sharing no tag 1 286 → 1 022.
+
+**Weighted parts (algorithm version 7, 2026-11-13).** The raw values in the
+dialog misled ("Vuosi 0,51" though the year weighs 0.01). The job stores
+each signal's share of S (`parts`, adding up to S), the tag types' shares
+of the tags' part (`type_parts`) and the series/age-group `multiplier`;
+the dialog shows each share with the raw value in brackets, the tag types
+that share something, and how the score comes from S.
+
 ### T: tags by type
 
 Weighted Jaccard per tag type, then combined:
