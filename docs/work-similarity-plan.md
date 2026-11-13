@@ -313,6 +313,14 @@ GRANT SELECT, INSERT, UPDATE, DELETE
 
 (`tag` and `worktag` it can already read.)
 
+The API reads `work_similarity` as the app's user. If the migrations were
+applied as another user (e.g. postgres), that user owns the tables, so
+also:
+
+```sql
+GRANT SELECT ON suomisf.work_similarity TO mep;
+```
+
 ## API
 
 ```

@@ -12,6 +12,11 @@
 --   GRANT SELECT, INSERT, UPDATE, DELETE
 --       ON suomisf.work_similarity, suomisf.work_similarity_run
 --       TO tag_similarity;
+--
+-- The API reads work_similarity as the app's user. If this is applied as
+-- another user (e.g. postgres), also:
+--
+--   GRANT SELECT ON suomisf.work_similarity TO mep;
 
 -- The ranked list of each work, best first.
 CREATE TABLE IF NOT EXISTS suomisf.work_similarity (
