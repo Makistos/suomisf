@@ -5,6 +5,15 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-13 — Similar works: themes over subgenre, weighted parts
+**Commits:** `64730c34`
+A shared subgenre or style now counts by how rare it is (a shared
+"dystopia" counts about a third of a rare subgenre), so shared themes
+decide more of the list. The original year hardly counts any more
+(weight 0.01); it only settles near ties. Each item also stores how much
+each signal and tag type adds to the score, so the admin dialog can show
+the weighted shares (algorithm version 7).
+
 ## 2026-11-13 — Similar works: balanced scoring, values in the API
 **Commits:** `3a26b4f7`, `4d880180`, `de061f8b`
 The description and genre no longer dominate the similar-works scores:
