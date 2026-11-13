@@ -5,6 +5,15 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-13 — Similar works: balanced scoring, values in the API
+**Commits:** `3a26b4f7`, `4d880180`, `de061f8b`
+The description and genre no longer dominate the similar-works scores:
+the tag score is on the same scale as the description, genre weighs
+less, and shared themes (Aihe tags) count more: tag sets are compared by
+cosine, rare shared tags weigh more without a cap, and Aihe outweighs the
+subgenre. The API also returns each item's score and its parts. The
+algorithm is described in `docs/work-similarity-algorithm.md`.
+
 ## 2026-11-12 — Similar works API (phase 3)
 **Commits:** `6f2ea8d6`
 `GET /api/works/<id>/similar` returns a work's similar works, best first,
