@@ -49,7 +49,7 @@ dotenv.load_dotenv(os.path.join(directory_path, '.env'))
 
 # Bump whenever the config or the scoring changes: the next run then
 # rewrites every list.
-ALGORITHM_VERSION = 2
+ALGORITHM_VERSION = 4
 
 # Tag types (tagtype.id).
 AIHE, ALAGENRE, TYYLI, TOIMIJA, PAIKKA, AIKA, LISTA = 1, 2, 3, 4, 5, 6, 7
@@ -72,15 +72,34 @@ BASE_GENRE = {8: 1, 17: 1, 9: 5, 11: 5, 10: 2, 15: None}
 
 SIMILARITY_CONFIG: Dict[str, Any] = {
     # S = weighted mean of the signals both works have.
-    'signals': {'T': 0.40, 'D': 0.35, 'G': 0.20, 'Y': 0.05},
+    # Genre is nearly always shared (Fantasia, SF), so it weighs little:
+    # at 0.20 it made up 37 % of the scores without telling works apart.
+    'signals': {'T': 0.40, 'D': 0.35, 'G': 0.10, 'Y': 0.05},
+    # T is rescaled like D (median pair 0, top percentile 1), so the
+    # weights above compare like with like. Unscaled, a weighted Jaccard
+    # of 0.3 was already a good tag match while D reached 0.9.
+    'rescale_tags': True,
     # T = weighted mean over the tag types both works have. Lista tags
     # (lists and editions, not content) are not used.
-    'tag_types': {ALAGENRE: 0.45, TYYLI: 0.25, AIHE: 0.20,
+    # Aihe tags are the most specific signal (2 300 tags), Alagenre the
+    # broadest (39; "dystopia" on 300 works): the spec's 0.45 / 0.20 let a
+    # differing subgenre outweigh five shared themes.
+    'tag_types': {ALAGENRE: 0.30, TYYLI: 0.25, AIHE: 0.35,
                   AIKA: 0.05, TOIMIJA: 0.05, PAIKKA: 0.05},
+    # Per-type similarity: 'cosine' (shared weight / sqrt(product of the
+    # two works' weights), so a richly tagged work isn't penalised) or
+    # 'jaccard' (shared / union, the spec's).
+    'tag_measure': 'cosine',
+    # Tags that only one eligible work has can't be shared; left out, they
+    # don't dilute that work's similarity to every other.
+    'ignore_unique_tags': True,
     # A tag type counts for a pair when 'both' works have it (the spec)
     # or when 'either' has it (missing on one side = no match).
     'tag_type_available': 'either',
-    'rarity_cap': 4.0,
+    # None = no cap: a tag on 2 works weighs ~7.7, "seikkailu" (400) ~2.3.
+    # The spec's cap of 4 was reached by every tag on fewer than ~120
+    # works, so rarity hardly told shared tags apart.
+    'rarity_cap': None,
     'year_half_life': 30,
     'same_series_multiplier': 0.25,
     'audience_mismatch_multiplier': 0.5,   # young adult vs adult
@@ -167,9 +186,10 @@ def eligible(work: Work, config: Dict[str, Any]) -> bool:
             and work.tag_count() >= config['min_tags'])
 
 
-def rarity(df: int, n: int, cap: float) -> float:
+def rarity(df: int, n: int, cap: Optional[float]) -> float:
     """Weight of a tag used by df of the n works that have its type."""
-    return min(cap, 1 + math.log((n + 1) / (df + 1)))
+    weight = 1 + math.log((n + 1) / (df + 1))
+    return weight if cap is None else min(cap, weight)
 
 
 def year_similarity(a: float, b: float, half_life: float) -> float:
@@ -241,6 +261,10 @@ class Scorer:
             if not have:
                 continue
             df = Counter(t for w in works for t in w.tags.get(ttype, ()))
+            if config.get('ignore_unique_tags'):
+                df = Counter({t: c for t, c in df.items() if c > 1})
+            if not df:
+                continue
             tag_ids = sorted(df)
             col = {t: j for j, t in enumerate(tag_ids)}
             r = np.array([rarity(df[t], len(have), cap) for t in tag_ids],
@@ -250,10 +274,12 @@ class Scorer:
             b = np.zeros((n, len(tag_ids)), dtype=np.float32)
             for i, w in enumerate(works):
                 for t in w.tags.get(ttype, ()):
-                    b[i, col[t]] = 1
+                    if t in col:
+                        b[i, col[t]] = 1
             weighted = b * r
-            self.types[ttype] = {'b': b, 'w': weighted,
-                                 'sum': weighted.sum(axis=1)}
+            self.types[ttype] = {
+                'b': b, 'w': weighted, 'sum': weighted.sum(axis=1),
+                'norm': np.sqrt((weighted * weighted).sum(axis=1))}
 
         genres = [base_genres(w.genres) for w in works]
         g_ids = sorted({g for gs in genres for g in gs})
@@ -273,14 +299,12 @@ class Scorer:
         self.children = np.array([is_children(w.genres) for w in works])
         self.audience = np.array([audience(w.genres) for w in works])
         self.ids = np.array([w.id for w in works])
+        self.t_scale = self._calibrate_tags()
 
-    def block(self, i0: int, i1: int) -> Dict[str, Any]:
-        """Scores of rows [i0, i1) against every work."""
+    def _tags(self, rows: Any, shape: Tuple[int, int]) -> Dict[str, Any]:
+        """Tag similarity of the given rows (a slice or index array)
+        against every work: T, per type, and the evidence flags."""
         cfg = self.config
-        sig = cfg['signals']
-        rows = slice(i0, i1)
-        shape = (i1 - i0, self.n)
-
         t_num = np.zeros(shape)
         t_den = np.zeros(shape)
         per_type: Dict[int, np.ndarray] = {}
@@ -288,13 +312,17 @@ class Scorer:
         general_ok = np.zeros(shape, dtype=bool)
         for ttype, m in self.types.items():
             weight = cfg['tag_types'][ttype]
-            inter = m['w'][rows] @ m['b'].T
-            union = m['sum'][rows, None] + m['sum'][None, :] - inter
             has_a, has_b = m['sum'][rows, None] > 0, m['sum'][None, :] > 0
             avail = ((has_a | has_b)
                      if cfg['tag_type_available'] == 'either'
                      else (has_a & has_b))
-            tc = np.where(avail, inter / np.where(union > 0, union, 1), 0)
+            if cfg.get('tag_measure') == 'cosine':
+                inter = m['w'][rows] @ m['w'].T
+                denom = m['norm'][rows, None] * m['norm'][None, :]
+            else:
+                inter = m['w'][rows] @ m['b'].T
+                denom = m['sum'][rows, None] + m['sum'][None, :] - inter
+            tc = np.where(avail, inter / np.where(denom > 0, denom, 1), 0)
             per_type[ttype] = np.where(avail, tc, np.nan)
             t_num += weight * tc
             t_den += weight * avail
@@ -307,8 +335,50 @@ class Scorer:
                               | (avail & enough & (inter > 0)))
         all_types = sum(cfg['tag_types'][t] for t in self.types) or 1
         t_avail = t_den > 0
-        t = np.where(t_avail, t_num / np.where(t_avail, t_den, 1), 0)
-        tag_cov = t_den / all_types
+        return {'T': np.where(t_avail, t_num / np.where(t_avail, t_den, 1),
+                              0),
+                'avail': t_avail, 'coverage': t_den / all_types,
+                'types': per_type, 'strong': shared_strong,
+                'general': general_ok}
+
+    def _calibrate_tags(self) -> Optional[Tuple[float, float]]:
+        """(median, span to the top percentile) of T over a sample of
+        rows, or None if T can't be rescaled (too few works or no
+        spread)."""
+        if not self.config.get('rescale_tags') or self.n < 2:
+            return None
+        rng = np.random.default_rng(0)
+        idx = rng.choice(self.n, size=min(D_SAMPLE_ROWS, self.n),
+                         replace=False)
+        tags = self._tags(idx, (len(idx), self.n))
+        mask = tags['avail'].copy()
+        mask[np.arange(len(idx)), idx] = False   # not a work with itself
+        values = tags['T'][mask]
+        if values.size == 0:
+            return None
+        lo = float(np.median(values))
+        hi = float(np.percentile(values, D_TOP_PERCENTILE))
+        return (lo, hi - lo) if hi > lo else None
+
+    def _scale_t(self, t: np.ndarray) -> np.ndarray:
+        if self.t_scale is None:
+            return t
+        lo, span = self.t_scale
+        return np.clip((t - lo) / span, 0, 1)
+
+    def block(self, i0: int, i1: int) -> Dict[str, Any]:
+        """Scores of rows [i0, i1) against every work."""
+        cfg = self.config
+        sig = cfg['signals']
+        rows = slice(i0, i1)
+        shape = (i1 - i0, self.n)
+
+        tags = self._tags(rows, shape)
+        t_avail, tag_cov = tags['avail'], tags['coverage']
+        t_raw = tags['T']
+        t = self._scale_t(t_raw)
+        per_type = tags['types']
+        shared_strong, general_ok = tags['strong'], tags['general']
 
         g_inter = self.g[rows] @ self.g.T
         g_union = self.g_sum[rows, None] + self.g_sum[None, :] - g_inter
@@ -359,6 +429,7 @@ class Scorer:
 
         final = np.where(allowed, s * mult * (0.5 + 0.5 * coverage), -1.0)
         return {'final': final, 'S': s, 'T': np.where(t_avail, t, np.nan),
+                'T_raw': np.where(t_avail, t_raw, np.nan),
                 'D': np.where(d_avail, d, np.nan),
                 'G': np.where(g_avail, g, np.nan),
                 'Y': np.where(y_avail, y, np.nan),
@@ -366,9 +437,15 @@ class Scorer:
                 'same_series': same_series}
 
 
+def _ratio(scaled: Optional[float], raw: Optional[float]) -> float:
+    """How much rescaling multiplied T, for the reasons' contributions."""
+    return scaled / raw if scaled is not None and raw else 1.0
+
+
 def reasons_for(a: Work, b: Work, per_type: Dict[int, float],
                 config: Dict[str, Any], rarity_of: Dict[int, float],
-                d: Optional[float] = None) -> List[Dict[str, Any]]:
+                d: Optional[float] = None,
+                t_factor: float = 1.0) -> List[Dict[str, Any]]:
     """Shared tags by type and a similar description, the biggest
     contribution to S first; tags within a type rarest first. The
     description is a reason when D passes the minimum-evidence level."""
@@ -383,7 +460,7 @@ def reasons_for(a: Work, b: Work, per_type: Dict[int, float],
             continue
         tags = sorted(shared, key=lambda t: (-rarity_of.get(t, 0), t))
         out.append({'type': ttype, 'tags': tags,
-                    'contribution': signal['T'] * weight
+                    'contribution': signal['T'] * weight * t_factor
                     * (per_type.get(ttype) or 0) / t_den})
     if d is not None and d >= config['min_description_similarity']:
         out.append({'type': 'description', 'tags': [],
@@ -459,7 +536,7 @@ def compute_lists(all_works: List[Work],
                 signals: Dict[str, Any] = {
                     name: (None if np.isnan(blk[name][k, j])
                            else round(float(blk[name][k, j]), 4))
-                    for name in ('S', 'T', 'D', 'G', 'Y')}
+                    for name in ('S', 'T', 'T_raw', 'D', 'G', 'Y')}
                 signals['coverage'] = round(float(blk['coverage'][k, j]), 4)
                 signals['types'] = {str(t): round(v, 4)
                                     for t, v in per_type.items()}
@@ -469,7 +546,9 @@ def compute_lists(all_works: List[Work],
                     signals=signals,
                     reasons=reasons_for(works[i], works[j], per_type,
                                         config, scorer.rarity,
-                                        signals['D'])))
+                                        signals['D'],
+                                        _ratio(signals['T'],
+                                               signals['T_raw']))))
             lists[works[i].id] = recs
     return works, lists
 

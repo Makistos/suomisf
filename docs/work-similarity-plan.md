@@ -4,6 +4,9 @@ Show 6–8 similar works on a work's page, each with a short reason drawn from
 the data ("Yhteinen alalaji: avaruusooppera · Yhteinen tyyli: humoristinen").
 Scores are computed by a batch job and stored; the page only reads them.
 
+The current algorithm, without the history, is described in
+`work-similarity-algorithm.md`.
+
 Based on the spec `Similar works – AI agent spec.md` (frontend repo root),
 adapted to the actual data below. Decisions made with the maintainer on
 2026-11-12 are marked **(decided)**.
@@ -51,12 +54,53 @@ Further rules for candidates:
 ## Scoring
 
 ```
-S = 0.40·T + 0.35·D + 0.20·G + 0.05·Y
+S = 0.40·T + 0.35·D + 0.10·G + 0.05·Y
 ```
 
 over the signals available for both works, weights renormalised over that
 set. Every eligible work has tags and a description, so in practice only
 G and Y can be missing.
+
+**Balance (algorithm version 3, 2026-11-13).** With the spec's weights
+(G 0.20) and T unscaled, the actual shares of the top-8 scores were T 20 %,
+D 36 %, G 37 %, Y 7 %: a weighted Jaccard of 0.3 is already a good tag
+match while the rescaled D reached 0.9, and genre is shared by nearly
+every candidate (Fantasia, SF), so it added the same to all. 20 % of the
+shown works shared no tag, and the description was the first reason for
+73 %. Now T is rescaled like D (median pair 0, top 0.1 % of pairs 1,
+computed from a sample of 1 000 rows; `T_raw` in `signal_scores` keeps
+the unscaled value, and the minimum-evidence rules use the unscaled
+per-type values) and G weighs 0.10. Shares became T 36 %, D 38 %, G 19 %,
+Y 8 %; works sharing no tag 13 %; the description first reason for 49 %.
+
+**Shared themes (algorithm version 4, 2026-11-13).** Pairs sharing several
+Aihe tags still rarely made the top 8: of 1 872 pairs (not in the same
+series) sharing 3+ Aihe tags, 163. Two causes: Jaccard divides by all of
+both works' tags, so "Kafka rannalla" (26 Aihe tags) and "Harjukaupungin
+salakäytävät" sharing five scored 0.18 on Aihe; and Alagenre (0.45)
+outweighed Aihe (0.20), so differing subgenres wiped out five shared
+themes ("Egalian tyttäret" → "Herland": T 0.08). Also the rarity cap of 4
+was reached by every tag on fewer than ~120 works (2 291 of 2 297 Aihe
+tags), so rarity hardly told shared tags apart. Changes:
+
+- per-type similarity is the **cosine** of the rarity-weighted tag
+  vectors (shared weight² / √(product of the two works' weight² sums)),
+  `tag_measure: 'cosine'`; Jaccard remains an option;
+- type weights **Aihe 0.35, Alagenre 0.30**, Tyyli 0.25, others 0.05;
+- **no rarity cap** (`rarity_cap: None`): a tag on 2 works weighs ~7.7,
+  "seikkailu" (400 works) ~2.3;
+- tags on only one eligible work are left out of the comparison
+  (`ignore_unique_tags`): they can't be shared and, uncapped, would weigh
+  the most.
+
+Result: pairs sharing 3+ Aihe tags in the top 8 163 → 241, top-8 items
+with 2+ shared Aihe tags 1 037 → 1 590, items sharing no tag 2 623 →
+1 432. "Egalian tyttäret" now lists "Pimeän pesä, paratiisi" (matriarkaatti,
+feminismi, sukupuoliroolit); "Herland" → "Egalian tyttäret" rose from 332nd
+to 20th.
+
+The API also returns each item's `score` and `signals`, and the admin
+dialog shows them, with the shared themes whenever there are two or more.
 
 ### T: tags by type
 

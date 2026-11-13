@@ -76,6 +76,8 @@ def test_rarity():
     assert ws.rarity(9, 9, 4.0) == pytest.approx(1.0)
     assert ws.rarity(0, 9, 4.0) == pytest.approx(1 + math.log(10))
     assert ws.rarity(0, 10_000, 4.0) == 4.0
+    # No cap (the default): rare tags keep rising.
+    assert ws.rarity(0, 10_000, None) == pytest.approx(1 + math.log(10_001))
 
 
 def test_year_similarity_halves_every_30_years():
@@ -96,10 +98,14 @@ def test_series_root_follows_parents():
 
 # --- Scores ------------------------------------------------------------
 
+JACCARD = {'tag_measure': 'jaccard', 'ignore_unique_tags': False,
+           'rarity_cap': 4.0}
+WORKS_123 = [W(1, {ALAGENRE: [1, 2, 3]}), W(2, {ALAGENRE: [1, 2, 4]}),
+             W(3, {ALAGENRE: [5, 6, 7]})]
+
+
 def test_weighted_jaccard_uses_rarity():
-    result = lists([W(1, {ALAGENRE: [1, 2, 3]}),
-                    W(2, {ALAGENRE: [1, 2, 4]}),
-                    W(3, {ALAGENRE: [5, 6, 7]})])
+    result = lists(WORKS_123, **JACCARD)
     r_shared = ws.rarity(2, 3, 4.0)   # tags 1 and 2: two works each
     r_own = ws.rarity(1, 3, 4.0)      # tags 3 and 4: one work each
     expected = 2 * r_shared / (2 * r_shared + 2 * r_own)
@@ -107,16 +113,42 @@ def test_weighted_jaccard_uses_rarity():
         pytest.approx(expected, abs=1e-4)
 
 
+def test_cosine_uses_rarity_and_ignores_unique_tags():
+    with_unique = lists(WORKS_123, ignore_unique_tags=False)
+    r_shared = ws.rarity(2, 3, None)
+    r_own = ws.rarity(1, 3, None)
+    shared = 2 * r_shared ** 2
+    expected = shared / (shared + r_own ** 2)   # same norm on both sides
+    assert rec(with_unique, 1, 2).signals['types'][str(ALAGENRE)] == \
+        pytest.approx(expected, abs=1e-4)
+    # Tags 3 and 4 are on one work each: left out, 1 and 2 match fully.
+    default = lists(WORKS_123)
+    assert rec(default, 1, 2).signals['types'][str(ALAGENRE)] == \
+        pytest.approx(1.0)
+
+
+def test_cosine_does_not_penalise_a_richly_tagged_work():
+    # Work 1 has many more themes than 2; both share the same three.
+    common = [1, 2, 3]
+    extra = list(range(10, 30))
+    works = [W(1, {AIHE: common + extra}), W(2, {AIHE: common}),
+             W(3, {AIHE: extra})]   # 3 makes the extra tags non-unique
+    cosine = rec(lists(works), 1, 2).signals['types'][str(AIHE)]
+    jaccard = rec(lists(works, **JACCARD), 1, 2).signals['types'][str(AIHE)]
+    assert cosine > 2 * jaccard
+
+
 def test_missing_tag_type_both_rule_vs_either_rule():
     a = W(1, {ALAGENRE: [1, 2, 3], TYYLI: [10]})
     b = W(2, {ALAGENRE: [1, 2, 3]})
-    both = lists([a, b], tag_type_available='both')
-    either = lists([a, b], tag_type_available='either')
+    keep = {'ignore_unique_tags': False}   # Tyyli 10 is on a only
+    both = lists([a, b], tag_type_available='both', **keep)
+    either = lists([a, b], tag_type_available='either', **keep)
     # 'both': Tyyli is unavailable, so the Alagenre match is all of T.
     assert rec(both, 1, 2).signals['T'] == pytest.approx(1.0)
     # 'either': b has no Tyyli, which counts as no match.
     assert rec(either, 1, 2).signals['T'] == pytest.approx(
-        0.45 / (0.45 + 0.25), abs=1e-4)
+        0.30 / (0.30 + 0.25), abs=1e-4)
 
 
 def test_weights_renormalise_over_available_signals():
@@ -129,6 +161,20 @@ def test_weights_renormalise_over_available_signals():
                                    abs=1e-4)
 
 
+def test_tag_score_is_rescaled_like_the_description():
+    # Works on a chain: neighbours share two of three tags, others fewer.
+    works = [W(i, {ALAGENRE: [i, i + 1, i + 2]}) for i in range(1, 13)]
+    scaled = lists(works)
+    raw = lists(works, rescale_tags=False)
+    signals = [r.signals for recs in scaled.values() for r in recs]
+    # The best pairs reach the top of the scale; the raw value is kept.
+    assert max(s['T'] for s in signals) == pytest.approx(1.0)
+    assert max(s['T_raw'] for s in signals) < 1.0
+    pair = rec(scaled, 5, 6).signals
+    assert pair['T_raw'] == pytest.approx(rec(raw, 5, 6).signals['T'])
+    assert pair['T'] > pair['T_raw']
+
+
 # --- Minimum evidence --------------------------------------------------
 
 def test_era_and_actor_tags_alone_are_not_enough():
@@ -138,10 +184,14 @@ def test_era_and_actor_tags_alone_are_not_enough():
 
 
 def test_two_shared_general_tags_are_enough_one_is_not():
+    # Unique tags kept, so one shared tag of nine stays below 0.15.
+    keep = {'ignore_unique_tags': False}
     two = lists([W(1, {AIHE: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}),
-                 W(2, {AIHE: [1, 2, 11, 12, 13, 14, 15, 16, 17, 18]})])
+                 W(2, {AIHE: [1, 2, 11, 12, 13, 14, 15, 16, 17, 18]})],
+                **keep)
     one = lists([W(1, {AIHE: [1, 3, 4, 5, 6, 7, 8, 9, 10]}),
-                 W(2, {AIHE: [1, 11, 12, 13, 14, 15, 16, 17, 18]})])
+                 W(2, {AIHE: [1, 11, 12, 13, 14, 15, 16, 17, 18]})],
+                **keep)
     assert targets(two, 1) == [2]
     assert targets(one, 1) == []
 
@@ -213,8 +263,9 @@ def test_reasons_strongest_type_first():
     result = lists([W(1, {AIHE: [1, 2], ALAGENRE: [3]}),
                     W(2, {AIHE: [1, 2], ALAGENRE: [3]})])
     reasons = rec(result, 1, 2).reasons
-    assert [r['type'] for r in reasons] == [ALAGENRE, AIHE]
-    assert reasons[1]['tags'] == [1, 2]
+    # Both match fully; Aihe weighs 0.35, Alagenre 0.30.
+    assert [r['type'] for r in reasons] == [AIHE, ALAGENRE]
+    assert reasons[0]['tags'] == [1, 2]
 
 
 # --- Description similarity --------------------------------------------
