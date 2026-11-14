@@ -1,7 +1,7 @@
 # Similar works: the algorithm
 
 How `scripts/work_similarity.py` ranks similar works, as of **algorithm
-version 7** (2026-11-13). This describes the current state only; why each
+version 8** (2026-11-14). This describes the current state only; why each
 choice was made, what was tried and how the results changed is in
 `work-similarity-plan.md`. All weights and thresholds are in
 `SIMILARITY_CONFIG` in the script; changing any of them means bumping
@@ -9,12 +9,15 @@ choice was made, what was tried and how the results changed is in
 
 ## 1. Which works take part
 
-A work is **eligible** if
+A work **gets a list** if its description, HTML removed, has at least
+**20 words**.
 
-- its description, HTML removed, has at least **20 words**, and
-- it has at least **3 tags**, not counting Lista tags.
+A work **can be recommended** (is eligible) if it also has at least **3
+tags**, not counting Lista tags.
 
-Only eligible works get a list, and only eligible works are recommended.
+So a described work with fewer tags has a list, resting mostly on its
+description, genre and year, but appears in no list. Without descriptions
+(`--no-description`) only eligible works get a list.
 
 ## 2. Inputs per work
 
@@ -35,7 +38,7 @@ Each is between 0 and 1, or **unavailable** for a pair.
 
 ### T: tags
 
-**Rarity weight** of a tag, within its type: among the eligible works, let
+**Rarity weight** of a tag, within its type: among the works with a list, let
 `N_c` be the number of works with at least one tag of type c, and `df_t`
 the number of works with tag t. Then
 
@@ -44,7 +47,7 @@ r_t = 1 + ln((N_c + 1) / (df_t + 1))        (no cap)
 ```
 
 A tag on 2 works weighs about 7.7; "seikkailu" (on about 400) about 2.3.
-Tags that only one eligible work has are left out: they can never be
+Tags that only one of these works has are left out: they can never be
 shared.
 
 **Per type** (c), each work is a vector with `r_t` for each of its tags
@@ -55,7 +58,13 @@ T_c = Σ r_t² (shared tags) / ( √Σ r_t² (A's tags) · √Σ r_t² (B's tags
 ```
 
 A type counts for the pair if **either** work has tags of it. If only one
-does, `T_c` = 0 (no match).
+does, `T_c` = 0 (no match), at full weight (`one_sided_type_weight` 1).
+
+Works without an Alagenre or Tyyli tag therefore mostly get each other:
+70 % of such a work's top 8 lack the tag, against 54 % of all works.
+Weight 0 (leaving the type out) brought that to 62 % but replaced good
+matches with weaker ones in the sample lists, so most of the clustering is
+real: untagged works are often realist or historical novels.
 
 **Subgenre and style by rarity.** A work has one subgenre (Alagenre) and
 one style (Tyyli) as a rule, so their cosine is 1 whenever the tag is
@@ -96,7 +105,8 @@ T = clip((T_raw − lo) / (hi − lo), 0, 1)
 ```
 
 So the median pair gets 0 and the top 0.1 % gets 1, on the same scale as
-D. If there is no spread (tiny data sets), `T = T_raw`.
+D. The sample takes pairs of eligible works only, so the works with few
+tags don't shift the scale. If there is no spread (tiny data sets), `T = T_raw`.
 
 ### D: description
 
@@ -113,7 +123,7 @@ D = clip((cos − median pair) / (99.9th percentile − median pair), 0, 1)
 ```
 
 e5 cosines bunch near 0.8, so the raw value says little until it is
-rescaled.
+rescaled. As for T, the sample takes pairs of eligible works only.
 
 ### G: genre
 
@@ -181,7 +191,7 @@ A pair is a **candidate** only if all of these hold:
 
   Year, genre, or Aika, Toimija or Paikka tags alone are never enough.
   These checks use the unscaled values.
-- Not the work itself.
+- Not the work itself, and the target is eligible.
 - **Non-fiction** only with non-fiction (work type 4).
 - **Children's books** only with children's books. A work is a children's
   book if it has Lasten SF (11), Satu (12), Lasten kuvakirja (15) or Lasten
@@ -211,8 +221,8 @@ Each stored item has its reasons, in order of how much they contributed
 to S:
 
 - **A tag type with shared tags**, tags rarest first. Its contribution is
-  `0.40 · w_c · T_c / Σw_c(counted)`, scaled by `T / T_raw`.
-- **"description"**, when D ≥ 0.25. Its contribution is `0.35 · D`.
+  its share `type_parts[c]` (section 8).
+- **"description"**, when D ≥ 0.25. Its contribution is `parts.D`.
 
 The API (`GET /api/works/<id>/similar`) adds tag names and leaves out
 deleted tags. It keeps Aika, Toimija and Paikka reasons only when no
@@ -232,7 +242,7 @@ In `work_similarity`, per (source, target):
 | score | the final score |
 | signal_scores | S, T, T_raw, D, G, Y, coverage, types ({tag type id: T_c}), same_series, multiplier (series × age group), parts, type_parts (see below) |
 | reasons | [{type, tags, contribution}], type is a tag type id or "description" |
-| algorithm_version | 7 |
+| algorithm_version | 8 |
 
 **Weighted parts**, for reading the values: `parts` is each signal's share
 of S, `w_s · signal_s / Σ w_s (available)`, so the parts add up to S;

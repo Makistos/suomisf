@@ -131,6 +131,26 @@ of the tags' part (`type_parts`) and the series/age-group `multiplier`;
 the dialog shows each share with the raw value in brackets, the tag types
 that share something, and how the score comes from S.
 
+**Sources with few tags; missing types (algorithm version 8,
+2026-11-14).** 3 626 works had a description of 20+ words but fewer than
+3 tags (2 780 none) and got no list. A work now gets a list if it has the
+description; only works with 3+ tags are recommended, and the T and D
+scales are fitted on those works only. On the dev DB 6 397 works get a
+list (2 771 before), 6 324 of them at least one work. The lists of untagged
+works rest on the description and genre and look reasonable (Tad
+Williams → Martin, Brooks, Hobb). Reasons now carry the weighted shares
+(`type_parts`, `parts.D`) as their contributions.
+
+The *either* rule makes works without an Alagenre or Tyyli tag mostly
+recommend each other: 70 % of such a work's top 8 lack the tag (Tyyli
+58 %) against 54 % (40 %) of all works. A weight for a type on one side
+only (`one_sided_type_weight`) was tried: 0.5 changed 9 % of the top 8s
+and hardly the clustering (69 %); 0 changed 25 % and brought it to 62 %,
+but in the sample lists the newcomers were weaker ("Kuninkaan arvet" lost
+Turtschaninoff's Maresi books for "Artemis Fowl"; Auel lost two
+prehistoric novels). Most of the clustering is real, so the weight stays
+1.
+
 ### T: tags by type
 
 Weighted Jaccard per tag type, then combined:
@@ -397,6 +417,8 @@ weights can't be judged without it.
    `src/features/work/components/similar-works.tsx`, 4 Vitest tests; wiki
    Ylläpito "Samankaltaiset teokset"). The button sits in the work page's
    right column under the Kirjasampo import.
-5. **Production**: grants, migration, first `--prod` run.
+5. **Production**: grants, migration, first `--prod` run — done
+   2026-11-14 (2 771 works, version 7). The write took 25 minutes over the
+   tunnel, one round trip per row; rows now go 1000 per statement.
 
 Each phase is its own commit (or a few), changelog entries separately.

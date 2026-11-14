@@ -253,8 +253,7 @@ def api_work_similar(workid: str) -> Response:
     @apiDescription The works most similar to a work, best first, as
     computed by scripts/work_similarity.py (see
     docs/work-similarity-plan.md). A work with no computed list (one
-    without a description or with fewer than three tags) gives an empty
-    list.
+    without a description of 20+ words) gives an empty list.
     @apiParam {Number} id Work id.
     @apiQuery {Number{1-40}} [limit=8] Number of works.
     @apiSuccess {Object[]} response Similar works: id, title, author_str,

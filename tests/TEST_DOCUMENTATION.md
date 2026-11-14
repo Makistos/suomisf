@@ -2354,6 +2354,7 @@ description tests pass vectors or a fake `embed` function.
 | `test_word_count_strips_html` | `<p>yksi<br/>kaksi&nbsp;kolme</p>`, None | 3, 0 |
 | `test_eligibility_needs_description_and_three_tags` | 3 tags / 2 tags / 19 words | eligible only with 20+ words and 3+ tags |
 | `test_ineligible_works_are_neither_sources_nor_targets` | 3 alike works, one with 5 words | the short one has no list and is in none |
+| `test_a_described_work_with_few_tags_gets_a_list_but_isnt_recommended` | a work with a description and one tag, its vector the same as work 1's; a work with 5 words | the one-tag work gets a list (work 1) but is in no list; the short one gets none; without descriptions the one-tag work gets no list |
 | `test_rarity` | df = n, df = 0, huge n; no cap | 1.0, 1 + ln(n+1), capped at 4; uncapped keeps rising |
 | `test_year_similarity_halves_every_30_years` | same year, 30 years apart | 1.0, 0.5 |
 | `test_base_genres_fold_age_groups_and_drop_non_content` | Nuorten fantasia, Lasten SF, Kokoelma | {Fantasia, SF} |
@@ -2362,10 +2363,10 @@ description tests pass vectors or a fake `embed` function.
 | `test_cosine_uses_rarity_and_ignores_unique_tags` | the same works with the default cosine | with unique tags kept: shared weight² / (shared + own weight²); by default tags 3 and 4 (one work each) are left out and the score is 1.0 |
 | `test_a_shared_subgenre_counts_by_its_rarity` | subgenre 1 on six works, 2 on two (one each) | a shared 2 scores 1.0, a shared 1 its rarity weight / the weight of a tag on two works; with `rarity_scaled_types=()` both 1.0 |
 | `test_cosine_does_not_penalise_a_richly_tagged_work` | work 1 has 23 Aihe tags, work 2 the same three of them | cosine more than twice the Jaccard value |
-| `test_missing_tag_type_both_rule_vs_either_rule` | b lacks the Tyyli tag a has (unique tags kept) | `both`: T = 1; `either`: T = 0.30 / 0.55 |
+| `test_a_tag_type_on_one_side_counts_by_its_one_sided_weight` | b lacks the Tyyli tag a has (unique tags kept) | weight 0: T = 1 and Tyyli not counted; 1: T = 0.30 / 0.55; 0.5: T = 0.30 / (0.30 + 0.125), Tyyli 0; coverage lower at 0.5 than at 1 |
 | `test_weights_renormalise_over_available_signals` | b has no genre, 30 years apart | G None, S = (w_T·T + w_Y·Y) / (w_T + w_Y) with the configured weights |
 | `test_tag_score_is_rescaled_like_the_description` | twelve works on a chain of overlapping Alagenre tags | the best T is 1.0 after rescaling while the best `T_raw` is below 1; a pair's `T_raw` equals its T with `rescale_tags=False` and is below its rescaled T |
-| `test_weighted_parts_add_up_to_s_and_t` | eight works with overlapping tags and different years | in every stored item the signal shares add up to S, the tag-type shares to the tags' share, the year's share is its weight × value / available weights; multiplier 1 |
+| `test_weighted_parts_add_up_to_s_and_t` | eight works with overlapping tags and different years | in every stored item the signal shares add up to S, the tag-type shares to the tags' share, the year's share is its weight × value / available weights; multiplier 1; each reason's contribution is its tag type's share, biggest first |
 | `test_era_and_actor_tags_alone_are_not_enough` | only Aika and Toimija shared | no recommendation |
 | `test_two_shared_general_tags_are_enough_one_is_not` | 2 vs 1 shared Aihe tags of 10 (unique tags kept) | recommended vs not |
 | `test_a_shared_style_tag_is_enough` | one shared Tyyli tag | recommended |
@@ -2378,7 +2379,7 @@ description tests pass vectors or a fake `embed` function.
 | `test_reasons_strongest_type_first` | shared Alagenre and Aihe tags, both full matches | Aihe reason first (weight 0.35 vs 0.30); tags listed |
 | `test_embed_missing_embeds_only_new_and_changed_texts` | one stored text unchanged, one changed, one new; then `rebuild` | only the changed and new are embedded and returned for storing; `rebuild` embeds all three |
 | `test_description_scale_median_pair_is_zero` | ten vectors on an arc | D 0 for the median pair and below, 1 for the closest |
-| `test_similar_description_alone_is_enough_and_is_a_reason` | no shared tags, works 1 and 2 with the same vector | 2 recommended for 1 with D 1.0 and the single reason `description` |
+| `test_similar_description_alone_is_enough_and_is_a_reason` | no shared tags, works 1 and 2 with the same vector | 2 recommended for 1 with D 1.0 and the single reason `description`, its contribution the description's share of S |
 | `test_without_vectors_d_is_unavailable` | no description model | D is None |
 | `test_plan_changes_rewrites_only_changed_lists` | stored lists equal / an extra source / an old version | nothing rewritten, extra removed; old version rewritten |
 

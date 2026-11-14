@@ -1,6 +1,6 @@
 """
-Similar works: for every eligible work, a ranked list of similar works
-with the reasons, for GET /api/works/<id>/similar. See
+Similar works: for every work with a description, a ranked list of
+similar works with the reasons, for GET /api/works/<id>/similar. See
 docs/work-similarity-plan.md.
 
 A run first hashes its inputs; if nothing changed since the last run it
@@ -50,7 +50,7 @@ dotenv.load_dotenv(os.path.join(directory_path, '.env'))
 
 # Bump whenever the config or the scoring changes: the next run then
 # rewrites every list.
-ALGORITHM_VERSION = 7
+ALGORITHM_VERSION = 8
 
 # Tag types (tagtype.id).
 AIHE, ALAGENRE, TYYLI, TOIMIJA, PAIKKA, AIKA, LISTA = 1, 2, 3, 4, 5, 6, 7
@@ -93,7 +93,7 @@ SIMILARITY_CONFIG: Dict[str, Any] = {
     # two works' weights), so a richly tagged work isn't penalised) or
     # 'jaccard' (shared / union, the spec's).
     'tag_measure': 'cosine',
-    # Tags that only one eligible work has can't be shared; left out, they
+    # Tags that only one scored work has can't be shared; left out, they
     # don't dilute that work's similarity to every other.
     'ignore_unique_tags': True,
     # Types whose score is also multiplied by the rarity of the shared
@@ -103,9 +103,10 @@ SIMILARITY_CONFIG: Dict[str, Any] = {
     # shared "dystopia" counts 0.34, "kova scifi" (26) 0.69. Tyyli is the
     # same (median one per work): "seikkailu" (400 works) counted 1.0.
     'rarity_scaled_types': (ALAGENRE, TYYLI),
-    # A tag type counts for a pair when 'both' works have it (the spec)
-    # or when 'either' has it (missing on one side = no match).
-    'tag_type_available': 'either',
+    # The weight of a tag type that only one of the two works has (no
+    # match): 1 counts it fully, so a missing type is a difference; 0
+    # leaves it out (the spec's "both works have it").
+    'one_sided_type_weight': 1.0,
     # None = no cap: a tag on 2 works weighs ~7.7, "seikkailu" (400) ~2.3.
     # The spec's cap of 4 was reached by every tag on fewer than ~120
     # works, so rarity hardly told shared tags apart.
@@ -122,7 +123,10 @@ SIMILARITY_CONFIG: Dict[str, Any] = {
     'max_per_other_series': 1,
     'max_per_author': 2,
     'stored_per_work': 40,
-    # Eligibility, both ways.
+    # Eligibility. A work with a description of min_description_words
+    # gets a list (is a source); to be recommended (a target) it also
+    # needs min_tags tags. Half the described works have fewer: their
+    # lists rest on the description, genre and year.
     'min_description_words': 20,
     'min_tags': 3,
 }
@@ -144,9 +148,10 @@ Embed = Callable[[List[str]], np.ndarray]
 # Rows scored at a time: bounds memory to a few (CHUNK x works) arrays.
 CHUNK = 256
 
-# Optional description similarity: (eligible works) -> function giving
-# the D rows for source indices [i0, i1), or None when unavailable.
-DescriptionModel = Callable[[List['Work']], Callable[[int, int], np.ndarray]]
+# Optional description similarity: (scored works, which of them can be
+# recommended) -> function giving the D rows for source indices [i0, i1).
+DescriptionModel = Callable[[List['Work'], np.ndarray],
+                            Callable[[int, int], np.ndarray]]
 
 
 @dataclass(frozen=True)
@@ -192,8 +197,14 @@ def text_hash(value: str) -> str:
 
 
 def eligible(work: Work, config: Dict[str, Any]) -> bool:
+    """Can be recommended: a description and enough tags."""
     return (work.words >= config['min_description_words']
             and work.tag_count() >= config['min_tags'])
+
+
+def source_eligible(work: Work, config: Dict[str, Any]) -> bool:
+    """Gets a list: a description, any number of tags."""
+    return work.words >= config['min_description_words']
 
 
 def rarity(df: int, n: int, cap: Optional[float]) -> float:
@@ -311,6 +322,8 @@ class Scorer:
         self.children = np.array([is_children(w.genres) for w in works])
         self.audience = np.array([audience(w.genres) for w in works])
         self.ids = np.array([w.id for w in works])
+        # Can be recommended (sources may have fewer tags).
+        self.target = np.array([eligible(w, config) for w in works])
         self.t_scale = self._calibrate_tags()
 
     def _tags(self, rows: Any, shape: Tuple[int, int]) -> Dict[str, Any]:
@@ -325,9 +338,12 @@ class Scorer:
         for ttype, m in self.types.items():
             weight = cfg['tag_types'][ttype]
             has_a, has_b = m['sum'][rows, None] > 0, m['sum'][None, :] > 0
-            avail = ((has_a | has_b)
-                     if cfg['tag_type_available'] == 'either'
-                     else (has_a & has_b))
+            one_sided = cfg['one_sided_type_weight']
+            # How much the type counts for each pair: 1 when both works
+            # have it, one_sided when only one does.
+            factor = np.where(has_a & has_b, 1.0,
+                              np.where(has_a | has_b, one_sided, 0.0))
+            avail = factor > 0
             if cfg.get('tag_measure') == 'cosine':
                 inter = m['w'][rows] @ m['w'].T
                 denom = m['norm'][rows, None] * m['norm'][None, :]
@@ -344,8 +360,8 @@ class Scorer:
                     shared_r / np.where(shared_n > 0, shared_n, 1)
                     / m['r_max'], 0)
             per_type[ttype] = np.where(avail, tc, np.nan)
-            t_num += weight * tc
-            t_den += weight * avail
+            t_num += weight * factor * tc
+            t_den += weight * factor
             if ttype in (ALAGENRE, TYYLI):
                 shared_strong |= inter > 0
             if ttype == AIHE:
@@ -363,15 +379,16 @@ class Scorer:
 
     def _calibrate_tags(self) -> Optional[Tuple[float, float]]:
         """(median, span to the top percentile) of T over a sample of
-        rows, or None if T can't be rescaled (too few works or no
-        spread)."""
-        if not self.config.get('rescale_tags') or self.n < 2:
+        pairs of works that can be recommended, or None if T can't be
+        rescaled (too few works or no spread)."""
+        targets = np.nonzero(self.target)[0]
+        if not self.config.get('rescale_tags') or len(targets) < 2:
             return None
         rng = np.random.default_rng(0)
-        idx = rng.choice(self.n, size=min(D_SAMPLE_ROWS, self.n),
+        idx = rng.choice(targets, size=min(D_SAMPLE_ROWS, len(targets)),
                          replace=False)
         tags = self._tags(idx, (len(idx), self.n))
-        mask = tags['avail'].copy()
+        mask = tags['avail'] & self.target[None, :]
         mask[np.arange(len(idx)), idx] = False   # not a work with itself
         values = tags['T'][mask]
         if values.size == 0:
@@ -433,6 +450,7 @@ class Scorer:
         src = np.arange(i0, i1)
         allowed = (
             evidence
+            & self.target[None, :]
             & (self.ids[rows, None] != self.ids[None, :])
             & (self.nonfiction[rows, None] == self.nonfiction[None, :])
             & (self.children[rows, None] == self.children[None, :]))
@@ -476,37 +494,28 @@ def weighted_parts(signals: Dict[str, Any], per_type: Dict[int, float],
     return {'parts': parts, 'type_parts': type_parts}
 
 
-def _ratio(scaled: Optional[float], raw: Optional[float]) -> float:
-    """How much rescaling multiplied T, for the reasons' contributions."""
-    return scaled / raw if scaled is not None and raw else 1.0
-
-
-def reasons_for(a: Work, b: Work, per_type: Dict[int, float],
-                config: Dict[str, Any], rarity_of: Dict[int, float],
-                d: Optional[float] = None,
-                t_factor: float = 1.0) -> List[Dict[str, Any]]:
-    """Shared tags by type and a similar description, the biggest
-    contribution to S first; tags within a type rarest first. The
-    description is a reason when D passes the minimum-evidence level."""
-    weights = config['tag_types']
-    signal = config['signals']
-    t_den = sum(weights[t] for t in per_type) or 1
+def reasons_for(a: Work, b: Work, signals: Dict[str, Any],
+                config: Dict[str, Any],
+                rarity_of: Dict[int, float]) -> List[Dict[str, Any]]:
+    """Shared tags by type and a similar description, the biggest share
+    of S first (the weighted parts, see weighted_parts); tags within a
+    type rarest first. The description is a reason when D passes the
+    minimum-evidence level."""
+    type_parts = signals.get('type_parts', {})
     out: List[Dict[str, Any]] = []
-    for ttype, weight in weights.items():
+    for ttype in config['tag_types']:
         shared = a.tags.get(ttype, frozenset()) & b.tags.get(ttype,
                                                               frozenset())
         if not shared:
             continue
         tags = sorted(shared, key=lambda t: (-rarity_of.get(t, 0), t))
         out.append({'type': ttype, 'tags': tags,
-                    'contribution': signal['T'] * weight * t_factor
-                    * (per_type.get(ttype) or 0) / t_den})
+                    'contribution': type_parts.get(str(ttype), 0.0)})
+    d = signals.get('D')
     if d is not None and d >= config['min_description_similarity']:
         out.append({'type': 'description', 'tags': [],
-                    'contribution': signal['D'] * d})
+                    'contribution': signals['parts'].get('D', 0.0)})
     out.sort(key=lambda r: (-r['contribution'], str(r['type'])))
-    for r in out:
-        r['contribution'] = round(r['contribution'], 4)
     return out
 
 
@@ -545,15 +554,19 @@ def compute_lists(all_works: List[Work],
                   description: Optional[DescriptionModel] = None,
                   only: Optional[Set[int]] = None
                   ) -> Tuple[List[Work], Dict[int, List[Rec]]]:
-    """(eligible works, ranked list per eligible work id). only = compute
-    these source ids only (scores still use every eligible work)."""
+    """(works with a list, ranked list per such work id): every
+    source-eligible work gets a list of eligible works. only = compute
+    these source ids only (scores still use every work)."""
     config = config or SIMILARITY_CONFIG
-    works = [w for w in all_works if eligible(w, config)]
+    # Without descriptions a work with few tags has nothing to go on.
+    works = [w for w in all_works
+             if (source_eligible if description else eligible)(w, config)]
     lists: Dict[int, List[Rec]] = {}
     if not works:
         return works, lists
+    targets = np.array([eligible(w, config) for w in works])
     scorer = Scorer(works, config,
-                    description(works) if description else None)
+                    description(works, targets) if description else None)
     sources = [i for i, w in enumerate(works)
                if only is None or w.id in only]
     for c0 in range(0, len(sources), CHUNK):
@@ -586,11 +599,8 @@ def compute_lists(all_works: List[Work],
                 recs.append(Rec(
                     target=works[j].id, score=round(float(row[j]), 6),
                     signals=signals,
-                    reasons=reasons_for(works[i], works[j], per_type,
-                                        config, scorer.rarity,
-                                        signals['D'],
-                                        _ratio(signals['T'],
-                                               signals['T_raw']))))
+                    reasons=reasons_for(works[i], works[j], signals,
+                                        config, scorer.rarity)))
             lists[works[i].id] = recs
     return works, lists
 
@@ -652,16 +662,21 @@ def embed_missing(texts: Dict[int, str],
 def description_model(vectors: Dict[int, np.ndarray]) -> DescriptionModel:
     """D from the vectors: cosine rescaled so the median pair is 0 and the
     top D_TOP_PERCENTILE is 1. Works without a vector have no D."""
-    def factory(works: List[Work]) -> Callable[[int, int], np.ndarray]:
+    def factory(works: List[Work], targets: np.ndarray
+                ) -> Callable[[int, int], np.ndarray]:
         dim = len(next(iter(vectors.values())))
         have = np.array([w.id in vectors for w in works])
         m = np.vstack([vectors.get(w.id, np.zeros(dim, dtype=np.float32))
                        for w in works]).astype(np.float32)
+        # Rescaled over pairs of works that can be recommended.
+        calibrate = have & targets
+        if not calibrate.any():
+            calibrate = have
         rng = np.random.default_rng(0)
-        rows = np.nonzero(have)[0]
+        rows = np.nonzero(calibrate)[0]
         sample = rng.choice(rows, size=min(D_SAMPLE_ROWS, len(rows)),
                             replace=False)
-        cos = m[sample] @ m[have].T
+        cos = m[sample] @ m[calibrate].T
         off = cos[cos < 0.9999]   # leave out each row's own work
         lo = float(np.median(off))
         hi = float(np.percentile(off, D_TOP_PERCENTILE))
@@ -873,6 +888,7 @@ def statistics(works: List[Work], lists: Dict[int, List[Rec]],
                  / len(recs) for recs in tops.values() if recs]
     return {
         'eligible': len(works),
+        'targets': sum(1 for w in works if eligible(w, SIMILARITY_CONFIG)),
         'with_list': sum(1 for recs in lists.values() if recs),
         'fewer_than_3': sum(1 for recs in lists.values() if len(recs) < 3)
         / n,
@@ -920,8 +936,7 @@ def report(conn: Any, works: List[Work], lists: Dict[int, List[Rec]],
         out.append(f'## {label(wid)}')
         out.append('')
         if wid not in by_id:
-            out.append('Not eligible (needs a description of 20+ words '
-                       'and 3+ tags).')
+            out.append('No list (needs a description of 20+ words).')
             out.append('')
             continue
         recs = lists.get(wid, [])[:8]
@@ -1014,7 +1029,7 @@ def main() -> int:
             engine.dispose()
             return 0
         eligible_ids = [w.id for w in all_works
-                        if eligible(w, SIMILARITY_CONFIG)]
+                        if source_eligible(w, SIMILARITY_CONFIG)]
         texts = load_texts(conn, eligible_ids) if use_d else {}
         vectors_stored = stored_vectors(conn) if use_d else {}
         stored = stored_lists(conn)
@@ -1055,9 +1070,8 @@ def main() -> int:
         print(f'Report: {args.report}')
 
     if args.work and args.work not in lists:
-        print(f'Work {args.work} is not eligible (needs a description of '
-              f'{SIMILARITY_CONFIG["min_description_words"]}+ words and '
-              f'{SIMILARITY_CONFIG["min_tags"]}+ tags).')
+        print(f'Work {args.work} gets no list (needs a description of '
+              f'{SIMILARITY_CONFIG["min_description_words"]}+ words).')
     changes = plan_changes(stored, lists, only)
     if only:
         print(f'{database}: work {args.work}: '
@@ -1065,7 +1079,8 @@ def main() -> int:
               f'computed in {seconds:.1f} s.')
     else:
         st = statistics(works, lists)
-        print(f'{database}: {st["eligible"]} eligible works, '
+        print(f'{database}: {st["eligible"]} works with a list '
+              f'({st["targets"]} can be recommended), '
               f'{st["fewer_than_3"]:.1%} with fewer than 3 '
               f'recommendations, computed in {seconds:.1f} s.')
     if args.dry_run:

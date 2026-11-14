@@ -72,6 +72,25 @@ def test_ineligible_works_are_neither_sources_nor_targets():
     assert 3 not in result
 
 
+def test_a_described_work_with_few_tags_gets_a_list_but_isnt_recommended():
+    # 4 has a description but only one tag; its description is the same
+    # as 1's.
+    works = [W(1, {AIHE: [1, 2, 3]}), W(2, {AIHE: [4, 5, 6]}),
+             W(3, {AIHE: [7, 8, 9]}), W(4, {AIHE: [1]}),
+             W(5, {AIHE: [1, 2]}, words=5)]
+    assert ws.source_eligible(works[3], ws.SIMILARITY_CONFIG)
+    assert not ws.source_eligible(works[4], ws.SIMILARITY_CONFIG)
+    vectors = {1: unit(1, 0, 0), 2: unit(0, 1, 0), 3: unit(0, 0, 1),
+               4: unit(1, 0, 0)}
+    eligible, result = ws.compute_lists(
+        works, description=ws.description_model(vectors))
+    assert [w.id for w in eligible] == [1, 2, 3, 4]
+    assert targets(result, 4) == [1]
+    assert all(4 not in targets(result, s) for s in (1, 2, 3))
+    # Without descriptions only works with enough tags get a list.
+    assert 4 not in lists(works)
+
+
 def test_rarity():
     assert ws.rarity(9, 9, 4.0) == pytest.approx(1.0)
     assert ws.rarity(0, 9, 4.0) == pytest.approx(1 + math.log(10))
@@ -156,17 +175,26 @@ def test_cosine_does_not_penalise_a_richly_tagged_work():
     assert cosine > 2 * jaccard
 
 
-def test_missing_tag_type_both_rule_vs_either_rule():
+def test_a_tag_type_on_one_side_counts_by_its_one_sided_weight():
     a = W(1, {ALAGENRE: [1, 2, 3], TYYLI: [10]})
     b = W(2, {ALAGENRE: [1, 2, 3]})
     keep = {'ignore_unique_tags': False}   # Tyyli 10 is on a only
-    both = lists([a, b], tag_type_available='both', **keep)
-    either = lists([a, b], tag_type_available='either', **keep)
-    # 'both': Tyyli is unavailable, so the Alagenre match is all of T.
-    assert rec(both, 1, 2).signals['T'] == pytest.approx(1.0)
-    # 'either': b has no Tyyli, which counts as no match.
-    assert rec(either, 1, 2).signals['T'] == pytest.approx(
-        0.30 / (0.30 + 0.25), abs=1e-4)
+
+    def t(weight):
+        result = lists([a, b], one_sided_type_weight=weight, **keep)
+        return rec(result, 1, 2).signals
+
+    # 0: Tyyli is left out, so the Alagenre match is all of T.
+    assert t(0.0)['T'] == pytest.approx(1.0)
+    assert str(TYYLI) not in t(0.0)['types']
+    # 1: b has no Tyyli, which counts fully as no match.
+    assert t(1.0)['T'] == pytest.approx(0.30 / (0.30 + 0.25), abs=1e-4)
+    # In between: the missing Tyyli counts at that share of its weight.
+    assert t(0.5)['T'] == pytest.approx(0.30 / (0.30 + 0.5 * 0.25),
+                                        abs=1e-4)
+    assert t(0.5)['types'][str(TYYLI)] == 0
+    # The coverage drops with the share of tag weight left out.
+    assert t(0.5)['coverage'] < t(1.0)['coverage']
 
 
 def test_weights_renormalise_over_available_signals():
@@ -211,6 +239,12 @@ def test_weighted_parts_add_up_to_s_and_t():
             assert s['parts']['Y'] == pytest.approx(
                 w['Y'] * s['Y'] / available, abs=1e-3)
             assert s['multiplier'] == 1.0
+            # The reasons are the tag types' shares, biggest first.
+            for reason in r.reasons:
+                assert reason['contribution'] == \
+                    s['type_parts'][str(reason['type'])]
+            assert [x['contribution'] for x in r.reasons] == sorted(
+                (x['contribution'] for x in r.reasons), reverse=True)
 
 
 # --- Minimum evidence --------------------------------------------------
@@ -340,7 +374,7 @@ def test_description_scale_median_pair_is_zero():
     vectors = {i: unit(math.cos(i / 10), math.sin(i / 10))
                for i in range(10)}
     works = [W(i) for i in range(10)]
-    d = ws.description_model(vectors)(works)(0, 10)
+    d = ws.description_model(vectors)(works, np.ones(10, dtype=bool))(0, 10)
     off = d[~np.eye(10, dtype=bool)]
     assert off.min() == 0.0 and off.max() == pytest.approx(1.0, abs=0.02)
     assert np.median(off) == pytest.approx(0.0, abs=0.05)
@@ -357,8 +391,9 @@ def test_similar_description_alone_is_enough_and_is_a_reason():
     assert targets(result, 1) == [2]
     r = rec(result, 1, 2)
     assert r.signals['D'] == pytest.approx(1.0)
+    # Its contribution is its share of S.
     assert r.reasons == [{'type': 'description', 'tags': [],
-                          'contribution': pytest.approx(0.35)}]
+                          'contribution': r.signals['parts']['D']}]
 
 
 def test_without_vectors_d_is_unavailable():
