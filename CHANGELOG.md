@@ -5,6 +5,13 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-14 — Similar works job: fast writes to production
+**Commits:** `c69c5bb5`
+The similar-works job writes its lists 1000 rows per statement instead of
+one, so a full write to production through the SSH tunnel takes seconds
+instead of about 25 minutes. It also reports its progress while embedding
+descriptions.
+
 ## 2026-11-13 — Similar works: themes over subgenre, weighted parts
 **Commits:** `64730c34`
 A shared subgenre or style now counts by how rare it is (a shared
