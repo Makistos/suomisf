@@ -218,6 +218,34 @@ def test_rerun_embeds_only_renamed_and_keeps_dismissed(conn):
         == 'dismissed'
 
 
+def test_rerun_writes_only_changed_pairs(conn):
+    """A rerun with nothing new writes no pair, so the admin card's
+    "Päivitetty" stays; a changed pair is written again."""
+    ids = _setup(conn)
+    _run(conn, FakeEmbedder(GROUPS))
+    conn.execute(text(
+        "UPDATE tag_similarity SET updated = '2020-01-01'"))
+    _, changes = _run(conn, FakeEmbedder(GROUPS))
+    assert (changes.added, changes.updated, changes.removed) == ([], [], [])
+    assert conn.execute(text(
+        "SELECT count(*) FROM tag_similarity "
+        "WHERE updated > '2020-01-01'")).scalar() == 0
+
+    # A stale count is corrected, and only that pair is written.
+    key = {'a': ids['qqpelit'], 'b': ids['qqkonsolipelit']}
+    pair = 'tag_a = least(:a, :b) AND tag_b = greatest(:a, :b)'
+    conn.execute(text(f'UPDATE tag_similarity SET shared = 3 WHERE {pair}'),
+                 key)
+    _, changes = _run(conn, FakeEmbedder(GROUPS))
+    assert [(p.tag_a, p.tag_b) for p in changes.updated] \
+        == [(min(key.values()), max(key.values()))]
+    assert _stored(conn, ids)[_pair('qqpelit', 'qqkonsolipelit')].shared \
+        == 10
+    assert conn.execute(text(
+        "SELECT count(*) FROM tag_similarity "
+        "WHERE updated > '2020-01-01'")).scalar() == 1
+
+
 def test_rerun_keeps_manual_pairs(conn):
     """A pair an admin added is never changed or removed, whether or not
     the rules find it."""

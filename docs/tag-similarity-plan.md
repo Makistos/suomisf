@@ -359,8 +359,8 @@ A new card on `/admin`, "Samankaltaiset asiasanat":
   defaulting to the more-used tag, with a swap button, and calls the
   existing merge. **Eri asiasanat** dismisses the pair. A "Hylätyt" view
   allows restoring a dismissed pair.
-- When the job last ran is shown at the top, from the newest `updated`
-  value.
+- When the suggestions last changed is shown at the top, from the newest
+  `updated` value (the job writes only new and changed pairs).
 
 ## Phases
 

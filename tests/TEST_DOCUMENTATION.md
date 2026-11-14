@@ -2397,6 +2397,12 @@ description tests pass vectors or a fake `embed` function.
 
 The same two tests are in `tests/test_tag_similarity.py` for the tag job.
 
+Also in `tests/test_tag_similarity.py`:
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_rerun_writes_only_changed_pairs` | a rerun with nothing new; then one pair's `shared` made stale | the first rerun adds, updates and removes nothing and leaves every `updated` time; the second writes only the stale pair, with the right count |
+
 ---
 
 ## Similar Works API Tests

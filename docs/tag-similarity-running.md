@@ -153,7 +153,8 @@ so), so they take seconds. All writes are one short transaction at the
 end; reading and computing happen first, so the site isn't held up.
 
 **What a run changes.** New pairs are added, changed scores updated and
-suggestions that no longer match removed. A pair an admin dismissed,
+suggestions that no longer match removed; pairs that stay the same aren't
+written, so a run with nothing new writes nothing. A pair an admin dismissed,
 or linked by hand on a tag's edit dialog, is never changed or removed; a
 pair whose kind an admin set keeps that kind and isn't removed, nor is
 a checked pair or one moved over in a tag merge,
@@ -172,8 +173,8 @@ and a merged or deleted tag takes its pairs with it.
 
 ## 5. Checking the result
 
-Open `/admin` as an admin: "Samankaltaiset asiasanat" shows when the job
-last wrote ("Päivitetty …") and the suggestions. A tag page lists its
+Open `/admin` as an admin: "Samankaltaiset asiasanat" shows when the
+suggestions last changed ("Päivitetty …") and the suggestions. A tag page lists its
 similar tags under the description.
 
 ## How often

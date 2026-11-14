@@ -3,7 +3,8 @@ Suggest tags that are probably duplicates or closely related, for an
 admin to review. See docs/tag-similarity-plan.md.
 
 Each run embeds only new and renamed tags, recomputes every pair and
-updates the suggestions; a pair an admin has dismissed stays dismissed.
+writes only the pairs that are new or changed, so a run with nothing new
+writes nothing; a pair an admin has dismissed stays dismissed.
 
 Usage:
     python scripts/tag_similarity.py              # dev database
@@ -866,8 +867,27 @@ def compute(conn: Any, embed: Embed, analyze: Analyze,
                     concepts_looked_up)
 
 
+class Stored(NamedTuple):
+    """A stored pair: its status for plan_changes() and its values."""
+    status: str
+    values: Tuple[Any, ...]
+
+
+def pair_values(kind: Optional[str], reason: str,
+                name_score: Optional[float], containment: Optional[float],
+                shared: int) -> Tuple[Any, ...]:
+    """What a run writes for a pair, comparable with the stored row: the
+    scores as the float32 the real columns hold; kind None for a kind an
+    admin set (the job doesn't write it)."""
+    def f32(x: Optional[float]) -> Optional[np.float32]:
+        return None if x is None else np.float32(x)
+    return (kind, reason, f32(name_score), f32(containment), shared)
+
+
 class Changes(NamedTuple):
     added: List[Pair]
+    # Pairs whose values changed; the rest aren't written, so their
+    # updated time (the admin card's "Päivitetty") stays.
     updated: List[Pair]
     # New pairs that no longer pass the rules (not ones whose kind an
     # admin set, or that an admin checked).
@@ -876,27 +896,39 @@ class Changes(NamedTuple):
     dismissed_kept: int
 
 
-def plan_changes(existing: Dict[Tuple[int, int], str],
+def plan_changes(existing: Dict[Tuple[int, int], Stored],
                  pairs: List[Pair]) -> Changes:
-    """existing maps stored pairs to their status, to 'manual' for a pair
-    an admin added (never changed or removed) or to 'fixed' for one whose
-    kind an admin set or that an admin checked (kept even when no longer
-    found)."""
+    """existing maps stored pairs to their status and values; the status
+    is 'manual' for a pair an admin added (never changed or removed) or
+    'fixed' for one whose kind an admin set or that an admin checked
+    (kept even when no longer found)."""
     found = {(p.tag_a, p.tag_b) for p in pairs}
     gone = [k for k in existing if k not in found]
+
+    def changed(p: Pair) -> bool:
+        old = existing.get((p.tag_a, p.tag_b))
+        if old is None or old.status == 'manual':
+            return False
+        kind = None if old.values[0] is None else p.kind
+        return pair_values(kind, p.reason, p.name_score, p.containment,
+                           p.shared) != old.values
     return Changes(
         added=[p for p in pairs if (p.tag_a, p.tag_b) not in existing],
-        updated=[p for p in pairs
-                 if existing.get((p.tag_a, p.tag_b), 'manual') != 'manual'],
-        removed=[k for k in gone if existing[k] == 'new'],
-        dismissed_kept=sum(existing[k] == 'dismissed' for k in gone))
+        updated=[p for p in pairs if changed(p)],
+        removed=[k for k in gone if existing[k].status == 'new'],
+        dismissed_kept=sum(existing[k].status == 'dismissed'
+                           for k in gone))
 
 
-def existing_pairs(conn: Any) -> Dict[Tuple[int, int], str]:
-    return {(a, b): status for a, b, status in conn.execute(text(
-        "SELECT tag_a, tag_b, CASE WHEN reason = 'manual' THEN 'manual' "
-        "WHEN (kind_fixed OR checked) AND status = 'new' THEN 'fixed' "
-        'ELSE status END FROM tag_similarity'))}
+def existing_pairs(conn: Any) -> Dict[Tuple[int, int], Stored]:
+    return {(r.tag_a, r.tag_b): Stored(r.status, pair_values(
+        None if r.kind_fixed else r.kind, r.reason, r.name_score,
+        r.containment, r.shared))
+        for r in conn.execute(text(
+            "SELECT tag_a, tag_b, CASE WHEN reason = 'manual' "
+            "THEN 'manual' WHEN (kind_fixed OR checked) AND status = 'new' "
+            "THEN 'fixed' ELSE status END AS status, kind, kind_fixed, "
+            'reason, name_score, containment, shared FROM tag_similarity'))}
 
 
 def apply(conn: Any, computed: Computed) -> Changes:
@@ -910,7 +942,6 @@ def apply(conn: Any, computed: Computed) -> Changes:
              if p.tag_a in alive and p.tag_b in alive]
     existing = existing_pairs(conn)
     changes = plan_changes(existing, pairs)
-    manual = {k for k, v in existing.items() if v == 'manual'}
 
     cur = conn.connection.cursor()
     vectors = [v for v in computed.vectors if v[0] in alive]
@@ -958,7 +989,8 @@ def apply(conn: Any, computed: Computed) -> Changes:
     # Vectors of models no longer used.
     conn.execute(text('DELETE FROM tag_embedding WHERE model <> ALL(:m)'),
                  {'m': list(MODELS)})
-    pairs = [p for p in pairs if (p.tag_a, p.tag_b) not in manual]
+    # Only new and changed pairs; manual ones are in neither.
+    pairs = changes.added + changes.updated
     if pairs:
         execute_values(cur, """
             INSERT INTO tag_similarity (tag_a, tag_b, kind, reason,
