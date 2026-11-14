@@ -316,6 +316,12 @@ so a partial update would drift) and rewrites, in one transaction at the
 end, only the lists that changed. It prints eligible works, lists changed,
 works with fewer than 3 recommendations and the time taken.
 
+**Every hour (2026-11-14).** The workstation runs the job, and the tag
+job, every hour while it is on (a systemd user timer; the server has too
+little memory for the models). A run with no changes stops in seconds.
+Both jobs take a PostgreSQL advisory lock, so overlapping runs can't
+write over each other. Setup: `similarity-timer.md`.
+
 All weights and thresholds are in one `SIMILARITY_CONFIG` dict in the
 script; changing any of them means bumping `algorithm_version`, which also
 forces the next run.

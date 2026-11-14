@@ -6,6 +6,7 @@ a transaction that is rolled back.
 import importlib.util
 import math
 import os
+import sys
 from typing import Any, Dict
 
 import numpy as np
@@ -526,3 +527,32 @@ def test_single_work_update_leaves_the_run_record(conn):
     changes = ws.plan_changes(ws.stored_lists(conn), result, {one})
     ws.apply(conn, result, changes, None, len(eligible))
     assert ws.last_run(conn) is None
+
+
+# --- Running -----------------------------------------------------------
+
+def test_no_database_gives_a_short_message(capsys, monkeypatch):
+    monkeypatch.setattr(sys, 'argv', ['work_similarity.py', '--prod'])
+    monkeypatch.setenv('DATABASE_URL_TAG_SIMILARITY_PROD',
+                       'postgresql://nobody@localhost:1/suomisf')
+    assert ws.main() == 3
+    err = capsys.readouterr().err
+    assert 'No connection to the database at localhost:1' in err
+    assert 'SSH tunnel' in err
+    assert 'Traceback' not in err
+
+
+def test_a_second_run_stops_while_one_is_going(app, capsys, monkeypatch):
+    # pylint: disable=unused-argument
+    url = os.environ['DATABASE_URL']
+    assert 'suomisf_test' in url
+    engine = create_engine(url)
+    with engine.connect() as held:
+        held.execute(text('SELECT pg_advisory_lock(:k)'),
+                     {'k': ws.RUN_LOCK})
+        monkeypatch.setattr(sys, 'argv', ['work_similarity.py', '--db', url])
+        assert ws.main() == 0
+        held.execute(text('SELECT pg_advisory_unlock(:k)'),
+                     {'k': ws.RUN_LOCK})
+    engine.dispose()
+    assert 'another run is going' in capsys.readouterr().out

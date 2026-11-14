@@ -1,0 +1,12 @@
+# The similarity jobs against production (scripts/similarity_jobs.sh).
+# Install: docs/similarity-timer.md. The path assumes the backend is
+# checked out at ~/src/suomisf; change ExecStart if it isn't.
+[Unit]
+Description=SuomiSF similarity jobs (production)
+OnFailure=suomisf-similarity-failed.service
+
+[Service]
+Type=oneshot
+ExecStart=%h/src/suomisf/scripts/similarity_jobs.sh
+# A first run embeds every description (about 20 minutes).
+TimeoutStartSec=2h

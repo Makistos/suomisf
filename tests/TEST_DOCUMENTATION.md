@@ -2392,6 +2392,10 @@ description tests pass vectors or a fake `embed` function.
 | `test_vectors_are_stored_and_read_back` | store vectors for a work and for a missing work id | only the existing work's vector is stored, with its hash, and reads back equal |
 | `test_lists_are_written_in_batches_without_deleted_works` | `apply` with a batch size of 2; one target and one source missing from `work` | rows are written over several statements; rows with a missing work are left out; rank, score, signals, reasons and version are stored as given |
 | `test_single_work_update_leaves_the_run_record` | `only={id}` update | only that list computed; no run record written |
+| `test_no_database_gives_a_short_message` | `--prod` with the database URL on a port nothing listens on | exit 3; one line naming the host and port and a hint about the SSH tunnel, no traceback |
+| `test_a_second_run_stops_while_one_is_going` | the run's advisory lock held by another connection | `main()` exits 0 with "another run is going" and computes nothing |
+
+The same two tests are in `tests/test_tag_similarity.py` for the tag job.
 
 ---
 

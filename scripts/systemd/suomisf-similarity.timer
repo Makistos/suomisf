@@ -1,0 +1,12 @@
+# Every hour while the workstation is on; a run missed while it was off
+# happens soon after it starts (Persistent).
+[Unit]
+Description=SuomiSF similarity jobs every hour
+
+[Timer]
+OnCalendar=hourly
+Persistent=true
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target

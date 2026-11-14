@@ -43,6 +43,7 @@ import dotenv
 import numpy as np
 from psycopg2.extras import execute_values
 from sqlalchemy import create_engine, make_url, text
+from sqlalchemy.exc import OperationalError, SQLAlchemyError
 
 directory_path = os.path.abspath(
     os.path.join(os.path.dirname(__file__), '..'))
@@ -972,6 +973,27 @@ def default_sample(works: List[Work], count: int = 12) -> List[int]:
 
 # --- Main --------------------------------------------------------------
 
+# pg_advisory_lock key: one work similarity run per database at a time.
+RUN_LOCK = 7301001
+
+
+def can_connect(engine: Any, prod: bool) -> bool:
+    """Whether the database answers; if not, says why in one line or two
+    instead of a traceback."""
+    try:
+        with engine.connect():
+            return True
+    except OperationalError as exp:
+        url = engine.url
+        print(f'No connection to the database at {url.host}:{url.port}: '
+              f'{str(exp.orig).strip().splitlines()[0]}', file=sys.stderr)
+        if prod:
+            print('Is the SSH tunnel open? ssh -N -L '
+                  f'{url.port}:localhost:5432 <server> '
+                  '(docs/tag-similarity-running.md)', file=sys.stderr)
+        return False
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description='Compute similar-works recommendations.')
@@ -1007,7 +1029,29 @@ def main() -> int:
     if args.prod:
         database += ' (production)'
     engine = create_engine(db_url)
+    if not can_connect(engine, args.prod):
+        return 3
+    # One run per database at a time (a manual run and the timer, or two
+    # machines): the second one stops.
+    lock = engine.connect()
+    try:
+        if not lock.execute(text('SELECT pg_try_advisory_lock(:k)'),
+                            {'k': RUN_LOCK}).scalar():
+            print(f'{database}: another run is going; nothing done.')
+            return 0
+        lock.commit()
+        return run(args, engine, database)
+    finally:
+        try:
+            lock.execute(text('SELECT pg_advisory_unlock_all()'))
+            lock.close()
+        except SQLAlchemyError:
+            pass   # a lost connection releases the lock too
+        engine.dispose()
 
+
+def run(args: argparse.Namespace, engine: Any, database: str) -> int:
+    """The job proper, once the database answers and the lock is held."""
     start = time.monotonic()
     only = {args.work} if args.work else None
     use_d = not args.no_description

@@ -1,0 +1,7 @@
+# A desktop notification when a similarity run fails.
+[Unit]
+Description=Notify that the SuomiSF similarity jobs failed
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/notify-send -u critical "SuomiSF similarity jobs failed" "journalctl --user -u suomisf-similarity"

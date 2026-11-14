@@ -124,7 +124,9 @@ reload) — the tunnel arrives as a local TCP connection.
 
 ## 4. Running it
 
-From the backend directory, with the tunnel up:
+The workstation can run this job and the similar works every hour by
+itself, opening the tunnel as needed: see `similarity-timer.md`. By hand,
+from the backend directory, with the tunnel up:
 
 ```sh
 .venv/bin/python scripts/tag_similarity.py --prod --dry-run   # what it would do
