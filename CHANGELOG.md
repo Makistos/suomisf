@@ -5,6 +5,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-14 — Similarity jobs every hour
+**Commits:** `cc2cf12f`
+A systemd user timer on the workstation runs the similar-works and
+similar-tags jobs against production every hour while the machine is on,
+catching up after it was off. It opens and closes its own SSH tunnel with
+a key that only allows the forward to the database. Both jobs now refuse
+to run twice at once and say plainly when the database can't be reached.
+
 ## 2026-11-14 — Similar works for works with few tags
 **Commits:** `62870aa8`
 Every work with a description of 20+ words now gets similar works, even
