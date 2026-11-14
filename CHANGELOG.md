@@ -5,6 +5,14 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-14 — Similar works for works with few tags
+**Commits:** `62870aa8`
+Every work with a description of 20+ words now gets similar works, even
+with fewer than three tags: its list rests mostly on the description,
+genre and year. Only works with three or more tags are recommended. On
+the dev copy this more than doubles the works with a list (6 397 instead
+of 2 771). Algorithm version 8.
+
 ## 2026-11-14 — Similar works job: fast writes to production
 **Commits:** `c69c5bb5`
 The similar-works job writes its lists 1000 rows per statement instead of
