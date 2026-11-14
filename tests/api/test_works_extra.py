@@ -10,6 +10,7 @@ Note: Run tests/scripts/setup_test_db.py before running these tests.
 import pytest
 from sqlalchemy import text
 
+from app.impl_works import KIRJASAMPO_MISSING_TAG_ID
 from app.route_helpers import new_session
 
 from .base_test import BaseAPITest
@@ -215,6 +216,55 @@ class TestRandomIncompleteWorks(BaseAPITest):
             'count': 1, 'missing_fields': ['binding']})
         assert response.status_code == 200
         assert response.data['total'] == unknown
+
+    def test_random_incomplete_kirjasampo_link(self, api_client):
+        """kirjasampo_link: works without a Kirjasampo link, leaving out
+        those tagged as missing from Kirjasampo (tag id, not name)."""
+        tag = KIRJASAMPO_MISSING_TAG_ID
+        no_link = """
+            SELECT count(*) FROM suomisf.work w WHERE NOT EXISTS (
+                SELECT 1 FROM suomisf.worklink l WHERE l.work_id = w.id
+                AND l.link LIKE '%kirjasampo.fi%')"""
+        session = new_session()
+        try:
+            work = session.execute(text(
+                no_link.replace('count(*)', 'w.id') + """
+                AND NOT EXISTS (SELECT 1 FROM suomisf.worktag t
+                    WHERE t.work_id = w.id AND t.tag_id = :t)
+                ORDER BY w.id LIMIT 1"""), {'t': tag}).scalar()
+            assert work is not None
+            if session.execute(text(
+                    'SELECT 1 FROM suomisf.tag WHERE id = :t'),
+                    {'t': tag}).scalar() is None:
+                session.execute(text(
+                    'INSERT INTO suomisf.tag (id, name) VALUES (:t, :n)'),
+                    {'t': tag, 'n': 'qq_puuttuu_kirjasammosta'})
+            session.execute(text(
+                'INSERT INTO suomisf.worktag (work_id, tag_id) '
+                'VALUES (:w, :t)'), {'w': work, 't': tag})
+            session.commit()
+            expected = session.execute(text(no_link + """
+                AND NOT EXISTS (SELECT 1 FROM suomisf.worktag t
+                    WHERE t.work_id = w.id AND t.tag_id = :t)"""),
+                {'t': tag}).scalar()
+            response = api_client.post('/api/works/random/incomplete',
+                                       data={'count': 100,
+                                             'missing_fields':
+                                                 ['kirjasampo_link']})
+            assert response.status_code == 200
+            assert response.data['total'] == expected
+            assert expected < session.execute(text(no_link)).scalar()
+            assert work not in {w['id'] for w in response.data['works']}
+        finally:
+            session.rollback()
+            session.execute(text(
+                'DELETE FROM suomisf.worktag WHERE work_id = :w '
+                'AND tag_id = :t'), {'w': work, 't': tag})
+            session.execute(text(
+                "DELETE FROM suomisf.tag WHERE id = :t "
+                "AND name = 'qq_puuttuu_kirjasammosta'"), {'t': tag})
+            session.commit()
+            session.close()
 
     def test_random_incomplete_with_missing_fields(self, api_client):
         """POST /api/works/random/incomplete with missing_fields filter."""

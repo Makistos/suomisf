@@ -39,6 +39,11 @@ from app import app
 from app.names import clean_name
 
 
+# Tag (by id, so it can be renamed) for works known to be missing from
+# Kirjasampo; the 'kirjasampo_link' search leaves them out.
+KIRJASAMPO_MISSING_TAG_ID = 4323
+
+
 def _set_bookseries(
         session: Any, work: Work, data: Any,
         old_values: Union[Dict[str, Any], None]) -> Union[ResponseType, None]:
@@ -1582,7 +1587,8 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
 
         # Validate missing_fields
         valid_work_fields = {'description', 'links', 'tags', 'genres',
-                             'language', 'stories', 'kirjasampo_tags'}
+                             'language', 'stories', 'kirjasampo_tags',
+                             'kirjasampo_link'}
         valid_edition_fields = {'page_count', 'size', 'binding', 'image'}
         valid_fields = valid_work_fields | valid_edition_fields
 
@@ -1626,6 +1632,18 @@ def get_random_incomplete_works(params: Dict[str, Any]) -> ResponseType:
                         SELECT 1 FROM worklink wl2
                         WHERE wl2.work_id = w.id
                         AND wl2.link LIKE '%kirjasampo.fi%'
+                    ))""")
+            elif field == 'kirjasampo_link':
+                # No Kirjasampo link, and not marked missing from it
+                conditions.append(f"""(
+                    NOT EXISTS (
+                        SELECT 1 FROM worklink wl3
+                        WHERE wl3.work_id = w.id
+                        AND wl3.link LIKE '%kirjasampo.fi%'
+                    ) AND NOT EXISTS (
+                        SELECT 1 FROM worktag wt3
+                        WHERE wt3.work_id = w.id
+                        AND wt3.tag_id = {int(KIRJASAMPO_MISSING_TAG_ID)}
                     ))""")
 
         # Edition-level conditions (except image which needs special handling)

@@ -1373,6 +1373,7 @@ Includes omnibus, work types, work tags, random incomplete, and shorts save.
 | `test_random_incomplete_processes_request` | POST processes request |
 | `test_random_incomplete_with_count` | Count parameter works |
 | `test_random_incomplete_with_missing_fields` | missing_fields filter works |
+| `test_random_incomplete_kirjasampo_link` | `kirjasampo_link`: total is the works without a Kirjasampo link minus those with the missing-from-Kirjasampo tag (by id); a work given the tag is left out |
 | `test_random_incomplete_invalid_count` | Invalid count handles gracefully |
 
 **Note:** This endpoint has a database bug (DISTINCT + ORDER BY RANDOM())
