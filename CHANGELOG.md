@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-14 — Similar tags: "Päivitetty" shows the last change
+**Commits:** `b12fb08a`
+The similar-tags job writes only the pairs that are new or changed, so a
+run with nothing new writes nothing, and the admin card's "Päivitetty"
+date shows when the suggestions last changed instead of the latest run.
+
 ## 2026-11-14 — Similarity jobs every hour
 **Commits:** `cc2cf12f`
 A systemd user timer on the workstation runs the similar-works and
