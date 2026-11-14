@@ -5,6 +5,12 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-14 — Works without a Kirjasampo link
+**Commits:** `f4c4fe27`
+The random incomplete works search can look for works with no Kirjasampo
+link (`kirjasampo_link`). Works tagged as missing from Kirjasampo are left
+out; the tag is matched by its id, so it can be renamed.
+
 ## 2026-11-14 — Similar tags: "Päivitetty" shows the last change
 **Commits:** `b12fb08a`
 The similar-tags job writes only the pairs that are new or changed, so a
