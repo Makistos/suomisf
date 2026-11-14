@@ -2389,6 +2389,7 @@ description tests pass vectors or a fake `embed` function.
 | `test_run_stores_lists_and_a_rerun_changes_nothing` | full run and `apply` | stored targets in rank order from 1; run record has the input hash; a reload hashes the same and plans no rewrites |
 | `test_lista_tags_are_not_loaded_and_pseudonyms_count_as_the_person` | a Lista tag on a work | the tag isn't loaded; a pseudonym's work lists the real person as author |
 | `test_vectors_are_stored_and_read_back` | store vectors for a work and for a missing work id | only the existing work's vector is stored, with its hash, and reads back equal |
+| `test_lists_are_written_in_batches_without_deleted_works` | `apply` with a batch size of 2; one target and one source missing from `work` | rows are written over several statements; rows with a missing work are left out; rank, score, signals, reasons and version are stored as given |
 | `test_single_work_update_leaves_the_run_record` | `only={id}` update | only that list computed; no run record written |
 
 ---

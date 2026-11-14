@@ -455,6 +455,33 @@ def test_vectors_are_stored_and_read_back(conn):
     assert np.allclose(np.frombuffer(stored[work][1], dtype='<f4'), vector)
 
 
+def test_lists_are_written_in_batches_without_deleted_works(conn,
+                                                             monkeypatch):
+    monkeypatch.setattr(ws, 'INSERT_BATCH', 2)
+    a, b, c = [r[0] for r in conn.execute(text(
+        'SELECT id FROM work ORDER BY id LIMIT 3'))]
+    signals = {'S': 0.5, 'types': {'1': 0.4}}
+    reasons = [{'type': 1, 'tags': [7], 'contribution': 0.2}]
+    lists = {
+        a: [ws.Rec(b, 0.9, signals, reasons), ws.Rec(-1, 0.8, {}, []),
+            ws.Rec(c, 0.7, {}, [])],
+        b: [ws.Rec(a, 0.6, {}, [])],
+        -2: [ws.Rec(a, 0.5, {}, [])],
+    }
+    ws.apply(conn, lists, ws.Changes(rewritten=[a, b, -2]), None, 3)
+    rows = conn.execute(text(
+        'SELECT source_work_id, target_work_id, rank, score, '
+        'signal_scores, reasons, algorithm_version FROM work_similarity '
+        'ORDER BY source_work_id, rank')).all()
+    # Rank 2 of a went to a missing work; source -2 doesn't exist.
+    assert [(r.source_work_id, r.target_work_id, r.rank) for r in rows] \
+        == [(a, b, 1), (a, c, 3), (b, a, 1)]
+    assert rows[0].score == pytest.approx(0.9)
+    assert rows[0].signal_scores == signals
+    assert rows[0].reasons == reasons
+    assert rows[0].algorithm_version == ws.ALGORITHM_VERSION
+
+
 def test_single_work_update_leaves_the_run_record(conn):
     works, _ = ws.load_works(conn)
     eligible, _ = ws.compute_lists(works)

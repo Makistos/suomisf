@@ -41,6 +41,7 @@ from typing import (Any, Callable, Dict, FrozenSet, Iterable, List,
 
 import dotenv
 import numpy as np
+from psycopg2.extras import execute_values
 from sqlalchemy import create_engine, make_url, text
 
 directory_path = os.path.abspath(
@@ -611,6 +612,10 @@ def fastembed_embedder() -> Embed:
     return embed
 
 
+# Descriptions embedded between progress lines.
+EMBED_PROGRESS = 250
+
+
 def embed_missing(texts: Dict[int, str],
                   stored: Dict[int, Tuple[str, bytes]], embed: Embed,
                   rebuild: bool = False
@@ -629,13 +634,18 @@ def embed_missing(texts: Dict[int, str],
     new: List[Tuple[int, str, bytes]] = []
     if todo:
         start = time.monotonic()
-        for wid, vector in zip(todo, embed([texts[w] for w in todo]),
-                               strict=True):
-            vector = vector.astype('<f4')
-            vectors[wid] = vector
-            new.append((wid, text_hash(texts[wid]), vector.tobytes()))
+        for i in range(0, len(todo), EMBED_PROGRESS):
+            chunk = todo[i:i + EMBED_PROGRESS]
+            for wid, vector in zip(chunk, embed([texts[w] for w in chunk]),
+                                   strict=True):
+                vector = vector.astype('<f4')
+                vectors[wid] = vector
+                new.append((wid, text_hash(texts[wid]), vector.tobytes()))
+            if len(todo) > EMBED_PROGRESS:
+                print(f'  embedded {len(new)}/{len(todo)} '
+                      f'({time.monotonic() - start:.0f} s)', flush=True)
         print(f'Embedded {len(todo)} descriptions in '
-              f'{time.monotonic() - start:.0f} s.')
+              f'{time.monotonic() - start:.0f} s.', flush=True)
     return vectors, new
 
 
@@ -680,17 +690,38 @@ def stored_vectors(conn: Any) -> Dict[int, Tuple[str, bytes]]:
                 'WHERE model = :m'), {'m': EMBED_MODEL})}
 
 
+# Rows per INSERT statement. Rows sent one by one take a round trip each,
+# which over the SSH tunnel to production (13 ms) made a full write of
+# about 110 000 rows take 25 minutes.
+INSERT_BATCH = 1000
+
+
+def insert_batched(conn: Any, sql: str, rows: List[Tuple[Any, ...]],
+                   template: str) -> None:
+    """Run sql, whose (VALUES %s) is filled with rows, INSERT_BATCH rows
+    per statement, in conn's transaction."""
+    cursor = conn.connection.cursor()
+    try:
+        execute_values(cursor, sql, rows, template=template,
+                       page_size=INSERT_BATCH)
+    finally:
+        cursor.close()
+
+
 def store_vectors(conn: Any, new: List[Tuple[int, str, bytes]]) -> None:
     if not new:
         return
     # Works deleted since they were read are left out.
-    conn.execute(text(
+    insert_batched(
+        conn,
         'INSERT INTO work_embedding (work_id, model, text_hash, vector) '
-        'SELECT :w, :m, :h, :v WHERE EXISTS (SELECT 1 FROM work '
-        'WHERE id = :w) ON CONFLICT (work_id, model) DO UPDATE SET '
+        'SELECT x.w, x.m, x.h, x.vec FROM (VALUES %s) AS x (w, m, h, vec) '
+        'WHERE EXISTS (SELECT 1 FROM work WHERE id = x.w) '
+        'ON CONFLICT (work_id, model) DO UPDATE SET '
         'text_hash = EXCLUDED.text_hash, vector = EXCLUDED.vector, '
-        'updated = now()'),
-        [{'w': w, 'm': EMBED_MODEL, 'h': h, 'v': v} for w, h, v in new])
+        'updated = now()',
+        [(w, EMBED_MODEL, h, v) for w, h, v in new],
+        '(%s::integer, %s::text, %s::text, %s::bytea)')
 
 
 def load_works(conn: Any) -> Tuple[List[Work], str]:
@@ -800,20 +831,23 @@ def apply(conn: Any, lists: Dict[int, List[Rec]], changes: Changes,
         conn.execute(text(
             'DELETE FROM work_similarity WHERE source_work_id = ANY(:ids)'),
             {'ids': touched})
-    rows = [{'s': source, 't': rec.target, 'rank': rank, 'score': rec.score,
-             'sig': json.dumps(rec.signals), 'rea': json.dumps(rec.reasons),
-             'v': ALGORITHM_VERSION}
+    rows = [(source, rec.target, rank, rec.score, json.dumps(rec.signals),
+             json.dumps(rec.reasons), ALGORITHM_VERSION)
             for source in changes.rewritten
             for rank, rec in enumerate(lists[source], start=1)]
     if rows:
         # Works deleted since they were read are left out.
-        conn.execute(text(
+        insert_batched(
+            conn,
             'INSERT INTO work_similarity (source_work_id, target_work_id, '
             'rank, score, signal_scores, reasons, algorithm_version) '
-            'SELECT :s, :t, :rank, :score, CAST(:sig AS jsonb), '
-            'CAST(:rea AS jsonb), :v '
-            'WHERE EXISTS (SELECT 1 FROM work WHERE id = :s) '
-            'AND EXISTS (SELECT 1 FROM work WHERE id = :t)'), rows)
+            'SELECT x.s, x.t, x.rank, x.score, x.sig, x.rea, x.v '
+            'FROM (VALUES %s) AS x (s, t, rank, score, sig, rea, v) '
+            'WHERE EXISTS (SELECT 1 FROM work WHERE id = x.s) '
+            'AND EXISTS (SELECT 1 FROM work WHERE id = x.t)',
+            rows,
+            '(%s::integer, %s::integer, %s::integer, %s::float8, '
+            '%s::jsonb, %s::jsonb, %s::integer)')
     if input_hash is not None:
         conn.execute(text(
             'INSERT INTO work_similarity_run (id, algorithm_version, '
@@ -990,6 +1024,8 @@ def main() -> int:
     vectors: Dict[int, np.ndarray] = {}
     new_vectors: List[Tuple[int, str, bytes]] = []
     if use_d:
+        print(f'{len(texts)} descriptions, {len(vectors_stored)} vectors '
+              'stored; embedding the new and changed ones.', flush=True)
         # The model (2 GB) is loaded only if something needs embedding.
         vectors, new_vectors = embed_missing(
             texts, vectors_stored,
@@ -1001,6 +1037,7 @@ def main() -> int:
                 conn.execute(text('SET search_path = suomisf'))
                 store_vectors(conn, new_vectors)
             new_vectors = []
+    print('Scoring every pair of works...', flush=True)
     works, lists = compute_lists(
         all_works, only=only,
         description=description_model(vectors) if vectors else None)
@@ -1034,6 +1071,7 @@ def main() -> int:
     if args.dry_run:
         verb = 'Would rewrite'
     else:
+        print(f'Writing {len(changes.rewritten)} lists...', flush=True)
         # One short transaction for the vectors and the lists.
         with engine.begin() as conn:
             conn.execute(text('SET search_path = suomisf'))
