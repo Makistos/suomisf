@@ -157,6 +157,7 @@ class PersonPageWorkBriefSchema(ma.SQLAlchemySchema):  # type: ignore
     """ Work schema, brief version. """
     id = fields.Int()
     title = fields.String()
+    subtitle = fields.String(allow_none=True)
     orig_title = fields.String(allow_none=True)
     author_str = fields.String()
     pubyear = fields.Int(allow_none=True)

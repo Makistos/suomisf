@@ -86,6 +86,15 @@ def test_person_page_nested_editions_are_slim(client):
     assert set(tagged['tags'][0]) == {'id', 'name', 'type'}
 
 
+
+def test_person_page_works_have_subtitles(client):
+    """The person page's work list shows a work's subtitle."""
+    # Work 57, "Kuolemanlaakson kurimuksessa: jännitysromaani nuorisolle".
+    person = client.get('/api/people/52').get_json()
+    work = next(w for w in person['works'] if w['id'] == 57)
+    assert work['subtitle'] == 'jännitysromaani nuorisolle'
+    assert all('subtitle' in w for w in person['works'])
+
 BIG_TAG = 521   # dystopia, ~360 works
 
 
