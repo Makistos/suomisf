@@ -5,6 +5,11 @@ _This list is abbreviated. The project has 1217 commits in total;
 ~40 significant changes. Internal refactoring, snapshot updates,
 cover image saves, and dependency bumps are omitted or grouped._
 
+## 2026-11-15 — Person page: work subtitles
+**Commits:** `3f048a23`
+The person API sends each work's subtitle, so the person page's work list
+can show it.
+
 ## 2026-11-14 — Works without a Kirjasampo link
 **Commits:** `f4c4fe27`
 The random incomplete works search can look for works with no Kirjasampo
