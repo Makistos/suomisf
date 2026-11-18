@@ -3,6 +3,7 @@ import os
 # from dotenv import load_dotenv
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+imagedir = os.path.join(basedir, 'app', 'static', 'images')
 
 
 class Config(object):
@@ -44,10 +45,9 @@ class DevConfig(Config):  # pylint: disable=too-few-public-methods
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'suomisf.db')
-    BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'
-    PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
-    MAGAZINECOVER_SAVELOC = \
-        '/home/mep/src/suomisf/app/static/images/magazines/'
+    BOOKCOVER_SAVELOC = os.path.join(imagedir, 'books', '')
+    PERSONIMG_SAVELOC = os.path.join(imagedir, 'people', '')
+    MAGAZINECOVER_SAVELOC = os.path.join(imagedir, 'magazines', '')
 
 
 class ProdConfig(Config):  # pylint: disable=too-few-public-methods
@@ -72,10 +72,9 @@ class StagingConfig(Config):  # pylint: disable=too-few-public-methods
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite://' + os.path.join(basedir, 'suomisf.db')
-    BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'
-    PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
-    MAGAZINECOVER_SAVELOC = \
-        '/home/mep/src/suomisf/app/static/images/magazines/'
+    BOOKCOVER_SAVELOC = os.path.join(imagedir, 'books', '')
+    PERSONIMG_SAVELOC = os.path.join(imagedir, 'people', '')
+    MAGAZINECOVER_SAVELOC = os.path.join(imagedir, 'magazines', '')
 
 
 class TestingConfig(Config):  # pylint: disable=too-few-public-methods
@@ -86,7 +85,6 @@ class TestingConfig(Config):  # pylint: disable=too-few-public-methods
     SQLALCHEMY_ECHO = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL_TEST') or \
         'sqlite://' + os.path.join(basedir, 'suomisf.db')
-    BOOKCOVER_SAVELOC = '/home/mep/src/suomisf/app/static/images/books/'
-    PERSONIMG_SAVELOC = '/home/mep/src/suomisf/app/static/images/people/'
-    MAGAZINECOVER_SAVELOC = \
-        '/home/mep/src/suomisf/app/static/images/magazines/'
+    BOOKCOVER_SAVELOC = os.path.join(imagedir, 'books', '')
+    PERSONIMG_SAVELOC = os.path.join(imagedir, 'people', '')
+    MAGAZINECOVER_SAVELOC = os.path.join(imagedir, 'magazines', '')
