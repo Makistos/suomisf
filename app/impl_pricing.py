@@ -35,7 +35,9 @@ KAMPINKIRJAKAUPPA_BASE = 'https://www.kampinkirjakauppa.fi'
 # ---------------------------------------------------------------------------
 
 def _parse_version(painos: str) -> Optional[int]:
-    """Parse edition number from '2', '3. painos', etc. Returns None if unparseable."""
+    """Parse edition number from '2', '3. painos', etc. Returns None if
+    unparseable.
+    """
     if not painos:
         return None
     painos = painos.strip()
@@ -61,7 +63,9 @@ def _condition_int(condition: str) -> Optional[int]:
 
 
 def _binding_category(sidonta: str) -> Optional[int]:
-    """Map Antikvaari binding string to bindingtype ID: 2=Nidottu, 3=Sidottu, None=unknown."""
+    """Map Antikvaari binding string to bindingtype ID: 2=Nidottu, 3=Sidottu,
+    None=unknown.
+    """
     if not sidonta:
         return None
     low = sidonta.lower()
@@ -73,7 +77,9 @@ def _binding_category(sidonta: str) -> Optional[int]:
 
 
 def _fetch_next_data(url: str) -> Optional[Dict[str, Any]]:
-    """Fetch a Next.js page and return pageProps from __NEXT_DATA__, or None on failure."""
+    """Fetch a Next.js page and return pageProps from __NEXT_DATA__, or None on
+    failure.
+    """
     try:
         resp = requests.get(url, headers={'User-Agent': _UA}, timeout=15)
         resp.raise_for_status()
@@ -97,14 +103,16 @@ def _edition_match_level(
     product_laitos: Optional[int] = None,
     edition_effective_editionnum: Optional[int] = None,
 ) -> str:
-    """Return 'same', 'close', or 'not_close' comparing our edition to Antikvaari product metadata.
+    """Return 'same', 'close', or 'not_close' comparing our edition to
+    Antikvaari product metadata.
 
     Antikvaari's 'painos' field is the print-run number, which maps to our
     edition.editionnum (not edition.version/laitos).
     product_laitos is the laitos/version number (not scraped from Antikvaari;
     supplied by the user when correcting mismatches).
 
-    edition_effective_editionnum overrides edition.editionnum when provided (used by
+    edition_effective_editionnum overrides edition.editionnum when provided
+    (used by
     _best_matching_edition to pass a chronologically-inferred editionnum for
     editions that have no stored editionnum).
     """
@@ -124,7 +132,8 @@ def _edition_match_level(
         if product_version != eff_editionnum:
             return 'not_close'
 
-    # Binding: must match when both sides have a known binding (>1 means not 'Ei tietoa')
+    # Binding: must match when both sides have a known binding (>1 means not
+    # 'Ei tietoa')
     if (product_binding is not None and product_binding > 1
             and edition.binding_id and edition.binding_id > 1):
         if product_binding != edition.binding_id:
@@ -136,13 +145,18 @@ def _edition_match_level(
         if diff > 10:
             return 'not_close'
         # Only demote to 'close' for year diff when painos is not confirmed.
-        # When painos matches, a small year discrepancy is a data-entry artefact.
+        # When painos matches, a small year discrepancy is a data-entry
+        # artefact.
         if diff > 0 and product_version is None:
             return 'close'
 
     # When no Antikvaari metadata is provided at all, the edition is already
     # confirmed matched (stored-prices path) — skip ambiguity checks.
-    if product_version is None and product_year is None and product_binding is None:
+    if (
+        product_version is None
+        and product_year is None
+        and product_binding is None
+    ):
         return 'same'
 
     # When no edition number is provided by Antikvaari, require both year and
@@ -172,11 +186,26 @@ def _edition_match_level(
 def antikvaari_search(q: str, isbn: str = '') -> ResponseType:
     """Proxy Antikvaari product search. Returns all matching products."""
     params = {
-        'q': q, 'added': '', 'author': '', 'binding': '', 'campaign': 'false',
-        'campaign_id': '', 'category_ids': '', 'category_main_id': '', 'isbn': isbn,
-        'language_codes': '', 'new_only': '0', 'price': '0:500', 'publisher': '',
-        'title': '', 'vendor_ids': '', 'year': '', 'year_min': '', 'year_max': '',
-        'sort': '', 'page': '1',
+        'q': q,
+        'added': '',
+        'author': '',
+        'binding': '',
+        'campaign': 'false',
+        'campaign_id': '',
+        'category_ids': '',
+        'category_main_id': '',
+        'isbn': isbn,
+        'language_codes': '',
+        'new_only': '0',
+        'price': '0:500',
+        'publisher': '',
+        'title': '',
+        'vendor_ids': '',
+        'year': '',
+        'year_min': '',
+        'year_max': '',
+        'sort': '',
+        'page': '1',
     }
     try:
         resp = requests.get(_SEARCH_URL, params=params, timeout=15)
@@ -218,7 +247,8 @@ def _woocommerce_search(base_url: str, product_path: str,
                         q: str, isbn: str = '') -> ResponseType:
     """Search a WooCommerce shop. Each result is a single physical copy.
 
-    Unlike Antikvaari (where a product aggregates many copies), every WooCommerce
+    Unlike Antikvaari (where a product aggregates many copies), every
+    WooCommerce
     search hit is one listing, so available_count is always 1. ``product_path``
     is the shop's product URL segment (e.g. '/tuote/' or '/product/'), used to
     detect the single-result redirect and to spot product links.
@@ -239,17 +269,24 @@ def _woocommerce_search(base_url: str, product_path: str,
     if product_path in resp.url:
         title_el = soup.select_one('h1.product_title')
         img_el = soup.select_one('img.wp-post-image')
-        return ResponseType([{
-            'product_id': resp.url.rstrip('/').split('/')[-1],
-            'title': title_el.get_text(strip=True) if title_el else q,
-            'author': _woocommerce_attributes(soup).get('Tekijä', ''),
-            'year': '',
-            'binding': '',
-            'url': resp.url,
-            'image': img_el.get('src', '') if img_el else '',
-            'available_count': 1,
-            'price': _woocommerce_price(soup.select_one('p.price .woocommerce-Price-amount')),
-        }], HttpResponseCode.OK)
+        return ResponseType(
+            [
+                {
+                    'product_id': resp.url.rstrip('/').split('/')[-1],
+                    'title': title_el.get_text(strip=True) if title_el else q,
+                    'author': _woocommerce_attributes(soup).get('Tekijä', ''),
+                    'year': '',
+                    'binding': '',
+                    'url': resp.url,
+                    'image': img_el.get('src', '') if img_el else '',
+                    'available_count': 1,
+                    'price': _woocommerce_price(
+                        soup.select_one('p.price .woocommerce-Price-amount')
+                    ),
+                }
+            ],
+            HttpResponseCode.OK,
+        )
 
     products: List[Dict[str, Any]] = []
     seen: set = set()
@@ -266,17 +303,21 @@ def _woocommerce_search(base_url: str, product_path: str,
         title_el = li.select_one('.woocommerce-loop-product__title')
         author_el = li.select_one('.author')
         img_el = li.select_one('img')
-        products.append({
-            'product_id': product_id,
-            'title': title_el.get_text(strip=True) if title_el else '',
-            'author': author_el.get_text(strip=True) if author_el else '',
-            'year': '',
-            'binding': '',
-            'url': url,
-            'image': img_el.get('src', '') if img_el else '',
-            'available_count': 1,
-            'price': _woocommerce_price(li.select_one('.price .woocommerce-Price-amount')),
-        })
+        products.append(
+            {
+                'product_id': product_id,
+                'title': title_el.get_text(strip=True) if title_el else '',
+                'author': author_el.get_text(strip=True) if author_el else '',
+                'year': '',
+                'binding': '',
+                'url': url,
+                'image': img_el.get('src', '') if img_el else '',
+                'available_count': 1,
+                'price': _woocommerce_price(
+                    li.select_one('.price .woocommerce-Price-amount')
+                ),
+            }
+        )
     return ResponseType(products, HttpResponseCode.OK)
 
 
@@ -298,7 +339,8 @@ def _price_from_text(text: str) -> Optional[float]:
 
 
 def antikvariaatti_search(q: str, isbn: str = '') -> ResponseType:
-    """Search antikvariaatti.net. Each result card is a single physical copy."""
+    """Search antikvariaatti.net. Each result card is a single physical copy.
+    """
     query = f'{q} {isbn}'.strip()
     try:
         # type=1 restricts results to books.
@@ -326,17 +368,21 @@ def antikvariaatti_search(q: str, isbn: str = '') -> ResponseType:
         issuer = card.select_one('.search_result_product_issuer')
         price_el = card.select_one('.search_result_product_price')
         img = card.select_one('img')
-        products.append({
-            'product_id': product_id,
-            'title': title.get_text(strip=True) if title else '',
-            'author': issuer.get_text(strip=True) if issuer else '',
-            'year': '',
-            'binding': '',
-            'url': url,
-            'image': img.get('src', '') if img else '',
-            'available_count': 1,
-            'price': _price_from_text(price_el.get_text()) if price_el else None,
-        })
+        products.append(
+            {
+                'product_id': product_id,
+                'title': title.get_text(strip=True) if title else '',
+                'author': issuer.get_text(strip=True) if issuer else '',
+                'year': '',
+                'binding': '',
+                'url': url,
+                'image': img.get('src', '') if img else '',
+                'available_count': 1,
+                'price': _price_from_text(price_el.get_text())
+                if price_el
+                else None,
+            }
+        )
     return ResponseType(products, HttpResponseCode.OK)
 
 
@@ -383,7 +429,8 @@ def lukuhetki_search(q: str, isbn: str = '') -> ResponseType:
 
 
 def _format_kampin_author(raw: str) -> str:
-    """'VONNEGUT, KURT' -> 'Vonnegut Kurt'; passes through anything else as-is."""
+    """'VONNEGUT, KURT' -> 'Vonnegut Kurt'; passes through anything else as-is.
+    """
     last, sep, first = raw.strip().partition(',')
     if sep:
         return f'{last.strip().title()} {first.strip().title()}'
@@ -418,7 +465,12 @@ def _parse_kampin_description(desc: str) -> Dict[str, Any]:
     elif 'N' in tokens:
         binding = 2
 
-    return {'year': year, 'version': version, 'condition': condition, 'binding': binding}
+    return {
+        'year': year,
+        'version': version,
+        'condition': condition,
+        'binding': binding,
+    }
 
 
 def kampinkirjakauppa_search(q: str, isbn: str = '') -> ResponseType:
@@ -454,23 +506,29 @@ def kampinkirjakauppa_search(q: str, isbn: str = '') -> ResponseType:
         href = link['href']
         url = urljoin(KAMPINKIRJAKAUPPA_BASE + '/', href.lstrip('/'))
         id_match = re.search(r'id=\d+/(\d+)', href)
-        product_id = id_match.group(1) if id_match else url.rstrip('/').split('/')[-1]
+        product_id = (
+            id_match.group(1) if id_match else url.rstrip('/').split('/')[-1]
+        )
         if product_id in seen:
             continue
         seen.add(product_id)
         author, sep, title = link.get_text(strip=True).partition(':')
         price_el = card.select_one('.ws_product_price')
-        products.append({
-            'product_id': product_id,
-            'title': title.strip() if sep else author.strip(),
-            'author': _format_kampin_author(author) if sep else '',
-            'year': '',
-            'binding': '',
-            'url': url,
-            'image': '',
-            'available_count': 1,
-            'price': _price_from_text(price_el.get_text()) if price_el else None,
-        })
+        products.append(
+            {
+                'product_id': product_id,
+                'title': title.strip() if sep else author.strip(),
+                'author': _format_kampin_author(author) if sep else '',
+                'year': '',
+                'binding': '',
+                'url': url,
+                'image': '',
+                'available_count': 1,
+                'price': _price_from_text(price_el.get_text())
+                if price_el
+                else None,
+            }
+        )
     return ResponseType(products, HttpResponseCode.OK)
 
 
@@ -483,13 +541,23 @@ def _resolve_source(session: Any, source: Any) -> Optional[PriceSource]:
     if source is None:
         return (session.query(PriceSource)
                 .filter(PriceSource.name == 'Antikvaari').first())
-    if isinstance(source, int) or (isinstance(source, str) and source.isdigit()):
-        return session.query(PriceSource).filter(PriceSource.id == int(source)).first()
-    return session.query(PriceSource).filter(PriceSource.name == source).first()
+    if isinstance(source, int) or (
+        isinstance(source, str) and source.isdigit()
+    ):
+        return (
+            session.query(PriceSource)
+            .filter(PriceSource.id == int(source))
+            .first()
+        )
+    return (
+        session.query(PriceSource).filter(PriceSource.name == source).first()
+    )
 
 
 def work_products_get(work_id: int, source: Any = None) -> ResponseType:
-    """Return product IDs linked to a work for a given source (default Antikvaari)."""
+    """Return product IDs linked to a work for a given source (default
+    Antikvaari).
+    """
     session = new_session()
     try:
         src = _resolve_source(session, source)
@@ -514,7 +582,9 @@ def work_products_get(work_id: int, source: Any = None) -> ResponseType:
 
 def work_products_save(work_id: int, products: List[Dict[str, Any]],
                        source: Any = None) -> ResponseType:
-    """Link products (id+url) from a source to a work. Existing mappings are preserved."""
+    """Link products (id+url) from a source to a work. Existing mappings are
+    preserved.
+    """
     session = new_session()
     try:
         work = session.query(Work).filter(Work.id == work_id).first()
@@ -534,13 +604,20 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]],
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
         added = 0
         for item in products:
-            pid = item.get('product_id', '') if isinstance(item, dict) else item
+            pid = (
+                item.get('product_id', '') if isinstance(item, dict) else item
+            )
             url = item.get('url') if isinstance(item, dict) else None
-            rejected = bool(item.get('rejected', False)) if isinstance(item, dict) else False
+            rejected = (
+                bool(item.get('rejected', False))
+                if isinstance(item, dict)
+                else False
+            )
             if not pid:
                 continue
             if pid in existing:
-                # If previously rejected and now being added as linked, un-reject it
+                # If previously rejected and now being added as linked, un-
+                # reject it
                 existing_row = existing[pid]
                 if not rejected and existing_row.rejected:
                     existing_row.rejected = False
@@ -560,32 +637,44 @@ def work_products_save(work_id: int, products: List[Dict[str, Any]],
         return ResponseType({'added': added}, HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
-        return ResponseType(f'Save failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+        return ResponseType(
+            f'Save failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR
+        )
     finally:
         session.close()
 
 
 def work_product_delete(work_id: int, product_id: str,
                         source: Any = None) -> ResponseType:
-    """Remove a product link from a work for a given source (default Antikvaari)."""
+    """Remove a product link from a work for a given source (default
+    Antikvaari).
+    """
     session = new_session()
     try:
         src = _resolve_source(session, source)
         if not src:
             return ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
-        row = (session.query(AntikvaariWorkProduct)
-               .filter(AntikvaariWorkProduct.work_id == work_id,
-                       AntikvaariWorkProduct.source_id == src.id,
-                       AntikvaariWorkProduct.antikvaari_product_id == product_id)
-               .first())
+        row = (
+            session.query(AntikvaariWorkProduct)
+            .filter(
+                AntikvaariWorkProduct.work_id == work_id,
+                AntikvaariWorkProduct.source_id == src.id,
+                AntikvaariWorkProduct.antikvaari_product_id == product_id,
+            )
+            .first()
+        )
         if not row:
-            return ResponseType('Product not found', HttpResponseCode.NOT_FOUND)
+            return ResponseType(
+                'Product not found', HttpResponseCode.NOT_FOUND
+            )
         session.delete(row)
         session.commit()
         return ResponseType({'deleted': product_id}, HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
-        return ResponseType(f'Delete failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+        return ResponseType(
+            f'Delete failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR
+        )
     finally:
         session.close()
 
@@ -626,7 +715,8 @@ def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]],
             if bid and bid not in existing_excluded:
                 session.add(AntikvaariExcludedBook(antikvaari_book_id=bid))
 
-        # Remove un-excluded book IDs (user re-checked a previously excluded copy)
+        # Remove un-excluded book IDs (user re-checked a previously excluded
+        # copy)
         for row in included_rows:
             bid = row.get('antikvaari_book_id')
             if bid and bid in existing_excluded:
@@ -643,7 +733,11 @@ def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]],
             product_year = row.get('antikvaari_product_year')
             product_binding = row.get('antikvaari_product_binding')
             edition, match_level = _best_matching_edition(
-                editions, product_year, product_version, product_binding, product_laitos
+                editions,
+                product_year,
+                product_version,
+                product_binding,
+                product_laitos,
             )
             updated_row = {
                 **row,
@@ -672,19 +766,27 @@ def antikvaari_prices_save_all(work_id: int, rows: List[Dict[str, Any]],
         total_skipped += 1
 
     for row in no_edition_rows:
-        reason = 'no_edition' if row.get('edition_id') is None else 'edition_missing'
+        reason = (
+            'no_edition'
+            if row.get('edition_id') is None
+            else 'edition_missing'
+        )
         detail_rows.append({**row, 'status': 'skipped', 'reason': reason})
         total_skipped += 1
 
     for edition_id, edition_rows in by_edition.items():
         result = antikvaari_prices_save(edition_id, edition_rows, user_id)
-        if result.status == HttpResponseCode.OK and isinstance(result.response, dict):
+        if result.status == HttpResponseCode.OK and isinstance(
+            result.response, dict
+        ):
             total_saved += result.response.get('saved', 0)
             total_skipped += result.response.get('skipped', 0)
             detail_rows.extend(result.response.get('rows', []))
         else:
             for row in edition_rows:
-                detail_rows.append({**row, 'status': 'error', 'reason': str(result.response)})
+                detail_rows.append(
+                    {**row, 'status': 'error', 'reason': str(result.response)}
+                )
 
     return ResponseType({
         'saved': total_saved,
@@ -702,7 +804,8 @@ def antikvaari_fetch_products(
     work_id: int,
     target_condition: Optional[str] = None,
 ) -> ResponseType:
-    """Scrape Antikvaari product pages and return price rows with match quality.
+    """Scrape Antikvaari product pages and return price rows with match
+    quality.
 
     All physical book copies found across all product pages are returned. The
     best-matching edition within the work is determined for each copy and used
@@ -711,9 +814,11 @@ def antikvaari_fetch_products(
     Args:
         product_urls: Antikvaari product page URLs to scrape.
         work_id: Our work ID — used to find editions for match quality.
-        target_condition: User's copy condition (e.g. 'K3') for condition comparison.
+        target_condition: User's copy condition (e.g. 'K3') for condition
+            comparison.
     Returns:
-        ResponseType with list of price row dicts, each including 'match_quality'
+        ResponseType with list of price row dicts, each including
+        'match_quality'
         and 'edition_id' of the best-matching edition.
     """
     session = new_session()
@@ -759,8 +864,12 @@ def antikvaari_fetch_products(
             catalog_languages = catalog.get('languages') or []
             language_code = catalog_languages[0] if catalog_languages else None
 
-            feed_elements = props.get('dataFeed', {}).get('dataFeedElement', [])
-            book_el = next((el for el in feed_elements if el.get('@type') == 'Book'), None)
+            feed_elements = props.get('dataFeed', {}).get(
+                'dataFeedElement', []
+            )
+            book_el = next(
+                (el for el in feed_elements if el.get('@type') == 'Book'), None
+            )
             work_examples = book_el.get('workExample', []) if book_el else []
 
             for we in work_examples:
@@ -774,7 +883,9 @@ def antikvaari_fetch_products(
                     continue
 
                 psp = book_props.get('preSelectedProduct', {})
-                book_id = psp.get('_id', '') or book_url.rstrip('/').split('/')[-1]
+                book_id = (
+                    psp.get('_id', '') or book_url.rstrip('/').split('/')[-1]
+                )
 
                 painos_raw = psp.get('painos', '') or we.get('bookEdition', '')
                 painovuosi_raw = psp.get('painovuosi', '') or fallback_year
@@ -786,7 +897,9 @@ def antikvaari_fetch_products(
 
                 price_val = psp.get('hinta')
                 if price_val is None:
-                    price_str = action.get('expectsAcceptanceOf', {}).get('price')
+                    price_str = action.get('expectsAcceptanceOf', {}).get(
+                        'price'
+                    )
                     price_val = float(price_str) if price_str else None
 
                 # date_listed: decoded from MongoDB ObjectID first 4 bytes
@@ -800,7 +913,8 @@ def antikvaari_fetch_products(
                     except (ValueError, OSError):
                         pass
 
-                # last_updated: pvm field = when seller last modified the listing
+                # last_updated: pvm field = when seller last modified the
+                # listing
                 last_updated = None
                 pvm_str = psp.get('pvm', '')
                 if pvm_str:
@@ -824,45 +938,69 @@ def antikvaari_fetch_products(
                     editions, product_year, product_version, binding_id
                 )
 
-                rows.append({
-                    'edition_id': edition.id if edition else None,
-                    'edition_pubyear': edition.pubyear if edition else None,
-                    'edition_version': edition.version if edition else None,
-                    'edition_match_level': edition_match_level,
-                    'antikvaari_book_id': book_id,
-                    'antikvaari_product_id': product_id,
-                    'antikvaari_product_page_url': product_url,
-                    'antikvaari_product_url': book_url,
-                    'antikvaari_product_year': product_year,
-                    'antikvaari_product_binding': binding_id,
-                    'antikvaari_product_version': product_version,
-                    # not provided by Antikvaari; user may set it
-                    'antikvaari_product_laitos': None,
-                    'book_title': psp.get('nimi', '') or fallback_title or None,
-                    'book_author': psp.get('tekija', '') or fallback_author or None,
-                    'book_language': language_code,
-                    'seller': psp.get('ynimi') or None,
-                    'seller_url': None,  # Antikvaari exposes no vendor page URL
-                    'date_listed': date_listed,
-                    'last_updated': last_updated.isoformat() if last_updated else None,
-                    'condition': condition,
-                    'is_library_discard': 'kirjaston poistotuote' in extra_lower,
-                    'has_markings': 'merkintöjä' in extra_lower,
-                    'missing_dust_cover': ('ei kansipaperia' in extra_lower
-                                          or 'ei kansipapereita' in extra_lower),
-                    'price': price_val,
-                    'match_quality': calculate_match_quality(
-                        edition, condition, product_year, product_version,
-                        binding_id, target_condition,
-                    ) if edition else None,
-                    'user_excluded': book_id in excluded_ids,
-                })
+                rows.append(
+                    {
+                        'edition_id': edition.id if edition else None,
+                        'edition_pubyear': edition.pubyear
+                        if edition
+                        else None,
+                        'edition_version': edition.version
+                        if edition
+                        else None,
+                        'edition_match_level': edition_match_level,
+                        'antikvaari_book_id': book_id,
+                        'antikvaari_product_id': product_id,
+                        'antikvaari_product_page_url': product_url,
+                        'antikvaari_product_url': book_url,
+                        'antikvaari_product_year': product_year,
+                        'antikvaari_product_binding': binding_id,
+                        'antikvaari_product_version': product_version,
+                        # not provided by Antikvaari; user may set it
+                        'antikvaari_product_laitos': None,
+                        'book_title': psp.get('nimi', '')
+                        or fallback_title
+                        or None,
+                        'book_author': psp.get('tekija', '')
+                        or fallback_author
+                        or None,
+                        'book_language': language_code,
+                        'seller': psp.get('ynimi') or None,
+                        # Antikvaari exposes no vendor page URL
+                        'seller_url': None,
+                        'date_listed': date_listed,
+                        'last_updated': last_updated.isoformat()
+                        if last_updated
+                        else None,
+                        'condition': condition,
+                        'is_library_discard': 'kirjaston poistotuote'
+                        in extra_lower,
+                        'has_markings': 'merkintöjä' in extra_lower,
+                        'missing_dust_cover': (
+                            'ei kansipaperia' in extra_lower
+                            or 'ei kansipapereita' in extra_lower
+                        ),
+                        'price': price_val,
+                        'match_quality': calculate_match_quality(
+                            edition,
+                            condition,
+                            product_year,
+                            product_version,
+                            binding_id,
+                            target_condition,
+                        )
+                        if edition
+                        else None,
+                        'user_excluded': book_id in excluded_ids,
+                    }
+                )
 
         session.commit()
         return ResponseType(rows, HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
-        return ResponseType(f'Fetch failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+        return ResponseType(
+            f'Fetch failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR
+        )
     finally:
         session.close()
 
@@ -874,7 +1012,8 @@ def _single_page_fetch_products(
     scrape_fn: Callable[[str], Dict[str, Any]],
     source_name: str,
 ) -> ResponseType:
-    """Fetch prices from shops where each product URL is a single physical copy.
+    """Fetch prices from shops where each product URL is a single physical
+    copy.
 
     Shared by antikka.net and antikvariaatti.net: scrapes one page per URL with
     ``scrape_fn`` and produces one row each, in the same shape as
@@ -968,7 +1107,9 @@ def _single_page_fetch_products(
         return ResponseType(rows, HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
-        return ResponseType(f'Fetch failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+        return ResponseType(
+            f'Fetch failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR
+        )
     finally:
         session.close()
 
@@ -978,9 +1119,12 @@ def antikka_fetch_products(
     work_id: int,
     target_condition: Optional[str] = None,
 ) -> ResponseType:
-    """Scrape antikka.net listing pages and return price rows with match quality."""
+    """Scrape antikka.net listing pages and return price rows with match
+    quality.
+    """
     return _single_page_fetch_products(
-        product_urls, work_id, target_condition, _scrape_woocommerce, 'Antikka')
+        product_urls, work_id, target_condition, _scrape_woocommerce, 'Antikka'
+    )
 
 
 def oranssiplaneetta_fetch_products(
@@ -988,7 +1132,9 @@ def oranssiplaneetta_fetch_products(
     work_id: int,
     target_condition: Optional[str] = None,
 ) -> ResponseType:
-    """Scrape oranssiplaneetta.fi listing pages and return price rows with match quality."""
+    """Scrape oranssiplaneetta.fi listing pages and return price rows with
+    match quality.
+    """
     return _single_page_fetch_products(
         product_urls, work_id, target_condition, _scrape_woocommerce,
         'Oranssi Planeetta')
@@ -999,7 +1145,9 @@ def antikvariaatti_fetch_products(
     work_id: int,
     target_condition: Optional[str] = None,
 ) -> ResponseType:
-    """Scrape antikvariaatti.net product pages and return price rows with match quality."""
+    """Scrape antikvariaatti.net product pages and return price rows with match
+    quality.
+    """
     return _single_page_fetch_products(
         product_urls, work_id, target_condition,
         _scrape_antikvariaatti, 'Antikvariaatti')
@@ -1010,7 +1158,9 @@ def lukuhetki_fetch_products(
     work_id: int,
     target_condition: Optional[str] = None,
 ) -> ResponseType:
-    """Scrape lukuhetki.fi product pages and return price rows with match quality."""
+    """Scrape lukuhetki.fi product pages and return price rows with match
+    quality.
+    """
     return _single_page_fetch_products(
         product_urls, work_id, target_condition,
         _scrape_lukuhetki, 'Lukuhetki')
@@ -1021,7 +1171,9 @@ def kampinkirjakauppa_fetch_products(
     work_id: int,
     target_condition: Optional[str] = None,
 ) -> ResponseType:
-    """Scrape kampinkirjakauppa.fi product pages and return price rows with match quality."""
+    """Scrape kampinkirjakauppa.fi product pages and return price rows with
+    match quality.
+    """
     return _single_page_fetch_products(
         product_urls, work_id, target_condition,
         _scrape_kampinkirjakauppa, 'Kampin kirjakauppa')
@@ -1039,7 +1191,8 @@ def _best_matching_edition(
     match_level is 'same', 'close', or 'not_close'.
     Returns (None, 'not_close') when editions is empty.
 
-    product_laitos is the laitos/version number — None means unknown (Antikvaari
+    product_laitos is the laitos/version number — None means unknown
+    (Antikvaari
     doesn't provide it), in which case no laitos filtering is done.
 
     When the Antikvaari product carries a version number but our editions have
@@ -1063,9 +1216,16 @@ def _best_matching_edition(
 
     def score(ed: Edition) -> int:
         eff_enum = inferred.get(ed.id) if ed.editionnum is None else None
-        return level_rank[_edition_match_level(
-            ed, product_year, product_version, product_binding, product_laitos, eff_enum
-        )]
+        return level_rank[
+            _edition_match_level(
+                ed,
+                product_year,
+                product_version,
+                product_binding,
+                product_laitos,
+                eff_enum,
+            )
+        ]
 
     best = min(editions, key=score)
     return best, rank_level[score(best)]
@@ -1075,11 +1235,18 @@ def _best_matching_edition(
 # Internal: change detection
 # ---------------------------------------------------------------------------
 
-def _is_changed(existing: 'AntikvaariPrice', new_last_updated: Optional[datetime.datetime],
-                row: Dict[str, Any]) -> bool:
-    """Return True if any tracked field differs from the most recently stored row."""
+def _is_changed(
+    existing: 'AntikvaariPrice',
+    new_last_updated: Optional[datetime.datetime],
+    row: Dict[str, Any],
+) -> bool:
+    """Return True if any tracked field differs from the most recently stored
+    row.
+    """
     def _trunc(dt: Optional[datetime.datetime]) -> Optional[datetime.datetime]:
-        return dt.replace(tzinfo=None, microsecond=0) if dt is not None else None
+        return (
+            dt.replace(tzinfo=None, microsecond=0) if dt is not None else None
+        )
 
     if _trunc(existing.last_updated) != _trunc(new_last_updated):
         return True
@@ -1090,11 +1257,15 @@ def _is_changed(existing: 'AntikvaariPrice', new_last_updated: Optional[datetime
         pass
     if existing.condition != row.get('condition', ''):
         return True
-    if existing.is_library_discard != bool(row.get('is_library_discard', False)):
+    if existing.is_library_discard != bool(
+        row.get('is_library_discard', False)
+    ):
         return True
     if existing.has_markings != bool(row.get('has_markings', False)):
         return True
-    if existing.missing_dust_cover != bool(row.get('missing_dust_cover', False)):
+    if existing.missing_dust_cover != bool(
+        row.get('missing_dust_cover', False)
+    ):
         return True
     return False
 
@@ -1105,17 +1276,20 @@ def _is_changed(existing: 'AntikvaariPrice', new_last_updated: Optional[datetime
 
 def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
                            user_id: Optional[int] = None) -> ResponseType:
-    """Insert price rows for an edition only when data has changed since the last fetch.
+    """Insert price rows for an edition only when data has changed since the
+    last fetch.
 
     Each inserted row is permanent — prices are never updated or deleted.
-    A row is skipped when the most recent stored row for that book has identical
+    A row is skipped when the most recent stored row for that book has
+    identical
     last_updated, condition, price and flag values.
     """
     session = new_session()
     try:
         # Serialize concurrent saves for the same edition. Without this, two
         # near-simultaneous save requests (e.g. a double-submit) each see no
-        # existing row and both insert, creating duplicate price lines. The lock
+        # existing row and both insert, creating duplicate price lines. The
+        # lock
         # is held until this transaction commits, so the second save then sees
         # the first's rows and the change-detection skips the duplicate.
         session.execute(
@@ -1123,9 +1297,13 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
             {'ns': 8231, 'eid': edition_id},
         )
 
-        edition = session.query(Edition).filter(Edition.id == edition_id).first()
+        edition = (
+            session.query(Edition).filter(Edition.id == edition_id).first()
+        )
         if not edition:
-            return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
+            return ResponseType(
+                'Edition not found', HttpResponseCode.NOT_FOUND
+            )
 
         # Resolve the price source per row (rows carry source_id/source_name
         # from the fetch step). Falls back to Antikvaari for backward
@@ -1148,14 +1326,15 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
 
         now = datetime.datetime.now(datetime.timezone.utc).replace(tzinfo=None)
 
-        # Duplicate filters. A row is skipped when a stored row for this edition
+        # Duplicate filters. A row is skipped when a stored row for this
+        # edition
         # (or an earlier row in this batch) already represents the same copy:
         #   * book key  — same listing id (SKU), condition and price. The SKU
-        #     identifies one physical copy, so the same SKU at the same price is
-        #     the same copy regardless of source, seller or fetch date (the same
+        # identifies one physical copy, so the same SKU at the same price is
+        # the same copy regardless of source, seller or fetch date (the same
         #     seller lists the same book on several marketplaces).
-        #   * seller key — same (seller, painos, binding, condition, price), for
-        #     copies whose listing ids differ across shops. Only applies when the
+        # * seller key — same (seller, painos, binding, condition, price), for
+        # copies whose listing ids differ across shops. Only applies when the
         #     seller is known.
         def _price(price: Any) -> Optional[float]:
             try:
@@ -1202,7 +1381,9 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
             date_listed = None
             if row.get('date_listed'):
                 try:
-                    date_listed = datetime.date.fromisoformat(row['date_listed'])
+                    date_listed = datetime.date.fromisoformat(
+                        row['date_listed']
+                    )
                 except ValueError:
                     pass
 
@@ -1211,23 +1392,35 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
             if lu_raw:
                 try:
                     new_last_updated = datetime.datetime.fromisoformat(
-                        lu_raw if isinstance(lu_raw, str) else lu_raw.isoformat()
+                        lu_raw
+                        if isinstance(lu_raw, str)
+                        else lu_raw.isoformat()
                     ).replace(tzinfo=None)
                 except (ValueError, AttributeError):
                     pass
 
-            existing = (session.query(AntikvaariPrice)
-                        .filter(AntikvaariPrice.antikvaari_book_id == row['antikvaari_book_id'])
-                        .filter(AntikvaariPrice.edition_id == edition_id)
-                        .order_by(AntikvaariPrice.date_fetched.desc())
-                        .first())
+            existing = (
+                session.query(AntikvaariPrice)
+                .filter(
+                    AntikvaariPrice.antikvaari_book_id
+                    == row['antikvaari_book_id']
+                )
+                .filter(AntikvaariPrice.edition_id == edition_id)
+                .order_by(AntikvaariPrice.date_fetched.desc())
+                .first()
+            )
             if existing and not _is_changed(existing, new_last_updated, row):
                 skipped += 1
-                detail_rows.append({**row, 'status': 'skipped', 'reason': 'unchanged'})
+                detail_rows.append(
+                    {**row, 'status': 'skipped', 'reason': 'unchanged'}
+                )
                 continue
 
-            book_key = _book_key(row['antikvaari_book_id'], row.get('condition'),
-                                 row.get('price'))
+            book_key = _book_key(
+                row['antikvaari_book_id'],
+                row.get('condition'),
+                row.get('price'),
+            )
             dupe_key = _dupe_key(row.get('seller'),
                                  row.get('antikvaari_product_version'),
                                  row.get('antikvaari_product_binding'),
@@ -1240,30 +1433,39 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
             )
             if is_dup:
                 skipped += 1
-                detail_rows.append({**row, 'status': 'skipped', 'reason': 'duplicate'})
+                detail_rows.append(
+                    {**row, 'status': 'skipped', 'reason': 'duplicate'}
+                )
                 continue
 
-            session.add(AntikvaariPrice(
-                edition_id=edition_id,
-                source_id=_resolve_source_id(row),
-                antikvaari_book_id=row['antikvaari_book_id'],
-                antikvaari_product_id=row.get('antikvaari_product_id') or '',
-                antikvaari_product_year=row.get('antikvaari_product_year'),
-                antikvaari_product_binding=row.get('antikvaari_product_binding'),
-                antikvaari_product_version=row.get('antikvaari_product_version'),
-                date_listed=date_listed,
-                last_updated=new_last_updated or now,
-                date_fetched=now,
-                condition=row.get('condition', ''),
-                is_library_discard=row.get('is_library_discard', False),
-                has_markings=row.get('has_markings', False),
-                missing_dust_cover=row.get('missing_dust_cover', False),
-                price=row.get('price', 0),
-                url=row.get('antikvaari_product_url') or row.get('url'),
-                seller=row.get('seller') or None,
-                seller_url=row.get('seller_url') or None,
-                user_id=user_id,
-            ))
+            session.add(
+                AntikvaariPrice(
+                    edition_id=edition_id,
+                    source_id=_resolve_source_id(row),
+                    antikvaari_book_id=row['antikvaari_book_id'],
+                    antikvaari_product_id=row.get('antikvaari_product_id')
+                    or '',
+                    antikvaari_product_year=row.get('antikvaari_product_year'),
+                    antikvaari_product_binding=row.get(
+                        'antikvaari_product_binding'
+                    ),
+                    antikvaari_product_version=row.get(
+                        'antikvaari_product_version'
+                    ),
+                    date_listed=date_listed,
+                    last_updated=new_last_updated or now,
+                    date_fetched=now,
+                    condition=row.get('condition', ''),
+                    is_library_discard=row.get('is_library_discard', False),
+                    has_markings=row.get('has_markings', False),
+                    missing_dust_cover=row.get('missing_dust_cover', False),
+                    price=row.get('price', 0),
+                    url=row.get('antikvaari_product_url') or row.get('url'),
+                    seller=row.get('seller') or None,
+                    seller_url=row.get('seller_url') or None,
+                    user_id=user_id,
+                )
+            )
             if dupe_key:
                 batch_dupe_keys.add(dupe_key)
             if book_key:
@@ -1272,11 +1474,15 @@ def antikvaari_prices_save(edition_id: int, rows: List[Dict[str, Any]],
             detail_rows.append({**row, 'status': 'saved', 'reason': None})
 
         session.commit()
-        return ResponseType({'saved': saved, 'skipped': skipped, 'rows': detail_rows},
-                            HttpResponseCode.OK)
+        return ResponseType(
+            {'saved': saved, 'skipped': skipped, 'rows': detail_rows},
+            HttpResponseCode.OK,
+        )
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
-        return ResponseType(f'Save failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+        return ResponseType(
+            f'Save failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR
+        )
     finally:
         session.close()
 
@@ -1301,21 +1507,32 @@ def edition_prices_get(
     edition_id: int,
     target_condition: Optional[str] = None,
 ) -> ResponseType:
-    """Return stored price rows for an edition, each with calculated match quality."""
+    """Return stored price rows for an edition, each with calculated match
+    quality.
+    """
     session = new_session()
     try:
-        edition = session.query(Edition).filter(Edition.id == edition_id).first()
+        edition = (
+            session.query(Edition).filter(Edition.id == edition_id).first()
+        )
         if not edition:
-            return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
+            return ResponseType(
+                'Edition not found', HttpResponseCode.NOT_FOUND
+            )
 
         rows = (
             session.query(AntikvaariPrice, AntikvaariWorkProduct)
             .outerjoin(
                 AntikvaariWorkProduct,
-                (AntikvaariPrice.antikvaari_product_id
-                 == AntikvaariWorkProduct.antikvaari_product_id)
+                (
+                    AntikvaariPrice.antikvaari_product_id
+                    == AntikvaariWorkProduct.antikvaari_product_id
+                )
                 & (AntikvaariWorkProduct.work_id == edition.work_id)
-                & (AntikvaariPrice.source_id == AntikvaariWorkProduct.source_id),
+                & (
+                    AntikvaariPrice.source_id
+                    == AntikvaariWorkProduct.source_id
+                ),
             )
             .filter(AntikvaariPrice.edition_id == edition_id)
             .order_by(AntikvaariPrice.date_fetched.desc())
@@ -1324,38 +1541,49 @@ def edition_prices_get(
 
         result = []
         for p, wp in rows:
-            result.append({
-                'id': p.id,
-                'edition_id': p.edition_id,
-                'source_id': p.source_id,
-                'source_name': p.source.name if p.source else None,
-                'seller': p.seller,
-                'seller_url': p.seller_url,
-                'book_id': p.antikvaari_book_id,
-                'url': p.url,
-                'antikvaari_book_id': p.antikvaari_book_id,
-                'antikvaari_product_id': p.antikvaari_product_id,
-                'antikvaari_product_year': p.antikvaari_product_year,
-                'antikvaari_product_binding': p.antikvaari_product_binding,
-                'antikvaari_product_version': p.antikvaari_product_version,
-                'date_listed': p.date_listed.isoformat() if p.date_listed else None,
-                'last_updated': p.last_updated.isoformat() if p.last_updated else None,
-                'date_fetched': p.date_fetched.isoformat() if p.date_fetched else None,
-                'condition': p.condition,
-                'is_library_discard': p.is_library_discard,
-                'has_markings': p.has_markings,
-                'missing_dust_cover': p.missing_dust_cover,
-                'price': float(p.price),
-                'match_quality': calculate_match_quality(
-                    edition, p.condition,
-                    None, None, None,
-                    target_condition,
-                ),
-                'product_url': wp.url if wp else None,
-                'product_page_exists': wp.page_exists if wp else None,
-                'user_id': p.user_id,
-                'added_by_name': p.user.name if p.user else None,
-            })
+            result.append(
+                {
+                    'id': p.id,
+                    'edition_id': p.edition_id,
+                    'source_id': p.source_id,
+                    'source_name': p.source.name if p.source else None,
+                    'seller': p.seller,
+                    'seller_url': p.seller_url,
+                    'book_id': p.antikvaari_book_id,
+                    'url': p.url,
+                    'antikvaari_book_id': p.antikvaari_book_id,
+                    'antikvaari_product_id': p.antikvaari_product_id,
+                    'antikvaari_product_year': p.antikvaari_product_year,
+                    'antikvaari_product_binding': p.antikvaari_product_binding,
+                    'antikvaari_product_version': p.antikvaari_product_version,
+                    'date_listed': p.date_listed.isoformat()
+                    if p.date_listed
+                    else None,
+                    'last_updated': p.last_updated.isoformat()
+                    if p.last_updated
+                    else None,
+                    'date_fetched': p.date_fetched.isoformat()
+                    if p.date_fetched
+                    else None,
+                    'condition': p.condition,
+                    'is_library_discard': p.is_library_discard,
+                    'has_markings': p.has_markings,
+                    'missing_dust_cover': p.missing_dust_cover,
+                    'price': float(p.price),
+                    'match_quality': calculate_match_quality(
+                        edition,
+                        p.condition,
+                        None,
+                        None,
+                        None,
+                        target_condition,
+                    ),
+                    'product_url': wp.url if wp else None,
+                    'product_page_exists': wp.page_exists if wp else None,
+                    'user_id': p.user_id,
+                    'added_by_name': p.user.name if p.user else None,
+                }
+            )
 
         return ResponseType(result, HttpResponseCode.OK)
     finally:
@@ -1431,7 +1659,9 @@ def _scrape_kampinkirjakauppa(url: str) -> Dict[str, Any]:
     author, sep, title = raw_title.partition(':')
 
     desc_el = soup.select_one('.ws_pro_description')
-    parsed = _parse_kampin_description(desc_el.get_text(' ', strip=True) if desc_el else '')
+    parsed = _parse_kampin_description(
+        desc_el.get_text(' ', strip=True) if desc_el else ''
+    )
 
     price: Optional[float] = None
     price_el = soup.select_one('.webstore_price')
@@ -1441,7 +1671,9 @@ def _scrape_kampinkirjakauppa(url: str) -> Dict[str, Any]:
     book_id = None
     info_el = soup.select_one('.info')
     if info_el:
-        book_id_match = re.search(r'Tuote:\s*(\d+)', info_el.get_text(' ', strip=True))
+        book_id_match = re.search(
+            r'Tuote:\s*(\d+)', info_el.get_text(' ', strip=True)
+        )
         if book_id_match:
             book_id = book_id_match.group(1)
 
@@ -1475,12 +1707,17 @@ def _source_from_url(url: str, session: Any) -> Optional[PriceSource]:
     hostname = (urlparse(url).hostname or '').lower()
     for domain, name in checks:
         if hostname == domain or hostname.endswith('.' + domain):
-            return session.query(PriceSource).filter(PriceSource.name == name).first()
+            return (
+                session.query(PriceSource)
+                .filter(PriceSource.name == name)
+                .first()
+            )
     return None
 
 
 def _antikvariaatti_attributes(soup: BeautifulSoup) -> Dict[str, str]:
-    """Extract antikvariaatti.net product attribute rows as a {label: value} dict.
+    """Extract antikvariaatti.net product attribute rows as a {label: value}
+    dict.
 
     Keeps the first value seen for a label (e.g. 'Kunto' appears twice — the
     first is the 'K3 (Hyvä)' form we want).
@@ -1568,7 +1805,8 @@ def _scrape_antikvariaatti(url: str) -> Dict[str, Any]:
 
 
 def _lukuhetki_attributes(soup: BeautifulSoup) -> Dict[str, str]:
-    """Extract lukuhetki.fi's labelled product-details rows as a {label: value} dict.
+    """Extract lukuhetki.fi's labelled product-details rows as a {label: value}
+    dict.
 
     Rows look like ``<div class="row"><div class="col-sm-4"><h3>Label:</h3>
     </div><div class="col-sm-8"><span>Value</span></div></div>`` — one row (a
@@ -1649,7 +1887,9 @@ def _scrape_lukuhetki(url: str) -> Dict[str, Any]:
 
 
 def _woocommerce_attributes(soup: BeautifulSoup) -> Dict[str, str]:
-    """Extract the WooCommerce product attribute table as a {label: value} dict."""
+    """Extract the WooCommerce product attribute table as a {label: value}
+    dict.
+    """
     attrs: Dict[str, str] = {}
     for row in soup.select('tr.woocommerce-product-attributes-item'):
         label = row.find('th')
@@ -1660,7 +1900,8 @@ def _woocommerce_attributes(soup: BeautifulSoup) -> Dict[str, str]:
 
 
 def _scrape_woocommerce(url: str) -> Dict[str, Any]:
-    """Scrape a single antikka.net (WooCommerce) product page and return price fields.
+    """Scrape a single antikka.net (WooCommerce) product page and return price
+    fields.
 
     Returns the fields the manual path needs (book_id, price, condition,
     last_updated) plus the edition-matching metadata parsed from the product
@@ -1740,12 +1981,15 @@ def _scrape_woocommerce(url: str) -> Dict[str, Any]:
 
 
 def scrape_price_from_url(url: str) -> ResponseType:
-    """Identify source from URL, scrape price fields, return for user review."""
+    """Identify source from URL, scrape price fields, return for user review.
+    """
     session = new_session()
     try:
         source = _source_from_url(url, session)
         if not source:
-            return ResponseType('Tunnistamaton lähde', HttpResponseCode.BAD_REQUEST)
+            return ResponseType(
+                'Tunnistamaton lähde', HttpResponseCode.BAD_REQUEST
+            )
 
         scrapers = {
             'Antikvaari': _scrape_antikvaari_single,
@@ -1768,7 +2012,10 @@ def scrape_price_from_url(url: str) -> ResponseType:
             HttpResponseCode.OK,
         )
     except requests.RequestException as e:
-        return ResponseType(f'Sivun haku epäonnistui: {e}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+        return ResponseType(
+            f'Sivun haku epäonnistui: {e}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR,
+        )
     finally:
         session.close()
 
@@ -1795,19 +2042,29 @@ def _validate_price_form(
     """
     source_id = data.get('source_id')
     if not source_id:
-        return None, ResponseType('source_id required', HttpResponseCode.BAD_REQUEST)
-    source = session.query(PriceSource).filter(PriceSource.id == source_id).first()
+        return None, ResponseType(
+            'source_id required', HttpResponseCode.BAD_REQUEST
+        )
+    source = (
+        session.query(PriceSource).filter(PriceSource.id == source_id).first()
+    )
     if not source:
-        return None, ResponseType('Unknown source', HttpResponseCode.BAD_REQUEST)
+        return None, ResponseType(
+            'Unknown source', HttpResponseCode.BAD_REQUEST
+        )
 
     condition = data.get('condition', '')
     if condition not in ('K5', 'K4', 'K3', 'K2', 'K1'):
-        return None, ResponseType('Invalid condition', HttpResponseCode.BAD_REQUEST)
+        return None, ResponseType(
+            'Invalid condition', HttpResponseCode.BAD_REQUEST
+        )
 
     try:
         price = float(data['price'])
     except (KeyError, TypeError, ValueError):
-        return None, ResponseType('Invalid price', HttpResponseCode.BAD_REQUEST)
+        return None, ResponseType(
+            'Invalid price', HttpResponseCode.BAD_REQUEST
+        )
 
     last_updated_raw = data.get('last_updated')
     try:
@@ -1838,9 +2095,13 @@ def price_add_manual(edition_id: int, data: Dict[str, Any],
     """Insert a single manually entered price row."""
     session = new_session()
     try:
-        edition = session.query(Edition).filter(Edition.id == edition_id).first()
+        edition = (
+            session.query(Edition).filter(Edition.id == edition_id).first()
+        )
         if not edition:
-            return ResponseType('Edition not found', HttpResponseCode.NOT_FOUND)
+            return ResponseType(
+                'Edition not found', HttpResponseCode.NOT_FOUND
+            )
 
         fields, err = _validate_price_form(session, data)
         if err:
@@ -1879,7 +2140,11 @@ def price_update_manual(price_id: int, data: Dict[str, Any]) -> ResponseType:
     antikvaari_product_id and date_fetched are left untouched."""
     session = new_session()
     try:
-        row = session.query(AntikvaariPrice).filter(AntikvaariPrice.id == price_id).first()
+        row = (
+            session.query(AntikvaariPrice)
+            .filter(AntikvaariPrice.id == price_id)
+            .first()
+        )
         if not row:
             return ResponseType('Price not found', HttpResponseCode.NOT_FOUND)
 
@@ -1911,7 +2176,11 @@ def antikvaari_price_delete(price_id: int) -> ResponseType:
     """Delete a single stored price row by its primary key."""
     session = new_session()
     try:
-        row = session.query(AntikvaariPrice).filter(AntikvaariPrice.id == price_id).first()
+        row = (
+            session.query(AntikvaariPrice)
+            .filter(AntikvaariPrice.id == price_id)
+            .first()
+        )
         if not row:
             return ResponseType('Price not found', HttpResponseCode.NOT_FOUND)
         session.delete(row)
@@ -1919,7 +2188,9 @@ def antikvaari_price_delete(price_id: int) -> ResponseType:
         return ResponseType({'deleted': price_id}, HttpResponseCode.OK)
     except Exception as exc:  # pylint: disable=broad-except
         session.rollback()
-        return ResponseType(f'Delete failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR)
+        return ResponseType(
+            f'Delete failed: {exc}', HttpResponseCode.INTERNAL_SERVER_ERROR
+        )
     finally:
         session.close()
 
@@ -1943,8 +2214,10 @@ def calculate_match_quality(
         antikvaari_condition: Condition of the Antikvaari book, e.g. 'K3'.
         antikvaari_product_year: Year from painovuosi field.
         antikvaari_product_version: Edition number parsed from painos field.
-        antikvaari_product_binding: Bindingtype ID (2=Nidottu, 3=Sidottu, None=unknown).
-        target_condition: User's copy condition. When None, only edition closeness
+        antikvaari_product_binding: Bindingtype ID (2=Nidottu, 3=Sidottu,
+            None=unknown).
+        target_condition: User's copy condition. When None, only edition
+            closeness
                           contributes (condition assumed equal — best case).
     Returns:
         One of 'Perfect', 'Good', 'Decent', 'Poor'.
@@ -1992,13 +2265,22 @@ def calculate_match_quality(
 # Internal: close-edition price fallback
 # ---------------------------------------------------------------------------
 
-_QUALITY_RANK: Dict[str, int] = {'Perfect': 0, 'Good': 1, 'Decent': 2, 'Poor': 3}
+_QUALITY_RANK: Dict[str, int] = {
+    'Perfect': 0,
+    'Good': 1,
+    'Decent': 2,
+    'Poor': 3,
+}
 _QUALITY_ORDER: List[str] = ['Perfect', 'Good', 'Decent', 'Poor']
 
 
 def _downgrade_quality(q: str, levels: int = 1) -> str:
     """Decrease match quality by `levels` steps (floor: Poor)."""
-    idx = _QUALITY_ORDER.index(q) if q in _QUALITY_ORDER else len(_QUALITY_ORDER) - 1
+    idx = (
+        _QUALITY_ORDER.index(q)
+        if q in _QUALITY_ORDER
+        else len(_QUALITY_ORDER) - 1
+    )
     return _QUALITY_ORDER[min(idx + levels, len(_QUALITY_ORDER) - 1)]
 
 
@@ -2013,7 +2295,8 @@ def _closest_sibling_prices(
     and has a pubyear within 10 years.  Among qualifying siblings:
 
     - Same binding_id as owned is preferred (1-level downgrade).
-    - Any other binding (different or unknown) is the fallback (2-level downgrade).
+    - Any other binding (different or unknown) is the fallback (2-level
+      downgrade).
 
     Within each group the sibling with the smallest year difference wins.
     """
@@ -2054,7 +2337,8 @@ def _closest_sibling_prices(
 
 
 def user_collection_stats(user_id: int) -> ResponseType:
-    """Return Antikvaari pricing statistics for all editions owned by user_id."""
+    """Return Antikvaari pricing statistics for all editions owned by user_id.
+    """
     session = new_session()
     try:
         owned = (
@@ -2069,25 +2353,32 @@ def user_collection_stats(user_id: int) -> ResponseType:
 
         total_owned = len(owned)
         if total_owned == 0:
-            return ResponseType({
-                'total_owned': 0,
-                'priced_count': 0,
-                'total_value': 0.0,
-                'quality_distribution': {
-                    'Perfect': 0, 'Good': 0, 'Decent': 0, 'Poor': 0, 'not_priced': 0
+            return ResponseType(
+                {
+                    'total_owned': 0,
+                    'priced_count': 0,
+                    'total_value': 0.0,
+                    'quality_distribution': {
+                        'Perfect': 0,
+                        'Good': 0,
+                        'Decent': 0,
+                        'Poor': 0,
+                        'not_priced': 0,
+                    },
+                    'price_distribution': [],
+                    'top_expensive': [],
+                    'no_price_books': [],
+                    'publisher_distribution': [],
+                    'language_distribution': [],
+                    'worktype_distribution': [],
+                    'short_story_count': 0,
+                    'total_pages': 0,
+                    'shelf_width_meters': 0.0,
+                    'editions_by_year': [],
+                    'origworks_by_year': [],
                 },
-                'price_distribution': [],
-                'top_expensive': [],
-                'no_price_books': [],
-                'publisher_distribution': [],
-                'language_distribution': [],
-                'worktype_distribution': [],
-                'short_story_count': 0,
-                'total_pages': 0,
-                'shelf_width_meters': 0.0,
-                'editions_by_year': [],
-                'origworks_by_year': [],
-            }, HttpResponseCode.OK)
+                HttpResponseCode.OK,
+            )
 
         # condition_id → "K{value}" string
         cond_ids = list({ub.condition_id for ub in owned})
@@ -2107,7 +2398,9 @@ def user_collection_stats(user_id: int) -> ResponseType:
             .all()
         }
 
-        work_ids = list({e.work_id for e in editions_map.values() if e.work_id})
+        work_ids = list(
+            {e.work_id for e in editions_map.values() if e.work_id}
+        )
         linked_work_ids: set = {
             row[0]
             for row in session.query(AntikvaariWorkProduct.work_id)
@@ -2116,9 +2409,12 @@ def user_collection_stats(user_id: int) -> ResponseType:
             .all()
         }
 
-        # Load ALL editions per work so close-edition price fallback can look at siblings.
+        # Load ALL editions per work so close-edition price fallback can look
+        # at siblings.
         work_editions: Dict[int, List[Edition]] = {}
-        for e in session.query(Edition).filter(Edition.work_id.in_(work_ids)).all():
+        for e in (
+            session.query(Edition).filter(Edition.work_id.in_(work_ids)).all()
+        ):
             work_editions.setdefault(e.work_id, []).append(e)
 
         # Prices for every edition in those works (not just owned ones).
@@ -2199,8 +2495,15 @@ def user_collection_stats(user_id: int) -> ResponseType:
                 b_ts = best_updated.timestamp() if best_updated else 0.0
                 newer = p_ts > b_ts
                 cheaper = p_ts == b_ts and pval < best_val
-                if rank < best_rank or (rank == best_rank and (newer or cheaper)):
-                    best_rank, best_val, best_q, best_updated = rank, pval, q, p.last_updated
+                if rank < best_rank or (
+                    rank == best_rank and (newer or cheaper)
+                ):
+                    best_rank, best_val, best_q, best_updated = (
+                        rank,
+                        pval,
+                        q,
+                        p.last_updated,
+                    )
                     best_seller, best_seller_url = p.seller, p.seller_url
 
             if best_q is not None:
@@ -2269,13 +2572,19 @@ def user_collection_stats(user_id: int) -> ResponseType:
             q = session.query(*cols, func.count(Edition.id))
             for model, cond in joins:
                 q = q.join(model, cond)
-            group_cols = [id_col, name_col] if id_col is not None else [name_col]
+            group_cols = (
+                [id_col, name_col] if id_col is not None else [name_col]
+            )
             rows = (q.filter(Edition.id.in_(edition_ids))
                     .group_by(*group_cols)
                     .order_by(func.count(Edition.id).desc(), name_col)
                     .all())
             if id_col is not None:
-                return [{'id': i, 'name': n, 'count': int(c)} for i, n, c in rows if n]
+                return [
+                    {'id': i, 'name': n, 'count': int(c)}
+                    for i, n, c in rows
+                    if n
+                ]
             return [{'name': n, 'count': int(c)} for n, c in rows if n]
 
         publisher_distribution = _distribution(
@@ -2332,8 +2641,14 @@ def user_collection_stats(user_id: int) -> ResponseType:
             .group_by(Edition.pubyear, Language.id, Language.name)
             .order_by(Edition.pubyear).all())
         editions_by_year = [
-            {'year': y, 'count': int(c), 'language_id': lid, 'language_name': ln}
-            for y, lid, ln, c in ed_year_rows]
+            {
+                'year': y,
+                'count': int(c),
+                'language_id': lid,
+                'language_name': ln,
+            }
+            for y, lid, ln, c in ed_year_rows
+        ]
 
         ow_year_rows = (
             session.query(Work.pubyear, Language.id, Language.name,
@@ -2344,8 +2659,14 @@ def user_collection_stats(user_id: int) -> ResponseType:
             .group_by(Work.pubyear, Language.id, Language.name)
             .order_by(Work.pubyear).all())
         origworks_by_year = [
-            {'year': y, 'count': int(c), 'language_id': lid, 'language_name': ln}
-            for y, lid, ln, c in ow_year_rows]
+            {
+                'year': y,
+                'count': int(c),
+                'language_id': lid,
+                'language_name': ln,
+            }
+            for y, lid, ln, c in ow_year_rows
+        ]
 
         return ResponseType({
             'total_owned': total_owned,

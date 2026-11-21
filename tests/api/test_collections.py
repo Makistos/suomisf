@@ -103,7 +103,9 @@ class TestWorkCollection(BaseAPITest):
     contains the correct shorts with their authors after migration.
     """
 
-    def test_work_27_stories_match_snapshot(self, api_client, snapshot_manager):
+    def test_work_27_stories_match_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/works/27 'Yön ja päivän tarinoita' should contain
 
         Also checks:
@@ -238,7 +240,9 @@ class TestEditionShortsCollections(BaseAPITest):
             shorts, expected, 'edition_shorts_28'
         )
 
-    def test_edition_1585_shorts_author_ids(self, api_client, snapshot_manager):
+    def test_edition_1585_shorts_author_ids(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/editions/1585/shorts should return 22 shorts
 
         Also checks:
@@ -290,7 +294,9 @@ class TestIssueCollection(BaseAPITest):
     with 16 stories by various Finnish SF authors.
     """
 
-    def test_issue_92_stories_match_snapshot(self, api_client, snapshot_manager):
+    def test_issue_92_stories_match_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/issues/92 should contain 16 stories.
 
         Also checks:

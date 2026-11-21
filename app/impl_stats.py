@@ -22,7 +22,8 @@ from app import app
 
 
 def _log_query(name: str, query: Any) -> None:
-    """Log the SQL query for debugging purposes with parameter values inline."""
+    """Log the SQL query for debugging purposes with parameter values inline.
+    """
     try:
         if hasattr(query, 'statement'):
             from sqlalchemy.dialects import mysql
@@ -36,7 +37,9 @@ def _log_query(name: str, query: Any) -> None:
     except Exception as exp:
         # Fallback to basic string representation if literal_binds fails
         app.logger.info(f'{name}: {str(query)}')
-        app.logger.error(f'{name}: Could not compile with literal_binds: {exp}')
+        app.logger.error(
+            f'{name}: Could not compile with literal_binds: {exp}'
+        )
 
 
 def stats_genrecounts() -> ResponseType:
@@ -44,7 +47,8 @@ def stats_genrecounts() -> ResponseType:
     Get work counts for each genre.
 
     Returns:
-        ResponseType: Dict with genre abbreviations as keys and counts as values.
+        ResponseType: Dict with genre abbreviations as keys and counts as
+            values.
             Example: {"SF": 1234, "F": 567, "K": 89, ...}
     """
     session = new_session()
@@ -240,9 +244,9 @@ def stats_personcounts(count: int = 10,
     return ResponseType(result, HttpResponseCode.OK.value)
 
 
-def stats_storypersoncounts(count: int = 10,
-                            role_id: int = 1,
-                            storytype_id: Optional[int] = None) -> ResponseType:
+def stats_storypersoncounts(
+    count: int = 10, role_id: int = 1, storytype_id: Optional[int] = None
+) -> ResponseType:
     """
     Get the most productive persons with their short story counts.
 
@@ -270,7 +274,8 @@ def stats_storypersoncounts(count: int = 10,
         [
             {"id": 1, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov",
              "nationality": "Yhdysvallat",
-             "storytypes": {"novelli": {"kirjoittaja": 30}, "kertomus": {"kirjoittaja": 25}},
+             "storytypes": {"novelli": {"kirjoittaja": 30}, "kertomus":
+             {"kirjoittaja": 25}},
              "total": 55},
             ...
             {"id": null, "name": "Muut", "alt_name": null,
@@ -329,11 +334,14 @@ def stats_storypersoncounts(count: int = 10,
         countries = {c.id: c.name for c in session.query(Country).all()}
 
         result: List[Dict[str, Any]] = []
-        # Initialize other_storytypes as nested dict: {storytype: {role: count}}
+        # Initialize other_storytypes as nested dict: {storytype: {role:
+        # count}}
         other_storytypes: Dict[str, Dict[str, int]] = {}
         for st in storytypes:
             if st.name:
-                other_storytypes[st.name] = {r.name: 0 for r in roles if r.name}
+                other_storytypes[st.name] = {
+                    r.name: 0 for r in roles if r.name
+                }
         other_total = 0
 
         # Story type + role breakdown for every listed person in one query
@@ -397,7 +405,9 @@ def stats_storypersoncounts(count: int = 10,
                 # Add to "others" aggregation
                 for st in person_storytypes:
                     if st.storytype_name and st.role_name:
-                        other_storytypes[st.storytype_name][st.role_name] += st.count
+                        other_storytypes[st.storytype_name][st.role_name] += (
+                            st.count
+                        )
                 other_total += person_data.story_count
 
         # Add "Muut" (Others) entry
@@ -505,7 +515,9 @@ def stats_publishercounts(pub_count: Optional[int] = 10) -> ResponseType:
                 })
             else:
                 # Add to "others" aggregation
-                for genre_id, count in [(pg.id, pg.count) for pg in pub_genres]:
+                for genre_id, count in [
+                    (pg.id, pg.count) for pg in pub_genres
+                ]:
                     other_genres[genre_abbrs[genre_id]] += count
                 other_total += pub_data.edition_count
 
@@ -545,9 +557,12 @@ def stats_worksbyyear(genre: Optional[str] = None) -> ResponseType:
 
         Example:
         [
-            {"year": 1950, "count": 5, "language_id": 1, "language_name": "suomi"},
-            {"year": 1950, "count": 2, "language_id": 2, "language_name": "englanti"},
-            {"year": 1951, "count": 8, "language_id": 1, "language_name": "suomi"},
+            {"year": 1950, "count": 5, "language_id": 1, "language_name":
+            "suomi"},
+            {"year": 1950, "count": 2, "language_id": 2, "language_name":
+            "englanti"},
+            {"year": 1951, "count": 8, "language_id": 1, "language_name":
+            "suomi"},
             ...
         ]
     """
@@ -556,25 +571,33 @@ def stats_worksbyyear(genre: Optional[str] = None) -> ResponseType:
     try:
         filter_genre_id = None
         if genre:
-            genre_obj = session.query(Genre).filter(Genre.abbr == genre).first()
+            genre_obj = (
+                session.query(Genre).filter(Genre.abbr == genre).first()
+            )
             if genre_obj is None:
                 return ResponseType(f'Tuntematon genre: {genre}',
                                     HttpResponseCode.BAD_REQUEST.value)
             filter_genre_id = genre_obj.id
 
-        # Get first editions (editionnum = 1 or version = 1) by year and language
-        query = session.query(
-            Edition.pubyear,
-            func.count(Edition.id).label('count'),
-            Language.id.label('language_id'),
-            Language.name.label('language_name')
-        ).outerjoin(
-            Work, Work.id == Edition.work_id
-        ).outerjoin(
-            Language, Language.id == Work.language
-        ).filter(
-            or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),  # First editions
-            or_(Edition.version == 1, Edition.version.is_(None))      # First version
+        # Get first editions (editionnum = 1 or version = 1) by year and
+        # language
+        query = (
+            session.query(
+                Edition.pubyear,
+                func.count(Edition.id).label('count'),
+                Language.id.label('language_id'),
+                Language.name.label('language_name'),
+            )
+            .outerjoin(Work, Work.id == Edition.work_id)
+            .outerjoin(Language, Language.id == Work.language)
+            .filter(
+                or_(
+                    Edition.editionnum == 1, Edition.editionnum.is_(None)
+                ),  # First editions
+                or_(
+                    Edition.version == 1, Edition.version.is_(None)
+                ),  # First version
+            )
         )
 
         if filter_genre_id:
@@ -639,7 +662,9 @@ def stats_publishersbyyear(genre: Optional[str] = None) -> ResponseType:
     try:
         filter_genre_id = None
         if genre:
-            genre_obj = session.query(Genre).filter(Genre.abbr == genre).first()
+            genre_obj = (
+                session.query(Genre).filter(Genre.abbr == genre).first()
+            )
             if genre_obj is None:
                 return ResponseType(f'Tuntematon genre: {genre}',
                                     HttpResponseCode.BAD_REQUEST.value)
@@ -718,8 +743,10 @@ def stats_origworksbyyear(genre: Optional[str] = None) -> ResponseType:
 
         Example:
         [
-            {"year": 1920, "count": 3, "language_id": 2, "language_name": "englanti"},
-            {"year": 1921, "count": 5, "language_id": 2, "language_name": "englanti"},
+            {"year": 1920, "count": 3, "language_id": 2, "language_name":
+            "englanti"},
+            {"year": 1921, "count": 5, "language_id": 2, "language_name":
+            "englanti"},
             ...
         ]
     """
@@ -823,17 +850,26 @@ def stats_misc() -> ResponseType:
         # Calculate stack height (100 pages = 15mm = 0.015m)
         stack_height_meters = round((total_pages / 100) * 0.015, 2)
 
-        # Count hardback and paperback (binding_id: 2 = hardback, 3 = paperback typically)
+        # Count hardback and paperback (binding_id: 2 = hardback, 3 = paperback
+        # typically)
         # Need to check actual binding types in database
         bindings = session.query(BindingType).all()
-        binding_map = {b.id: b.name.lower() if b.name else '' for b in bindings}
+        binding_map = {
+            b.id: b.name.lower() if b.name else '' for b in bindings
+        }
 
         hardback_ids = [bid for bid, name in binding_map.items()
                         if 'kovakantinen' in name or 'sidottu' in name or
                         'hardback' in name or 'hard' in name]
-        paperback_ids = [bid for bid, name in binding_map.items()
-                         if 'pehmeäkantinen' in name or 'nidottu' in name or
-                         'paperback' in name or 'soft' in name or 'pokkari' in name]
+        paperback_ids = [
+            bid
+            for bid, name in binding_map.items()
+            if 'pehmeäkantinen' in name
+            or 'nidottu' in name
+            or 'paperback' in name
+            or 'soft' in name
+            or 'pokkari' in name
+        ]
 
         hardback_query = session.query(func.count(Edition.id)).filter(
             Edition.editionnum.in_([None, 1]),
@@ -1002,7 +1038,8 @@ def stats_nationalitycounts() -> ResponseType:
             WorkContributor.person_id == Person.id
         ).exists()
 
-        # Main query to get person counts per nationality (each person counted once)
+        # Main query to get person counts per nationality (each person counted
+        # once)
         query = session.query(
             Country.id.label('nationality_id'),
             Country.name.label('nationality'),
@@ -1119,7 +1156,8 @@ def stats_storynationalitycounts() -> ResponseType:
             StoryContributor.person_id == Person.id
         ).exists()
 
-        # Main query to get person counts per nationality (each person counted once)
+        # Main query to get person counts per nationality (each person counted
+        # once)
         query = session.query(
             Country.id.label('nationality_id'),
             Country.name.label('nationality'),
@@ -1141,7 +1179,8 @@ def stats_storynationalitycounts() -> ResponseType:
 
         result = []
         for r in results:
-            # Get storytype + role breakdown for this nationality (person counts)
+            # Get storytype + role breakdown for this nationality (person
+            # counts)
             storytype_query = session.query(
                 StoryType.id.label('storytype_id'),
                 StoryType.name.label('storytype_name'),
@@ -1196,7 +1235,9 @@ def stats_storynationalitycounts() -> ResponseType:
             })
 
     except SQLAlchemyError as exp:
-        app.logger.error(f'stats_storynationalitycounts: Database error: {exp}')
+        app.logger.error(
+            f'stats_storynationalitycounts: Database error: {exp}'
+        )
         return ResponseType('Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
@@ -1214,12 +1255,14 @@ STATS_STORY_FIELDS = (
 )
 
 
-def stats_filterstories(storytype_id: Optional[int] = None,
-                        language_id: Optional[int] = None,
-                        pubyear_min: Optional[int] = None,
-                        pubyear_max: Optional[int] = None,
-                        nationality_id: Optional[int] = None,
-                        contributor_role_id: Optional[int] = None) -> ResponseType:
+def stats_filterstories(
+    storytype_id: Optional[int] = None,
+    language_id: Optional[int] = None,
+    pubyear_min: Optional[int] = None,
+    pubyear_max: Optional[int] = None,
+    nationality_id: Optional[int] = None,
+    contributor_role_id: Optional[int] = None,
+) -> ResponseType:
     """
     Get short stories matching the given filters.
 
@@ -1287,23 +1330,36 @@ def stats_filterstories(storytype_id: Optional[int] = None,
             query = query.filter(ShortStory.pubyear <= pubyear_max)
 
         if nationality_id is not None:
-            query = (query.join(StoryContributor,
-                                 StoryContributor.shortstory_id == ShortStory.id)
-                     .join(Person, Person.id == StoryContributor.person_id)
-                     .filter(Person.nationality_id == nationality_id))
+            query = (
+                query.join(
+                    StoryContributor,
+                    StoryContributor.shortstory_id == ShortStory.id,
+                )
+                .join(Person, Person.id == StoryContributor.person_id)
+                .filter(Person.nationality_id == nationality_id)
+            )
             if contributor_role_id is not None:
-                query = query.filter(StoryContributor.role_id == contributor_role_id)
+                query = query.filter(
+                    StoryContributor.role_id == contributor_role_id
+                )
             query = query.distinct()
 
         query = query.order_by(ShortStory.title).options(
             selectinload(ShortStory.type),
             selectinload(ShortStory.lang),
             selectinload(ShortStory.genres),
-            selectinload(ShortStory.contributors).selectinload(StoryContributor.person),
-            selectinload(ShortStory.contributors).selectinload(StoryContributor.real_person),
-            selectinload(ShortStory.contributors).selectinload(StoryContributor.role),
+            selectinload(ShortStory.contributors).selectinload(
+                StoryContributor.person
+            ),
+            selectinload(ShortStory.contributors).selectinload(
+                StoryContributor.real_person
+            ),
+            selectinload(ShortStory.contributors).selectinload(
+                StoryContributor.role
+            ),
             selectinload(ShortStory.editions).selectinload(Edition.work),
-            selectinload(ShortStory.issues).selectinload(Issue.magazine))
+            selectinload(ShortStory.issues).selectinload(Issue.magazine),
+        )
         _log_query('stats_filterstories', query)
         stories = query.all()
 
@@ -1352,7 +1408,8 @@ def stats_filterworks(language_id: Optional[int] = None,
         publisher_id: Optional publisher ID to filter by (matched against the
             edition, so it applies to whichever edition set the year filter
             above is already restricting to).
-        nationality_id: Optional nationality (Country) ID to filter by — matches
+        nationality_id: Optional nationality (Country) ID to filter by —
+            matches
             works with at least one contributor of that nationality.
         contributor_role_id: Optional contributor role ID, narrowing the
             nationality_id match above to contributors in that role.
@@ -1481,12 +1538,16 @@ def stats_filterworks(language_id: Optional[int] = None,
             if owner_id is not None:
                 # Match the owned editions in that year (any owned edition,
                 # not just first editions).
-                query = (query.join(UserBook, UserBook.edition_id == Edition.id)
-                         .filter(UserBook.user_id == owner_id,
-                                 UserBook.condition_id >= 1,
-                                 UserBook.condition_id <= 5))
+                query = query.join(
+                    UserBook, UserBook.edition_id == Edition.id
+                ).filter(
+                    UserBook.user_id == owner_id,
+                    UserBook.condition_id >= 1,
+                    UserBook.condition_id <= 5,
+                )
             else:
-                # Filter by first edition year (Edition.pubyear where editionnum=1)
+                # Filter by first edition year (Edition.pubyear where
+                # editionnum=1)
                 query = query.filter(
                     or_(Edition.editionnum == 1, Edition.editionnum.is_(None)),
                     or_(Edition.version == 1, Edition.version.is_(None))
@@ -1526,17 +1587,26 @@ def stats_filterworks(language_id: Optional[int] = None,
         # per row (see SECURITY_TODO.md-adjacent perf notes — this endpoint
         # took ~11s for ~1200 works before this).
         query = query.options(
-            selectinload(Work.contributions).selectinload(WorkContributor.person),
-            selectinload(Work.contributions).selectinload(WorkContributor.real_person),
-            selectinload(Work.contributions).selectinload(WorkContributor.role),
+            selectinload(Work.contributions).selectinload(
+                WorkContributor.person
+            ),
+            selectinload(Work.contributions).selectinload(
+                WorkContributor.real_person
+            ),
+            selectinload(Work.contributions).selectinload(
+                WorkContributor.role
+            ),
             selectinload(Work.editions).selectinload(Edition.editors),
             selectinload(Work.editions).selectinload(Edition.translators),
-            selectinload(Work.editions).selectinload(Edition.contributions)
-                .selectinload(EditionContributor.person),
-            selectinload(Work.editions).selectinload(Edition.contributions)
-                .selectinload(EditionContributor.real_person),
-            selectinload(Work.editions).selectinload(Edition.contributions)
-                .selectinload(EditionContributor.role),
+            selectinload(Work.editions)
+            .selectinload(Edition.contributions)
+            .selectinload(EditionContributor.person),
+            selectinload(Work.editions)
+            .selectinload(Edition.contributions)
+            .selectinload(EditionContributor.real_person),
+            selectinload(Work.editions)
+            .selectinload(Edition.contributions)
+            .selectinload(EditionContributor.role),
             selectinload(Work.editions).selectinload(Edition.images),
             selectinload(Work.editions).selectinload(Edition.publisher),
             selectinload(Work.editions).selectinload(Edition.owners),
@@ -1567,7 +1637,8 @@ def stats_filterworks(language_id: Optional[int] = None,
 
 def stats_storiesbyyear() -> ResponseType:
     """
-    Get count of short stories by original publication year, grouped by story type
+    Get count of short stories by original publication year, grouped by story
+    type
     and language.
 
     Returns:
@@ -1579,15 +1650,19 @@ def stats_storiesbyyear() -> ResponseType:
             - language_id: Original language ID (int or None)
             - language_name: Original language name (str or None)
 
-        Sorted by year ascending, then by story type name, then by language name.
+        Sorted by year ascending, then by story type name, then by language
+        name.
 
         Example:
         [
-            {"year": 1950, "count": 10, "storytype_id": 1, "storytype_name": "novelli",
+            {"year": 1950, "count": 10, "storytype_id": 1, "storytype_name":
+            "novelli",
              "language_id": 2, "language_name": "englanti"},
-            {"year": 1950, "count": 5, "storytype_id": 1, "storytype_name": "novelli",
+            {"year": 1950, "count": 5, "storytype_id": 1, "storytype_name":
+            "novelli",
              "language_id": 1, "language_name": "suomi"},
-            {"year": 1951, "count": 15, "storytype_id": 1, "storytype_name": "novelli",
+            {"year": 1951, "count": 15, "storytype_id": 1, "storytype_name":
+            "novelli",
              "language_id": 2, "language_name": "englanti"},
             ...
         ]

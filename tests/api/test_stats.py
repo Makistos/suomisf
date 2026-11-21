@@ -12,7 +12,9 @@ from .base_test import BaseAPITest
 class TestGenreCounts(BaseAPITest):
     """Tests for /api/stats/genrecounts endpoint."""
 
-    def test_get_genrecounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_genrecounts_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/genrecounts should return 200.
 
         Also checks:
@@ -32,7 +34,9 @@ class TestGenreCounts(BaseAPITest):
 class TestPersonCounts(BaseAPITest):
     """Tests for /api/stats/personcounts endpoint."""
 
-    def test_get_personcounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_personcounts_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/personcounts should return 200.
 
         Also checks:
@@ -50,7 +54,9 @@ class TestPersonCounts(BaseAPITest):
 class TestStoryPersonCounts(BaseAPITest):
     """Tests for /api/stats/storypersoncounts endpoint."""
 
-    def test_get_storypersoncounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_storypersoncounts_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/storypersoncounts should return 200.
 
         Also checks:
@@ -66,7 +72,9 @@ class TestStoryPersonCounts(BaseAPITest):
 class TestPublisherCounts(BaseAPITest):
     """Tests for /api/stats/publishercounts endpoint."""
 
-    def test_get_publishercounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_publishercounts_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/publishercounts should return 200.
 
         Also checks:
@@ -84,7 +92,9 @@ class TestPublisherCounts(BaseAPITest):
 class TestWorksByYear(BaseAPITest):
     """Tests for /api/stats/worksbyyear endpoint."""
 
-    def test_get_worksbyyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_worksbyyear_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/worksbyyear should return 200.
 
         Also checks:
@@ -147,7 +157,9 @@ class TestPublishersByYear(BaseAPITest):
 class TestOrigWorksByYear(BaseAPITest):
     """Tests for /api/stats/origworksbyyear endpoint."""
 
-    def test_get_origworksbyyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_origworksbyyear_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/origworksbyyear should return 200.
 
         Also checks:
@@ -163,7 +175,9 @@ class TestOrigWorksByYear(BaseAPITest):
 class TestStoriesByYear(BaseAPITest):
     """Tests for /api/stats/storiesbyyear endpoint."""
 
-    def test_get_storiesbyyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_storiesbyyear_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/storiesbyyear should return 200.
 
         Also checks:
@@ -179,7 +193,9 @@ class TestStoriesByYear(BaseAPITest):
 class TestIssuesPerYear(BaseAPITest):
     """Tests for /api/stats/issuesperyear endpoint."""
 
-    def test_get_issuesperyear_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_issuesperyear_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/issuesperyear should return 200.
 
         Also checks:
@@ -195,7 +211,9 @@ class TestIssuesPerYear(BaseAPITest):
 class TestNationalityCounts(BaseAPITest):
     """Tests for /api/stats/nationalitycounts endpoint."""
 
-    def test_get_nationalitycounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_nationalitycounts_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/nationalitycounts should return 200.
 
         Also checks:
@@ -213,7 +231,9 @@ class TestNationalityCounts(BaseAPITest):
 class TestStoryNationalityCounts(BaseAPITest):
     """Tests for /api/stats/storynationalitycounts endpoint."""
 
-    def test_get_storynationalitycounts_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_storynationalitycounts_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/storynationalitycounts should return 200.
 
         Also checks:
@@ -450,7 +470,9 @@ class TestFilterWorks(BaseAPITest):
 class TestMiscStats(BaseAPITest):
     """Tests for /api/stats/misc endpoint."""
 
-    def test_get_misc_stats_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_misc_stats_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/stats/misc should return 200.
 
         Also checks:

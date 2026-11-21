@@ -567,7 +567,9 @@ class FakeFinto:
             'qqeräkirjallisuus': ['K4'], 'qqtyöläiskirjallisuus': ['K5'],
         }
         self.concepts = {
-            'K1': ts.ConceptData('kummitukset', [KAUNO + 'p1'], [KAUNO + 'p2']),
+            'K1': ts.ConceptData(
+                'kummitukset', [KAUNO + 'p1'], [KAUNO + 'p2']
+            ),
             'K2': ts.ConceptData('noidat', [KAUNO + 'p2'], []),
             'K3': ts.ConceptData('sodat', [], []),
             'K4': ts.ConceptData('eräkirjallisuus', [], ['K5']),
@@ -600,7 +602,8 @@ def test_concept_data_is_parsed_from_finto_json():
          'related': [{'uri': KOKO + 'p2'}, {'uri': KOKO + 'p3'}]},
     ]}
     assert ts._concept(KOKO + 'p1', res) == ts.ConceptData(
-        'kummitukset', [KAUNO + 'p1', KAUNO + 'p9'], [KOKO + 'p2', KOKO + 'p3'])
+        'kummitukset', [KAUNO + 'p1', KAUNO + 'p9'], [KOKO + 'p2', KOKO + 'p3']
+    )
     assert ts._concept('missing', res) == ts.ConceptData('', [], [])
 
 

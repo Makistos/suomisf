@@ -19,7 +19,12 @@ from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
 # Add project root to path
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.insert(
+    0,
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ),
+)
 
 # Import Flask app
 from app import app  # noqa: E402
@@ -29,11 +34,17 @@ import tempfile  # noqa: E402
 # image thumb_src values fall back to the cover URL exactly as in tests
 # (the dev folders may hold real thumbnails).
 _uploads = tempfile.mkdtemp(prefix='snapshot-uploads-')
-for _key in ('BOOKCOVER_SAVELOC', 'PERSONIMG_SAVELOC', 'MAGAZINECOVER_SAVELOC'):
+for _key in (
+    'BOOKCOVER_SAVELOC',
+    'PERSONIMG_SAVELOC',
+    'MAGAZINECOVER_SAVELOC',
+):
     app.config[_key] = _uploads + '/'
 
 
-SNAPSHOTS_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'fixtures', 'snapshots')
+SNAPSHOTS_DIR = os.path.join(
+    os.path.dirname(os.path.dirname(__file__)), 'fixtures', 'snapshots'
+)
 
 
 # Define all endpoints to snapshot
@@ -53,7 +64,6 @@ ENDPOINTS_TO_SNAPSHOT: List[tuple] = [
     ('GET', '/api/latest/editions/5', None, 'latest_editions_5'),
     ('GET', '/api/latest/people/5', None, 'latest_people_5'),
     ('GET', '/api/latest/shorts/5', None, 'latest_shorts_5'),
-
     # Statistics
     ('GET', '/api/stats/genrecounts', None, 'stats_genrecounts'),
     ('GET', '/api/stats/personcounts', None, 'stats_personcounts'),
@@ -64,9 +74,13 @@ ENDPOINTS_TO_SNAPSHOT: List[tuple] = [
     ('GET', '/api/stats/storiesbyyear', None, 'stats_storiesbyyear'),
     ('GET', '/api/stats/issuesperyear', None, 'stats_issuesperyear'),
     ('GET', '/api/stats/nationalitycounts', None, 'stats_nationalitycounts'),
-    ('GET', '/api/stats/storynationalitycounts', None, 'stats_storynationalitycounts'),
+    (
+        'GET',
+        '/api/stats/storynationalitycounts',
+        None,
+        'stats_storynationalitycounts',
+    ),
     ('GET', '/api/stats/misc', None, 'stats_misc'),
-
     # Lists
     ('GET', '/api/magazines', None, 'magazines'),
     ('GET', '/api/awards', None, 'awards'),
@@ -74,48 +88,39 @@ ENDPOINTS_TO_SNAPSHOT: List[tuple] = [
     ('GET', '/api/publishers', None, 'publishers'),
     ('GET', '/api/bookseries', None, 'bookseries'),
     ('GET', '/api/pubseries', None, 'pubseries'),
-
     # Sample entity lookups (use known IDs from golden DB)
     ('GET', '/api/works/1', None, 'work_1'),
     ('GET', '/api/editions/1', None, 'edition_1'),
     ('GET', '/api/people/1', None, 'person_1'),
     ('GET', '/api/shorts/1', None, 'short_1'),
-
     # Test-specific entity snapshots
     ('GET', '/api/shorts/406', None, 'short_406'),
-    ('GET', '/api/works/shorts/171', None,
-     'work_shorts_171'),
-    ('GET', '/api/works/shorts/27', None,
-     'work_shorts_27'),
-    ('GET', '/api/works/shorts/1378', None,
-     'work_shorts_1378'),
+    ('GET', '/api/works/shorts/171', None, 'work_shorts_171'),
+    ('GET', '/api/works/shorts/27', None, 'work_shorts_27'),
+    ('GET', '/api/works/shorts/1378', None, 'work_shorts_1378'),
     ('GET', '/api/works/27', None, 'work_27'),
-    ('GET', '/api/editions/242/shorts', None,
-     'edition_shorts_242'),
-    ('GET', '/api/editions/28/shorts', None,
-     'edition_shorts_28'),
-    ('GET', '/api/editions/1585/shorts', None,
-     'edition_shorts_1585'),
+    ('GET', '/api/editions/242/shorts', None, 'edition_shorts_242'),
+    ('GET', '/api/editions/28/shorts', None, 'edition_shorts_28'),
+    ('GET', '/api/editions/1585/shorts', None, 'edition_shorts_1585'),
     ('GET', '/api/issues/92', None, 'issue_92'),
-    ('GET', '/api/people/3238/shorts', None,
-     'person_shorts_3238'),
-
+    ('GET', '/api/people/3238/shorts', None, 'person_shorts_3238'),
     # Filters (patterns must be at least 2 chars)
-    ('GET', '/api/filter/people/Asi', None,
-     'filter_people_Asi'),
-    ('GET', '/api/filter/tags/sci', None,
-     'filter_tags_sci'),
-    ('GET', '/api/filter/publishers/Tam', None,
-     'filter_publishers_Tam'),
+    ('GET', '/api/filter/people/Asi', None, 'filter_people_Asi'),
+    ('GET', '/api/filter/tags/sci', None, 'filter_tags_sci'),
+    ('GET', '/api/filter/publishers/Tam', None, 'filter_publishers_Tam'),
 ]
 
 
-def make_request(client, method: str, path: str, data: Optional[Dict] = None) -> Dict[str, Any]:
+def make_request(
+    client, method: str, path: str, data: Optional[Dict] = None
+) -> Dict[str, Any]:
     """Make a request and return the response data."""
     if method.upper() == 'GET':
         response = client.get(path)
     elif method.upper() == 'POST':
-        response = client.post(path, json=data, content_type='application/json')
+        response = client.post(
+            path, json=data, content_type='application/json'
+        )
     else:
         raise ValueError(f"Unsupported method: {method}")
 
@@ -133,7 +138,9 @@ def make_request(client, method: str, path: str, data: Optional[Dict] = None) ->
     return result
 
 
-def save_snapshot(name: str, data: Dict[str, Any], metadata: Dict[str, Any]) -> str:
+def save_snapshot(
+    name: str, data: Dict[str, Any], metadata: Dict[str, Any]
+) -> str:
     """Save a snapshot to file."""
     os.makedirs(SNAPSHOTS_DIR, exist_ok=True)
 
@@ -149,7 +156,9 @@ def save_snapshot(name: str, data: Dict[str, Any], metadata: Dict[str, Any]) -> 
     return filepath
 
 
-def generate_snapshots(endpoints: Optional[List[tuple]] = None) -> Dict[str, Any]:
+def generate_snapshots(
+    endpoints: Optional[List[tuple]] = None,
+) -> Dict[str, Any]:
     """Generate snapshots for all endpoints."""
     endpoints = endpoints or ENDPOINTS_TO_SNAPSHOT
 
@@ -263,9 +272,15 @@ def main():
     """Main entry point."""
     import argparse
 
-    parser = argparse.ArgumentParser(description='Generate API response snapshots')
-    parser.add_argument('--endpoints', '-e', help='JSON file with custom endpoints')
-    parser.add_argument('--list', '-l', action='store_true', help='List endpoints to snapshot')
+    parser = argparse.ArgumentParser(
+        description='Generate API response snapshots'
+    )
+    parser.add_argument(
+        '--endpoints', '-e', help='JSON file with custom endpoints'
+    )
+    parser.add_argument(
+        '--list', '-l', action='store_true', help='List endpoints to snapshot'
+    )
 
     args = parser.parse_args()
 

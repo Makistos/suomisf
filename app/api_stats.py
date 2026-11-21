@@ -234,7 +234,8 @@ def api_stats_storypersoncounts() -> Response:
                     },
                     ...
                 },
-                "total": <int>         // Total short story count (for filtered role)
+                "total": <int>         // Total short story count (for filtered
+                role)
             },
             ...
         ]
@@ -279,7 +280,9 @@ def api_stats_storypersoncounts() -> Response:
         count = 10
     role_id = request.args.get('role', default=1, type=int)
     storytype_id = request.args.get('storytype', default=None, type=int)
-    return make_api_response(stats_storypersoncounts(count, role_id, storytype_id))
+    return make_api_response(
+        stats_storypersoncounts(count, role_id, storytype_id)
+    )
 
 
 @app.route('/api/stats/publishercounts', methods=['GET'])
@@ -361,7 +364,8 @@ def api_stats_worksbyyear() -> Response:
 
     Parameters:
         genre (string, optional): Genre abbreviation to filter by (e.g., "SF",
-                                  "F", "K"). When omitted, all genres are included.
+                                  "F", "K"). When omitted, all genres are
+                                  included.
 
     Returns:
         200 OK: JSON array of year statistics sorted by year (ascending),
@@ -373,17 +377,22 @@ def api_stats_worksbyyear() -> Response:
                 "year": <int>,              // Publication year
                 "count": <int>,             // Number of first editions
                 "language_id": <int|null>,  // Original work's language ID
-                "language_name": <string|null>  // Original work's language name
+                "language_name": <string|null>  // Original work's language
+                name
             },
             ...
         ]
 
         Example Response:
         [
-            {"year": 1950, "count": 5, "language_id": 1, "language_name": "suomi"},
-            {"year": 1950, "count": 12, "language_id": 2, "language_name": "englanti"},
-            {"year": 1951, "count": 8, "language_id": 1, "language_name": "suomi"},
-            {"year": 1951, "count": 15, "language_id": 2, "language_name": "englanti"},
+            {"year": 1950, "count": 5, "language_id": 1, "language_name":
+            "suomi"},
+            {"year": 1950, "count": 12, "language_id": 2, "language_name":
+            "englanti"},
+            {"year": 1951, "count": 8, "language_id": 1, "language_name":
+            "suomi"},
+            {"year": 1951, "count": 15, "language_id": 2, "language_name":
+            "englanti"},
             ...
         ]
 
@@ -458,9 +467,12 @@ def api_stats_origworksbyyear() -> Response:
 
         Example Response:
         [
-            {"year": 1920, "count": 3, "language_id": 2, "language_name": "englanti"},
-            {"year": 1921, "count": 5, "language_id": 2, "language_name": "englanti"},
-            {"year": 1922, "count": 2, "language_id": 1, "language_name": "suomi"},
+            {"year": 1920, "count": 3, "language_id": 2, "language_name":
+            "englanti"},
+            {"year": 1921, "count": 5, "language_id": 2, "language_name":
+            "englanti"},
+            {"year": 1922, "count": 2, "language_id": 1, "language_name":
+            "suomi"},
             ...
         ]
 
@@ -491,10 +503,14 @@ def api_stats_misc() -> Response:
 
         Response Schema:
         {
-            "total_pages": <int>,           // Total pages in all first editions
-            "stack_height_meters": <float>, // Stack height if all books piled up
-            "hardback_count": <int>,        // Number of hardback first editions
-            "paperback_count": <int>,       // Number of paperback first editions
+            "total_pages": <int>,           // Total pages in all first
+            editions
+            "stack_height_meters": <float>, // Stack height if all books piled
+            up
+            "hardback_count": <int>,        // Number of hardback first
+            editions
+            "paperback_count": <int>,       // Number of paperback first
+            editions
             "total_editions": <int>,        // Total editions in database
             "total_works": <int>,           // Total unique works in database
             "total_stories": <int>,         // Short stories
@@ -517,7 +533,8 @@ def api_stats_misc() -> Response:
 
         Notes:
         - stack_height_meters is calculated assuming 100 pages = 15mm thickness
-        - Only first editions (editionnum = 1) are counted for page/binding stats
+        - Only first editions (editionnum = 1) are counted for page/binding
+          stats
         - Binding counts may not add up to total due to unknown binding types
 
         500 Internal Server Error: Database error occurred.
@@ -585,7 +602,8 @@ def api_stats_nationalitycounts() -> Response:
         [
             {
                 "nationality_id": <int|null>,  // Country ID, null for unknown
-                "nationality": <string|null>,  // Country name, null for unknown
+                "nationality": <string|null>,  // Country name, null for
+                unknown
                 "genres": {
                     "<genre_abbr>": {
                         "<role_name>": <count>,  // Person count per role
@@ -656,7 +674,8 @@ def api_stats_storynationalitycounts() -> Response:
         [
             {
                 "nationality_id": <int|null>,  // Country ID, null for unknown
-                "nationality": <string|null>,  // Country name, null for unknown
+                "nationality": <string|null>,  // Country name, null for
+                unknown
                 "storytypes": {
                     "<storytype_name>": {
                         "<role_name>": <count>,  // Person count per role
@@ -717,7 +736,8 @@ def api_stats_filterstories() -> Response:
         storytype (int, optional): Story type ID to filter by.
                                    Use /api/shorttypes to get available types.
         language (int, optional): Language ID to filter by.
-                                  Use /api/languages to get available languages.
+                                  Use /api/languages to get available
+                                  languages.
         pubyear_min (int, optional): Minimum publication year (inclusive).
         pubyear_max (int, optional): Maximum publication year (inclusive).
                                      Can be used with pubyear_min for ranges.
@@ -797,7 +817,8 @@ def api_stats_filterstories() -> Response:
 
         Example Requests:
         GET /api/stats/filterstories?storytype=1
-        GET /api/stats/filterstories?language=2&pubyear_min=1950&pubyear_max=1960
+        GET
+        /api/stats/filterstories?language=2&pubyear_min=1950&pubyear_max=1960
         GET /api/stats/filterstories?storytype=1&language=1
 
         Example Response:
@@ -809,15 +830,18 @@ def api_stats_filterstories() -> Response:
                 "pubyear": 1955,
                 "type": {"id": 1, "name": "novelli"},
                 "lang": {"id": 2, "name": "englanti"},
-                "authors": [{"id": 456, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov"}],
+                "authors": [{"id": 456, "name": "Asimov, Isaac", "alt_name":
+                "Isaac Asimov"}],
                 "contributors": [
                     {
-                        "person": {"id": 456, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov"},
+                        "person": {"id": 456, "name": "Asimov, Isaac",
+                        "alt_name": "Isaac Asimov"},
                         "role": {"id": 1, "name": "kirjoittaja"}
                     }
                 ],
                 "issues": [],
-                "editions": [{"id": 789, "title": "Kokoelma", "pubyear": 1960}],
+                "editions": [{"id": 789, "title": "Kokoelma", "pubyear":
+                1960}],
                 "genres": [{"id": 1, "abbr": "SF", "name": "Science Fiction"}]
             }
         ]
@@ -839,8 +863,12 @@ def api_stats_filterstories() -> Response:
                                pubyear_max, nationality_id)):
         # Unfiltered, this is every short story in the database (~100 MB,
         # minutes of work); the charts always pass a filter.
-        return make_api_response(ResponseType(
-            'Anna vähintään yksi suodatin.', HttpResponseCode.BAD_REQUEST.value))
+        return make_api_response(
+            ResponseType(
+                'Anna vähintään yksi suodatin.',
+                HttpResponseCode.BAD_REQUEST.value,
+            )
+        )
     return make_api_response(stats_filterstories(
         storytype_id, language_id, pubyear_min, pubyear_max,
         nationality_id, contributor_role_id))
@@ -855,13 +883,19 @@ def api_stats_filterworks() -> Response:
 
     Query Parameters:
         language (int, optional): Language ID to filter by.
-                                  Use /api/languages to get available languages.
-        orig_year_min (int, optional): Minimum original publication year (inclusive).
-        orig_year_max (int, optional): Maximum original publication year (inclusive).
-        edition_year_min (int, optional): Minimum first Finnish edition year (inclusive).
-        edition_year_max (int, optional): Maximum first Finnish edition year (inclusive).
+                                  Use /api/languages to get available
+                                  languages.
+        orig_year_min (int, optional): Minimum original publication year
+            (inclusive).
+        orig_year_max (int, optional): Maximum original publication year
+            (inclusive).
+        edition_year_min (int, optional): Minimum first Finnish edition year
+            (inclusive).
+        edition_year_max (int, optional): Maximum first Finnish edition year
+            (inclusive).
         owner (int, optional): Restrict to works owned by this user ID.
-        worktype (int, optional): Work type ID to filter by (novel, collection, ...).
+        worktype (int, optional): Work type ID to filter by (novel, collection,
+            ...).
         genre (int, optional): Genre ID to filter by.
         publisher (int, optional): Publisher ID to filter by.
         nationality (int, optional): Nationality (Country) ID to filter by —
@@ -946,7 +980,8 @@ def api_stats_filterworks() -> Response:
                 "pubyear": 1951,
                 "contributions": [
                     {
-                        "person": {"id": 456, "name": "Asimov, Isaac", "alt_name": "Isaac Asimov"},
+                        "person": {"id": 456, "name": "Asimov, Isaac",
+                        "alt_name": "Isaac Asimov"},
                         "role": {"id": 1, "name": "kirjoittaja"}
                     }
                 ],
@@ -969,8 +1004,12 @@ def api_stats_filterworks() -> Response:
     language_id = request.args.get('language', default=None, type=int)
     orig_year_min = request.args.get('orig_year_min', default=None, type=int)
     orig_year_max = request.args.get('orig_year_max', default=None, type=int)
-    edition_year_min = request.args.get('edition_year_min', default=None, type=int)
-    edition_year_max = request.args.get('edition_year_max', default=None, type=int)
+    edition_year_min = request.args.get(
+        'edition_year_min', default=None, type=int
+    )
+    edition_year_max = request.args.get(
+        'edition_year_max', default=None, type=int
+    )
     owner_id = request.args.get('owner', default=None, type=int)
     worktype_id = request.args.get('worktype', default=None, type=int)
     genre_id = request.args.get('genre', default=None, type=int)
@@ -985,8 +1024,12 @@ def api_stats_filterworks() -> Response:
                                worktype_id, genre_id, publisher_id,
                                nationality_id, read_user_id)):
         # Unfiltered, this is every work in the database (~22 MB).
-        return make_api_response(ResponseType(
-            'Anna vähintään yksi suodatin.', HttpResponseCode.BAD_REQUEST.value))
+        return make_api_response(
+            ResponseType(
+                'Anna vähintään yksi suodatin.',
+                HttpResponseCode.BAD_REQUEST.value,
+            )
+        )
     return make_api_response(stats_filterworks(
         language_id, orig_year_min, orig_year_max, edition_year_min,
         edition_year_max, owner_id, worktype_id, genre_id, publisher_id,

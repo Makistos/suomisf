@@ -5,7 +5,8 @@ Lists show covers 60-160 px tall, but the stored covers are ~500 px tall
 (median 74 KB). Each book and magazine cover gets a 320 px tall WebP copy
 (sharp at 2x for 160 px; ~15 KB) in a thumbs/ folder next to it:
 
-    /static/images/books/Kirja_1p.jpg -> /static/images/books/thumbs/Kirja_1p.webp
+    /static/images/books/Kirja_1p.jpg ->
+    /static/images/books/thumbs/Kirja_1p.webp
 
 Thumbnails are made when a cover is uploaded, and for existing covers by
 scripts/make_thumbnails.py. The API's image schemas send `thumb_src`: the
@@ -59,7 +60,9 @@ def thumb_src(image_src: Optional[str]) -> Optional[str]:
     return image_src
 
 
-def make_thumbnail(source: str, target: str, height: int = THUMB_HEIGHT) -> bool:
+def make_thumbnail(
+    source: str, target: str, height: int = THUMB_HEIGHT
+) -> bool:
     """Write a WebP copy of `source` scaled to `height` (never enlarged)."""
     image = cv2.imread(source, cv2.IMREAD_COLOR)
     if image is None:
@@ -67,9 +70,13 @@ def make_thumbnail(source: str, target: str, height: int = THUMB_HEIGHT) -> bool
     original_height, original_width = image.shape[:2]
     if original_height > height:
         width = max(1, round(original_width * height / original_height))
-        image = cv2.resize(image, (width, height), interpolation=cv2.INTER_AREA)
+        image = cv2.resize(
+            image, (width, height), interpolation=cv2.INTER_AREA
+        )
     os.makedirs(os.path.dirname(target), exist_ok=True)
-    return bool(cv2.imwrite(target, image, [cv2.IMWRITE_WEBP_QUALITY, WEBP_QUALITY]))
+    return bool(
+        cv2.imwrite(target, image, [cv2.IMWRITE_WEBP_QUALITY, WEBP_QUALITY])
+    )
 
 
 def make_thumbnail_for(image_src: str) -> bool:
@@ -91,13 +98,17 @@ def make_thumbnail_for(image_src: str) -> bool:
     return made
 
 
-def make_missing_thumbnails(folder: str, force: bool = False) -> Tuple[int, int, List[str]]:
+def make_missing_thumbnails(
+    folder: str, force: bool = False
+) -> Tuple[int, int, List[str]]:
     """Make thumbnails for every cover in `folder` that lacks one (or all,
     with force). Returns (made, skipped, failed file names)."""
     made, skipped, failed = 0, 0, []
     for name in sorted(os.listdir(folder)):
         source = os.path.join(folder, name)
-        if not os.path.isfile(source) or not name.lower().endswith(('.jpg', '.jpeg', '.png')):
+        if not os.path.isfile(source) or not name.lower().endswith(
+            ('.jpg', '.jpeg', '.png')
+        ):
             continue
         target = os.path.join(folder, thumb_name(name))
         if not force and os.path.exists(target) \

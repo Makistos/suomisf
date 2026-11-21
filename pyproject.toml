@@ -75,7 +75,7 @@ distribution = false
 
 [tool.ruff]
 target-version = "py312"
-line-length = 100
+line-length = 79
 extend-exclude = ["old_stuff", "alembic"]
 
 [tool.ruff.lint]

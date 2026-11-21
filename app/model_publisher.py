@@ -39,11 +39,27 @@ class EditionSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 # have thousands of editions, so nothing else is sent (2026-10: WSOY's page
 # was 4.6 MB). Keep in step with get_publisher's eager loading.
 PUBLISHER_EDITION_FIELDS = (
-    'id', 'title', 'pubyear', 'editionnum', 'version', 'pages', 'size',
+    'id',
+    'title',
+    'pubyear',
+    'editionnum',
+    'version',
+    'pages',
+    'size',
     'isbn',  # combineEditions indexes it unless it's a string or null
-    'images', 'publisher', 'owners', 'wishlisted',
-    'work.id', 'work.title', 'work.orig_title', 'work.pubyear', 'work.type',
-    'work.author_str', 'work.genres', 'work.language_name', 'work.contributions',
+    'images',
+    'publisher',
+    'owners',
+    'wishlisted',
+    'work.id',
+    'work.title',
+    'work.orig_title',
+    'work.pubyear',
+    'work.type',
+    'work.author_str',
+    'work.genres',
+    'work.language_name',
+    'work.contributions',
 )
 
 
@@ -52,7 +68,9 @@ class PublisherPageSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Meta class. """
         model = Publisher
-    editions = ma.List(fields.Nested(EditionSchema(only=PUBLISHER_EDITION_FIELDS)))
+    editions = ma.List(
+        fields.Nested(EditionSchema(only=PUBLISHER_EDITION_FIELDS))
+    )
     series = ma.List(fields.Nested(PubseriesSchema(only=('id', 'name'))))
     links = ma.List(fields.Nested(PublisherLinkSchema))
     magazines = ma.List(fields.Nested(MagazineBriefSchema(

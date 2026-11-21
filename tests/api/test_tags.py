@@ -141,7 +141,8 @@ class TestTagMerge(BaseAPITest):
         assert response.status_code == 400
 
     def test_merge_nonexistent_tags(self, admin_client):
-        """POST /api/tags/{nonexistent}/merge/{nonexistent} handles gracefully."""
+        """POST /api/tags/{nonexistent}/merge/{nonexistent} handles gracefully.
+        """
         response = admin_client.post('/api/tags/999999999/merge/999999998')
         # Should return error for nonexistent tags
         assert response.status_code == 404

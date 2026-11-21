@@ -72,7 +72,8 @@ def api_role(target: str) -> Response:
             - "work": Roles for works (author, editor, subject)
             - "edition": Roles for editions (author, editor, subject)
             - "short": Roles for short stories (author, translator, subject)
-            - "issue": Roles for magazine issues (editor-in-chief, cover artist)
+            - "issue": Roles for magazine issues (editor-in-chief, cover
+              artist)
 
     Returns:
         200 OK: JSON array of role objects applicable to the target.

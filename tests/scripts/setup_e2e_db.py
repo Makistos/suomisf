@@ -27,7 +27,10 @@ if os.environ.get('SUOMISF_DOTENV') != '.env.e2e':
     )
 
 sys.path.insert(
-    0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    0,
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ),
 )
 
 from tests.conftest import clone_test_database, create_test_users  # noqa: E402

@@ -573,7 +573,11 @@ def app(setup_test_database, tmp_path_factory):
     # The app is configured from the dev .env, whose upload folders are the
     # real app/static/images/* ones. Send test uploads to a temporary folder.
     uploads = tmp_path_factory.mktemp('uploads')
-    for key in ('BOOKCOVER_SAVELOC', 'PERSONIMG_SAVELOC', 'MAGAZINECOVER_SAVELOC'):
+    for key in (
+        'BOOKCOVER_SAVELOC',
+        'PERSONIMG_SAVELOC',
+        'MAGAZINECOVER_SAVELOC',
+    ):
         folder = uploads / key.split('_')[0].lower()
         folder.mkdir()
         flask_app.config[key] = str(folder) + '/'
@@ -658,7 +662,9 @@ def user_headers(api_client, api_test_config) -> Dict[str, str]:
 # Snapshot Testing
 # ---------------------------------------------------------------------------
 
-SNAPSHOTS_DIR = os.path.join(os.path.dirname(__file__), 'fixtures', 'snapshots')
+SNAPSHOTS_DIR = os.path.join(
+    os.path.dirname(__file__), 'fixtures', 'snapshots'
+)
 
 
 class SnapshotManager:
@@ -710,7 +716,8 @@ class SnapshotManager:
             name: Snapshot name
             actual_data: The actual API response data
             ignore_keys: Keys to ignore in comparison (e.g., timestamps)
-            check_subset: If True, only check that expected keys exist in actual
+            check_subset: If True, only check that expected keys exist in
+                actual
 
         Returns:
             (matches: bool, diff: dict or None)
@@ -719,7 +726,9 @@ class SnapshotManager:
         if expected is None:
             return False, {'error': f'Snapshot {name} not found'}
 
-        return self._compare_data(expected, actual_data, ignore_keys, check_subset)
+        return self._compare_data(
+            expected, actual_data, ignore_keys, check_subset
+        )
 
     def _compare_data(
         self,
@@ -763,7 +772,8 @@ class SnapshotManager:
                     }
                 }
 
-            # For lists, compare element counts and types rather than exact order
+            # For lists, compare element counts and types rather than exact
+            # order
             # This handles cases where DB order may vary
             return True, None
 
@@ -784,18 +794,29 @@ class SnapshotManager:
         if snapshot is None:
             raise AssertionError(
                 f"Snapshot '{name}' not found. "
-                f"Run 'pdm run python tests/scripts/update_snapshots.py' to generate."
+                "Run 'pdm run python tests/scripts/update_snapshots.py' to "
+                "generate."
             )
 
         expected = self.get_expected_data(name)
 
         # Check counts for list responses
-        if check_counts and isinstance(expected, list) and isinstance(actual_data, list):
-            assert len(actual_data) == len(expected), \
-                f"Count mismatch: expected {len(expected)}, got {len(actual_data)}"
+        if (
+            check_counts
+            and isinstance(expected, list)
+            and isinstance(actual_data, list)
+        ):
+            assert len(actual_data) == len(expected), (
+                f"Count mismatch: expected {len(expected)}, got "
+                f"{len(actual_data)}"
+            )
 
         # Check counts for dict responses with known count keys
-        if check_counts and isinstance(expected, dict) and isinstance(actual_data, dict):
+        if (
+            check_counts
+            and isinstance(expected, dict)
+            and isinstance(actual_data, dict)
+        ):
             count_keys = ['works', 'editions', 'shorts', 'magazines', 'covers',
                           'total_works', 'total_editions', 'total_pages']
             for key in count_keys:
@@ -817,7 +838,9 @@ def assert_snapshot(snapshot_manager):
     def _assert(name: str, response, ignore_keys: Optional[list] = None):
         """Assert that response matches the named snapshot."""
         actual_data = response.json if hasattr(response, 'json') else response
-        snapshot_manager.assert_matches_snapshot(name, actual_data, ignore_keys)
+        snapshot_manager.assert_matches_snapshot(
+            name, actual_data, ignore_keys
+        )
     return _assert
 
 
@@ -844,13 +867,16 @@ class APITestClient:
         if response.status_code == 200:
             data = response.get_json()
             if data:
-                # Login endpoint returns tokens directly, not wrapped in 'response'
+                # Login endpoint returns tokens directly, not wrapped in
+                # 'response'
                 self.access_token = data.get('access_token')
                 self.refresh_token = data.get('refresh_token')
                 return self.access_token
         return None
 
-    def get(self, path: str, headers: Optional[Dict] = None, **kwargs) -> 'APIResponse':
+    def get(
+        self, path: str, headers: Optional[Dict] = None, **kwargs
+    ) -> 'APIResponse':
         """Make GET request."""
         headers = headers or {}
         if self.access_token and 'Authorization' not in headers:
@@ -891,7 +917,9 @@ class APITestClient:
         )
         return APIResponse(response)
 
-    def delete(self, path: str, headers: Optional[Dict] = None, **kwargs) -> 'APIResponse':
+    def delete(
+        self, path: str, headers: Optional[Dict] = None, **kwargs
+    ) -> 'APIResponse':
         """Make DELETE request."""
         headers = headers or {}
         if self.access_token and 'Authorization' not in headers:
@@ -928,20 +956,26 @@ class APIResponse:
 
     def assert_status(self, expected_status: int) -> 'APIResponse':
         """Assert response status code."""
-        assert self.status_code == expected_status, \
-            f"Expected status {expected_status}, got {self.status_code}. Response: {self.json}"
+        assert self.status_code == expected_status, (
+            f"Expected status {expected_status}, got {self.status_code}. "
+            f"Response: {self.json}"
+        )
         return self
 
     def assert_success(self) -> 'APIResponse':
         """Assert response is successful (2xx)."""
-        assert 200 <= self.status_code < 300, \
-            f"Expected success status, got {self.status_code}. Response: {self.json}"
+        assert 200 <= self.status_code < 300, (
+            f"Expected success status, got {self.status_code}. Response: "
+            f"{self.json}"
+        )
         return self
 
     def assert_has_key(self, key: str) -> 'APIResponse':
         """Assert response JSON has key."""
         assert self.json is not None, "Response has no JSON data"
-        assert key in self.json, f"Response missing key '{key}'. Keys: {list(self.json.keys())}"
+        assert key in self.json, (
+            f"Response missing key '{key}'. Keys: {list(self.json.keys())}"
+        )
         return self
 
     def assert_data_is_list(self) -> 'APIResponse':
@@ -1041,7 +1075,8 @@ def pytest_configure(config):
         "markers", "auth_required: mark test as requiring authentication"
     )
     config.addinivalue_line(
-        "markers", "admin_required: mark test as requiring admin authentication"
+        "markers",
+        "admin_required: mark test as requiring admin authentication",
     )
     config.addinivalue_line(
         "markers", "slow: mark test as slow running"

@@ -12,7 +12,8 @@ Must be run with SUOMISF_DOTENV=.env.e2e in the environment, same as
 setup_e2e_db.py, so this binds to suomisf_test rather than production.
 
 Usage:
-    SUOMISF_DOTENV=.env.e2e pdm run python tests/scripts/mint_reset_token.py "Test User"
+    SUOMISF_DOTENV=.env.e2e pdm run python tests/scripts/mint_reset_token.py
+    "Test User"
 
 Prints only the token to stdout.
 """
@@ -30,7 +31,10 @@ if len(sys.argv) != 2:
     sys.exit("Usage: mint_reset_token.py <username>")
 
 sys.path.insert(
-    0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    0,
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    ),
 )
 
 from app import app  # noqa: E402
@@ -44,7 +48,10 @@ with app.app_context():
     session = new_session()
     user = session.query(User).filter(User.name == username).first()
     if not user:
-        sys.exit(f"No user named {username!r} in {app.config['SQLALCHEMY_DATABASE_URI']}")
+        sys.exit(
+            f"No user named {username!r} in "
+            f"{app.config['SQLALCHEMY_DATABASE_URI']}"
+        )
     token = _reset_serializer().dumps(
         {'uid': user.id, 'fp': _password_fingerprint(user)})
     print(token)

@@ -99,7 +99,8 @@ CATEGORY_MAP: Dict[str, str] = {
     "Best Single Author Collection": "Paras kokoelma",
     "Mythopoeic Fantasy Award": "Paras romaani",
     "Mythopoeic Fantasy Award for Adult Literature": "Paras romaani",
-    "Mythopoeic Fantasy Award for Young Adult Literature": "Paras nuortenkirja",
+    "Mythopoeic Fantasy Award for Young Adult Literature":
+        "Paras nuortenkirja",
     "Mythopoeic Fantasy Award for Children's Literature": "Paras lastenkirja",
     "Novel": "Paras romaani",
     "Novella": "Paras pienoisromaani",
@@ -543,8 +544,9 @@ def parse_award_sfadb_flat(sfadb_slug: str,
     return winners
 
 
-def parse_award_sfadb_person_list(sfadb_slug: str,
-                                  max_attempts: int = 1) -> List[ScrapedWinner]:
+def parse_award_sfadb_person_list(
+    sfadb_slug: str, max_attempts: int = 1
+) -> List[ScrapedWinner]:
     """
     Parse a sfadb "person award" page (one recipient per year, no title) -
     e.g. SFWA_Grand_Master_Award, Skylark_Award, World_Horror_Grandmaster.
@@ -623,34 +625,65 @@ class WikipediaTableSource:
 WIKIPEDIA_AWARD_SOURCES: Dict[str, WikipediaTableSource] = {
     "Nobelin kirjallisuuspalkinto": WikipediaTableSource(
         url="https://en.wikipedia.org/wiki/List_of_Nobel_laureates_in_Literature",
-        match_kind="person", year_col=0, name_col=2, skip_rows=2),
+        match_kind="person",
+        year_col=0,
+        name_col=2,
+        skip_rows=2,
+    ),
     "Finlandia-palkinto": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Finlandia-palkinto",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
     "Lasten- ja nuortenkirjallisuuden Finlandia": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Lasten-_ja_nuortenkirjallisuuden_Finlandia",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
     "Topelius-palkinto": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Topelius-palkinto",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
     "Arvid Lydecken -palkinto": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Arvid_Lydecken_-palkinto",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
     "Kuvastaja": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Kuvastaja",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
     "Tähtifantasia": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/T%C3%A4htifantasia-palkinto",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
     "Tähtivaeltaja": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/T%C3%A4htivaeltaja-palkinto",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
     "Atorox": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Atorox-palkinto",
-        match_kind="short", author_col=1, title_col=2),
+        match_kind="short",
+        author_col=1,
+        title_col=2,
+    ),
     "Portin novellikilpailu": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Portti_(lehti)",
-        match_kind="short", author_col=1, title_col=2),
+        match_kind="short",
+        author_col=1,
+        title_col=2,
+    ),
     # Kosmoskynä has no dedicated "list of winners" article - its granting
     # organization's own page has a plain "Year: Name" bullet list under a
     # "Kosmoskynä-palkinto" heading instead of a wikitable. anarres.fi used
@@ -659,11 +692,16 @@ WIKIPEDIA_AWARD_SOURCES: Dict[str, WikipediaTableSource] = {
     # this Wikipedia section is the replacement source found for it.
     "Kosmoskynä": WikipediaTableSource(
         url="https://fi.wikipedia.org/wiki/Suomen_tieteis-_ja_fantasiakirjoittajat",
-        match_kind="person", layout="heading_list",
-        heading_id="Kosmoskynä-palkinto"),
+        match_kind="person",
+        layout="heading_list",
+        heading_id="Kosmoskynä-palkinto",
+    ),
     "Booker-palkinto": WikipediaTableSource(
         url="https://en.wikipedia.org/wiki/Booker_Prize",
-        match_kind="work", author_col=1, title_col=2),
+        match_kind="work",
+        author_col=1,
+        title_col=2,
+    ),
 }
 
 # The local category assigned to each work-based Wikipedia-table award's
@@ -751,12 +789,18 @@ def parse_award_wikipedia_table(source: WikipediaTableSource,
             year_rowspan_remaining -= 1
         else:
             col_offset = 0
-            year_cell = cells[source.year_col] if source.year_col < len(cells) else None
+            year_cell = (
+                cells[source.year_col]
+                if source.year_col < len(cells)
+                else None
+            )
             if year_cell is not None:
                 rowspan = int(year_cell.get("rowspan", 1) or 1)
                 if rowspan > 1:
                     year_rowspan_remaining = rowspan - 1
-                year = _extract_year(clean(year_cell.get_text(" ", strip=True)))
+                year = _extract_year(
+                    clean(year_cell.get_text(" ", strip=True))
+                )
                 if year is not None:
                     pending_year = year
 
@@ -770,16 +814,22 @@ def parse_award_wikipedia_table(source: WikipediaTableSource,
             continue
 
         if source.match_kind == "person":
-            name = _LIFESPAN_SUFFIX_RE.sub("", cell_text(source.name_col)).strip()
+            name = _LIFESPAN_SUFFIX_RE.sub(
+                "", cell_text(source.name_col)
+            ).strip()
             if not name:
                 continue
-            winners.append(ScrapedWinner(year=pending_year, title=name, author=""))
+            winners.append(
+                ScrapedWinner(year=pending_year, title=name, author="")
+            )
         else:
             title = cell_text(source.title_col)
             if not title:
                 continue
             author = cell_text(source.author_col)
-            winners.append(ScrapedWinner(year=pending_year, title=title, author=author))
+            winners.append(
+                ScrapedWinner(year=pending_year, title=title, author=author)
+            )
 
     return winners
 
@@ -791,8 +841,9 @@ def parse_award_wikipedia_table(source: WikipediaTableSource,
 _HEADING_LIST_LINE_RE = re.compile(r"^\s*(\d{4})\s*:\s*(.+?)\s*$")
 
 
-def parse_award_wikipedia_heading_list(source: WikipediaTableSource,
-                                       max_attempts: int = 1) -> List[ScrapedWinner]:
+def parse_award_wikipedia_heading_list(
+    source: WikipediaTableSource, max_attempts: int = 1
+) -> List[ScrapedWinner]:
     """
     Parse a plain "Year: Name" bullet list under a Wikipedia section
     heading (source.heading_id) into a flat list of person-award winners -
@@ -811,7 +862,11 @@ def parse_award_wikipedia_heading_list(source: WikipediaTableSource,
     if heading is None:
         return []
 
-    container = heading.parent if heading.parent and heading.parent.name == "div" else heading
+    container = (
+        heading.parent
+        if heading.parent and heading.parent.name == "div"
+        else heading
+    )
     node = container
     winners: List[ScrapedWinner] = []
     while True:
@@ -1087,7 +1142,11 @@ def _resolve_category_id(category_lookup: Dict[Tuple[str, int], int],
     if not name:
         return None
     key = name.lower()
-    for cat_type in (preferred_type, _WORK_CATEGORY_TYPE, _SHORT_CATEGORY_TYPE):
+    for cat_type in (
+        preferred_type,
+        _WORK_CATEGORY_TYPE,
+        _SHORT_CATEGORY_TYPE,
+    ):
         cid = category_lookup.get((key, cat_type))
         if cid is not None:
             return cid
@@ -1211,7 +1270,9 @@ def _build_entry(session: Any, winner: ScrapedWinner, item_type: int,
     return entry
 
 
-def _person_name_index(session: Any) -> List[Tuple[Any, List[Tuple[str, ...]]]]:
+def _person_name_index(
+    session: Any,
+) -> List[Tuple[Any, List[Tuple[str, ...]]]]:
     """(person, tokenized name variants) for every person in the DB, built
     once per preview request for ITEM_PERSON awards. Reuses
     _person_name_variants, the same tokenization already used to verify a
@@ -1416,7 +1477,9 @@ def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
         # The source answered but nothing parsed: the site may be down
         # (sfadb.com served an "Account Suspended" page in 2026-10) or
         # its page layout changed. Say so instead of an empty preview.
-        info = get_import_source_info(award.name) if source == "sfadb" else None
+        info = (
+            get_import_source_info(award.name) if source == "sfadb" else None
+        )
         errors.append('lähdesivulta ei löytynyt yhtään voittajaa'
                       + (f' ({info["url"]})' if info else ''))
 
@@ -1429,10 +1492,20 @@ def preview_import(award_id: int, source: str = "sfadb") -> ResponseType:
                 entries.append(_build_person_entry(
                     winner, person_index, person_ids, category_lookup))
             else:
-                entries.append(_build_entry(
-                    session, winner, item_type, label,
-                    our_category, category_lookup, work_ids, story_ids,
-                    also_local_title=award.name in WIKIPEDIA_TRANSLATED_WORK_AWARDS))
+                entries.append(
+                    _build_entry(
+                        session,
+                        winner,
+                        item_type,
+                        label,
+                        our_category,
+                        category_lookup,
+                        work_ids,
+                        story_ids,
+                        also_local_title=award.name
+                        in WIKIPEDIA_TRANSLATED_WORK_AWARDS,
+                    )
+                )
 
     counts = {
         STATUS_NEW: sum(1 for e in entries if e["status"] == STATUS_NEW),

@@ -55,8 +55,9 @@ class BaseAPITest:
 
         return response
 
-    def assert_dict_response(self, data: Dict,
-                             required_keys: Optional[List[str]] = None) -> Dict:
+    def assert_dict_response(
+        self, data: Dict, required_keys: Optional[List[str]] = None
+    ) -> Dict:
         """
         Assert response contains a dict and optionally check required keys.
         """

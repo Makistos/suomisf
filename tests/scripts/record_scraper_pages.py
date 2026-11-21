@@ -8,7 +8,8 @@ gzipped, under the output folder with an index.json mapping each request to
 its file. Re-run it when a site changes its layout, then update the values
 pinned in test_scrapers.py.
 
-    PYTHONPATH=. pdm run python tests/scripts/record_scraper_pages.py tests/fixtures/html
+    PYTHONPATH=. pdm run python tests/scripts/record_scraper_pages.py
+    tests/fixtures/html
 
 sfadb.com was down ("Account Suspended") on 2026-10-04; its two pages in
 the fixtures are archived copies from web.archive.org, and
@@ -28,8 +29,20 @@ INDEX = {}
 real_get = requests.get
 
 def key_of(url, params=None):
-    return url if not params else url + '?' + json.dumps(params, sort_keys=True, ensure_ascii=False,
-        default=lambda v: v.decode('latin-1') if isinstance(v, bytes) else str(v))
+    return (
+        url
+        if not params
+        else url
+        + '?'
+        + json.dumps(
+            params,
+            sort_keys=True,
+            ensure_ascii=False,
+            default=lambda v: (
+                v.decode('latin-1') if isinstance(v, bytes) else str(v)
+            ),
+        )
+    )
 
 def recording_get(url, *args, params=None, **kwargs):
     resp = real_get(url, *args, params=params, **kwargs)
@@ -70,7 +83,14 @@ with app.app_context():
             if rows:
                 break
         print(f'  -> {result.status}, {len(rows)} results')
-        url = next((r.get('url') for r in rows if isinstance(r, dict) and r.get('url')), None)
+        url = next(
+            (
+                r.get('url')
+                for r in rows
+                if isinstance(r, dict) and r.get('url')
+            ),
+            None,
+        )
         if url:
             first_urls[name] = url
     for name, url in first_urls.items():
@@ -80,7 +100,11 @@ with app.app_context():
     for award_id in (11, 1, 13):
         print('award', award_id)
         r = awards.preview_import(award_id)
-        n = len(r.response.get('entries', [])) if isinstance(r.response, dict) else r.response
+        n = (
+            len(r.response.get('entries', []))
+            if isinstance(r.response, dict)
+            else r.response
+        )
         print('  ->', r.status, n)
 
 with open(os.path.join(OUT, 'index.json'), 'w') as fh:

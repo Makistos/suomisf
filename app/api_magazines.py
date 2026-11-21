@@ -6,8 +6,14 @@ from typing import Tuple
 from flask import Response, request
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
-from app.impl_magazines import (add_magazine, delete_magazine, get_magazine_types, list_magazines,
-                                get_magazine, update_magazine)
+from app.impl_magazines import (
+    add_magazine,
+    delete_magazine,
+    get_magazine_types,
+    list_magazines,
+    get_magazine,
+    update_magazine,
+)
 from app.types import HttpResponseCode
 from app.api_jwt import jwt_admin_required
 

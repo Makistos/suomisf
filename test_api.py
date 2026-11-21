@@ -108,7 +108,10 @@ class SuomiSFAPITester:
         for method, path in public_tests:
             result = self.test_endpoint(method, path)
             status = "✅" if result.get("success") else "❌"
-            print(f"{status} {method} {path} - {result.get('status_code', 'ERROR')}")
+            print(
+                f"{status} {method} {path} - "
+                f"{result.get('status_code', 'ERROR')}"
+            )
             time.sleep(0.1)  # Be nice to the server
 
         # Test search endpoints
@@ -121,7 +124,10 @@ class SuomiSFAPITester:
         for method, path, data in search_tests:
             result = self.test_endpoint(method, path, data)
             status = "✅" if result.get("success") else "❌"
-            print(f"{status} {method} {path} - {result.get('status_code', 'ERROR')}")
+            print(
+                f"{status} {method} {path} - "
+                f"{result.get('status_code', 'ERROR')}"
+            )
             time.sleep(0.1)
 
         # Test filter endpoints
@@ -135,7 +141,10 @@ class SuomiSFAPITester:
         for method, path in filter_tests:
             result = self.test_endpoint(method, path)
             status = "✅" if result.get("success") else "❌"
-            print(f"{status} {method} {path} - {result.get('status_code', 'ERROR')}")
+            print(
+                f"{status} {method} {path} - "
+                f"{result.get('status_code', 'ERROR')}"
+            )
             time.sleep(0.1)
 
         print("\n📊 Test Summary:")
@@ -155,14 +164,20 @@ class SuomiSFAPITester:
         })
 
         status = "✅" if login_result.get("success") else "❌"
-        print(f"{status} Login attempt - {login_result.get('status_code', 'ERROR')}")
+        print(
+            f"{status} Login attempt - "
+            f"{login_result.get('status_code', 'ERROR')}"
+        )
 
         if login_result.get("success"):
             # Extract token from response
             response_data = login_result.get("response_data", {})
             if isinstance(response_data, dict) and "response" in response_data:
                 token_data = response_data["response"]
-                if isinstance(token_data, dict) and "access_token" in token_data:
+                if (
+                    isinstance(token_data, dict)
+                    and "access_token" in token_data
+                ):
                     self.access_token = token_data["access_token"]
                     self.session.headers.update({
                         'Authorization': f'Bearer {self.access_token}'
@@ -173,7 +188,10 @@ class SuomiSFAPITester:
         if self.access_token:
             refresh_result = self.test_endpoint("POST", "/refresh")
             status = "✅" if refresh_result.get("success") else "❌"
-            print(f"{status} Token refresh - {refresh_result.get('status_code', 'ERROR')}")
+            print(
+                f"{status} Token refresh - "
+                f"{refresh_result.get('status_code', 'ERROR')}"
+            )
 
 
 def main():
@@ -211,7 +229,13 @@ if __name__ == "__main__":
         else:
             print("Usage:")
             print("  python3 test_api.py                    # Run basic tests")
-            print("  python3 test_api.py --login user pass  # Test authentication")
-            print("  python3 test_api.py --test GET /path   # Test specific endpoint")
+            print(
+                "  python3 test_api.py --login user pass  # Test "
+                "authentication"
+            )
+            print(
+                "  python3 test_api.py --test GET /path   # Test specific "
+                "endpoint"
+            )
     else:
         main()

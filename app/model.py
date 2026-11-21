@@ -243,8 +243,12 @@ class WorkEditionBriefSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     class Meta:
         """ Metadata for SQLAlchemyAutoSchema. """
         model = Edition
-    editors = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name'))))
-    translators = ma.List(fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name'))))
+    editors = ma.List(
+        fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
+    )
+    translators = ma.List(
+        fields.Nested(PersonBriefSchema(only=('id', 'name', 'alt_name')))
+    )
     contributions = ma.List(fields.Nested(EditionContributorSchema))
     images = ma.List(fields.Nested(EditionImageBriefSchema))
     publisher = fields.Nested(lambda: PublisherSchema(only=('id', 'name')))
@@ -678,12 +682,33 @@ class MagazineSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
 # work tooltip and the stats panel) reads these. A tag can have hundreds of
 # works, each with several editions (2026-10: tag 521 was 1.1 MB).
 TAG_WORK_FIELDS = (
-    'id', 'title', 'orig_title', 'author_str', 'subtitle', 'pubyear', 'type',
-    'bookseriesnum', 'bookseriesorder', 'misc', 'description', 'descr_attr',
-    'contributions', 'genres', 'bookseries', 'language_name',
-    'editions.id', 'editions.title', 'editions.pubyear', 'editions.editionnum',
-    'editions.version', 'editions.publisher', 'editions.contributions',
-    'editions.images', 'editions.size', 'editions.owners', 'editions.wishlisted',
+    'id',
+    'title',
+    'orig_title',
+    'author_str',
+    'subtitle',
+    'pubyear',
+    'type',
+    'bookseriesnum',
+    'bookseriesorder',
+    'misc',
+    'description',
+    'descr_attr',
+    'contributions',
+    'genres',
+    'bookseries',
+    'language_name',
+    'editions.id',
+    'editions.title',
+    'editions.pubyear',
+    'editions.editionnum',
+    'editions.version',
+    'editions.publisher',
+    'editions.contributions',
+    'editions.images',
+    'editions.size',
+    'editions.owners',
+    'editions.wishlisted',
 )
 
 

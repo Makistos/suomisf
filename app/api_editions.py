@@ -260,9 +260,14 @@ def api_editionsowned(userid: str) -> Response:
     return make_api_response(editionowner_getowned(uid, False))
 
 
-@app.route('/api/user/<int:user_id>/work/<int:work_id>/edition-prices', methods=['GET'])
+@app.route(
+    '/api/user/<int:user_id>/work/<int:work_id>/edition-prices',
+    methods=['GET'],
+)
 def api_work_edition_prices(user_id: int, work_id: int) -> Response:
-    """Return best price and match quality per edition for a user within a work."""
+    """Return best price and match quality per edition for a user within a
+    work.
+    """
     return make_api_response(work_edition_prices(user_id, work_id))
 
 

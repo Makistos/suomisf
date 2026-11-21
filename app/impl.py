@@ -4,7 +4,17 @@ from datetime import datetime, timedelta
 from enum import IntEnum
 import json
 import random
-from typing import Dict, NamedTuple, Optional, Tuple, List, Union, Any, TypedDict, Set
+from typing import (
+    Dict,
+    NamedTuple,
+    Optional,
+    Tuple,
+    List,
+    Union,
+    Any,
+    TypedDict,
+    Set,
+)
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 from marshmallow import exceptions
@@ -669,8 +679,17 @@ FRONTPAGE_RANDOM_CATEGORIES: List[Tuple[str, List[int]]] = [
 ]
 
 
-FRONTPAGE_LATEST_FIELDS = ('id', 'title', 'pubyear', 'editionnum', 'version',
-                           'images', 'work.id', 'work.title', 'work.author_str')
+FRONTPAGE_LATEST_FIELDS = (
+    'id',
+    'title',
+    'pubyear',
+    'editionnum',
+    'version',
+    'images',
+    'work.id',
+    'work.title',
+    'work.author_str',
+)
 
 
 def get_frontpage_latest(count: int = 6) -> ResponseType:

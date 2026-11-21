@@ -316,7 +316,9 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
             try:
                 pub_id = int(pub_id_raw)
             except (ValueError, TypeError):
-                app.logger.error(f'Publisher id must be integer: {pub_id_raw}.')
+                app.logger.error(
+                    f'Publisher id must be integer: {pub_id_raw}.'
+                )
                 return ResponseType('Kustantajan id on virheellinen: '
                                     f'{pub_id_raw}.',
                                     HttpResponseCode.BAD_REQUEST.value)
@@ -326,8 +328,10 @@ def update_magazine(params: Dict[str, Any]) -> ResponseType:
                     .first()
             except SQLAlchemyError as exp:
                 app.logger.error(exp)
-                return ResponseType('Tietokantavirhe.',
-                                    HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+                return ResponseType(
+                    'Tietokantavirhe.',
+                    HttpResponseCode.INTERNAL_SERVER_ERROR.value,
+                )
             if publisher:
                 old_values['Kustantaja'] = magazine.publisher.name \
                     if magazine.publisher else ''

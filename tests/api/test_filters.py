@@ -125,7 +125,8 @@ class TestFilterPublishers(BaseAPITest):
         response.assert_success().assert_data_is_list()
 
     def test_filter_publishers_pattern_too_short(self, api_client):
-        """GET /api/filter/publishers/{pattern} should reject short patterns."""
+        """GET /api/filter/publishers/{pattern} should reject short patterns.
+        """
         response = api_client.get('/api/filter/publishers/a')
         response.assert_status(400)
 
@@ -234,7 +235,9 @@ class TestFilterLinkNames(BaseAPITest):
 class TestWorksByInitial(BaseAPITest):
     """Tests for /api/worksbyinitial/{letter} endpoint."""
 
-    @pytest.mark.parametrize('letter', get_filter_params('worksbyinitial', 'letter'))
+    @pytest.mark.parametrize(
+        'letter', get_filter_params('worksbyinitial', 'letter')
+    )
     def test_worksbyinitial_returns_list(self, api_client, letter):
         """GET /api/worksbyinitial/{letter} should return 200.
 

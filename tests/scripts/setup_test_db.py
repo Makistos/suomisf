@@ -3,7 +3,8 @@
 SuomiSF Test Database Setup
 
 Creates and populates a test database for API tests.
-Handles PostgreSQL collation fixes, database creation, data cloning, and test user setup.
+Handles PostgreSQL collation fixes, database creation, data cloning, and test
+user setup.
 
 Usage:
     pdm run python tests/scripts/setup_test_db.py [--clone] [--users-only]
@@ -125,14 +126,24 @@ def clone_data():
     try:
         # Remove if exists from previous failed run (may be owned by postgres)
         if os.path.exists(dump_file):
-            subprocess.run(['sudo', 'rm', '-f', dump_file], capture_output=True)
+            subprocess.run(
+                ['sudo', 'rm', '-f', dump_file], capture_output=True
+            )
 
         # Dump main database to file
         print("   Dumping main database...")
         dump_result = subprocess.run(
-            ['sudo', '-u', 'postgres', 'pg_dump', '-f', dump_file, MAIN_DB_NAME],
+            [
+                'sudo',
+                '-u',
+                'postgres',
+                'pg_dump',
+                '-f',
+                dump_file,
+                MAIN_DB_NAME,
+            ],
             capture_output=True,
-            text=True
+            text=True,
         )
 
         if dump_result.returncode != 0:
@@ -154,16 +165,30 @@ def clone_data():
         # Restore from file
         print("   Restoring to test database...")
         restore_result = subprocess.run(
-            ['sudo', '-u', 'postgres', 'psql', '-d', TEST_DB_NAME, '-f', dump_file],
+            [
+                'sudo',
+                '-u',
+                'postgres',
+                'psql',
+                '-d',
+                TEST_DB_NAME,
+                '-f',
+                dump_file,
+            ],
             capture_output=True,
-            text=True
+            text=True,
         )
 
         # Show restore output for debugging
         if restore_result.stderr:
             # Filter out common non-fatal warnings
-            errors = [line for line in restore_result.stderr.split('\n')
-                      if line and 'NOTICE:' not in line and 'already exists' not in line]
+            errors = [
+                line
+                for line in restore_result.stderr.split('\n')
+                if line
+                and 'NOTICE:' not in line
+                and 'already exists' not in line
+            ]
             if errors:
                 print("   Restore warnings/errors:")
                 for err in errors[:10]:  # Show first 10 errors
@@ -173,18 +198,24 @@ def clone_data():
         subprocess.run(['sudo', 'rm', '-f', dump_file], capture_output=True)
 
         if restore_result.returncode != 0:
-            print(f"   ERROR: psql restore failed (exit code {restore_result.returncode})")
+            print(
+                "   ERROR: psql restore failed (exit code "
+                f"{restore_result.returncode})"
+            )
             return False
 
         # Set search_path to include suomisf schema (matches main database)
         run_psql(
-            f"ALTER DATABASE {TEST_DB_NAME} SET search_path TO suomisf, public;",
-            TEST_DB_NAME
+            f"ALTER DATABASE {TEST_DB_NAME} SET search_path TO suomisf, "
+            "public;",
+            TEST_DB_NAME,
         )
         print("   Set search_path to suomisf, public")
 
         # Verify data was actually copied (tables are in 'suomisf' schema)
-        success, output = run_psql("SELECT COUNT(*) FROM suomisf.work;", TEST_DB_NAME)
+        success, output = run_psql(
+            "SELECT COUNT(*) FROM suomisf.work;", TEST_DB_NAME
+        )
         if success and output:
             print("   Data cloned successfully")
             return True
@@ -205,7 +236,9 @@ def create_test_users():
     print("\n4. Creating test users...")
 
     # Set environment to use test database BEFORE importing app
-    os.environ['DATABASE_URL'] = f'postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'
+    os.environ['DATABASE_URL'] = (
+        f'postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'
+    )
 
     try:
         # Import inside function after setting env var
@@ -221,9 +254,13 @@ def create_test_users():
 
         with app.app_context():
             # Create regular test user
-            user = db.session.query(User).filter_by(name=TEST_USER_NAME).first()
+            user = (
+                db.session.query(User).filter_by(name=TEST_USER_NAME).first()
+            )
             if user:
-                print(f"   User '{TEST_USER_NAME}' already exists (id={user.id})")
+                print(
+                    f"   User '{TEST_USER_NAME}' already exists (id={user.id})"
+                )
             else:
                 user = User()
                 user.name = TEST_USER_NAME  # type: ignore[assignment]
@@ -234,9 +271,14 @@ def create_test_users():
                 print(f"   Created user '{TEST_USER_NAME}' (id={user.id})")
 
             # Create admin test user
-            admin = db.session.query(User).filter_by(name=TEST_ADMIN_NAME).first()
+            admin = (
+                db.session.query(User).filter_by(name=TEST_ADMIN_NAME).first()
+            )
             if admin:
-                print(f"   Admin '{TEST_ADMIN_NAME}' already exists (id={admin.id})")
+                print(
+                    f"   Admin '{TEST_ADMIN_NAME}' already exists "
+                    f"(id={admin.id})"
+                )
             else:
                 admin = User()
                 admin.name = TEST_ADMIN_NAME  # type: ignore[assignment]
@@ -263,7 +305,9 @@ def verify_setup():
     # Tables are in the 'suomisf' schema
     tables = ['work', 'edition', 'person', 'shortstory']
     for table in tables:
-        success, output = run_psql(f"SELECT COUNT(*) FROM suomisf.{table};", TEST_DB_NAME)
+        success, output = run_psql(
+            f"SELECT COUNT(*) FROM suomisf.{table};", TEST_DB_NAME
+        )
         if success and output:
             # Parse count from output
             lines = output.strip().split('\n')
@@ -324,7 +368,9 @@ def main():
     print(f"  User:  {TEST_USER_EMAIL} / {TEST_USER_PASSWORD}")
     print(f"  Admin: {TEST_ADMIN_EMAIL} / {TEST_ADMIN_PASSWORD}")
     print("\nTo run tests against this database:")
-    print(f"  export DATABASE_URL='postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'")
+    print(
+        f"  export DATABASE_URL='postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'"
+    )
     print("  pdm run pytest tests/api/")
 
 

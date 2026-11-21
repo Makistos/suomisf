@@ -42,15 +42,29 @@ def test_publisher_page_query_count_does_not_grow_with_editions(client):
     assert response.status_code == 200
     editions = response.get_json()['editions']
     assert len(editions) > 1000
-    assert queries['n'] <= MAX_QUERIES, f"{queries['n']} queries for {len(editions)} editions"
+    assert queries['n'] <= MAX_QUERIES, (
+        f"{queries['n']} queries for {len(editions)} editions"
+    )
     assert elapsed < 5, f'{elapsed:.1f} s'
 
 
 def test_publisher_page_edition_fields(client):
     editions = client.get(f'/api/publishers/{WSOY}').get_json()['editions']
     assert set(editions[0]) == {
-        'id', 'title', 'pubyear', 'editionnum', 'version', 'pages', 'size', 'isbn',
-        'images', 'publisher', 'owners', 'wishlisted', 'work'}
+        'id',
+        'title',
+        'pubyear',
+        'editionnum',
+        'version',
+        'pages',
+        'size',
+        'isbn',
+        'images',
+        'publisher',
+        'owners',
+        'wishlisted',
+        'work',
+    }
     assert set(editions[0]['work']) == {
         'id', 'title', 'orig_title', 'pubyear', 'type', 'author_str', 'genres',
         'language_name', 'contributions'}
@@ -81,7 +95,12 @@ def test_person_page_nested_editions_are_slim(client):
         'pubseries', 'images', 'owners', 'wishlisted'}
     story = next(s for s in person['stories'] if s['editions'])
     assert set(story['editions'][0]) == {'id', 'work'}
-    assert set(story['editions'][0]['work']) == {'id', 'title', 'pubyear', 'author_str'}
+    assert set(story['editions'][0]['work']) == {
+        'id',
+        'title',
+        'pubyear',
+        'author_str',
+    }
     tagged = next(w for w in person['works'] if w['tags'])
     assert set(tagged['tags'][0]) == {'id', 'name', 'type'}
 

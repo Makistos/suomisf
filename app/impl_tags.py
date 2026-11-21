@@ -251,7 +251,10 @@ def tag_info(tag_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if not tag:
-        return ResponseType(f'Asiasanaa ei löydy. id={tag_id}.', HttpResponseCode.NOT_FOUND.value)
+        return ResponseType(
+            f'Asiasanaa ei löydy. id={tag_id}.',
+            HttpResponseCode.NOT_FOUND.value,
+        )
 
     try:
         schema = TagSchema()
@@ -283,18 +286,25 @@ def tag_forminfo(tag_id: int) -> ResponseType:
     try:
         tag = session.query(Tag).filter(Tag.id == tag_id).first()
     except SQLAlchemyError as exp:
-        app.logger.error(f'Exception in TagFormInfo (id: {tag_id}): ' + str(exp))
+        app.logger.error(
+            f'Exception in TagFormInfo (id: {tag_id}): ' + str(exp)
+        )
         return ResponseType('TagFormInfo: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if not tag:
-        return ResponseType(f'Asiasanaa ei löydy. id={tag_id}.', HttpResponseCode.NOT_FOUND.value)
+        return ResponseType(
+            f'Asiasanaa ei löydy. id={tag_id}.',
+            HttpResponseCode.NOT_FOUND.value,
+        )
 
     try:
         schema = TagSchema(only=('id', 'name', 'description', 'type'))
         retval = schema.dump(tag)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'TagFormInfo schema error (id: {tag_id}): ' + str(exp))
+        app.logger.error(
+            f'TagFormInfo schema error (id: {tag_id}): ' + str(exp)
+        )
         return ResponseType('TagFormInfo: Skeemavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 

@@ -257,11 +257,14 @@ def _work_list_loaders() -> List[Any]:
     return [
         contributors(selectinload(Work.contributions), WorkContributor),
         selectinload(Work.editions).options(
-            contributors(selectinload(Edition.contributions), EditionContributor),
+            contributors(
+                selectinload(Edition.contributions), EditionContributor
+            ),
             selectinload(Edition.images),
             selectinload(Edition.publisher),
             selectinload(Edition.owners),
-            selectinload(Edition.wishlisted)),
+            selectinload(Edition.wishlisted),
+        ),
         selectinload(Work.genres),
         selectinload(Work.language_name),
     ]
@@ -842,9 +845,13 @@ def work_tag_add(work_id: int, tag_id: int) -> ResponseType:
         if not work:
             app.logger.error(
                 f'WorkTagAdd: Work not found. Id = {work_id}.')
-            return ResponseType('Teosta ei löydy', HttpResponseCode.NOT_FOUND.value)
+            return ResponseType(
+                'Teosta ei löydy', HttpResponseCode.NOT_FOUND.value
+            )
         if not session.query(Tag).filter(Tag.id == tag_id).first():
-            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
+            return ResponseType(
+                'Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value
+            )
 
         work_tag = WorkTag()
         work_tag.work_id = work_id
@@ -1524,19 +1531,29 @@ def get_latest_works(count: int) -> ResponseType:
     # Batch-load everything WorkBriefSchema touches so serializing doesn't
     # issue a lazy-load query per relationship per row (same fix as the
     # eager-load options in impl_stats.py's work-filtering query).
-    works = session.query(Work)\
+    works = (
+        session.query(Work)
         .options(
-            selectinload(Work.contributions).selectinload(WorkContributor.person),
-            selectinload(Work.contributions).selectinload(WorkContributor.real_person),
-            selectinload(Work.contributions).selectinload(WorkContributor.role),
+            selectinload(Work.contributions).selectinload(
+                WorkContributor.person
+            ),
+            selectinload(Work.contributions).selectinload(
+                WorkContributor.real_person
+            ),
+            selectinload(Work.contributions).selectinload(
+                WorkContributor.role
+            ),
             selectinload(Work.editions).selectinload(Edition.editors),
             selectinload(Work.editions).selectinload(Edition.translators),
-            selectinload(Work.editions).selectinload(Edition.contributions)
-                .selectinload(EditionContributor.person),
-            selectinload(Work.editions).selectinload(Edition.contributions)
-                .selectinload(EditionContributor.real_person),
-            selectinload(Work.editions).selectinload(Edition.contributions)
-                .selectinload(EditionContributor.role),
+            selectinload(Work.editions)
+            .selectinload(Edition.contributions)
+            .selectinload(EditionContributor.person),
+            selectinload(Work.editions)
+            .selectinload(Edition.contributions)
+            .selectinload(EditionContributor.real_person),
+            selectinload(Work.editions)
+            .selectinload(Edition.contributions)
+            .selectinload(EditionContributor.role),
             selectinload(Work.editions).selectinload(Edition.images),
             selectinload(Work.editions).selectinload(Edition.publisher),
             selectinload(Work.editions).selectinload(Edition.owners),
@@ -1545,10 +1562,11 @@ def get_latest_works(count: int) -> ResponseType:
             selectinload(Work.bookseries),
             selectinload(Work.tags),
             selectinload(Work.language_name),
-        )\
-        .order_by(Work.id.desc())\
-        .limit(count)\
+        )
+        .order_by(Work.id.desc())
+        .limit(count)
         .all()
+    )
     try:
         schema = WorkBriefSchema(many=True)
         retval = schema.dump(works)

@@ -33,7 +33,9 @@ WORK_ID = 1
 
 
 def _login(client, name, password):
-    resp = client.post('/api/login', json={'username': name, 'password': password})
+    resp = client.post(
+        '/api/login', json={'username': name, 'password': password}
+    )
     assert resp.status_code == 200, resp.get_json()
     return {'Authorization': f"Bearer {resp.get_json()['access_token']}"}
 
@@ -111,20 +113,29 @@ def test_admin_only_refuses_regular_user(client, user_headers, method, url):
 
 
 @pytest.mark.parametrize('method,url', USER_DATA)
-def test_other_users_data_is_403(client, user_headers, second_user_id, method, url):
+def test_other_users_data_is_403(
+    client, user_headers, second_user_id, method, url
+):
     response = getattr(client, method)(url.format(uid=second_user_id),
                                        headers=user_headers)
     assert response.status_code == 403
 
 
-def test_read_status_for_other_user_is_403(client, user_headers, second_user_id):
-    response = client.post('/api/works/read', headers=user_headers,
-                           json={'work_id': WORK_ID, 'user_id': second_user_id})
+def test_read_status_for_other_user_is_403(
+    client, user_headers, second_user_id
+):
+    response = client.post(
+        '/api/works/read',
+        headers=user_headers,
+        json={'work_id': WORK_ID, 'user_id': second_user_id},
+    )
     assert response.status_code == 403
 
 
 @pytest.mark.parametrize('method', ['post', 'put'])
-def test_ownership_for_other_user_is_403(client, user_headers, second_user_id, method):
+def test_ownership_for_other_user_is_403(
+    client, user_headers, second_user_id, method
+):
     response = getattr(client, method)(
         '/api/editions/owner', headers=user_headers,
         json={'editionid': EDITION_ID, 'edition_id': EDITION_ID,
@@ -155,7 +166,9 @@ def test_own_read_status_set_and_remove(client, user_headers, user_id):
         assert response.status_code == 200
 
 
-def test_admin_may_act_on_other_users_data(client, admin_headers, second_user_id):
+def test_admin_may_act_on_other_users_data(
+    client, admin_headers, second_user_id
+):
     url = f'/api/editions/{EDITION_ID}/wishlist/{second_user_id}'
     try:
         assert client.put(url, headers=admin_headers).status_code == 200

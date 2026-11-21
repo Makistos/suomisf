@@ -54,7 +54,9 @@ def get_params(entity: str, param_key: str) -> List[tuple]:
 class TestWorksByAuthor(BaseAPITest):
     """Tests for /api/worksbyauthor/{authorid} endpoint."""
 
-    @pytest.mark.parametrize('author_id', get_params('worksbyauthor', 'authorid'))
+    @pytest.mark.parametrize(
+        'author_id', get_params('worksbyauthor', 'authorid')
+    )
     def test_worksbyauthor_returns_list(self, api_client, author_id):
         """GET /api/worksbyauthor/{authorid} should return 200.
 
@@ -92,7 +94,9 @@ class TestWorkAwards(BaseAPITest):
 class TestPersonShorts(BaseAPITest):
     """Tests for /api/people/{personid}/shorts endpoint."""
 
-    @pytest.mark.parametrize('person_id', get_params('person_shorts', 'personid'))
+    @pytest.mark.parametrize(
+        'person_id', get_params('person_shorts', 'personid')
+    )
     def test_person_shorts_returns_list(self, api_client, person_id):
         """GET /api/people/{personid}/shorts should return 200.
 
@@ -111,7 +115,9 @@ class TestPersonShorts(BaseAPITest):
 class TestPersonAwarded(BaseAPITest):
     """Tests for /api/people/{personid}/awarded endpoint."""
 
-    @pytest.mark.parametrize('person_id', get_params('person_awarded', 'personid'))
+    @pytest.mark.parametrize(
+        'person_id', get_params('person_awarded', 'personid')
+    )
     def test_person_awarded_returns_list(self, api_client, person_id):
         """GET /api/people/{personid}/awarded should return 200.
 
@@ -130,7 +136,9 @@ class TestPersonAwarded(BaseAPITest):
 class TestEditionShorts(BaseAPITest):
     """Tests for /api/editions/{editionid}/shorts endpoint."""
 
-    @pytest.mark.parametrize('edition_id', get_params('edition_shorts', 'editionid'))
+    @pytest.mark.parametrize(
+        'edition_id', get_params('edition_shorts', 'editionid')
+    )
     def test_edition_shorts_returns_list(self, api_client, edition_id):
         """GET /api/editions/{editionid}/shorts should return 200.
 
@@ -168,7 +176,9 @@ class TestIssueShorts(BaseAPITest):
 class TestIssueArticles(BaseAPITest):
     """Tests for /api/issues/{issueid}/articles endpoint."""
 
-    @pytest.mark.parametrize('issue_id', get_params('issue_articles', 'issueid'))
+    @pytest.mark.parametrize(
+        'issue_id', get_params('issue_articles', 'issueid')
+    )
     def test_issue_articles_returns_list(self, api_client, issue_id):
         """GET /api/issues/{issueid}/articles should return 200.
 

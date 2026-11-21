@@ -366,7 +366,9 @@ class TestBookSeriesUpdate(BaseAPITest):
 
     def test_update_bookseries_multi_author(self, admin_client):
         """PUT /api/bookseries for multi-author series."""
-        get_resp = admin_client.get(f'/api/bookseries/{MULTI_AUTHOR_BOOKSERIES_ID}')
+        get_resp = admin_client.get(
+            f'/api/bookseries/{MULTI_AUTHOR_BOOKSERIES_ID}'
+        )
         if get_resp.status_code != 200:
             pytest.skip('Cannot get bookseries data')
 

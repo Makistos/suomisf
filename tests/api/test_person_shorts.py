@@ -153,7 +153,9 @@ class TestPersonShortsBackwardCompat(BaseAPITest):
     Backward compatibility tests for person-short relationships.
     """
 
-    def test_person_shorts_contributor_roles(self, api_client, snapshot_manager):
+    def test_person_shorts_contributor_roles(
+        self, api_client, snapshot_manager
+    ):
         """Verify person shorts response has expected structure.
 
         Also checks:

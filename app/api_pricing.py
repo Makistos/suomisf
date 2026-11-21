@@ -68,7 +68,10 @@ def api_antikvaari_search() -> Response:
     q = request.args.get('q', '').strip()
     if not q:
         return make_api_response(
-            ResponseType("Pakollinen parametri 'q' puuttuu.", HttpResponseCode.BAD_REQUEST)
+            ResponseType(
+                "Pakollinen parametri 'q' puuttuu.",
+                HttpResponseCode.BAD_REQUEST,
+            )
         )
     isbn = request.args.get('isbn', '').strip()
     source = request.args.get('source', '').strip() or None
@@ -133,20 +136,29 @@ def api_work_antikvaari_products_save(work_id: int) -> Response:
         if not isinstance(body, list):
             raise ValueError('body must be a JSON array')
         products = [
-            item if isinstance(item, dict) else {'product_id': item, 'url': None}
+            item
+            if isinstance(item, dict)
+            else {'product_id': item, 'url': None}
             for item in body
         ]
     except (ValueError, TypeError) as exc:
         return make_api_response(
-            ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
+            ResponseType(
+                f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST
+            )
         )
     source = request.args.get('source', '').strip() or None
     return make_api_response(work_products_save(work_id, products, source))
 
 
-@app.route('/api/work/<int:work_id>/antikvaari/products/<product_id>', methods=['DELETE'])
+@app.route(
+    '/api/work/<int:work_id>/antikvaari/products/<product_id>',
+    methods=['DELETE'],
+)
 @jwt_admin_required()  # type: ignore
-def api_work_antikvaari_product_delete(work_id: int, product_id: str) -> Response:
+def api_work_antikvaari_product_delete(
+    work_id: int, product_id: str
+) -> Response:
     """
     Remove an Antikvaari product link from a work (admin only).
 
@@ -216,14 +228,18 @@ def api_work_antikvaari_fetch(work_id: int) -> Response:
             raise ValueError("'product_urls' must be a non-empty list")
     except (ValueError, TypeError) as exc:
         return make_api_response(
-            ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
+            ResponseType(
+                f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST
+            )
         )
     target_condition = body.get('target_condition') or None
     source = (body.get('source') or '').strip() or None
     provider = get_provider(source)
     if not provider or not provider.fetch:
         return make_api_response(
-            ResponseType('Lähde ei tue hintojen hakua', HttpResponseCode.BAD_REQUEST)
+            ResponseType(
+                'Lähde ei tue hintojen hakua', HttpResponseCode.BAD_REQUEST
+            )
         )
     return make_api_response(
         provider.fetch(product_urls, work_id, target_condition)
@@ -258,13 +274,19 @@ def api_edition_antikvaari_prices_save(edition_id: int) -> Response:
             raise ValueError('body must be a JSON array')
     except (ValueError, TypeError) as exc:
         return make_api_response(
-            ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
+            ResponseType(
+                f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST
+            )
         )
     user_id = get_jwt_identity()
-    return make_api_response(antikvaari_prices_save(edition_id, rows, int(user_id)))
+    return make_api_response(
+        antikvaari_prices_save(edition_id, rows, int(user_id))
+    )
 
 
-@app.route('/api/edition/<int:edition_id>/antikvaari/prices/count', methods=['GET'])
+@app.route(
+    '/api/edition/<int:edition_id>/antikvaari/prices/count', methods=['GET']
+)
 def api_edition_antikvaari_prices_count(edition_id: int) -> Response:
     """
     Return the number of stored Antikvaari price rows for an edition.
@@ -302,7 +324,8 @@ def api_edition_antikvaari_prices_get(edition_id: int) -> Response:
 @app.route('/api/price-sources', methods=['GET'])
 @jwt_required()  # type: ignore
 def api_price_sources_get() -> Response:
-    """Return all price sources, each flagged with whether it supports search."""
+    """Return all price sources, each flagged with whether it supports search.
+    """
     resp = price_sources_get()
     if resp.status == HttpResponseCode.OK and isinstance(resp.response, list):
         for src in resp.response:
@@ -336,7 +359,9 @@ def api_prices_scrape_url() -> Response:
     if not url:
         from app.impl import ResponseType
         from app.types import HttpResponseCode
-        return make_api_response(ResponseType('url required', HttpResponseCode.BAD_REQUEST))
+        return make_api_response(
+            ResponseType('url required', HttpResponseCode.BAD_REQUEST)
+        )
     return make_api_response(scrape_price_from_url(url))
 
 
@@ -398,7 +423,8 @@ def api_work_antikvaari_prices_save(work_id: int) -> Response:
 
     Authentication: Admin JWT required.
 
-    Request body — JSON array of price row dicts (as returned by the fetch endpoint).
+    Request body — JSON array of price row dicts (as returned by the fetch
+    endpoint).
 
     Response 200 — JSON object:
         {"saved": 5, "skipped": 2}
@@ -412,10 +438,14 @@ def api_work_antikvaari_prices_save(work_id: int) -> Response:
             raise ValueError('body must be a JSON array')
     except (ValueError, TypeError) as exc:
         return make_api_response(
-            ResponseType(f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST)
+            ResponseType(
+                f'Virheellinen pyyntö: {exc}', HttpResponseCode.BAD_REQUEST
+            )
         )
     user_id = get_jwt_identity()
-    return make_api_response(antikvaari_prices_save_all(work_id, rows, int(user_id)))
+    return make_api_response(
+        antikvaari_prices_save_all(work_id, rows, int(user_id))
+    )
 
 
 @app.route('/api/user/<int:user_id>/collection/stats', methods=['GET'])
@@ -435,7 +465,8 @@ def api_user_collection_stats(user_id: int) -> Response:
             "Perfect": 15, "Good": 8, "Decent": 3, "Poor": 2, "not_priced": 14
           },
           "top_expensive": [
-            {"edition_id": 123, "work_id": 45, "title": "...", "author_str": "...",
+            {"edition_id": 123, "work_id": 45, "title": "...", "author_str":
+            "...",
              "pubyear": 1975, "version": null, "price": 45.00,
              "match_quality": "Perfect", "condition": "K3"},
             ...
@@ -447,7 +478,8 @@ def api_user_collection_stats(user_id: int) -> Response:
           "worktype_distribution": [{"name": "Romaani", "count": 843}, ...],
           "short_story_count": 1640,   // short stories across owned editions
           "total_pages": 300760,       // sum of owned editions' pages
-          "shelf_width_meters": 45.11  // 100 pages = 15 mm (site-stats formula)
+          "shelf_width_meters": 45.11  // 100 pages = 15 mm (site-stats
+          formula)
         }
     """
     return make_api_response(user_collection_stats(user_id))

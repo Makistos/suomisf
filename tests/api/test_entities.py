@@ -200,7 +200,9 @@ class TestMagazines(BaseAPITest):
         assert 'id' in data, "Magazine should have 'id' field"
         assert data['id'] == magazine_id
 
-    def test_get_magazines_list_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_magazines_list_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/magazines should match stored snapshot."""
         response = api_client.get('/api/magazines')
         response.assert_success()
@@ -250,7 +252,9 @@ class TestAwards(BaseAPITest):
         assert 'id' in data, "Award should have 'id' field"
         assert data['id'] == award_id
 
-    def test_get_awards_list_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_awards_list_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/awards should match stored snapshot."""
         response = api_client.get('/api/awards')
         response.assert_success()
@@ -278,7 +282,9 @@ class TestTags(BaseAPITest):
         assert 'id' in data, "Tag should have 'id' field"
         assert data['id'] == tag_id
 
-    def test_get_tags_list_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_tags_list_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/tags should match stored snapshot."""
         response = api_client.get('/api/tags')
         response.assert_success()
@@ -297,7 +303,8 @@ class TestPublishers(BaseAPITest):
         """GET /api/publishers/{id} should return 200 for valid ID.
 
         Also checks:
-        - GET /api/publishers/{id} should return publisher with required fields.
+        - GET /api/publishers/{id} should return publisher with required
+          fields.
         """
         response = api_client.get(f'/api/publishers/{publisher_id}')
         response.assert_status(200)
@@ -306,7 +313,9 @@ class TestPublishers(BaseAPITest):
         assert 'id' in data, "Publisher should have 'id' field"
         assert data['id'] == publisher_id
 
-    def test_get_publishers_list_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_publishers_list_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/publishers should match stored snapshot."""
         response = api_client.get('/api/publishers')
         response.assert_success()
@@ -321,11 +330,14 @@ class TestBookSeries(BaseAPITest):
     """Tests for /api/bookseries/{id} endpoint."""
 
     @pytest.mark.parametrize('bookseries_id', get_entity_params('bookseries'))
-    def test_get_bookseries_has_required_fields(self, api_client, bookseries_id):
+    def test_get_bookseries_has_required_fields(
+        self, api_client, bookseries_id
+    ):
         """GET /api/bookseries/{id} should return 200 for valid ID.
 
         Also checks:
-        - GET /api/bookseries/{id} should return bookseries with required fields.
+        - GET /api/bookseries/{id} should return bookseries with required
+          fields.
         """
         response = api_client.get(f'/api/bookseries/{bookseries_id}')
         response.assert_status(200)
@@ -334,7 +346,9 @@ class TestBookSeries(BaseAPITest):
         assert 'id' in data, "BookSeries should have 'id' field"
         assert data['id'] == bookseries_id
 
-    def test_get_bookseries_list_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_bookseries_list_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/bookseries should match stored snapshot."""
         response = api_client.get('/api/bookseries')
         response.assert_success()
@@ -362,7 +376,9 @@ class TestPubSeries(BaseAPITest):
         assert 'id' in data, "PubSeries should have 'id' field"
         assert data['id'] == pubseries_id
 
-    def test_get_pubseries_list_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_pubseries_list_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/pubseries should match stored snapshot."""
         response = api_client.get('/api/pubseries')
         response.assert_success()

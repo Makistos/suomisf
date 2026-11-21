@@ -23,7 +23,9 @@ EDITION_ID = 86
 @pytest.fixture
 def covers(app):
     """The (temporary) book cover folder and its URL prefix."""
-    return flask_app.config['BOOKCOVER_SAVELOC'], flask_app.config['BOOKCOVER_DIR']
+    return flask_app.config['BOOKCOVER_SAVELOC'], flask_app.config[
+        'BOOKCOVER_DIR'
+    ]
 
 
 def _write_cover(folder, name, height=600, width=400):
@@ -85,7 +87,10 @@ def test_upload_makes_thumbnail_and_api_points_to_it(client, covers):
     images carry its URL as thumb_src."""
     folder, prefix = covers
     admin = _login(client)
-    before = {i['id'] for i in client.get(f'/api/editions/{EDITION_ID}').get_json()['images']}
+    before = {
+        i['id']
+        for i in client.get(f'/api/editions/{EDITION_ID}').get_json()['images']
+    }
     resp = client.post(f'/api/editions/{EDITION_ID}/images', headers=admin,
                        data={'file': (io.BytesIO(JPEG), 'b5-upload.jpg')},
                        content_type='multipart/form-data')
@@ -96,7 +101,11 @@ def test_upload_makes_thumbnail_and_api_points_to_it(client, covers):
         new = [i for i in images if i['id'] not in before]
         assert new and new[0]['thumb_src'] == prefix + 'thumbs/b5-upload.webp'
     finally:
-        for image in client.get(f'/api/editions/{EDITION_ID}').get_json()['images']:
+        for image in client.get(f'/api/editions/{EDITION_ID}').get_json()[
+            'images'
+        ]:
             if image['id'] not in before:
-                client.delete(f"/api/editions/{EDITION_ID}/images/{image['id']}",
-                              headers=admin)
+                client.delete(
+                    f"/api/editions/{EDITION_ID}/images/{image['id']}",
+                    headers=admin,
+                )

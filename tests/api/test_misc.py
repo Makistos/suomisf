@@ -73,7 +73,9 @@ class TestGenres(BaseAPITest):
 class TestCountries(BaseAPITest):
     """Tests for /api/countries endpoint."""
 
-    def test_get_countries_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_countries_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/countries should return 200.
 
         Also checks:
@@ -136,7 +138,9 @@ class TestBindings(BaseAPITest):
 class TestWorkTypes(BaseAPITest):
     """Tests for /api/worktypes endpoint."""
 
-    def test_get_worktypes_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_worktypes_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/worktypes should return 200.
 
         Also checks:
@@ -153,7 +157,9 @@ class TestWorkTypes(BaseAPITest):
 class TestShortTypes(BaseAPITest):
     """Tests for /api/shorttypes endpoint."""
 
-    def test_get_shorttypes_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_shorttypes_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/shorttypes should return 200.
 
         Also checks:
@@ -170,7 +176,9 @@ class TestShortTypes(BaseAPITest):
 class TestMagazineTypes(BaseAPITest):
     """Tests for /api/magazinetypes endpoint."""
 
-    def test_get_magazinetypes_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_magazinetypes_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/magazinetypes should return 200.
 
         Also checks:
@@ -195,7 +203,9 @@ class TestFirstLetterVector(BaseAPITest):
         assert response.json and all(len(k) == 1 for k in response.json)
 
     @pytest.mark.parametrize('target', ['stories', 'person'])
-    def test_get_firstlettervector_unsupported_target(self, api_client, target):
+    def test_get_firstlettervector_unsupported_target(
+        self, api_client, target
+    ):
         """Only 'works' is implemented."""
         response = api_client.get(f'/api/firstlettervector/{target}')
         assert response.status_code == 400
@@ -204,7 +214,9 @@ class TestFirstLetterVector(BaseAPITest):
 class TestLatestCovers(BaseAPITest):
     """Tests for /api/latest/covers/<count> endpoint."""
 
-    def test_get_latest_covers_matches_snapshot(self, api_client, snapshot_manager):
+    def test_get_latest_covers_matches_snapshot(
+        self, api_client, snapshot_manager
+    ):
         """GET /api/latest/covers/5 should return 200.
 
         Also checks:

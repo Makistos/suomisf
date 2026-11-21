@@ -58,11 +58,15 @@ def _parse_ua(ua_string: str):
     ua = _ua_parse(ua_string)
     major = ua.browser.version_string.split('.')[0]
     browser = f"{ua.browser.family} {major}"
-    device_type = 'mobile' if ua.is_mobile else 'tablet' if ua.is_tablet else 'desktop'
+    device_type = (
+        'mobile' if ua.is_mobile else 'tablet' if ua.is_tablet else 'desktop'
+    )
     return browser, ua.os.family, device_type
 
 
-def _lookup_ipapi(ip: str) -> tuple[Optional[str], Optional[str], Optional[str]]:
+def _lookup_ipapi(
+    ip: str,
+) -> tuple[Optional[str], Optional[str], Optional[str]]:
     """Call ip-api.com for a single IP.
 
     Returns (city, country_iso, operator) or (None, None, None).
@@ -85,14 +89,21 @@ def _lookup_ipapi(ip: str) -> tuple[Optional[str], Optional[str], Optional[str]]
     return None, None, None
 
 
-def _get_location(ip: str, session: Session) -> tuple[Optional[str], Optional[str]]:
-    """Return (city, country_iso) for an IP, keeping ip_location as a persistent cache.
+def _get_location(
+    ip: str, session: Session
+) -> tuple[Optional[str], Optional[str]]:
+    """Return (city, country_iso) for an IP, keeping ip_location as a
+    persistent cache.
 
-    If the row exists but operator is NULL (inserted before migration 017), we still
+    If the row exists but operator is NULL (inserted before migration 017), we
+    still
     call ip-api.com to backfill operator using ON CONFLICT DO UPDATE.
     """
     row = session.execute(
-        text("SELECT city, country, operator FROM suomisf.ip_location WHERE ip = :ip"),
+        text(
+            "SELECT city, country, operator FROM suomisf.ip_location WHERE ip "
+            "= :ip"
+        ),
         {'ip': ip},
     ).fetchone()
 
@@ -130,7 +141,9 @@ def _get_location(ip: str, session: Session) -> tuple[Optional[str], Optional[st
 
 
 def _is_valid_path(path: str) -> bool:
-    return path in VALID_PATHS or any(path.startswith(p) for p in VALID_PREFIXES)
+    return path in VALID_PATHS or any(
+        path.startswith(p) for p in VALID_PREFIXES
+    )
 
 
 def _cutoff(days: int) -> datetime:
@@ -164,15 +177,22 @@ def api_pageview() -> Response:
         session.execute(
             text("""
                 INSERT INTO suomisf.pageview
-                    (ip, path, user_agent, city, country, browser, os, device_type)
+                    (ip, path, user_agent, city, country, browser, os,
+                    device_type)
                 VALUES
-                    (:ip, :path, :ua, :city, :country, :browser, :os, :device_type)
+                    (:ip, :path, :ua, :city, :country, :browser, :os,
+                    :device_type)
             """),
             {
-                'ip': ip, 'path': path, 'ua': ua_string or None,
-                'city': city, 'country': country, 'browser': browser,
-                'os': os_name, 'device_type': device_type,
-            }
+                'ip': ip,
+                'path': path,
+                'ua': ua_string or None,
+                'city': city,
+                'country': country,
+                'browser': browser,
+                'os': os_name,
+                'device_type': device_type,
+            },
         )
         session.commit()
         session.close()
@@ -212,10 +232,19 @@ def api_stats_visitors_daily() -> Response:
         {'cutoff': _cutoff(days)},
     ).fetchall()
     session.close()
-    return make_api_response(ResponseType(
-        [{'date': str(r.date), 'visitors': r.visitors, 'pageviews': r.pageviews} for r in rows],
-        200,
-    ))
+    return make_api_response(
+        ResponseType(
+            [
+                {
+                    'date': str(r.date),
+                    'visitors': r.visitors,
+                    'pageviews': r.pageviews,
+                }
+                for r in rows
+            ],
+            200,
+        )
+    )
 
 
 @app.route('/api/stats/site/locations', methods=['GET'])
@@ -241,7 +270,9 @@ def api_stats_visitors_locations() -> Response:
     ))
 
 
-_PAGEVIEW_FILTER_COLS = frozenset({'ip', 'path', 'city', 'country', 'browser', 'os', 'device_type'})
+_PAGEVIEW_FILTER_COLS = frozenset(
+    {'ip', 'path', 'city', 'country', 'browser', 'os', 'device_type'}
+)
 _PAGEVIEW_LOCATION_FILTER_COLS = frozenset({'operator'})
 
 

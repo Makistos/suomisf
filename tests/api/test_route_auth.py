@@ -39,7 +39,9 @@ def _routes():
             if not isinstance(node, ast.FunctionDef):
                 continue
             decorators = [ast.unparse(d) for d in node.decorator_list]
-            route_positions = [i for i, d in enumerate(decorators) if '.route(' in d]
+            route_positions = [
+                i for i, d in enumerate(decorators) if '.route(' in d
+            ]
             if route_positions:
                 yield os.path.basename(path), node, decorators, route_positions
 
@@ -50,7 +52,9 @@ def test_no_decorator_above_route():
         for name, node, decorators, route_positions in _routes()
         if route_positions[0] != 0
     ]
-    assert not misplaced, 'decorators above @app.route never run:\n' + '\n'.join(misplaced)
+    assert not misplaced, (
+        'decorators above @app.route never run:\n' + '\n'.join(misplaced)
+    )
 
 
 def test_write_routes_are_protected():
@@ -65,7 +69,8 @@ def test_write_routes_are_protected():
             unprotected.append(f'{name}:{node.lineno} {node.name}')
     assert not unprotected, (
         'write routes with no auth decorator (protect them, or add to '
-        'PUBLIC_WRITE_ROUTES if public on purpose):\n' + '\n'.join(unprotected))
+        'PUBLIC_WRITE_ROUTES if public on purpose):\n' + '\n'.join(unprotected)
+    )
 
 
 def test_public_list_has_no_stale_entries():

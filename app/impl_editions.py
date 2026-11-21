@@ -693,8 +693,10 @@ def update_edition(params: Any) -> ResponseType:
     except SQLAlchemyError as exp:
         session.rollback()
         app.logger.error("update_edition: " + str(exp))
-        return ResponseType(f"update_edition: Tietokantavirhe. id={edition.id}",
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        return ResponseType(
+            f"update_edition: Tietokantavirhe. id={edition.id}",
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value,
+        )
 
     return retval
 
@@ -1055,50 +1057,73 @@ def get_latest_editions(count: int) -> ResponseType:
         # doesn't issue a lazy-load query per relationship per row — this
         # endpoint was issuing >1000 individual SELECTs for 60 editions
         # before this (same pattern as the fix in impl_stats.py).
-        editions = session.query(Edition)\
+        editions = (
+            session.query(Edition)
             .options(
                 selectinload(Edition.editors),
                 selectinload(Edition.translators),
-                selectinload(Edition.contributions).selectinload(EditionContributor.person),
-                selectinload(Edition.contributions).selectinload(EditionContributor.real_person),
-                selectinload(Edition.contributions).selectinload(EditionContributor.role),
+                selectinload(Edition.contributions).selectinload(
+                    EditionContributor.person
+                ),
+                selectinload(Edition.contributions).selectinload(
+                    EditionContributor.real_person
+                ),
+                selectinload(Edition.contributions).selectinload(
+                    EditionContributor.role
+                ),
                 selectinload(Edition.images),
                 selectinload(Edition.publisher),
                 selectinload(Edition.owners),
                 selectinload(Edition.wishlisted),
                 selectinload(Edition.binding),
-                selectinload(Edition.work).selectinload(Work.contributions)
-                    .selectinload(WorkContributor.person),
-                selectinload(Edition.work).selectinload(Work.contributions)
-                    .selectinload(WorkContributor.real_person),
-                selectinload(Edition.work).selectinload(Work.contributions)
-                    .selectinload(WorkContributor.role),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.editors),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.translators),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.contributions).selectinload(EditionContributor.person),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.contributions).selectinload(EditionContributor.real_person),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.contributions).selectinload(EditionContributor.role),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.images),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.publisher),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.owners),
-                selectinload(Edition.work).selectinload(Work.editions)
-                    .selectinload(Edition.wishlisted),
+                selectinload(Edition.work)
+                .selectinload(Work.contributions)
+                .selectinload(WorkContributor.person),
+                selectinload(Edition.work)
+                .selectinload(Work.contributions)
+                .selectinload(WorkContributor.real_person),
+                selectinload(Edition.work)
+                .selectinload(Work.contributions)
+                .selectinload(WorkContributor.role),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.editors),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.translators),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.contributions)
+                .selectinload(EditionContributor.person),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.contributions)
+                .selectinload(EditionContributor.real_person),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.contributions)
+                .selectinload(EditionContributor.role),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.images),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.publisher),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.owners),
+                selectinload(Edition.work)
+                .selectinload(Work.editions)
+                .selectinload(Edition.wishlisted),
                 selectinload(Edition.work).selectinload(Work.genres),
                 selectinload(Edition.work).selectinload(Work.bookseries),
                 selectinload(Edition.work).selectinload(Work.tags),
                 selectinload(Edition.work).selectinload(Work.language_name),
-            )\
-            .order_by(Edition.id.desc())\
-            .limit(count)\
+            )
+            .order_by(Edition.id.desc())
+            .limit(count)
             .all()
+        )
     except SQLAlchemyError as exp:
         app.logger.error(f'get_latest_editions: {str(exp)}')
         return ResponseType('get_latest_editions: Tietokantavirhe',
@@ -1143,7 +1168,9 @@ def editionowner_get(editionid: int, userid: int) -> ResponseType:
 
 
 def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
-    """Populate best_price, match_quality, and has_linked_products on each book dict in-place."""
+    """Populate best_price, match_quality, and has_linked_products on each book
+    dict in-place.
+    """
     from app.impl_pricing import (  # local import avoids circularity
         calculate_match_quality, _QUALITY_RANK,
         _closest_sibling_prices, _downgrade_quality,
@@ -1151,10 +1178,13 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
     edition_ids = [b['edition_id'] for b in books]
     editions_map = {
         e.id: e
-        for e in session.query(Edition).filter(Edition.id.in_(edition_ids)).all()
+        for e in session.query(Edition)
+        .filter(Edition.id.in_(edition_ids))
+        .all()
     }
 
-    # Collect work_ids for all editions, then find which works have linked products
+    # Collect work_ids for all editions, then find which works have linked
+    # products
     work_ids = list({e.work_id for e in editions_map.values() if e.work_id})
     linked_work_ids = {
         row[0]
@@ -1166,7 +1196,9 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
 
     # All sibling editions per work (needed for close-edition fallback)
     work_editions: dict = {}
-    for e in session.query(Edition).filter(Edition.work_id.in_(work_ids)).all():
+    for e in (
+        session.query(Edition).filter(Edition.work_id.in_(work_ids)).all()
+    ):
         work_editions.setdefault(e.work_id, []).append(e)
 
     # Prices for every edition in those works (not just owned ones)
@@ -1219,9 +1251,16 @@ def _attach_best_prices(session: Any, books: list, wishlist: bool) -> None:
             p_ts = p.last_updated.timestamp() if p.last_updated else 0.0
             b_ts = best_updated.timestamp() if best_updated else 0.0
             newer = p_ts > b_ts
-            cheaper = p_ts == b_ts and (best_price is None or pval < best_price)
+            cheaper = p_ts == b_ts and (
+                best_price is None or pval < best_price
+            )
             if rank < best_rank or (rank == best_rank and (newer or cheaper)):
-                best_rank, best_price, best_quality, best_updated = rank, pval, q, p.last_updated
+                best_rank, best_price, best_quality, best_updated = (
+                    rank,
+                    pval,
+                    q,
+                    p.last_updated,
+                )
         book['best_price'] = best_price
         book['match_quality'] = best_quality
 
@@ -1601,7 +1640,9 @@ def editionwishlist_user(editionid: int, userid: int) -> ResponseType:
         return ResponseType("editionwishlist_user: Tietokantavirhe.",
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
-    return ResponseType({'wishlisted': ub is not None}, HttpResponseCode.OK.value)
+    return ResponseType(
+        {'wishlisted': ub is not None}, HttpResponseCode.OK.value
+    )
 
 
 def work_edition_prices(user_id: int, work_id: int) -> ResponseType:
@@ -1611,7 +1652,9 @@ def work_edition_prices(user_id: int, work_id: int) -> ResponseType:
     try:
         work_edition_ids = {
             e.id
-            for e in session.query(Edition).filter(Edition.work_id == work_id).all()
+            for e in session.query(Edition)
+            .filter(Edition.work_id == work_id)
+            .all()
         }
         if not work_edition_ids:
             return ResponseType({}, HttpResponseCode.OK)
@@ -1701,7 +1744,8 @@ def get_edition_work(edition_id: int) -> ResponseType:
 
 def copy_edition(edition_id: int) -> ResponseType:
     """
-    Creates a copy of an existing edition with all related data except owners and wishlist.
+    Creates a copy of an existing edition with all related data except owners
+    and wishlist.
 
     Args:
         edition_id (int): The ID of the edition to copy
@@ -1781,7 +1825,9 @@ def copy_edition(edition_id: int) -> ResponseType:
             session.add(new_image)
 
         # Copy edition links
-        edition_links = session.query(EditionLink).filter_by(edition_id=edition_id).all()
+        edition_links = (
+            session.query(EditionLink).filter_by(edition_id=edition_id).all()
+        )
         for original_link in edition_links:
             new_link = EditionLink(
                 edition_id=new_edition.id,
@@ -1791,7 +1837,9 @@ def copy_edition(edition_id: int) -> ResponseType:
             session.add(new_link)
 
         # Copy edition prices
-        edition_prices = session.query(EditionPrice).filter_by(edition_id=edition_id).all()
+        edition_prices = (
+            session.query(EditionPrice).filter_by(edition_id=edition_id).all()
+        )
         for original_price in edition_prices:
             new_price = EditionPrice(
                 edition_id=new_edition.id,

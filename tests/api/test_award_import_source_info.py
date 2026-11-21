@@ -25,8 +25,10 @@ def test_title_based_sfadb_award_points_at_sfadb():
 def test_person_sfadb_award_points_at_sfadb():
     name = next(iter(SFADB_PERSON_AWARD_SLUGS))
     info = get_import_source_info(name)
-    assert info == {"label": "sfadb.com",
-                    "url": f"{SFADB_BASE_URL}/{SFADB_PERSON_AWARD_SLUGS[name]}"}
+    assert info == {
+        "label": "sfadb.com",
+        "url": f"{SFADB_BASE_URL}/{SFADB_PERSON_AWARD_SLUGS[name]}",
+    }
 
 
 def test_wikipedia_only_award_points_at_wikipedia():
@@ -36,7 +38,10 @@ def test_wikipedia_only_award_points_at_wikipedia():
                 if n not in SFADB_AWARD_SLUGS
                 and n not in SFADB_PERSON_AWARD_SLUGS)
     info = get_import_source_info(name)
-    assert info == {"label": "Wikipedia", "url": WIKIPEDIA_AWARD_SOURCES[name].url}
+    assert info == {
+        "label": "Wikipedia",
+        "url": WIKIPEDIA_AWARD_SOURCES[name].url,
+    }
 
 
 def test_award_with_no_import_source_returns_none():

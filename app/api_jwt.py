@@ -112,7 +112,9 @@ def _price_added_by(price_id: int) -> Optional[int]:
         session.close()
 
 
-def jwt_admin_or_edition_owner_required(edition_id_kwarg: str = 'edition_id') -> Any:
+def jwt_admin_or_edition_owner_required(
+    edition_id_kwarg: str = 'edition_id',
+) -> Any:
     """
     Allow admins, or the logged-in user who owns the edition identified by
     the `edition_id_kwarg` URL parameter, to call this endpoint.
@@ -153,7 +155,9 @@ def jwt_admin_or_edition_owner_required(edition_id_kwarg: str = 'edition_id') ->
     return wrapper
 
 
-def jwt_admin_or_price_author_required(price_id_kwarg: str = 'price_id') -> Any:
+def jwt_admin_or_price_author_required(
+    price_id_kwarg: str = 'price_id',
+) -> Any:
     """
     Allow admins, or the logged-in user who originally added a stored
     antikvaari_price row (identified by the `price_id_kwarg` URL parameter),
@@ -181,7 +185,11 @@ def jwt_admin_or_price_author_required(price_id_kwarg: str = 'price_id') -> Any:
                 return f(*args, **kwargs)
             price_id = kwargs.get(price_id_kwarg)
             user_id = get_jwt_identity()
-            added_by = _price_added_by(int(price_id)) if price_id is not None else None
+            added_by = (
+                _price_added_by(int(price_id))
+                if price_id is not None
+                else None
+            )
             if added_by is not None and user_id is not None \
                     and added_by == int(user_id):
                 return f(*args, **kwargs)

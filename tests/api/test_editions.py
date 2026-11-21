@@ -485,7 +485,9 @@ class TestEditionsCopy(BaseAPITest):
             # ---------------------------------------------------------
             # Step 3: Get the copied edition and verify fields
             # ---------------------------------------------------------
-            copied_resp = admin_client.get(f'/api/editions/{copied_edition_id}')
+            copied_resp = admin_client.get(
+                f'/api/editions/{copied_edition_id}'
+            )
             copied_resp.assert_success()
             copied = copied_resp.data
 

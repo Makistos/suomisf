@@ -10,10 +10,21 @@ from app.impl import (ResponseType, check_int, get_join_changes,
 from app.impl_helpers import str_differ
 from app.impl_logs import log_changes, log_tag_change
 from app.route_helpers import new_session
-from app.orm_decl import (Issue, Magazine, ShortStory, StoryTag, StoryType, Tag,
-                          StoryGenre,
-                          Language, Awarded, IssueContent,
-                          EditionShortStory, StoryContributor, Person)
+from app.orm_decl import (
+    Issue,
+    Magazine,
+    ShortStory,
+    StoryTag,
+    StoryType,
+    Tag,
+    StoryGenre,
+    Language,
+    Awarded,
+    IssueContent,
+    EditionShortStory,
+    StoryContributor,
+    Person,
+)
 from app.model_shortsearch import ShortSchemaForSearch
 from app.model import ShortSchema, StoryTypeSchema, ShortBriefSchema
 from app.impl_contributors import (update_short_contributors,
@@ -49,7 +60,11 @@ def _set_language(
         # Was a substring test on the string, so a name containing "id"
         # (e.g. "jiddiš") was taken for an object and crashed.
         lang_id = None
-        name = data['lang'] if isinstance(data['lang'], str) and data['lang'] else None
+        name = (
+            data['lang']
+            if isinstance(data['lang'], str) and data['lang']
+            else None
+        )
     else:
         lang_id = check_int(data['lang']['id'])
         name = data['lang'].get('name')
@@ -637,9 +652,13 @@ def story_tag_add(short_id: int, tag_id: int) -> ResponseType:
         if not short:
             app.logger.error(
                 f'StoryTagAdd: Short not found. Id = {short_id}.')
-            return ResponseType('Novellia ei löydy', HttpResponseCode.NOT_FOUND.value)
+            return ResponseType(
+                'Novellia ei löydy', HttpResponseCode.NOT_FOUND.value
+            )
         if not session.query(Tag).filter(Tag.id == tag_id).first():
-            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
+            return ResponseType(
+                'Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value
+            )
 
         short_tag = StoryTag()
         short_tag.shortstory_id = short_id

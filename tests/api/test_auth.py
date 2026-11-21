@@ -65,11 +65,21 @@ def _protected_write_routes():
     """
     cases = []
     for rule in flask_app.url_map.iter_rules():
-        if rule.endpoint in PUBLIC_WRITE_ROUTES or rule.endpoint in AUTH_ROUTES:
+        if (
+            rule.endpoint in PUBLIC_WRITE_ROUTES
+            or rule.endpoint in AUTH_ROUTES
+        ):
             continue
-        for method in sorted(rule.methods & {'POST', 'PUT', 'DELETE', 'PATCH'}):
-            cases.append(pytest.param(method, re.sub(r'<[^>]+>', '1', rule.rule),
-                                      id=f'{method} {rule.rule}'))
+        for method in sorted(
+            rule.methods & {'POST', 'PUT', 'DELETE', 'PATCH'}
+        ):
+            cases.append(
+                pytest.param(
+                    method,
+                    re.sub(r'<[^>]+>', '1', rule.rule),
+                    id=f'{method} {rule.rule}',
+                )
+            )
     return cases
 
 

@@ -303,8 +303,11 @@ def list_people(params: Dict[str, Any]) -> ResponseType:
                     raise APIError(f'Unsupported filter format for {field}',
                                    HttpResponseCode.BAD_REQUEST.value)
                 if filters['value']:
-                    if (field in ('dob', 'dod')
-                            and filters['value'] and len(filters['value']) < 4):
+                    if (
+                        field in ('dob', 'dod')
+                        and filters['value']
+                        and len(filters['value']) < 4
+                    ):
                         filters['value'] = filters['value'].ljust(4, '0')
                     if field == 'nationality':
                         people = _filter_person_query(
@@ -378,9 +381,16 @@ def _person_page_loaders() -> List[Any]:
             selectinload(Edition.pubseries).selectinload(Pubseries.publisher),
             selectinload(Edition.owners),
             selectinload(Edition.wishlisted),
-            selectinload(Edition.contributions).selectinload(EditionContributor.person),
-            selectinload(Edition.contributions).selectinload(EditionContributor.real_person),
-            selectinload(Edition.contributions).selectinload(EditionContributor.role))
+            selectinload(Edition.contributions).selectinload(
+                EditionContributor.person
+            ),
+            selectinload(Edition.contributions).selectinload(
+                EditionContributor.real_person
+            ),
+            selectinload(Edition.contributions).selectinload(
+                EditionContributor.role
+            ),
+        )
 
     def work_details(rel: Any) -> Any:
         return rel.options(
@@ -413,12 +423,19 @@ def _person_page_loaders() -> List[Any]:
             selectinload(ShortStory.editions).selectinload(Edition.work),
             selectinload(ShortStory.genres),
             selectinload(ShortStory.tags),
-            selectinload(ShortStory.contributors).selectinload(StoryContributor.person),
-            selectinload(ShortStory.contributors).selectinload(StoryContributor.role)),
+            selectinload(ShortStory.contributors).selectinload(
+                StoryContributor.person
+            ),
+            selectinload(ShortStory.contributors).selectinload(
+                StoryContributor.role
+            ),
+        ),
         edition_details(selectinload(Person.edits)).options(
-            listed_work(selectinload(Edition.work))),
+            listed_work(selectinload(Edition.work))
+        ),
         edition_details(selectinload(Person.editions)).options(
-            listed_work(selectinload(Edition.work))),
+            listed_work(selectinload(Edition.work))
+        ),
         selectinload(Person.images),
         selectinload(Person.nationality),
         selectinload(Person.links),
@@ -1043,7 +1060,9 @@ def person_tag_add(person_id: int, tag_id: int) -> ResponseType:
                                 person_id={person_id}, tag_id={tag_id}.',
                                 HttpResponseCode.NOT_FOUND.value)
         if not session.query(Tag).filter(Tag.id == tag_id).first():
-            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
+            return ResponseType(
+                'Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value
+            )
 
         person_tag = PersonTag()
         person_tag.person_id = person_id
@@ -1291,9 +1310,13 @@ def get_person_issue_contributions(person_id: int) -> ResponseType:
         schema = IssueContributionSchema(many=True)
         retval = schema.dump(contributions)
     except exceptions.MarshmallowError as exp:
-        app.logger.error(f'get_person_issue_contributions schema error: {exp}.')
-        return ResponseType(f'get_person_issue_contributions skeemavirhe: {exp}',
-                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+        app.logger.error(
+            f'get_person_issue_contributions schema error: {exp}.'
+        )
+        return ResponseType(
+            f'get_person_issue_contributions skeemavirhe: {exp}',
+            HttpResponseCode.INTERNAL_SERVER_ERROR.value,
+        )
 
     return ResponseType(retval, HttpResponseCode.OK.value)
 

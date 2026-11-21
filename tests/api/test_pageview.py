@@ -38,8 +38,10 @@ def _clean():
     session = new_session()
     try:
         for table in ('pageview', 'ip_location'):
-            session.execute(text(f'DELETE FROM suomisf.{table} WHERE ip IN (:a, :b)'),
-                            {'a': IP, 'b': OTHER_IP})
+            session.execute(
+                text(f'DELETE FROM suomisf.{table} WHERE ip IN (:a, :b)'),
+                {'a': IP, 'b': OTHER_IP},
+            )
         session.commit()
     finally:
         session.close()
@@ -100,13 +102,24 @@ def test_location_is_looked_up_once_per_ip(client, ip_api):
     assert ip_api.calls == [[IP]]
 
 
-@pytest.mark.parametrize('path,ua', [
-    ('/works/1', 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'),
-    ('/works/1', 'Mozilla/5.0 (X11; Linux x86_64) HeadlessChrome/120.0 Safari/537.36'),
-    ('/works/1', None),
-    ('/wp-login.php', FIREFOX),
-    ('', FIREFOX),
-])
+@pytest.mark.parametrize(
+    'path,ua',
+    [
+        (
+            '/works/1',
+            'Mozilla/5.0 (compatible; Googlebot/2.1; '
+            '+http://www.google.com/bot.html)',
+        ),
+        (
+            '/works/1',
+            'Mozilla/5.0 (X11; Linux x86_64) HeadlessChrome/120.0 '
+            'Safari/537.36',
+        ),
+        ('/works/1', None),
+        ('/wp-login.php', FIREFOX),
+        ('', FIREFOX),
+    ],
+)
 def test_bots_and_unknown_paths_are_not_logged(client, ip_api, path, ua):
     _visit(client, path, ua=ua)
     assert _rows(IP) == []
@@ -118,7 +131,9 @@ def test_bots_and_unknown_paths_are_not_logged(client, ip_api, path, ua):
 # ---------------------------------------------------------------------------
 
 def _headers(client, name, password):
-    resp = client.post('/api/login', json={'username': name, 'password': password})
+    resp = client.post(
+        '/api/login', json={'username': name, 'password': password}
+    )
     return {'Authorization': f"Bearer {resp.get_json()['access_token']}"}
 
 
@@ -142,19 +157,26 @@ def test_stats_include_a_logged_visit(client, ip_api):
         response = client.get(f'{path}?days=1', headers=admin)
         assert response.status_code == 200, (path, response.get_json())
 
-    log = client.get(f'/api/stats/site/log?days=1&ip={IP}', headers=admin).get_json()
+    log = client.get(
+        f'/api/stats/site/log?days=1&ip={IP}', headers=admin
+    ).get_json()
     assert log['total'] == 1
     assert [r['path'] for r in log['rows']] == ['/works/1']
 
-    by_operator = client.get('/api/stats/site/log?days=1&operator=Test%20Operator',
-                             headers=admin).get_json()
+    by_operator = client.get(
+        '/api/stats/site/log?days=1&operator=Test%20Operator', headers=admin
+    ).get_json()
     assert by_operator['total'] == 2
 
-    breakdown = client.get('/api/stats/site/breakdown?days=1', headers=admin).get_json()
+    breakdown = client.get(
+        '/api/stats/site/breakdown?days=1', headers=admin
+    ).get_json()
     assert 'Firefox' in str(breakdown)
 
 
 def test_stats_log_bad_paging_falls_back(client, ip_api):
     admin = _headers(client, TEST_ADMIN_NAME, TEST_ADMIN_PASSWORD)
-    response = client.get('/api/stats/site/log?page=x&per_page=y', headers=admin)
+    response = client.get(
+        '/api/stats/site/log?page=x&per_page=y', headers=admin
+    )
     assert response.status_code == 200

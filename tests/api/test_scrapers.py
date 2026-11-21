@@ -30,9 +30,18 @@ PRODUCT_URLS = INDEX['product_urls']
 def _key(url, params=None):
     if not params:
         return url
-    return url + '?' + json.dumps(
-        params, sort_keys=True, ensure_ascii=False,
-        default=lambda v: v.decode('latin-1') if isinstance(v, bytes) else str(v))
+    return (
+        url
+        + '?'
+        + json.dumps(
+            params,
+            sort_keys=True,
+            ensure_ascii=False,
+            default=lambda v: (
+                v.decode('latin-1') if isinstance(v, bytes) else str(v)
+            ),
+        )
+    )
 
 
 class RecordedResponse:
@@ -92,7 +101,9 @@ SEARCHES = [
 ]
 
 
-@pytest.mark.parametrize('name,search,query', SEARCHES, ids=[s[0] for s in SEARCHES])
+@pytest.mark.parametrize(
+    'name,search,query', SEARCHES, ids=[s[0] for s in SEARCHES]
+)
 def test_search_returns_products(recorded_web, name, search, query):
     result = search(query)
     assert result.status == 200
@@ -116,35 +127,80 @@ def test_search_without_results_is_empty_list(recorded_web, search):
 # the page shows no date it is the day of the scrape.
 SCRAPED = {
     'antikka': {
-        'book_id': 'SCI-260207153549-657', 'price': 140.0, 'condition': 'K3',
-        'year': 1976, 'version': 1, 'binding': 3, 'title': 'Säätiö',
-        'author': 'Asimov Isaac', 'language': 'Suomi', 'seller': 'Ilkan Kirja Ay',
+        'book_id': 'SCI-260207153549-657',
+        'price': 140.0,
+        'condition': 'K3',
+        'year': 1976,
+        'version': 1,
+        'binding': 3,
+        'title': 'Säätiö',
+        'author': 'Asimov Isaac',
+        'language': 'Suomi',
+        'seller': 'Ilkan Kirja Ay',
         'seller_url': 'https://antikka.net/ilkan-kirja/',
-        'source_id': 3, 'source_name': 'Antikka'},
+        'source_id': 3,
+        'source_name': 'Antikka',
+    },
     'antikvaari': {
-        'book_id': '002c18c0df7e793858e64b44', 'price': 45, 'condition': 'K4',
-        'year': 1986, 'version': 2, 'binding': 2, 'title': 'Säätiö',
-        'author': 'Asimov Isaac', 'language': 'suomi',
-        'seller': 'Divari & Antikvariaatti Kummisetä', 'seller_url': None,
-        'source_id': 1, 'source_name': 'Antikvaari'},
+        'book_id': '002c18c0df7e793858e64b44',
+        'price': 45,
+        'condition': 'K4',
+        'year': 1986,
+        'version': 2,
+        'binding': 2,
+        'title': 'Säätiö',
+        'author': 'Asimov Isaac',
+        'language': 'suomi',
+        'seller': 'Divari & Antikvariaatti Kummisetä',
+        'seller_url': None,
+        'source_id': 1,
+        'source_name': 'Antikvaari',
+    },
     'antikvariaatti': {
-        'book_id': '2518465', 'price': 150.0, 'condition': 'K3', 'year': 1991,
-        'version': 1, 'binding': None, 'title': 'Säätiö ja Maa',
-        'author': 'Isaac Asimov', 'language': 'Suomi', 'seller': 'Finlandia Kirja Oy',
+        'book_id': '2518465',
+        'price': 150.0,
+        'condition': 'K3',
+        'year': 1991,
+        'version': 1,
+        'binding': None,
+        'title': 'Säätiö ja Maa',
+        'author': 'Isaac Asimov',
+        'language': 'Suomi',
+        'seller': 'Finlandia Kirja Oy',
         'seller_url': 'https://www.antikvariaatti.net/kauppiaat/finlandia-kirja-oy',
-        'source_id': 2, 'source_name': 'Antikvariaatti'},
+        'source_id': 2,
+        'source_name': 'Antikvariaatti',
+    },
     'kampinkirjakauppa': {
-        'book_id': '40201', 'price': 35.0, 'condition': 'K4', 'year': 1994,
-        'version': None, 'binding': 2, 'title': 'Yö saapuu',
-        'author': 'Asimov Isaac & Silverberg, Robert', 'language': None,
-        'seller': 'Kampin kirjakauppa', 'seller_url': 'https://www.kampinkirjakauppa.fi/',
-        'source_id': 7, 'source_name': 'Kampin kirjakauppa'},
+        'book_id': '40201',
+        'price': 35.0,
+        'condition': 'K4',
+        'year': 1994,
+        'version': None,
+        'binding': 2,
+        'title': 'Yö saapuu',
+        'author': 'Asimov Isaac & Silverberg, Robert',
+        'language': None,
+        'seller': 'Kampin kirjakauppa',
+        'seller_url': 'https://www.kampinkirjakauppa.fi/',
+        'source_id': 7,
+        'source_name': 'Kampin kirjakauppa',
+    },
     'lukuhetki': {
-        'book_id': '664', 'price': 8.0, 'condition': None, 'year': 1990,
-        'version': 1, 'binding': 3, 'title': 'Norby, seonnut robotti',
-        'author': 'Asimov Janet & Isaac', 'language': 'Suomi',
-        'seller': 'Antikvariaatti Lukuhetki', 'seller_url': 'https://www.lukuhetki.fi/',
-        'source_id': 6, 'source_name': 'Lukuhetki'},
+        'book_id': '664',
+        'price': 8.0,
+        'condition': None,
+        'year': 1990,
+        'version': 1,
+        'binding': 3,
+        'title': 'Norby, seonnut robotti',
+        'author': 'Asimov Janet & Isaac',
+        'language': 'Suomi',
+        'seller': 'Antikvariaatti Lukuhetki',
+        'seller_url': 'https://www.lukuhetki.fi/',
+        'source_id': 6,
+        'source_name': 'Lukuhetki',
+    },
 }
 
 
@@ -186,7 +242,9 @@ def test_award_preview_reports_empty_source(recorded_web, app):
     """sfadb.com served an 'Account Suspended' page in 2026-10; the preview
     must say the source gave nothing rather than show an empty list."""
     url = 'https://www.sfadb.com/SFWA_Grand_Master_Award'
-    with gzip.open(os.path.join(FIXTURES, 'sfadb.com', 'account-suspended.gz')) as fh:
+    with gzip.open(
+        os.path.join(FIXTURES, 'sfadb.com', 'account-suspended.gz')
+    ) as fh:
         recorded_web[url] = fh.read()
     body = award_import.preview_import(AWARDS['grand_master']).response
     assert body['entries'] == []
@@ -195,7 +253,12 @@ def test_award_preview_reports_empty_source(recorded_web, app):
 
 def test_award_save_import_creates_and_skips(app):
     award_id = AWARDS['atorox']
-    winner = {'match_type': 'work', 'target_id': 1, 'year': 2099, 'category_id': None}
+    winner = {
+        'match_type': 'work',
+        'target_id': 1,
+        'year': 2099,
+        'category_id': None,
+    }
     try:
         result = award_import.save_import(award_id, {'data': {'winners': [
             winner, dict(winner), {'match_type': 'bogus', 'target_id': 1}]}})
@@ -204,8 +267,11 @@ def test_award_save_import_creates_and_skips(app):
         assert result.response == {'created': 1, 'skipped': 2}
         session = new_session()
         try:
-            rows = session.query(Awarded).filter_by(award_id=award_id, work_id=1,
-                                                    year=2099).count()
+            rows = (
+                session.query(Awarded)
+                .filter_by(award_id=award_id, work_id=1, year=2099)
+                .count()
+            )
         finally:
             session.close()
         assert rows == 1

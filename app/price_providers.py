@@ -4,7 +4,8 @@ This is the single extension point for price scraping. Each source is described
 by a :class:`PriceProvider` that wires together its capabilities:
 
 * ``search``        — automatic search (query -> list of products/listings)
-* ``fetch``         — automatic bulk scrape (product/listing URLs -> price rows)
+* ``fetch``         — automatic bulk scrape (product/listing URLs -> price
+  rows)
 * ``scrape_single`` — manual single-URL scrape (one URL -> one price row)
 
 Adding a new source (e.g. antikvariaatti.net's automatic search) means:
@@ -20,12 +21,17 @@ from app import impl_pricing as ip
 
 @dataclass(frozen=True)
 class PriceProvider:
-    """Capabilities of a single price source. Missing callables = unsupported."""
-    name: str                                          # must match PriceSource.name
+    """Capabilities of a single price source. Missing callables = unsupported.
+    """
+    name: str  # must match PriceSource.name
     domains: Tuple[str, ...] = field(default_factory=tuple)
-    search: Optional[Callable[..., Any]] = None        # (q, isbn) -> ResponseType
-    fetch: Optional[Callable[..., Any]] = None         # (urls, work_id, cond) -> ResponseType
-    scrape_single: Optional[Callable[[str], Dict[str, Any]]] = None  # (url) -> dict
+    search: Optional[Callable[..., Any]] = None  # (q, isbn) -> ResponseType
+    fetch: Optional[Callable[..., Any]] = (
+        None  # (urls, work_id, cond) -> ResponseType
+    )
+    scrape_single: Optional[Callable[[str], Dict[str, Any]]] = (
+        None  # (url) -> dict
+    )
 
 
 PROVIDERS: Dict[str, PriceProvider] = {

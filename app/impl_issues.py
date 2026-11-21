@@ -10,8 +10,17 @@ from app.impl import ResponseType, check_int
 from app.impl_contributors import update_issue_contributors
 from app.impl_logs import log_changes, log_list_change, log_tag_change
 from app.route_helpers import new_session
-from app.orm_decl import (Article, Issue, IssueContent, IssueEditor, IssueImage,
-                          IssueTag, PublicationSize, ShortStory, Tag)
+from app.orm_decl import (
+    Article,
+    Issue,
+    IssueContent,
+    IssueEditor,
+    IssueImage,
+    IssueTag,
+    PublicationSize,
+    ShortStory,
+    Tag,
+)
 from app.model import (ArticleBriefSchema, IssueSchema,
                        IssueImageBriefSchema, PublicationSizeBriefSchema,
                        ShortBriefestSchema, TagSchema)
@@ -566,9 +575,13 @@ def issue_tag_add(issue_id: int, tag_id: int) -> ResponseType:
         if not short:
             app.logger.error(
                 f'issue_tag_add: Issue not found. Id = {issue_id}.')
-            return ResponseType('Numeroa ei löydy', HttpResponseCode.NOT_FOUND.value)
+            return ResponseType(
+                'Numeroa ei löydy', HttpResponseCode.NOT_FOUND.value
+            )
         if not session.query(Tag).filter(Tag.id == tag_id).first():
-            return ResponseType('Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value)
+            return ResponseType(
+                'Asiasanaa ei löydy', HttpResponseCode.NOT_FOUND.value
+            )
 
         issue_tag = IssueTag()
         issue_tag.issue_id = issue_id

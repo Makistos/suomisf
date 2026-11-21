@@ -78,12 +78,15 @@ table_locals = {'article': 'Artikkeli',
                 'work': 'Teos'}
 
 
-def get_select_ids(form: Any, item_field: str = 'itemId') -> Tuple[int, List[Dict[str, str]]]:
+def get_select_ids(
+    form: Any, item_field: str = 'itemId'
+) -> Tuple[int, List[Dict[str, str]]]:
     ''' Read parameters from  a front end request for a select component.
 
         Each request has the parent id (work id etc) and a list of item ids
         corresponding to the items selected in a select component. This
-        function parses these fields and returns parent id and a list containing
+        function parses these fields and returns parent id and a list
+        containing
         the ids as ints.
 
         Args:

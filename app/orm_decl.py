@@ -670,8 +670,12 @@ class AntikvaariWorkProduct(Base):
     antikvaari_product_id = Column(Text, nullable=False)
     added = Column(DateTime, nullable=False)
     url = Column(String(500))
-    rejected = Column(Boolean, nullable=False, default=False, server_default='false')
-    page_exists = Column(Boolean, nullable=False, default=True, server_default='true')
+    rejected = Column(
+        Boolean, nullable=False, default=False, server_default='false'
+    )
+    page_exists = Column(
+        Boolean, nullable=False, default=True, server_default='true'
+    )
 
     work = relationship('Work', backref=backref('antikvaari_products'))
 
@@ -696,7 +700,9 @@ class AntikvaariPrice(Base):
     __tablename__ = 'antikvaari_price'
     id = Column(Integer, primary_key=True)
     edition_id = Column(Integer, ForeignKey('edition.id'), nullable=False)
-    source_id = Column(Integer, ForeignKey('suomisf.price_source.id'), nullable=False)
+    source_id = Column(
+        Integer, ForeignKey('suomisf.price_source.id'), nullable=False
+    )
     antikvaari_book_id = Column(Text)
     antikvaari_product_id = Column(Text)
     antikvaari_product_year = Column(Integer)

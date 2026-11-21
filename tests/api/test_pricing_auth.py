@@ -50,14 +50,19 @@ def _login(client, name, password):
 
 
 def _add_price(client, headers, edition_id, source_id, price=9.99):
-    resp = client.post(f'/api/edition/{edition_id}/prices/manual', headers=headers,
-                       json={'source_id': source_id, 'condition': 'K3', 'price': price})
+    resp = client.post(
+        f'/api/edition/{edition_id}/prices/manual',
+        headers=headers,
+        json={'source_id': source_id, 'condition': 'K3', 'price': price},
+    )
     assert resp.status_code == 200, resp.get_json()
     return resp
 
 
 def _get_prices(client, headers, edition_id):
-    resp = client.get(f'/api/edition/{edition_id}/antikvaari/prices', headers=headers)
+    resp = client.get(
+        f'/api/edition/{edition_id}/antikvaari/prices', headers=headers
+    )
     assert resp.status_code == 200, resp.get_json()
     return resp.get_json()
 
@@ -68,7 +73,8 @@ def _get_prices(client, headers, edition_id):
 
 @pytest.fixture(scope='module')
 def second_user_id(app):
-    """A second, distinct non-admin test user (created once, kept idempotent)."""
+    """A second, distinct non-admin test user (created once, kept idempotent).
+    """
     session = new_session()
     try:
         user = session.query(User).filter_by(name=SECOND_USER_NAME).first()
@@ -102,7 +108,9 @@ def admin_headers(client):
 
 @pytest.fixture
 def owned_edition(app):
-    """Give 'Test User' ownership of TEST_EDITION_ID for the duration of a test."""
+    """Give 'Test User' ownership of TEST_EDITION_ID for the duration of a
+    test.
+    """
     session = new_session()
     try:
         user = session.query(User).filter_by(name=TEST_USER_NAME).first()
@@ -133,9 +141,14 @@ def price_source_id(app):
 
 
 @pytest.fixture
-def added_price_id(client, owner_headers, admin_headers, owned_edition, price_source_id):
-    """A fresh price row added via the API by 'Test User', the edition's owner."""
-    _add_price(client, owner_headers, owned_edition, price_source_id, price=9.99)
+def added_price_id(
+    client, owner_headers, admin_headers, owned_edition, price_source_id
+):
+    """A fresh price row added via the API by 'Test User', the edition's owner.
+    """
+    _add_price(
+        client, owner_headers, owned_edition, price_source_id, price=9.99
+    )
     rows = _get_prices(client, admin_headers, owned_edition)
     price_id = max(row['id'] for row in rows)
     yield price_id
@@ -153,9 +166,17 @@ def added_price_id(client, owner_headers, admin_headers, owned_edition, price_so
 
 class TestPriceAuthorRecorded:
 
-    def test_manual_add_records_adder(self, client, owner_headers, admin_headers,
-                                       owned_edition, price_source_id):
-        _add_price(client, owner_headers, owned_edition, price_source_id, price=7.5)
+    def test_manual_add_records_adder(
+        self,
+        client,
+        owner_headers,
+        admin_headers,
+        owned_edition,
+        price_source_id,
+    ):
+        _add_price(
+            client, owner_headers, owned_edition, price_source_id, price=7.5
+        )
         rows = _get_prices(client, admin_headers, owned_edition)
         row = max(rows, key=lambda r: r['id'])
         session = new_session()
@@ -191,44 +212,92 @@ class TestPriceAuthorRecorded:
 
 class TestPriceAuthorAuthorization:
 
-    def test_adder_can_update_own_price(self, client, owner_headers, added_price_id,
-                                        price_source_id):
-        resp = client.put(f'/api/antikvaari/prices/{added_price_id}', headers=owner_headers,
-                          json={'source_id': price_source_id, 'condition': 'K2', 'price': 11.0})
+    def test_adder_can_update_own_price(
+        self, client, owner_headers, added_price_id, price_source_id
+    ):
+        resp = client.put(
+            f'/api/antikvaari/prices/{added_price_id}',
+            headers=owner_headers,
+            json={
+                'source_id': price_source_id,
+                'condition': 'K2',
+                'price': 11.0,
+            },
+        )
         assert resp.status_code == 200, resp.get_json()
 
-    def test_adder_can_delete_own_price(self, client, owner_headers, added_price_id):
-        resp = client.delete(f'/api/antikvaari/prices/{added_price_id}', headers=owner_headers)
+    def test_adder_can_delete_own_price(
+        self, client, owner_headers, added_price_id
+    ):
+        resp = client.delete(
+            f'/api/antikvaari/prices/{added_price_id}', headers=owner_headers
+        )
         assert resp.status_code == 200, resp.get_json()
 
-    def test_other_user_cannot_update(self, client, other_headers, added_price_id,
-                                      price_source_id):
-        resp = client.put(f'/api/antikvaari/prices/{added_price_id}', headers=other_headers,
-                          json={'source_id': price_source_id, 'condition': 'K2', 'price': 11.0})
+    def test_other_user_cannot_update(
+        self, client, other_headers, added_price_id, price_source_id
+    ):
+        resp = client.put(
+            f'/api/antikvaari/prices/{added_price_id}',
+            headers=other_headers,
+            json={
+                'source_id': price_source_id,
+                'condition': 'K2',
+                'price': 11.0,
+            },
+        )
         assert resp.status_code == 403
 
-    def test_other_user_cannot_delete(self, client, other_headers, added_price_id):
-        resp = client.delete(f'/api/antikvaari/prices/{added_price_id}', headers=other_headers)
+    def test_other_user_cannot_delete(
+        self, client, other_headers, added_price_id
+    ):
+        resp = client.delete(
+            f'/api/antikvaari/prices/{added_price_id}', headers=other_headers
+        )
         assert resp.status_code == 403
 
-    def test_admin_can_update_others_price(self, client, admin_headers, added_price_id,
-                                           price_source_id):
-        resp = client.put(f'/api/antikvaari/prices/{added_price_id}', headers=admin_headers,
-                          json={'source_id': price_source_id, 'condition': 'K1', 'price': 20.0})
+    def test_admin_can_update_others_price(
+        self, client, admin_headers, added_price_id, price_source_id
+    ):
+        resp = client.put(
+            f'/api/antikvaari/prices/{added_price_id}',
+            headers=admin_headers,
+            json={
+                'source_id': price_source_id,
+                'condition': 'K1',
+                'price': 20.0,
+            },
+        )
         assert resp.status_code == 200, resp.get_json()
 
-    def test_admin_can_delete_others_price(self, client, admin_headers, added_price_id):
-        resp = client.delete(f'/api/antikvaari/prices/{added_price_id}', headers=admin_headers)
+    def test_admin_can_delete_others_price(
+        self, client, admin_headers, added_price_id
+    ):
+        resp = client.delete(
+            f'/api/antikvaari/prices/{added_price_id}', headers=admin_headers
+        )
         assert resp.status_code == 200, resp.get_json()
 
-    def test_update_does_not_change_recorded_adder(self, client, admin_headers, added_price_id,
-                                                    price_source_id):
-        resp = client.put(f'/api/antikvaari/prices/{added_price_id}', headers=admin_headers,
-                          json={'source_id': price_source_id, 'condition': 'K1', 'price': 99.0})
+    def test_update_does_not_change_recorded_adder(
+        self, client, admin_headers, added_price_id, price_source_id
+    ):
+        resp = client.put(
+            f'/api/antikvaari/prices/{added_price_id}',
+            headers=admin_headers,
+            json={
+                'source_id': price_source_id,
+                'condition': 'K1',
+                'price': 99.0,
+            },
+        )
         assert resp.status_code == 200, resp.get_json()
         session = new_session()
         try:
-            row = session.query(AntikvaariPrice).filter_by(id=added_price_id).first()
+            row = (
+                session.query(AntikvaariPrice)
+                .filter_by(id=added_price_id)
+                .first()
+            )
             user = session.query(User).filter_by(name=TEST_USER_NAME).first()
             assert row.user_id == user.id
         finally:

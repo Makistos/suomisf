@@ -509,7 +509,12 @@ def user_read_genres(user_id: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     retval = [
-        {'id': int(gid), 'abbr': str(abbr), 'name': str(name), 'count': int(count)}
+        {
+            'id': int(gid),
+            'abbr': str(abbr),
+            'name': str(name),
+            'count': int(count),
+        }
         for gid, name, abbr, count in rows
     ]
     return ResponseType(retval, HttpResponseCode.OK.value)
@@ -644,7 +649,11 @@ def user_read_stats(user_id: int) -> ResponseType:
             if e.pages:
                 total_pages += e.pages
             if e.pubyear is not None:
-                lang_id = works_by_id[work_id].language if work_id in works_by_id else None
+                lang_id = (
+                    works_by_id[work_id].language
+                    if work_id in works_by_id
+                    else None
+                )
                 key = (e.pubyear, lang_id)
                 ed_year_counts[key] = ed_year_counts.get(key, 0) + 1
 

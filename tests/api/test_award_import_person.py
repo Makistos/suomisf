@@ -75,7 +75,9 @@ def test_single_match_is_new():
 def test_matches_via_lastname_comma_firstname_variant():
     # No alt_name at all - falls back to deriving "Firstname Lastname" from
     # the stored "Lastname, Firstname" primary name.
-    person_index = _index(_person(7, alt_name=None, name="Heinlein, Robert A."))
+    person_index = _index(
+        _person(7, alt_name=None, name="Heinlein, Robert A.")
+    )
     entry = _build_person_entry(
         _winner("Robert A. Heinlein"), person_index, set(), _CATEGORY_LOOKUP)
     assert entry["status"] == STATUS_NEW

@@ -50,7 +50,8 @@ JPEG = bytes.fromhex(
     '262728292a35363738393a434445464748494a535455565758595a636465666768696a737475'
     '767778797a82838485868788898a92939495969798999aa2a3a4a5a6a7a8a9aab2b3b4b5b6b7'
     'b8b9bac2c3c4c5c6c7c8c9cad2d3d4d5d6d7d8d9dae2e3e4e5e6e7e8e9eaf2f3f4f5f6f7f8f9'
-    'faffda000c03010002110311003f00c7a28a2b84fa83ffd9')
+    'faffda000c03010002110311003f00c7a28a2b84fa83ffd9'
+)
 
 
 def _login(client):
@@ -66,7 +67,8 @@ def admin(client):
 
 
 def _id_from(resp):
-    """Create endpoints answer with the new id, as a bare value or in a dict."""
+    """Create endpoints answer with the new id, as a bare value or in a dict.
+    """
     body = resp.get_json()
     if isinstance(body, dict):
         body = body.get('id', body.get('response'))
@@ -86,7 +88,9 @@ def _delete_rows(model, **filters):
 def upload_dirs(app):
     """Uploads must go to the temporary folders conftest sets, never to the
     real app/static/images ones."""
-    static = os.path.realpath(os.path.join(os.path.dirname(__file__), '..', '..', 'app', 'static'))
+    static = os.path.realpath(
+        os.path.join(os.path.dirname(__file__), '..', '..', 'app', 'static')
+    )
     for key in ('BOOKCOVER_SAVELOC', 'MAGAZINECOVER_SAVELOC'):
         location = os.path.realpath(flask_app.config[key])
         assert not location.startswith(static), f'{key} is {location}'
@@ -98,9 +102,20 @@ def upload_dirs(app):
 
 def test_publisher_create_read_delete(client, admin):
     try:
-        resp = client.post('/api/publishers', headers=admin, json={'data': {
-            'name': TEST_NAME, 'fullname': f'{TEST_NAME} Oy', 'description': None,
-            'image_src': None, 'image_attr': None, 'links': []}})
+        resp = client.post(
+            '/api/publishers',
+            headers=admin,
+            json={
+                'data': {
+                    'name': TEST_NAME,
+                    'fullname': f'{TEST_NAME} Oy',
+                    'description': None,
+                    'image_src': None,
+                    'image_attr': None,
+                    'links': [],
+                }
+            },
+        )
         assert resp.status_code in (200, 201), resp.get_json()
         publisher_id = _id_from(resp)
 
@@ -108,7 +123,12 @@ def test_publisher_create_read_delete(client, admin):
         assert got.status_code == 200
         assert got.get_json()['name'] == TEST_NAME
 
-        assert client.delete(f'/api/publishers/{publisher_id}', headers=admin).status_code == 200
+        assert (
+            client.delete(
+                f'/api/publishers/{publisher_id}', headers=admin
+            ).status_code
+            == 200
+        )
         assert client.get(f'/api/publishers/{publisher_id}').status_code == 404
     finally:
         _delete_rows(Publisher, name=TEST_NAME)
@@ -133,7 +153,12 @@ def test_bookseries_create_read_delete(client, admin):
         assert got.status_code == 200
         assert got.get_json()['name'] == TEST_NAME
 
-        assert client.delete(f'/api/bookseries/{series_id}', headers=admin).status_code == 200
+        assert (
+            client.delete(
+                f'/api/bookseries/{series_id}', headers=admin
+            ).status_code
+            == 200
+        )
         assert client.get(f'/api/bookseries/{series_id}').status_code == 404
     finally:
         _delete_rows(Bookseries, name=TEST_NAME)
@@ -156,16 +181,28 @@ def test_bookseries_with_link_deletes(client, admin):
             'name': TEST_NAME, 'orig_name': None, 'important': False,
             'description': None, 'partof': None}})
         series_id = _id_from(resp)
-        _add_row(BookseriesLink(bookseries_id=series_id,
-                                link='https://example.invalid/', description='x'))
+        _add_row(
+            BookseriesLink(
+                bookseries_id=series_id,
+                link='https://example.invalid/',
+                description='x',
+            )
+        )
 
-        assert client.delete(f'/api/bookseries/{series_id}', headers=admin).status_code == 200
+        assert (
+            client.delete(
+                f'/api/bookseries/{series_id}', headers=admin
+            ).status_code
+            == 200
+        )
         assert client.get(f'/api/bookseries/{series_id}').status_code == 404
     finally:
         session = new_session()
         try:
             for bs in session.query(Bookseries).filter_by(name=TEST_NAME):
-                session.query(BookseriesLink).filter_by(bookseries_id=bs.id).delete()
+                session.query(BookseriesLink).filter_by(
+                    bookseries_id=bs.id
+                ).delete()
             session.commit()
         finally:
             session.close()
@@ -176,11 +213,23 @@ def test_pubseries_with_link_deletes(client, admin):
     """Links used to block the delete with an unhandled database error."""
     series_id = None
     try:
-        series_id = _add_row(Pubseries(name=TEST_NAME, publisher_id=PUBSERIES_PUBLISHER_ID))
-        _add_row(PubseriesLink(pubseries_id=series_id,
-                               link='https://example.invalid/', description='x'))
+        series_id = _add_row(
+            Pubseries(name=TEST_NAME, publisher_id=PUBSERIES_PUBLISHER_ID)
+        )
+        _add_row(
+            PubseriesLink(
+                pubseries_id=series_id,
+                link='https://example.invalid/',
+                description='x',
+            )
+        )
 
-        assert client.delete(f'/api/pubseries/{series_id}', headers=admin).status_code == 200
+        assert (
+            client.delete(
+                f'/api/pubseries/{series_id}', headers=admin
+            ).status_code
+            == 200
+        )
         assert client.get(f'/api/pubseries/{series_id}').status_code == 404
     finally:
         if series_id is not None:
@@ -189,9 +238,14 @@ def test_pubseries_with_link_deletes(client, admin):
 
 
 def test_pubseries_with_editions_is_not_deleted(client, admin):
-    resp = client.delete(f'/api/pubseries/{PUBSERIES_WITH_EDITIONS}', headers=admin)
+    resp = client.delete(
+        f'/api/pubseries/{PUBSERIES_WITH_EDITIONS}', headers=admin
+    )
     assert resp.status_code == 400
-    assert client.get(f'/api/pubseries/{PUBSERIES_WITH_EDITIONS}').status_code == 200
+    assert (
+        client.get(f'/api/pubseries/{PUBSERIES_WITH_EDITIONS}').status_code
+        == 200
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -218,17 +272,25 @@ def test_issue_create_tag_image_delete(client, admin, upload_dirs):
         assert client.delete(tag_url, headers=admin).status_code == 200
         assert TAG_ID not in [t['id'] for t in client.get(tags_url).get_json()]
 
-        resp = client.post(f'/api/issues/{issue_id}/images', headers=admin,
-                           data={'file': (io.BytesIO(JPEG), 'b2-issue-cover.jpg')},
-                           content_type='multipart/form-data')
+        resp = client.post(
+            f'/api/issues/{issue_id}/images',
+            headers=admin,
+            data={'file': (io.BytesIO(JPEG), 'b2-issue-cover.jpg')},
+            content_type='multipart/form-data',
+        )
         assert resp.status_code in (200, 201), resp.get_json()
         images = client.get(f'/api/issues/{issue_id}').get_json()['images']
         assert len(images) == 1
-        resp = client.delete(f"/api/issues/{issue_id}/images/{images[0]['id']}", headers=admin)
+        resp = client.delete(
+            f"/api/issues/{issue_id}/images/{images[0]['id']}", headers=admin
+        )
         assert resp.status_code == 200
         assert client.get(f'/api/issues/{issue_id}').get_json()['images'] == []
 
-        assert client.delete(f'/api/issues/{issue_id}', headers=admin).status_code == 200
+        assert (
+            client.delete(f'/api/issues/{issue_id}', headers=admin).status_code
+            == 200
+        )
         assert client.get(f'/api/issues/{issue_id}').status_code == 404
         issue_id = None
     finally:
@@ -263,10 +325,17 @@ def test_person_link_add_replaces_same_description(client, admin):
                                                      'description': TEST_NAME})
         assert resp.status_code == 201
         links = client.get(f'/api/people/{PERSON_ID}').get_json()['links']
-        mine = [link['link'] for link in links if link['description'] == TEST_NAME]
+        mine = [
+            link['link'] for link in links if link['description'] == TEST_NAME
+        ]
         assert mine == [second]
 
-        assert client.post(url, headers=admin, json={'description': 'x'}).status_code == 400
+        assert (
+            client.post(
+                url, headers=admin, json={'description': 'x'}
+            ).status_code
+            == 400
+        )
         assert client.post('/api/person/999999999/links', headers=admin,
                            json={'link': TEST_LINK}).status_code == 404
     finally:
@@ -301,18 +370,31 @@ def test_person_tag_add_and_remove(client, admin):
 # ---------------------------------------------------------------------------
 
 def test_edition_image_upload_and_delete(client, admin, upload_dirs):
-    before = {i['id'] for i in client.get(f'/api/editions/{EDITION_ID}').get_json()['images']}
+    before = {
+        i['id']
+        for i in client.get(f'/api/editions/{EDITION_ID}').get_json()['images']
+    }
     try:
-        resp = client.post(f'/api/editions/{EDITION_ID}/images', headers=admin,
-                           data={'file': (io.BytesIO(JPEG), 'b2.edition-cover.jpg')},
-                           content_type='multipart/form-data')
+        resp = client.post(
+            f'/api/editions/{EDITION_ID}/images',
+            headers=admin,
+            data={'file': (io.BytesIO(JPEG), 'b2.edition-cover.jpg')},
+            content_type='multipart/form-data',
+        )
         assert resp.status_code in (200, 201), resp.get_json()
         images = client.get(f'/api/editions/{EDITION_ID}').get_json()['images']
         new = [i for i in images if i['id'] not in before]
         assert len(new) == 1
-        resp = client.delete(f"/api/editions/{EDITION_ID}/images/{new[0]['id']}", headers=admin)
+        resp = client.delete(
+            f"/api/editions/{EDITION_ID}/images/{new[0]['id']}", headers=admin
+        )
         assert resp.status_code == 200
-        after = {i['id'] for i in client.get(f'/api/editions/{EDITION_ID}').get_json()['images']}
+        after = {
+            i['id']
+            for i in client.get(f'/api/editions/{EDITION_ID}').get_json()[
+                'images'
+            ]
+        }
         assert after == before
     finally:
         session = new_session()
@@ -326,21 +408,33 @@ def test_edition_image_upload_and_delete(client, admin, upload_dirs):
             session.close()
 
 
-def test_edition_image_same_name_does_not_overwrite(client, admin, upload_dirs):
+def test_edition_image_same_name_does_not_overwrite(
+    client, admin, upload_dirs
+):
     """Phones name every photo alike (iOS: image.jpg); a second upload with
     the same name must not replace the first edition's cover file."""
     folder = flask_app.config['BOOKCOVER_SAVELOC']
     name = 'b2.samename.jpg'
     try:
         for _ in range(2):
-            resp = client.post(f'/api/editions/{EDITION_ID}/images', headers=admin,
-                               data={'file': (io.BytesIO(JPEG), name)},
-                               content_type='multipart/form-data')
+            resp = client.post(
+                f'/api/editions/{EDITION_ID}/images',
+                headers=admin,
+                data={'file': (io.BytesIO(JPEG), name)},
+                content_type='multipart/form-data',
+            )
             assert resp.status_code in (200, 201), resp.get_json()
-        srcs = sorted(i['image_src'] for i in
-                      client.get(f'/api/editions/{EDITION_ID}').get_json()['images']
-                      if 'b2.samename' in i['image_src'])
-        assert [os.path.basename(s) for s in srcs] == ['b2.samename.jpg', 'b2.samename_2.jpg']
+        srcs = sorted(
+            i['image_src']
+            for i in client.get(f'/api/editions/{EDITION_ID}').get_json()[
+                'images'
+            ]
+            if 'b2.samename' in i['image_src']
+        )
+        assert [os.path.basename(s) for s in srcs] == [
+            'b2.samename.jpg',
+            'b2.samename_2.jpg',
+        ]
         for src in srcs:
             assert os.path.isfile(os.path.join(folder, os.path.basename(src)))
     finally:
@@ -379,5 +473,7 @@ def test_edition_shorts_save_same_list_is_noop(client, admin):
 
 
 def test_edition_shorts_save_requires_admin_token(client):
-    resp = client.put(f'/api/editions/{EDITION_WITH_SHORTS_ID}/shorts', json=[])
+    resp = client.put(
+        f'/api/editions/{EDITION_WITH_SHORTS_ID}/shorts', json=[]
+    )
     assert resp.status_code == 401

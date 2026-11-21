@@ -28,7 +28,9 @@ from app.impl_pricing import (
 # Shared helpers
 # ---------------------------------------------------------------------------
 
-def _mock_edition(edition_id, pubyear=None, version=None, binding_id=1, editionnum=None):
+def _mock_edition(
+    edition_id, pubyear=None, version=None, binding_id=1, editionnum=None
+):
     ed = MagicMock()
     ed.id = edition_id
     ed.pubyear = pubyear
@@ -62,7 +64,9 @@ def _product_props(product_id, book_urls, year='1982', binding='Sidottu'):
     }
 
 
-def _book_props(book_id, kunto, hinta, painos, painovuosi, sidonta, pvm, extra=''):
+def _book_props(
+    book_id, kunto, hinta, painos, painovuosi, sidonta, pvm, extra=''
+):
     return {
         'preSelectedProduct': {
             '_id': book_id,
@@ -221,37 +225,59 @@ class TestObjectIdDateListed:
     @staticmethod
     def _decode(book_id):
         ts = int(book_id[:8], 16)
-        return datetime.datetime.fromtimestamp(ts, datetime.timezone.utc).date()
+        return datetime.datetime.fromtimestamp(
+            ts, datetime.timezone.utc
+        ).date()
 
     def test_6197d6fe_is_2021_11_19(self):
-        assert self._decode('6197d6feb8b7303195c91487') == datetime.date(2021, 11, 19)
+        assert self._decode('6197d6feb8b7303195c91487') == datetime.date(
+            2021, 11, 19
+        )
 
     def test_65c34426_is_2024_02_07(self):
-        assert self._decode('65c34426b1311b23ec82131d') == datetime.date(2024, 2, 7)
+        assert self._decode('65c34426b1311b23ec82131d') == datetime.date(
+            2024, 2, 7
+        )
 
     def test_672e0b51_is_2024_11_08(self):
-        assert self._decode('672e0b5151f2ad0a9bb33b7c') == datetime.date(2024, 11, 8)
+        assert self._decode('672e0b5151f2ad0a9bb33b7c') == datetime.date(
+            2024, 11, 8
+        )
 
     def test_6737ae37_is_2024_11_15(self):
-        assert self._decode('6737ae37254745df8aaa9007') == datetime.date(2024, 11, 15)
+        assert self._decode('6737ae37254745df8aaa9007') == datetime.date(
+            2024, 11, 15
+        )
 
     def test_68a1a84e_is_2025_08_17(self):
-        assert self._decode('68a1a84e7d36eb8405722d3e') == datetime.date(2025, 8, 17)
+        assert self._decode('68a1a84e7d36eb8405722d3e') == datetime.date(
+            2025, 8, 17
+        )
 
     def test_69037c5a_is_2025_10_30(self):
-        assert self._decode('69037c5a5d37a4c948eaa49c') == datetime.date(2025, 10, 30)
+        assert self._decode('69037c5a5d37a4c948eaa49c') == datetime.date(
+            2025, 10, 30
+        )
 
     def test_6895d135_is_2025_08_08(self):
-        assert self._decode('6895d135d9fceb5ff77847ef') == datetime.date(2025, 8, 8)
+        assert self._decode('6895d135d9fceb5ff77847ef') == datetime.date(
+            2025, 8, 8
+        )
 
     def test_68bd7ddb_is_2025_09_07(self):
-        assert self._decode('68bd7ddb532965878261c0e4') == datetime.date(2025, 9, 7)
+        assert self._decode('68bd7ddb532965878261c0e4') == datetime.date(
+            2025, 9, 7
+        )
 
     def test_69ce0802_is_2026_04_02(self):
-        assert self._decode('69ce08025c22336bb3fc1e36') == datetime.date(2026, 4, 2)
+        assert self._decode('69ce08025c22336bb3fc1e36') == datetime.date(
+            2026, 4, 2
+        )
 
     def test_69f14ee2_is_2026_04_29(self):
-        assert self._decode('69f14ee2852c31277c813c9a') == datetime.date(2026, 4, 29)
+        assert self._decode('69f14ee2852c31277c813c9a') == datetime.date(
+            2026, 4, 29
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -276,85 +302,152 @@ class TestCalculateMatchQuality:
     """
 
     def _ed(self, pubyear=1982, editionnum=1, binding_id=3):
-        return _mock_edition(1, pubyear=pubyear, editionnum=editionnum, binding_id=binding_id)
+        return _mock_edition(
+            1, pubyear=pubyear, editionnum=editionnum, binding_id=binding_id
+        )
 
     # same edition
 
     def test_same_diff0_is_perfect(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, 'K3') == 'Perfect'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, 'K3')
+            == 'Perfect'
+        )
 
     def test_same_diff1_is_good(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, 'K2') == 'Good'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, 'K2')
+            == 'Good'
+        )
 
     def test_same_diff2_is_decent(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, 'K1') == 'Decent'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, 'K1')
+            == 'Decent'
+        )
 
     # close edition (small year diff, painos unknown → close)
 
     def test_close_diff0_is_good(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K3') == 'Good'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K3')
+            == 'Good'
+        )
 
     def test_close_diff1_is_decent(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K2') == 'Decent'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K2')
+            == 'Decent'
+        )
 
     def test_close_diff2_is_poor(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K1') == 'Poor'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1985, None, 3, 'K1')
+            == 'Poor'
+        )
 
     # a confirmed painos keeps the match 'same' despite a small print-year diff
     def test_painos_match_overrides_small_year_diff_is_perfect(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, 1, 3, 'K3') == 'Perfect'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1985, 1, 3, 'K3')
+            == 'Perfect'
+        )
 
     # not_close
 
     def test_year_diff_over_10_is_poor(self):
-        assert calculate_match_quality(self._ed(), 'K3', 2000, 1, 3, 'K3') == 'Poor'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 2000, 1, 3, 'K3')
+            == 'Poor'
+        )
 
     def test_wrong_version_is_poor(self):
-        assert calculate_match_quality(self._ed(editionnum=1), 'K3', 1982, 2, 3, 'K3') == 'Poor'
+        assert (
+            calculate_match_quality(
+                self._ed(editionnum=1), 'K3', 1982, 2, 3, 'K3'
+            )
+            == 'Poor'
+        )
 
     def test_wrong_binding_is_poor(self):
         ed = self._ed(binding_id=3)  # sidottu
-        assert calculate_match_quality(ed, 'K3', 1982, 1, 2, 'K3') == 'Poor'  # 2=nidottu
+        assert (
+            calculate_match_quality(ed, 'K3', 1982, 1, 2, 'K3') == 'Poor'
+        )  # 2=nidottu
 
     # no target condition
 
     def test_no_target_same_edition_is_good(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, None) == 'Good'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, 1, 3, None)
+            == 'Good'
+        )
 
     def test_no_target_close_edition_is_decent(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1985, None, 3, None) == 'Decent'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1985, None, 3, None)
+            == 'Decent'
+        )
 
     def test_no_target_not_close_is_poor(self):
-        assert calculate_match_quality(self._ed(), 'K3', 2000, 1, 3, None) == 'Poor'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 2000, 1, 3, None)
+            == 'Poor'
+        )
 
     # uusi = K5
     def test_uusi_condition_in_antikvaari_treated_as_k5(self):
         # book is K5 (Uusi), we want K4 → diff=1 on same edition → Good
-        assert calculate_match_quality(self._ed(), 'K5', 1982, 1, 3, 'K4') == 'Good'
+        assert (
+            calculate_match_quality(self._ed(), 'K5', 1982, 1, 3, 'K4')
+            == 'Good'
+        )
 
     # no version from Antikvaari (painos field empty) -------------------------
     # year+binding both confirmed → 'same' → can reach Perfect/Good/Decent
     def test_no_version_year_and_binding_match_same_condition_is_perfect(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, None, 3, 'K3') == 'Perfect'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, None, 3, 'K3')
+            == 'Perfect'
+        )
 
     def test_no_version_year_and_binding_match_diff1_is_good(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, None, 3, 'K2') == 'Good'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, None, 3, 'K2')
+            == 'Good'
+        )
 
     # year matches but binding unknown → 'close' → best is Good
-    def test_no_version_year_match_binding_unknown_is_good_on_same_condition(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, None, None, 'K3') == 'Good'
+    def test_no_version_year_match_binding_unknown_is_good_on_same_condition(
+        self,
+    ):
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, None, None, 'K3')
+            == 'Good'
+        )
 
-    # year matches but binding unknown, condition diff=1 → 'close' + diff=1 → Decent
+    # year matches but binding unknown, condition diff=1 → 'close' + diff=1 →
+    # Decent
     def test_no_version_year_match_binding_unknown_diff1_is_decent(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, None, None, 'K2') == 'Decent'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, None, None, 'K2')
+            == 'Decent'
+        )
 
-    # year matches but Antikvaari binding is 'Ei tietoa' (1) → not confirmed → 'close'
+    # year matches but Antikvaari binding is 'Ei tietoa' (1) → not confirmed →
+    # 'close'
     def test_no_version_binding_ei_tietoa_is_close(self):
-        assert calculate_match_quality(self._ed(), 'K3', 1982, None, 1, 'K3') == 'Good'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', 1982, None, 1, 'K3')
+            == 'Good'
+        )
 
     # no year and no version → 'close' → best is Good
     def test_no_version_no_year_is_close(self):
-        assert calculate_match_quality(self._ed(), 'K3', None, None, 3, 'K3') == 'Good'
+        assert (
+            calculate_match_quality(self._ed(), 'K3', None, None, 3, 'K3')
+            == 'Good'
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -362,43 +455,71 @@ class TestCalculateMatchQuality:
 # ---------------------------------------------------------------------------
 
 class TestBestMatchingEdition:
-    """When editions have no stored editionnum, infer rank by chronological pubyear."""
+    """When editions have no stored editionnum, infer rank by chronological
+    pubyear.
+    """
 
     def _ed(self, edition_id, pubyear, editionnum=None, binding_id=2):
-        return _mock_edition(edition_id, pubyear=pubyear, editionnum=editionnum,
-                             binding_id=binding_id)
+        return _mock_edition(
+            edition_id,
+            pubyear=pubyear,
+            editionnum=editionnum,
+            binding_id=binding_id,
+        )
 
-    def test_first_edition_product_matches_earliest_edition_when_editionnums_null(self):
-        # Two editions with no stored editionnum; product says "1. painos" → should pick 2016
+    def test_first_edition_product_matches_earliest_when_editionnums_null(
+        self,
+    ):
+        # Two editions with no stored editionnum; product says "1. painos" →
+        # should pick 2016
         ed_2016 = self._ed(1, 2016)
         ed_2018 = self._ed(2, 2018)
-        result, _ = _best_matching_edition([ed_2016, ed_2018],
-                                           product_year=2018, product_version=1, product_binding=2)
+        result, _ = _best_matching_edition(
+            [ed_2016, ed_2018],
+            product_year=2018,
+            product_version=1,
+            product_binding=2,
+        )
         assert result.id == 1  # 2016 edition = inferred editionnum 1
 
-    def test_second_edition_product_matches_later_edition_when_editionnums_null(self):
+    def test_second_edition_product_matches_later_when_editionnums_null(
+        self,
+    ):
         ed_2016 = self._ed(1, 2016)
         ed_2018 = self._ed(2, 2018)
-        result, _ = _best_matching_edition([ed_2016, ed_2018],
-                                           product_year=2016, product_version=2, product_binding=2)
+        result, _ = _best_matching_edition(
+            [ed_2016, ed_2018],
+            product_year=2016,
+            product_version=2,
+            product_binding=2,
+        )
         assert result.id == 2  # 2018 edition = inferred editionnum 2
 
     def test_explicit_editionnum_takes_precedence_over_inferred(self):
-        # Edition has explicit editionnum=2; product says version=1 → not_close for this one
+        # Edition has explicit editionnum=2; product says version=1 → not_close
+        # for this one
         ed_e2 = _mock_edition(1, pubyear=2018, editionnum=2, binding_id=2)
         ed_null = _mock_edition(2, pubyear=2016, editionnum=None, binding_id=2)
-        result, _ = _best_matching_edition([ed_e2, ed_null],
-                                           product_year=2016, product_version=1, product_binding=2)
+        result, _ = _best_matching_edition(
+            [ed_e2, ed_null],
+            product_year=2016,
+            product_version=1,
+            product_binding=2,
+        )
         # ed_null gets inferred editionnum 1 (earliest year 2016) and matches
         assert result.id == 2
 
     def test_no_product_version_uses_year_matching_as_before(self):
         ed_2016 = self._ed(1, 2016)
         ed_2018 = self._ed(2, 2018)
-        result, _ = _best_matching_edition([ed_2016, ed_2018],
-                                           product_year=2018, product_version=None,
-                                           product_binding=2)
-        # No version from Antikvaari → no inferred ranking; year=2018 exact match wins
+        result, _ = _best_matching_edition(
+            [ed_2016, ed_2018],
+            product_year=2018,
+            product_version=None,
+            product_binding=2,
+        )
+        # No version from Antikvaari → no inferred ranking; year=2018 exact
+        # match wins
         assert result.id == 2
 
 
@@ -427,7 +548,9 @@ class TestAntikvaariScraper:
             _resp(_book_props(book_id, kunto, hinta, painos,
                               painovuosi, sidonta, pvm, extra)),
         ]
-        return antikvaari_fetch_products([product_url], TestAntikvaariScraper.WORK_ID)
+        return antikvaari_fetch_products(
+            [product_url], TestAntikvaariScraper.WORK_ID
+        )
 
     # --- basic field extraction ---
 
@@ -532,8 +655,12 @@ class TestAntikvaariScraper:
     @patch('app.impl_pricing.new_session')
     @patch('app.impl_pricing.requests.get')
     def test_pokkari_matches_nidottu_edition(self, mock_get, mock_new_session):
-        """Pokkari binding matches a nidottu edition → Perfect on same year+version."""
-        ed = _mock_edition(6170, pubyear=2000, version=4, binding_id=2)  # nidottu
+        """Pokkari binding matches a nidottu edition → Perfect on same
+        year+version.
+        """
+        ed = _mock_edition(
+            6170, pubyear=2000, version=4, binding_id=2
+        )  # nidottu
         result = self._single_product_call(
             mock_get, mock_new_session, ed,
             product_id='62a33bb4eaa1ec176c3aee27',
@@ -550,8 +677,12 @@ class TestAntikvaariScraper:
 
     @patch('app.impl_pricing.new_session')
     @patch('app.impl_pricing.requests.get')
-    def test_last_updated_differs_from_date_listed(self, mock_get, mock_new_session):
-        """When pvm differs from creation date, both fields reflect correct values."""
+    def test_last_updated_differs_from_date_listed(
+        self, mock_get, mock_new_session
+    ):
+        """When pvm differs from creation date, both fields reflect correct
+        values.
+        """
         ed = _mock_edition(4987, pubyear=1982, version=1, binding_id=3)
         result = self._single_product_call(
             mock_get, mock_new_session, ed,
@@ -582,10 +713,28 @@ class TestAntikvaariScraper:
 
         mock_get.side_effect = [
             _resp(_product_props(product_id, book_urls)),
-            _resp(_book_props(books[0][0], books[0][1], books[0][2],
-                              '1.', '1982', 'Sidottu', '2022-11-05T00:00:00.000Z')),
-            _resp(_book_props(books[1][0], books[1][1], books[1][2],
-                              '1.', '1982', 'Sidottu', '2024-11-15T00:00:00.000Z')),
+            _resp(
+                _book_props(
+                    books[0][0],
+                    books[0][1],
+                    books[0][2],
+                    '1.',
+                    '1982',
+                    'Sidottu',
+                    '2022-11-05T00:00:00.000Z',
+                )
+            ),
+            _resp(
+                _book_props(
+                    books[1][0],
+                    books[1][1],
+                    books[1][2],
+                    '1.',
+                    '1982',
+                    'Sidottu',
+                    '2024-11-15T00:00:00.000Z',
+                )
+            ),
         ]
 
         result = antikvaari_fetch_products([product_url], self.WORK_ID)
@@ -683,10 +832,13 @@ class TestAntikvaariPricesSave:
         edition = MagicMock()
         edition.id = 4987
         # edition query: .filter().first()
-        session.query.return_value.filter.return_value.first.return_value = edition
+        session.query.return_value.filter.return_value.first.return_value = (
+            edition
+        )
         # price query: .filter().filter().order_by().first()
-        (session.query.return_value.filter.return_value
-         .filter.return_value.order_by.return_value.first.return_value) = existing_price
+        (
+            session.query.return_value.filter.return_value.filter.return_value.order_by.return_value.first.return_value
+        ) = existing_price
         return session
 
     @patch('app.impl_pricing.new_session')
@@ -744,7 +896,9 @@ class TestAntikvaariPricesSave:
 
     @patch('app.impl_pricing.new_session')
     def test_user_id_defaults_to_none(self, mock_new_session):
-        """Callers that don't pass a user_id (e.g. old code paths) leave it unset."""
+        """Callers that don't pass a user_id (e.g. old code paths) leave it
+        unset.
+        """
         session = self._make_session(mock_new_session, existing_price=None)
         antikvaari_prices_save(4987, [
             {**_ROW, 'antikvaari_book_id': 'abc123',
@@ -765,7 +919,9 @@ class TestPriceAddManualRecordsAuthor:
         # Both the edition lookup and the price-source lookup in
         # _validate_price_form go through session.query(...).filter().first(),
         # so a single truthy mock satisfies both.
-        session.query.return_value.filter.return_value.first.return_value = MagicMock()
+        session.query.return_value.filter.return_value.first.return_value = (
+            MagicMock()
+        )
         return session
 
     @patch('app.impl_pricing.new_session')
