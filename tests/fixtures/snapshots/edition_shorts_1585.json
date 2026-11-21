@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-11T20:42:10.777566+00:00",
+    "generated_at": "2026-11-21T11:58:01.333243+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/editions/1585/shorts",
@@ -8392,7 +8392,16 @@
                 }
               ],
               "bookseries": null,
-              "tags": [],
+              "tags": [
+                {
+                  "id": 63,
+                  "name": "aikamatkat",
+                  "type": {
+                    "id": 1,
+                    "name": "Aihe"
+                  }
+                }
+              ],
               "language_name": {
                 "id": 7,
                 "name": "suomi"
@@ -8406,7 +8415,7 @@
               "description": null,
               "descr_attr": null,
               "imported_string": "",
-              "kirjasampo_imported": null
+              "kirjasampo_imported": "2026-11-13T08:30:40.677516+02:00"
             },
             "editors": [
               {
@@ -13155,7 +13164,7 @@
                   "id": 4,
                   "name": "Suomi"
                 },
-                "workcount": 37,
+                "workcount": 38,
                 "storycount": 65,
                 "roles": [
                   "Kirjoittaja",

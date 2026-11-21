@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-11T20:42:10.777566+00:00",
+    "generated_at": "2026-11-21T11:58:01.333243+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/nationalitycounts",
@@ -15,12 +15,12 @@
         "nationality": "Suomi",
         "genres": {
           "F": {
-            "Kirjoittaja": 420,
+            "Kirjoittaja": 421,
             "Toimittaja": 96,
             "Esiintyy": 3
           },
           "K": {
-            "Kirjoittaja": 131,
+            "Kirjoittaja": 132,
             "Toimittaja": 71,
             "Esiintyy": 2
           },
@@ -85,7 +85,7 @@
             "Toimittaja": 5
           }
         },
-        "count": 1161
+        "count": 1163
       },
       {
         "nationality_id": 3,
@@ -112,7 +112,7 @@
             "Esiintyy": 17
           },
           "VEH": {
-            "Kirjoittaja": 13,
+            "Kirjoittaja": 14,
             "Toimittaja": 1
           },
           "Utopia": {
@@ -132,7 +132,7 @@
             "Kirjoittaja": 1
           },
           "eiSF": {
-            "Kirjoittaja": 14,
+            "Kirjoittaja": 13,
             "Toimittaja": 1
           },
           "rajatap": {

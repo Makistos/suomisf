@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-11T20:42:10.777566+00:00",
+    "generated_at": "2026-11-21T11:58:01.333243+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/publishercounts",
@@ -15,11 +15,11 @@
         "name": "WSOY",
         "fullname": "Werner Söderström Oy",
         "genres": {
-          "F": 545,
+          "F": 546,
           "K": 94,
           "Paleof": 41,
           "PF": 46,
-          "SF": 426,
+          "SF": 427,
           "VEH": 17,
           "Utopia": 5,
           "nF": 461,
@@ -30,11 +30,11 @@
           "eiSF": 17,
           "rajatap": 54,
           "lasten kuvakirja": 42,
-          "kok": 124,
+          "kok": 125,
           "lF": 418,
           "R": 8
         },
-        "total": 2258
+        "total": 2260
       },
       {
         "id": 318,
@@ -63,7 +63,7 @@
         "name": "Otava",
         "fullname": "Otava",
         "genres": {
-          "F": 337,
+          "F": 338,
           "K": 47,
           "Paleof": 3,
           "PF": 42,
@@ -80,7 +80,7 @@
           "lF": 91,
           "R": 1
         },
-        "total": 1065
+        "total": 1066
       },
       {
         "id": 133,
@@ -185,10 +185,10 @@
           "K": 2,
           "PF": 4,
           "SF": 103,
-          "VEH": 2,
+          "VEH": 3,
           "nF": 2,
           "nSF": 4,
-          "eiSF": 7,
+          "eiSF": 6,
           "rajatap": 4,
           "kok": 20
         },
@@ -216,11 +216,11 @@
         "name": "Muut",
         "fullname": null,
         "genres": {
-          "F": 1178,
-          "K": 510,
+          "F": 1180,
+          "K": 511,
           "Paleof": 28,
-          "PF": 40,
-          "SF": 1076,
+          "PF": 41,
+          "SF": 1077,
           "VEH": 48,
           "Utopia": 22,
           "nF": 378,
@@ -235,7 +235,7 @@
           "R": 31,
           "eiSF": 44
         },
-        "total": 3474
+        "total": 3478
       }
     ],
     "error": null

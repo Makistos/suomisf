@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-11T20:42:10.777566+00:00",
+    "generated_at": "2026-11-21T11:58:01.333243+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/works/5",
@@ -11,16 +11,428 @@
     "status_code": 200,
     "data": [
       {
-        "id": 7343,
-        "title": "Nekropolis",
-        "orig_title": "",
-        "author_str": "Torkkola, Johanna",
+        "id": 7348,
+        "title": "Dyynin jumalkeisari",
+        "orig_title": "God Emperor of Dune",
+        "author_str": "Herbert, Frank",
         "contributions": [
           {
             "person": {
-              "id": 8149,
-              "name": "Torkkola, Johanna",
-              "alt_name": "Johanna Torkkola"
+              "id": 1960,
+              "name": "Herbert, Frank",
+              "alt_name": "Frank Herbert"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [
+              {
+                "id": 1190,
+                "name": "Vilokkinen, Natasha",
+                "alt_name": "Natasha Vilokkinen"
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 1190,
+                  "name": "Vilokkinen, Natasha",
+                  "alt_name": "Natasha Vilokkinen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 5721,
+                  "name": "O'Connell, Sean Francis",
+                  "alt_name": "Sean Francis O'Connell"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Alkuperäispäällys",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Herbert_DyyninJumalkeisari_p1.jpg",
+                "id": 10399,
+                "image_src": "/static/images/books/Herbert_DyyninJumalkeisari_p1.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 387,
+              "name": "WSOY"
+            },
+            "owners": [
+              {
+                "id": 2,
+                "name": "mep"
+              },
+              {
+                "id": 11,
+                "name": "Kirjokerttu"
+              }
+            ],
+            "wishlisted": [],
+            "id": 10638,
+            "title": "Dyynin jumalkeisari",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": " \t 978-951-0-51662-1",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 569,
+            "size": 23,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": true
+          }
+        ],
+        "genres": [
+          {
+            "id": 5,
+            "name": "Science Fiction",
+            "abbr": "SF"
+          }
+        ],
+        "bookseries": {
+          "partof": null,
+          "id": 620,
+          "name": "Dyyni",
+          "orig_name": "Dune",
+          "description": null,
+          "important": false,
+          "image_src": null,
+          "image_attr": null
+        },
+        "tags": [
+          {
+            "id": 255,
+            "name": "avaruusooppera",
+            "type": {
+              "id": 2,
+              "name": "Alagenre"
+            }
+          }
+        ],
+        "language_name": {
+          "id": 1,
+          "name": "englanti"
+        },
+        "type": 1,
+        "subtitle": "",
+        "pubyear": 2021,
+        "bookseriesnum": "4",
+        "bookseriesorder": 4,
+        "misc": "",
+        "description": "<p><em>Dyyni</em>-sarjan filosofisin osa vie Atreides-suvun aikakauden päätökseensä.</p><p>Dyynin lasten tapahtumista on kulunut 3 500 vuotta. Tarunhohtoisesta, aavikoiden peittämästä Dyynistä on jäljellä enää vain Leto Atreides II:n rujo hahmo. Leto on tuhansien vuosien muodonmuutoksen jälkeen enimmäkseen hiekkamato - ja Imperiuminsa lähes kuolematon jumalkeisari. Yksin Leto tuntee tulevaisuuden, ja hänen on ohjattava ihmiskunta pois tuhon tieltä pitkin Kultaista polkua.</p><p>Leton hallinnosta on kuitenkin inhimillisyys kaukana. Hirmuhallitsijan valtaa vastustaa kapinallisjoukko, jota johtaa Atreides-sukuun kuuluva Siona. Leton ja Sionan kohtaaminen sysää liikkeelle jumalkeisarin viimeisen, kohtalokkaan suunnitelman.</p>",
+        "descr_attr": "",
+        "imported_string": null,
+        "kirjasampo_imported": null
+      },
+      {
+        "id": 7347,
+        "title": "Lohikäärmeenvartija",
+        "orig_title": "The Dragon Keeper",
+        "author_str": "Hobb, Robin",
+        "contributions": [
+          {
+            "person": {
+              "id": 1999,
+              "name": "Hobb, Robin",
+              "alt_name": "Robin Hobb"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [
+              {
+                "id": 156,
+                "name": "Sappinen, Jorma-Veikko",
+                "alt_name": "Jorma-Veikko Sappinen"
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 156,
+                  "name": "Sappinen, Jorma-Veikko",
+                  "alt_name": "Jorma-Veikko Sappinen"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 5566,
+                  "name": "Morris, Jackie",
+                  "alt_name": "Jackie Morris"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kannen suunnittelu",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Hobb_Robin_Lohikaarmeenvartija_1p.jpg",
+                "id": 10398,
+                "image_src": "/static/images/books/Hobb_Robin_Lohikaarmeenvartija_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 227,
+              "name": "Otava"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10637,
+            "title": "Lohikäärmeenvartija",
+            "subtitle": "",
+            "pubyear": 2026,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-951-1-53755-7",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 491,
+            "size": 22,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": {
+          "partof": null,
+          "id": 908,
+          "name": "Sadekorven kronikat",
+          "orig_name": "Rain Wild Chronicles",
+          "description": null,
+          "important": false,
+          "image_src": null,
+          "image_attr": null
+        },
+        "tags": [
+          {
+            "id": 232,
+            "name": "lohikäärmeet",
+            "type": {
+              "id": 4,
+              "name": "Toimija"
+            }
+          }
+        ],
+        "language_name": {
+          "id": 1,
+          "name": "englanti"
+        },
+        "type": 1,
+        "subtitle": "",
+        "pubyear": 2009,
+        "bookseriesnum": "1",
+        "bookseriesorder": 1,
+        "misc": "",
+        "description": "<p>Upea fantasiasarjan avaus vie Robin Hobbin rakastettuun maailmaan keskelle tenhoavaa taikuutta ja mieltä kutkuttavia ihmeitä.</p><p>Lohikäärmeet ovat palanneet maailmaan. Mutta mikään ei ole kuin ennen. Sadekymin yläjuoksulla kyllä kuoriutuu uusia poikasia, mutta ne ovat lentokyvyttömiä ja vaaraksi kaikille.</p><p>Sadekorpelainen tyttö, Thymara, on syntymästään saakka ollut suomuinen ja ylenkatsottu. Nyt hän ryhtyy yhdeksi saattajista lohikäärmeiden vaarallisella matkalla kohti muinaisen kaupungin turvaa. Kukaan ei tiedä, onko kaupunki yhä olemassa tai onko matkalta paluuta.</p><p>Neliosainen <em>Sadekorven kronikat</em> kuljettaa eteenpäin hurmaantuneesti vastaanotetun <em>Elolaivat</em>-trilogian tarinaa. Viimein suomeksi!</p>",
+        "descr_attr": "Otava",
+        "imported_string": null,
+        "kirjasampo_imported": null
+      },
+      {
+        "id": 7346,
+        "title": "Siltavaltakunta",
+        "orig_title": "The Bridge Kingdom",
+        "author_str": "Jensen, Danielle L.",
+        "contributions": [
+          {
+            "person": {
+              "id": 6874,
+              "name": "Jensen, Danielle L.",
+              "alt_name": "Danielle L. Jensen"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          }
+        ],
+        "editions": [
+          {
+            "editors": [],
+            "translators": [
+              {
+                "id": 5304,
+                "name": "Erkko, Ronja",
+                "alt_name": "Ronja Erkko"
+              }
+            ],
+            "contributions": [
+              {
+                "person": {
+                  "id": 5304,
+                  "name": "Erkko, Ronja",
+                  "alt_name": "Ronja Erkko"
+                },
+                "role": {
+                  "id": 2,
+                  "name": "Kääntäjä"
+                },
+                "description": "",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 7973,
+                  "name": "Flath, Regina",
+                  "alt_name": "Regina Flath"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kannen suunnittelu",
+                "real_person": null
+              },
+              {
+                "person": {
+                  "id": 8151,
+                  "name": "Tan, Eevien",
+                  "alt_name": "Eevien Tan"
+                },
+                "role": {
+                  "id": 4,
+                  "name": "Kansikuva"
+                },
+                "description": "Kannen suunnittelu",
+                "real_person": null
+              }
+            ],
+            "images": [
+              {
+                "thumb_src": "/static/images/books/Jensen_Danielle_L_Siltavaltakunta_1p.jpg",
+                "id": 10397,
+                "image_src": "/static/images/books/Jensen_Danielle_L_Siltavaltakunta_1p.jpg",
+                "image_attr": null
+              }
+            ],
+            "publisher": {
+              "id": 456,
+              "name": "Docendo"
+            },
+            "owners": [],
+            "wishlisted": [],
+            "id": 10636,
+            "title": "Siltavaltakunta",
+            "subtitle": "",
+            "pubyear": 2019,
+            "editionnum": 1,
+            "version": 1,
+            "isbn": "978-952-85-0777-2",
+            "printedin": null,
+            "pubseriesnum": null,
+            "coll_info": null,
+            "pages": 389,
+            "size": 23,
+            "dustcover": 3,
+            "coverimage": 1,
+            "misc": null,
+            "imported_string": null,
+            "verified": false
+          }
+        ],
+        "genres": [
+          {
+            "id": 1,
+            "name": "Fantasia",
+            "abbr": "F"
+          }
+        ],
+        "bookseries": {
+          "partof": null,
+          "id": 907,
+          "name": "Siltavaltakunta",
+          "orig_name": "The Bridge Kingdom",
+          "description": null,
+          "important": false,
+          "image_src": null,
+          "image_attr": null
+        },
+        "tags": [],
+        "language_name": {
+          "id": 1,
+          "name": "englanti"
+        },
+        "type": 1,
+        "subtitle": "",
+        "pubyear": 2018,
+        "bookseriesnum": "1",
+        "bookseriesorder": 1,
+        "misc": "",
+        "description": "<p><strong>Seuratako määrättyä kohtaloa vai antautuako kuumaksi roihahtavalle himolle?</strong></p><p>Soturiprinsessa Lara on saanut koko ikänsä koulutusta yhtä ainoaa tavoitetta varten – hänen on ensin naitava ja sitten tapettava vihollisvalta­kunnan paholaismainen kuningas. Se on ainoa keino pelastaa hänen oma puutteessa ja kärsimyksessä kärvistellyt kansansa. Samalla hänellä itsellään on mahdollisuus vihdoinkin elää vapaana.</p><p>Kun Lara viimein muuttaa Siltavaltakuntana tunnettuun Ithicanaan ja nai kuningas Arenin, hänelle valkenee, ettei kaikki hänelle kerrottu olekaan ollut totta. Kuningas Aren onkin lojaali ja kunnioittava, aivan päinvastoin kuin hän odotti. Kun hän hiljalleen tutustuu uuteen valta­kuntaansa ja kuninkaaseen, alkaa käydä ilmi, että hänen oman kotimaansa pelastaminen ainoastaan aiheuttaisi tuhoa ­muualla. Onko hänen roolinsa olla sankari vai hirviö? ­Uskoako omaa isää vai uutta aviomiestä – jota kohtaan hän tuntee päivä päivältä pakottavampana sykkivää himoa? Laran on lopulta valittava, kuka ansaitsee tuhon ja kuka pelastuksen.</p><p><em>Siltavaltakunta </em>avaa uuden kuusiosaisen romantasia­sarjan, joka tarjoilee kiellettyä vetovoimaa, järjestettyä avioliittoa, kaksi näkökulmaa, juonittelua, maailman­rakennusta ja hitaasti syttyvää romanssia.</p>",
+        "descr_attr": "Docendo",
+        "imported_string": null,
+        "kirjasampo_imported": null
+      },
+      {
+        "id": 7345,
+        "title": "Verenperintö",
+        "orig_title": "",
+        "author_str": "Rinneoja, Jasu",
+        "contributions": [
+          {
+            "person": {
+              "id": 3771,
+              "name": "Rinneoja, Jasu",
+              "alt_name": "Jasu Rinneoja"
             },
             "role": {
               "id": 1,
@@ -37,30 +449,30 @@
             "contributions": [],
             "images": [
               {
-                "thumb_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
-                "id": 10383,
-                "image_src": "/static/images/books/Torkkola_Johanna_Nekropolis_1p.jpg",
+                "thumb_src": "/static/images/books/Rinneoja_Jasu_Verenperinto_1p.jpg",
+                "id": 10396,
+                "image_src": "/static/images/books/Rinneoja_Jasu_Verenperinto_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
+              "id": 217,
+              "name": "Nysalor-kustannus"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 10626,
-            "title": "Nekropolis",
-            "subtitle": "",
+            "id": 10635,
+            "title": "Verenperintö",
+            "subtitle": "ja muita kummia kertomuksia",
             "pubyear": 2026,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-89-4977-0",
+            "isbn": "978-952-7564-76-9",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 220,
-            "size": 20,
+            "pages": 87,
+            "size": 21,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
@@ -70,48 +482,61 @@
         ],
         "genres": [
           {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
+            "id": 2,
+            "name": "Kauhu",
+            "abbr": "K"
           }
         ],
-        "bookseries": {
-          "partof": null,
-          "id": 906,
-          "name": "Aave-avainten Vartijat",
-          "orig_name": null,
-          "description": null,
-          "important": false,
-          "image_src": null,
-          "image_attr": null
-        },
-        "tags": [],
+        "bookseries": null,
+        "tags": [
+          {
+            "id": 3064,
+            "name": "selkokieli",
+            "type": {
+              "id": 7,
+              "name": "Lista"
+            }
+          }
+        ],
         "language_name": {
           "id": 7,
           "name": "suomi"
         },
-        "type": 1,
-        "subtitle": "",
+        "type": 2,
+        "subtitle": "ja muita kummia kertomuksia",
         "pubyear": 2026,
-        "bookseriesnum": "1",
-        "bookseriesorder": 1,
+        "bookseriesnum": "",
+        "bookseriesorder": null,
         "misc": "",
-        "description": "<p>Leidi Johanna on Vaarajoen kunnan ainoa Näkijä. Hän oli Tuonelanmäen noita, joka tiesi muinaisen maailman hautausmaista ja hautareliikeistä lähes kaiken.</p><p>Kunnan poliisi on voimaton selvittämään hylätyn hautausmaan outoja valoilmiöitä tai raunioluostarin itsestään soivien urkujen mysteeriä. Urkujen soittajaksi huhutaan tulipalossa menehtynyttä luostariveljeä, joka muistelee menneitä messujaan noen mustaamien urkujen ääressä.</p><p>Asiaa selvittämään vaaditaan Leidi Johannan kaltainen mestarimystikko. Leidi Johannan salapoliisityön myötä tutustumme näkymättömään henkien ja aaveiden maailmaan, jossa selviytymiseen tarvitaan Johannan kaikki sielulliset ja yliluonnolliset kyvyt. Kuolleiden kalmanhuuruinen valtakunta osoittautuu hengenvaaralliseksi paikaksi – jopa jo kertaalleen kuolleille.</p>",
-        "descr_attr": "Books on Demand",
+        "description": "<p>Mitä taitoja teinityttö on oppinut ulkomailla? Mitä piru pelkää ja millainen on pirun kosto? Miten kuollut mies suhtautuu pilailuun?</p><p><em>Verenperintö ja muita kummia kertomuksia</em> on selkokielellä kirjoitettu novellikokoelma. Teos sisältää tarinoita suvun synkistä salaisuuksista, silmänkääntäjistä ja erilaisista ilkikurisista olennoista.</p><p>Raisiolainen Jasu Rinneoja on kirjoittanut yleiskielisiä rikosromaaneja ja selkokielisiä kirjoja.</p><p>Kuvituksessa on hyödynnetty vastuullisesti koulutettuja Ado-be Firefly- ja Photoshop-tekoälytyökaluja.</p>",
+        "descr_attr": "Nysalor-kustannus",
         "imported_string": null,
         "kirjasampo_imported": null
       },
       {
-        "id": 7342,
-        "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
+        "id": 7344,
+        "title": "Paholaisen soitto",
         "orig_title": "",
-        "author_str": "anonyymi (toim.)",
+        "author_str": "Larin-Kyösti",
         "contributions": [
           {
             "person": {
-              "id": 3329,
-              "name": "anonyymi",
-              "alt_name": "anonyymi"
+              "id": 5058,
+              "name": "Larin-Kyösti",
+              "alt_name": "Larin-Kyösti"
+            },
+            "role": {
+              "id": 1,
+              "name": "Kirjoittaja"
+            },
+            "description": "",
+            "real_person": null
+          },
+          {
+            "person": {
+              "id": 939,
+              "name": "Nummelin, Juri",
+              "alt_name": "Juri Nummelin"
             },
             "role": {
               "id": 3,
@@ -128,9 +553,9 @@
             "contributions": [
               {
                 "person": {
-                  "id": 7199,
-                  "name": "Berghäll, Ruska J. J.",
-                  "alt_name": "Ruska J. J. Berghäll"
+                  "id": 5918,
+                  "name": "Lindroos, J. T.",
+                  "alt_name": "J. T. Lindroos"
                 },
                 "role": {
                   "id": 4,
@@ -138,47 +563,34 @@
                 },
                 "description": "Kansi",
                 "real_person": null
-              },
-              {
-                "person": {
-                  "id": 7199,
-                  "name": "Berghäll, Ruska J. J.",
-                  "alt_name": "Ruska J. J. Berghäll"
-                },
-                "role": {
-                  "id": 5,
-                  "name": "Kuvittaja"
-                },
-                "description": "",
-                "real_person": null
               }
             ],
             "images": [
               {
-                "thumb_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
-                "id": 10382,
-                "image_src": "/static/images/books/Anonyymi_Kutojankruunu_1p.jpg",
+                "thumb_src": "/static/images/books/Larin-Kyosti_Paholaisensoitto_1p.jpg",
+                "id": 10395,
+                "image_src": "/static/images/books/Larin-Kyosti_Paholaisensoitto_1p.jpg",
                 "image_attr": null
               }
             ],
             "publisher": {
-              "id": 534,
-              "name": "Taikasana"
+              "id": 169,
+              "name": "Helmivyö"
             },
             "owners": [],
             "wishlisted": [],
-            "id": 10625,
-            "title": "Kutojan kruunu & muita tarinoita sarvista ja siivistä",
-            "subtitle": "",
-            "pubyear": 2026,
+            "id": 10634,
+            "title": "Paholaisen soitto",
+            "subtitle": "ja muita fantastisia novelleja",
+            "pubyear": 2023,
             "editionnum": 1,
             "version": 1,
-            "isbn": "978-952-88-2038-3",
+            "isbn": "978-952-7469-20-0",
             "printedin": null,
             "pubseriesnum": null,
             "coll_info": null,
-            "pages": 183,
-            "size": 21,
+            "pages": 261,
+            "size": 17,
             "dustcover": 1,
             "coverimage": 1,
             "misc": null,
@@ -200,305 +612,15 @@
           "name": "suomi"
         },
         "type": 2,
-        "subtitle": "",
-        "pubyear": 2026,
+        "subtitle": "ja muita fantastisia novelleja",
+        "pubyear": 2023,
         "bookseriesnum": "",
         "bookseriesorder": null,
         "misc": "",
-        "description": "<p><strong>Kuka on arvoituksellinen Lintujen ystävä? Tepsiikö suopirun sarvesta keitetty lemmenjuoma? Entä mitä enteilee valkoinen korppi?</strong></p><p>Keskuudessamme elää sarvekkaita ja siivekkäitä olentoja, osa syvällä metsien siimeksessä, osa keskellä kaupunkejamme. Lennähdä hetkeksi niiden maailmaan, paikkoihin joissa toden ja tarun raja hälvenee. Älä kuitenkaan tee äkkinäisiä liikkeitä, ettei sarvipäisissä ystävissämme herää tarve puolustaa reviiriään…</p><p><em>Kutojan kruunu</em> on kokoelma epätavallisia tarinoita, joissa esiintyy sarvet tai siivet jossain muodossa. Tarinat kattavat genrejä fantasiasta kauhun kautta dystopiaan.</p>",
-        "descr_attr": "Taikasana",
-        "imported_string": null,
-        "kirjasampo_imported": null
-      },
-      {
-        "id": 7341,
-        "title": "Se on hengen menoa",
-        "orig_title": "",
-        "author_str": "Mäkinen, Marja & Puustinen, Henna",
-        "contributions": [
-          {
-            "person": {
-              "id": 8145,
-              "name": "Mäkinen, Marja",
-              "alt_name": "Marja Mäkinen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 8146,
-              "name": "Puustinen, Henna",
-              "alt_name": "Henna Puustinen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
-                "id": 10381,
-                "image_src": "/static/images/books/Makinen_Puustinen_Seonhengenmenoa_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10624,
-            "title": "Se on hengen menoa",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-89-2945-1",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 100,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
-        "bookseries": {
-          "partof": null,
-          "id": 905,
-          "name": "Muumiomummot",
-          "orig_name": null,
-          "description": null,
-          "important": false,
-          "image_src": null,
-          "image_attr": null
-        },
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "2",
-        "bookseriesorder": 2,
-        "misc": "",
-        "description": "<p>Muumiomummot Lilja ja Ruusu olivat välitilaan juuttuneita entisiä soteammattilaisia, jotka asustelivat hautausmaalla ja ihmettelivät maailman menoa. Elettiin aikaa jälkeen 2,5 maailmansodan, joka oli tuonut mukanaan monenlaisia muutoksia.</p><p>Aikaa tappaakseen mummot päättivät lähteä rengasmatkalle Itä-Suomeen, koska niin teki mieli karjalanpiirakkaa. Reissuun lähdettiin liftaten ja mitä kaikkea sitten tapahtuikaan...</p><p>Tämä on <em>Muumiomummojen </em>toinen kirja ja jatkaa samaa genreä, joka on sekoitus komediaa, tragediaa, scifiä sekä kokemuksellista faktaa.</p>",
+        "description": "<p><em style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Paholaisen soittoon</em><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\"> on kerätty Larin-Kyöstin eri novellikokoelmista tarinoita, joissa on fantasiaa, leikittelyä, sadun ja taian tunnelmaa. Osa tarinoista on jopa suoranaista kauhua, vaikka ei koskaan kovin pelottavaa.</span></p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Teoksessa on Juri Nummelinin esipuhe, jossa hän avaa Larin-Kyöstin tuotannon fantastisia vivahteita.</span></p>",
         "descr_attr": "Books on Demand",
         "imported_string": null,
-        "kirjasampo_imported": null
-      },
-      {
-        "id": 7340,
-        "title": "Muumiomummot sotesotkuissa",
-        "orig_title": "",
-        "author_str": "Mäkinen, Marja & Puustinen, Henna",
-        "contributions": [
-          {
-            "person": {
-              "id": 8145,
-              "name": "Mäkinen, Marja",
-              "alt_name": "Marja Mäkinen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          },
-          {
-            "person": {
-              "id": 8146,
-              "name": "Puustinen, Henna",
-              "alt_name": "Henna Puustinen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
-                "id": 10380,
-                "image_src": "/static/images/books/Makinen_Puustinen_Muumiomummotsotesotkuissa_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10623,
-            "title": "Muumiomummot sotesotkuissa",
-            "subtitle": "",
-            "pubyear": 2026,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-80-7596-7",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 74,
-            "size": 21,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
-        "bookseries": {
-          "partof": null,
-          "id": 905,
-          "name": "Muumiomummot",
-          "orig_name": null,
-          "description": null,
-          "important": false,
-          "image_src": null,
-          "image_attr": null
-        },
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2026,
-        "bookseriesnum": "1",
-        "bookseriesorder": 1,
-        "misc": "",
-        "description": "<p>Lilja ja Ruusu ovat Sote-alan muumioituneita ammattilaisia, Lilja entinen sairaanhoitaja ja Ruusu entinen suuhygienisti. He ovat hengettömiä, mutta jääneet välitilaan, koska hoitotakuu ei koskenut kuolleita. He tarkastelevat maailmanmenoa vanhoin silmin tulevaisuuden maailmassa globaalien kriisien keskellä. Ensimmäisessä kirjassa mummot seikkailevat Sote-keskuksessa ja sen läheisyydessä. He majailevat hautausmaalla, koska muualle heitä ei huolita. Tarina on sekoitus komediaa, tragediaa, scifiä ja kokemuksellista faktaa. Jokainen lukija ottakoon itse selvää missä genressä milloinkin liikutaan.</p>",
-        "descr_attr": "Books on Demand",
-        "imported_string": null,
-        "kirjasampo_imported": null
-      },
-      {
-        "id": 7339,
-        "title": "Saastamoinen ja maapallonpysähdys",
-        "orig_title": "",
-        "author_str": "Kastarinen, Lasse",
-        "contributions": [
-          {
-            "person": {
-              "id": 8144,
-              "name": "Kastarinen, Lasse",
-              "alt_name": "Lasse Kastarinen"
-            },
-            "role": {
-              "id": 1,
-              "name": "Kirjoittaja"
-            },
-            "description": "",
-            "real_person": null
-          }
-        ],
-        "editions": [
-          {
-            "editors": [],
-            "translators": [],
-            "contributions": [],
-            "images": [
-              {
-                "thumb_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
-                "id": 10379,
-                "image_src": "/static/images/books/Kastarinen_Lasse_Saatamoinenjamaapallonpysahdys_1p.jpg",
-                "image_attr": null
-              }
-            ],
-            "publisher": {
-              "id": 39,
-              "name": "Books on Demand"
-            },
-            "owners": [],
-            "wishlisted": [],
-            "id": 10622,
-            "title": "Saastamoinen ja maapallonpysähdys",
-            "subtitle": "",
-            "pubyear": 2015,
-            "editionnum": 1,
-            "version": 1,
-            "isbn": "978-952-318-127-4",
-            "printedin": null,
-            "pubseriesnum": null,
-            "coll_info": null,
-            "pages": 324,
-            "size": 22,
-            "dustcover": 1,
-            "coverimage": 1,
-            "misc": null,
-            "imported_string": null,
-            "verified": false
-          }
-        ],
-        "genres": [
-          {
-            "id": 1,
-            "name": "Fantasia",
-            "abbr": "F"
-          }
-        ],
-        "bookseries": null,
-        "tags": [],
-        "language_name": {
-          "id": 7,
-          "name": "suomi"
-        },
-        "type": 1,
-        "subtitle": "",
-        "pubyear": 2015,
-        "bookseriesnum": "",
-        "bookseriesorder": null,
-        "misc": "",
-        "description": "<p>Talvella 2018 maanjäristys ravistaa Helsinkiä, kun suomalaisessa ydinvoimalassa räjähtää. Maapallon pyöriminen pysähtyy ja saa liikkeelle Fartum Energyn turvallisuusanalyytikko Harri Saastamoisen. Suomesta tulee rantaparatiisi pysyvässä auringonpaisteessa, valtiomuoto muuttuu ja suurvaltojen sota-alukset saapuvat Suomenlahdelle.</p><p>Saastamoinen on sosiaalisesti rajoittunut älykkö, joka saa sanotuksi seikkailun puoliväliin mennessä vajaat toistakymmentä sanaa. Riskejä minimoivalle puusilmälle tulevat vaivoiksi niin gangsterit, sotilaat, irronneet ruumiinosat kuin poliitikotkin. Lähipiiristä huolta aiheuttavat Saastamoisen poika, tämän raivohullu Susa-äiti sekä papisto. Telluksen ongelmista puhumattakaan.</p><p><span style=\"background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);\">Esikoiskirjailija Lasse Kastarinen (s. 1965) on pitkän linjan AV ammattilainen, harrastelijamuusikko, sekatyöläinen sekä opettaja.</span></p>",
-        "descr_attr": "Books on Demand",
-        "imported_string": null,
-        "kirjasampo_imported": null
+        "kirjasampo_imported": "2026-11-12T17:05:13.094412+02:00"
       }
     ],
     "error": null

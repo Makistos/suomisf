@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-11T20:42:10.777566+00:00",
+    "generated_at": "2026-11-21T11:58:01.333243+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/latest/people/5",
@@ -10,6 +10,29 @@
   "response": {
     "status_code": 200,
     "data": [
+      {
+        "id": 8151,
+        "name": "Tan, Eevien",
+        "alt_name": "Eevien Tan",
+        "fullname": "",
+        "image_src": null,
+        "dob": null,
+        "dod": null,
+        "nationality": null,
+        "workcount": 0,
+        "storycount": 0,
+        "roles": [
+          "Kansikuva"
+        ],
+        "other_names": "",
+        "first_name": null,
+        "last_name": null,
+        "image_attr": null,
+        "qid": "",
+        "bio": "",
+        "bio_src": "",
+        "imported_string": null
+      },
       {
         "id": 8150,
         "name": "Kask, Eve",
@@ -102,32 +125,6 @@
         },
         "workcount": 0,
         "storycount": 2,
-        "roles": [
-          "Kirjoittaja"
-        ],
-        "other_names": "",
-        "first_name": null,
-        "last_name": null,
-        "image_attr": null,
-        "qid": "",
-        "bio": "",
-        "bio_src": "",
-        "imported_string": null
-      },
-      {
-        "id": 8146,
-        "name": "Puustinen, Henna",
-        "alt_name": "Henna Puustinen",
-        "fullname": "",
-        "image_src": null,
-        "dob": null,
-        "dod": null,
-        "nationality": {
-          "id": 4,
-          "name": "Suomi"
-        },
-        "workcount": 2,
-        "storycount": 0,
         "roles": [
           "Kirjoittaja"
         ],

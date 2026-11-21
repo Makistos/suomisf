@@ -1,6 +1,6 @@
 {
   "metadata": {
-    "generated_at": "2026-11-11T20:42:10.777566+00:00",
+    "generated_at": "2026-11-21T11:58:01.333243+00:00",
     "generator": "update_snapshots.py",
     "total_endpoints": 47,
     "endpoint": "/api/stats/genrecounts",
@@ -10,12 +10,12 @@
   "response": {
     "status_code": 200,
     "data": {
-      "F": 2276,
-      "K": 768,
+      "F": 2279,
+      "K": 769,
       "Paleof": 48,
       "PF": 116,
-      "SF": 1855,
-      "VEH": 72,
+      "SF": 1856,
+      "VEH": 73,
       "Utopia": 14,
       "nF": 1294,
       "nSF": 415,
@@ -27,7 +27,7 @@
       "kok": 664,
       "lF": 469,
       "R": 37,
-      "eiSF": 68
+      "eiSF": 67
     },
     "error": null
   }
