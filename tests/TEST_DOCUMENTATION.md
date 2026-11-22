@@ -11,6 +11,7 @@ what they test, their parameter values, and expected behaviors.
 
 1. [Test File Overview](#test-file-overview)
 2. [Test Infrastructure](#test-infrastructure)
+   - [Test data (golden dump)](#test-data-golden-dump)
 3. [Authentication Tests (test_auth.py)](#authentication-tests)
 4. [Entity Tests (test_entities.py)](#entity-tests)
 5. [Filter & Search Tests (test_filters.py)](#filter--search-tests)
@@ -126,6 +127,51 @@ what they test, their parameter values, and expected behaviors.
 TEST_ADMIN_NAME = 'Test Admin'
 TEST_ADMIN_PASSWORD = 'testadminpass123'
 ```
+
+---
+
+## Test data (golden dump)
+
+Tests (pytest and the frontend Playwright suite) restore `suomisf_test`
+from a pinned dump, never from the live dev database. Refreshing the dev
+database from production therefore cannot break them.
+
+- **Where:** `~/.local/share/suomisf/golden.dump` (override with
+  `SUOMISF_GOLDEN_DUMP`), mode 0600 in a 0700 folder. It stays outside
+  the repo because it holds real user data (emails, password hashes)
+  and the repo is public. A missing dump fails the run with the command
+  to create it; there is no fallback to the live database.
+- **Code:** `tests/scripts/golden.py`; unit tests in
+  `tests/test_golden.py` (no database: run with `--skip-db-setup`).
+
+### After updating the dev database from production
+
+1. `pdm run golden-refresh`: dumps the dev database to a candidate,
+   restores it into `suomisf_test`, generates candidate snapshots, runs
+   the whole suite against them and prints a report. Each snapshot is:
+   - `unchanged` or `data`: routine;
+   - `structure`: a key appeared or disappeared in the API response. A
+     code regression, or a migration that is in production but not in
+     the code. Fix the code, then refresh again;
+   - `added` / `removed`: the snapshot list changed.
+
+   Tests listed as failing depend on hard-coded data (snapshot tests
+   pass by construction, because they read the candidate's own
+   snapshots). Make them data-independent, e.g. compare with the page's
+   own reported total, and rerun one with the command the report
+   prints: `SUOMISF_GOLDEN_DUMP=<candidate>
+   SUOMISF_SNAPSHOTS_DIR=<candidate-snapshots> pdm run pytest <id>`.
+2. Optional: in suomisf-ui,
+   `SUOMISF_GOLDEN_DUMP=<candidate> npm run test:e2e`.
+3. `pdm run golden-accept`: adopts the candidate, keeps the old dump as
+   `golden.previous.dump` and updates `tests/fixtures/snapshots`. It
+   refuses while there are structure changes or failing tests
+   (`--force` overrides).
+4. Run the tests and E2E, then commit `tests/fixtures/snapshots`.
+
+**Rollback:**
+`mv ~/.local/share/suomisf/golden.previous.dump
+~/.local/share/suomisf/golden.dump && git checkout tests/fixtures/snapshots`
 
 ---
 

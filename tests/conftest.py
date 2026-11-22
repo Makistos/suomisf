@@ -107,7 +107,11 @@ def clone_test_database():
     restore_dump(dump, TEST_DB_NAME)
     elapsed = time.time() - start
     print(f"[setup] Golden dump restored in {elapsed:.1f}s")
+    apply_test_migrations()
 
+
+def apply_test_migrations():
+    """Apply the migrations the test DB needs on top of a restored dump."""
     # Apply migration 001 (EditionShortStory, StoryContributor)
     _apply_migration_001()
     # Apply migration 002 (EditionContributor)
@@ -623,7 +627,9 @@ def user_headers(api_client, api_test_config) -> Dict[str, str]:
 # Snapshot Testing
 # ---------------------------------------------------------------------------
 
-SNAPSHOTS_DIR = os.path.join(
+# golden-refresh points this at the candidate snapshots, so snapshot
+# tests pass by construction and only data-dependent tests fail.
+SNAPSHOTS_DIR = os.environ.get('SUOMISF_SNAPSHOTS_DIR') or os.path.join(
     os.path.dirname(__file__), 'fixtures', 'snapshots'
 )
 

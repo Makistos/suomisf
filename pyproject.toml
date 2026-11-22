@@ -89,6 +89,9 @@ select = ["E", "W", "F", "B", "C4"]
 "tests/api/test_award_import_wikipedia.py" = ["E501"]
 
 [tool.pdm.scripts]
+# Test data: tests restore suomisf_test from a pinned golden dump.
+golden-refresh = {cmd = "python tests/scripts/golden.py refresh", env = {SUOMISF_DOTENV = ".env.e2e"}}
+golden-accept = "python tests/scripts/golden.py accept"
 # Full suite with branch coverage; fails if coverage drops below the floor.
 test-cov = "pytest tests -m 'not network' -p no:cacheprovider --cov=app --cov-branch --cov-report=term:skip-covered --cov-report=json:coverage.json"
 

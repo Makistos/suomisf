@@ -139,17 +139,20 @@ def make_request(
 
 
 def save_snapshot(
-    name: str, data: Dict[str, Any], metadata: Dict[str, Any]
+    name: str,
+    data: Dict[str, Any],
+    metadata: Dict[str, Any],
+    out_dir: str = SNAPSHOTS_DIR,
 ) -> str:
     """Save a snapshot to file."""
-    os.makedirs(SNAPSHOTS_DIR, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
 
     snapshot = {
         'metadata': metadata,
         'response': data
     }
 
-    filepath = os.path.join(SNAPSHOTS_DIR, f'{name}.json')
+    filepath = os.path.join(out_dir, f'{name}.json')
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(snapshot, f, indent=2, ensure_ascii=False, default=str)
 
@@ -158,6 +161,7 @@ def save_snapshot(
 
 def generate_snapshots(
     endpoints: Optional[List[tuple]] = None,
+    out_dir: str = SNAPSHOTS_DIR,
 ) -> Dict[str, Any]:
     """Generate snapshots for all endpoints."""
     endpoints = endpoints or ENDPOINTS_TO_SNAPSHOT
@@ -216,7 +220,7 @@ def generate_snapshots(
     print("=" * 60)
     print("SuomiSF API Snapshot Generator")
     print("=" * 60)
-    print(f"Snapshots directory: {SNAPSHOTS_DIR}")
+    print(f"Snapshots directory: {out_dir}")
     print(f"Endpoints to snapshot: {len(endpoints)}")
     print("=" * 60)
     print()
@@ -235,7 +239,9 @@ def generate_snapshots(
                     'status_code': response['status_code']
                 }
 
-                filepath = save_snapshot(name, response, endpoint_metadata)
+                filepath = save_snapshot(
+                    name, response, endpoint_metadata, out_dir
+                )
                 print(f"OK -> {os.path.basename(filepath)}")
                 results['success'].append(name)
             else:
@@ -254,7 +260,7 @@ def generate_snapshots(
     print("=" * 60)
 
     # Save summary
-    summary_path = os.path.join(SNAPSHOTS_DIR, '_snapshot_summary.json')
+    summary_path = os.path.join(out_dir, '_snapshot_summary.json')
     with open(summary_path, 'w') as f:
         json.dump({
             'metadata': metadata,

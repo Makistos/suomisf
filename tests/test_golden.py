@@ -11,10 +11,13 @@ import pytest
 from tests.scripts import golden
 from tests.scripts.golden import (
     GoldenMissingError,
+    candidate_paths,
     classify_snapshot,
     compare_snapshot_dirs,
     dump_database,
     golden_path,
+    parse_failed,
+    promote_candidate,
     restore_dump,
 )
 
@@ -116,3 +119,69 @@ def test_dump_failure_leaves_existing_file_and_no_partial(
         dump_database('suomisf', out)
     assert out.read_bytes() == b'old'
     assert not out.with_name('golden.dump.partial').exists()
+
+
+def make_candidate(tmp_path, report, failed=()):
+    """golden (b'old') + candidate (b'new') with snapshots and report.
+
+    Committed snapshots: keep, gone. Candidate snapshots: keep, new,
+    _snapshot_summary.
+    """
+    g = tmp_path / 'golden.dump'
+    g.write_bytes(b'old')
+    cand, cand_snaps, rep = candidate_paths(g)
+    cand.write_bytes(b'new')
+    for name in ('keep', 'new', '_snapshot_summary'):
+        write(cand_snaps / f'{name}.json', snap({'v': 'candidate'}))
+    snaps = tmp_path / 'snaps'
+    for name in ('keep', 'gone'):
+        write(snaps / f'{name}.json', snap({'v': 'committed'}))
+    write(rep, {'snapshots': report, 'failed_tests': list(failed)})
+    return g, snaps
+
+
+def test_promote_without_candidate(tmp_path):
+    g = tmp_path / 'golden.dump'
+    g.write_bytes(b'old')
+    assert promote_candidate(g, tmp_path / 'snaps') == 1
+    assert g.read_bytes() == b'old'
+
+
+def test_promote_refuses_structure_without_force(tmp_path):
+    g, snaps = make_candidate(tmp_path, report={'works': 'structure'})
+    assert promote_candidate(g, snaps) == 2
+    assert g.read_bytes() == b'old'
+    assert promote_candidate(g, snaps, force=True) == 0
+    assert g.read_bytes() == b'new'
+
+
+def test_promote_refuses_failed_tests_without_force(tmp_path):
+    g, snaps = make_candidate(
+        tmp_path, report={'keep': 'data'},
+        failed=['tests/api/test_misc.py::test_x'],
+    )
+    assert promote_candidate(g, snaps) == 2
+    assert g.read_bytes() == b'old'
+
+
+def test_parse_failed():
+    out = ('FAILED tests/a.py::test_one - AssertionError: x\n'
+           'ERROR tests/b.py::test_two - RuntimeError\n'
+           '1 failed, 1 error, 10 passed in 3.0s\n')
+    assert parse_failed(out) == [
+        'tests/a.py::test_one', 'tests/b.py::test_two']
+
+
+def test_promote_success(tmp_path):
+    g, snaps = make_candidate(
+        tmp_path,
+        report={'keep': 'data', 'gone': 'removed', 'new': 'added'},
+    )
+    assert promote_candidate(g, snaps) == 0
+    assert g.read_bytes() == b'new'
+    assert g.with_name('golden.previous.dump').read_bytes() == b'old'
+    assert sorted(p.stem for p in snaps.glob('*.json')) == [
+        '_snapshot_summary', 'keep', 'new']
+    kept = json.loads((snaps / 'keep.json').read_text(encoding='utf-8'))
+    assert kept['response'] == {'v': 'candidate'}
+    assert not any(p.exists() for p in candidate_paths(g))

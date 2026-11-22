@@ -9,11 +9,15 @@ Usage:
     pdm run golden-refresh    # candidate dump + snapshot/test report
     pdm run golden-accept     # adopt the candidate (--force to override)
 """
+import argparse
 import json
 import os
+import re
+import shutil
 import subprocess
+import sys
 from pathlib import Path
-from typing import Any, Dict, Literal, Set, Tuple
+from typing import Any, Dict, List, Literal, Set, Tuple
 
 SnapshotClass = Literal['unchanged', 'data', 'structure', 'added', 'removed']
 
@@ -148,3 +152,146 @@ def compare_snapshot_dirs(
                 _load(new_dir / f'{name}.json'),
             )
     return result
+
+
+REPO_ROOT = Path(__file__).resolve().parents[2]
+_FAILED_RE = re.compile(r'^(?:FAILED|ERROR) (\S+)')
+
+
+def parse_failed(output: str) -> List[str]:
+    """Test ids from pytest's -rfE short summary, reason stripped."""
+    return [m.group(1) for line in output.splitlines()
+            if (m := _FAILED_RE.match(line))]
+
+
+def run_tests_against(dump: Path, snapshots_dir: Path) -> List[str]:
+    """Run the suite on the candidate data; return the failing test ids.
+
+    Snapshot tests read the candidate's own snapshots, so they pass by
+    construction: whatever fails depends on hard-coded data.
+    """
+    env = dict(os.environ, SUOMISF_GOLDEN_DUMP=str(dump),
+               SUOMISF_SNAPSHOTS_DIR=str(snapshots_dir))
+    proc = subprocess.Popen(
+        [sys.executable, '-m', 'pytest', 'tests', '-m', 'not network',
+         '-p', 'no:cacheprovider', '-q', '-rfE'],
+        cwd=REPO_ROOT, env=env, stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT, text=True,
+    )
+    assert proc.stdout is not None
+    lines = []
+    for line in proc.stdout:
+        print(line, end='')
+        lines.append(line)
+    proc.wait()
+    return parse_failed(''.join(lines))
+
+
+def _report(golden: Path) -> Dict[str, Any]:
+    return json.loads(candidate_paths(golden)[2].read_text('utf-8'))
+
+
+def refresh() -> int:
+    """Candidate dump from the dev DB, its snapshots, tests, and a report."""
+    if os.environ.get('SUOMISF_DOTENV') != '.env.e2e':
+        # Same reason as setup_e2e_db.py: the first `app` import must
+        # bind to suomisf_test, not to production's .env.
+        print('golden refresh must run with SUOMISF_DOTENV=.env.e2e '
+              '(use: pdm run golden-refresh)')
+        return 2
+    from tests.conftest import apply_test_migrations, create_test_users
+    from tests.scripts.update_snapshots import (
+        SNAPSHOTS_DIR,
+        generate_snapshots,
+    )
+
+    golden = golden_path()
+    cand, cand_snaps, rep = candidate_paths(golden)
+    print(f'[golden] Dumping {MAIN_DB_NAME} -> {cand}')
+    dump_database(MAIN_DB_NAME, cand)
+    print(f'[golden] Restoring candidate into {TEST_DB_NAME}')
+    restore_dump(cand)
+    apply_test_migrations()
+    create_test_users()
+    shutil.rmtree(cand_snaps, ignore_errors=True)
+    generate_snapshots(out_dir=str(cand_snaps))
+    snapshots = compare_snapshot_dirs(Path(SNAPSHOTS_DIR), cand_snaps)
+    print('[golden] Running the test suite against the candidate')
+    failed = run_tests_against(cand, cand_snaps)
+    rep.write_text(json.dumps(
+        {'snapshots': snapshots, 'failed_tests': failed}, indent=2,
+    ), encoding='utf-8')
+
+    print('\n[golden] Snapshots compared with tests/fixtures/snapshots:')
+    for cls in ('unchanged', 'data', 'structure', 'added', 'removed'):
+        names = [n for n, c in snapshots.items() if c == cls]
+        shown = '' if cls == 'unchanged' else ' ' + ', '.join(names)
+        print(f'  {cls:9} {len(names):3}{shown}')
+    if failed:
+        print('[golden] Tests failing on the candidate data (they depend '
+              'on hard-coded data; make them data-independent):')
+        for test_id in failed:
+            print(f'  {test_id}')
+        print(f'  rerun one: SUOMISF_GOLDEN_DUMP={cand} '
+              f'SUOMISF_SNAPSHOTS_DIR={cand_snaps} pdm run pytest <id>')
+    print('[golden] Next: optionally, in suomisf-ui: '
+          f'SUOMISF_GOLDEN_DUMP={cand} npm run test:e2e')
+    print('[golden] Then: pdm run golden-accept')
+    blocked = failed or any(c == 'structure' for c in snapshots.values())
+    return 1 if blocked else 0
+
+
+def promote_candidate(
+    golden: Path, snapshots_dir: Path, force: bool = False
+) -> int:
+    """Adopt the candidate dump and its snapshots; keep the old dump."""
+    cand, cand_snaps, rep = candidate_paths(golden)
+    if not cand.exists() or not rep.exists():
+        print('No candidate: run pdm run golden-refresh')
+        return 1
+    report = _report(golden)
+    structure = [n for n, c in report['snapshots'].items()
+                 if c == 'structure']
+    failed = report['failed_tests']
+    if (structure or failed) and not force:
+        for name in structure:
+            print(f'structure change: {name}')
+        for test_id in failed:
+            print(f'failing test: {test_id}')
+        print('--force to accept anyway')
+        return 2
+    if golden.exists():
+        os.replace(golden, golden.with_name('golden.previous.dump'))
+    os.replace(cand, golden)
+    for src in cand_snaps.glob('*.json'):
+        shutil.copy2(src, snapshots_dir / src.name)
+    for name, cls in report['snapshots'].items():
+        if cls == 'removed':
+            (snapshots_dir / f'{name}.json').unlink(missing_ok=True)
+    shutil.rmtree(cand_snaps)
+    rep.unlink()
+    print(f'[golden] Accepted: {golden} (previous kept as '
+          'golden.previous.dump). Run the tests, then commit '
+          'tests/fixtures/snapshots.')
+    return 0
+
+
+def main(argv: List[str]) -> int:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    sub = parser.add_subparsers(dest='command', required=True)
+    sub.add_parser('refresh', help='make a candidate dump and report')
+    accept = sub.add_parser('accept', help='adopt the candidate')
+    accept.add_argument('--force', action='store_true',
+                        help='accept despite structure changes or '
+                             'failing tests')
+    args = parser.parse_args(argv)
+    if args.command == 'refresh':
+        return refresh()
+    # Not update_snapshots.SNAPSHOTS_DIR: importing it loads the app.
+    snapshots = REPO_ROOT / 'tests' / 'fixtures' / 'snapshots'
+    return promote_candidate(golden_path(), snapshots, force=args.force)
+
+
+if __name__ == '__main__':
+    sys.path.insert(0, str(REPO_ROOT))
+    sys.exit(main(sys.argv[1:]))
