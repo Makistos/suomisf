@@ -209,6 +209,18 @@ after each test.
 | `test_register_without_email_still_works` | POST /api/register | Registration without email still succeeds (email NULL) |
 | `test_register_duplicate_email_rejected` | POST /api/register | Second registration with the same email returns 401 |
 
+### TestPasswordLength
+
+One rule for registration and reset: 8 to 128 characters
+(`PASSWORD_MIN_LENGTH` / `PASSWORD_MAX_LENGTH` in `app/impl_users.py`).
+
+| Test | Endpoint | Description |
+|------|----------|-------------|
+| `test_register_seven_chars_rejected` | POST /api/register | `pw12345` returns 400 with "vähintään 8"; no user created |
+| `test_register_empty_password_rejected` | POST /api/register | Empty password returns 401 (rejected by `login_options`); no user created |
+| `test_register_129_chars_rejected` | POST /api/register | 129 chars returns 400 with "enintään 128"; no user created |
+| `test_register_boundaries_accepted` | POST /api/register | 8 and 128 chars return 200 |
+
 ### TestPasswordReset
 
 | Test | Endpoint | Description |
@@ -218,7 +230,9 @@ after each test.
 | `test_reset_with_valid_token_changes_password` | POST /api/password/reset | Valid token sets new password; old password stops working |
 | `test_reset_token_is_single_use` | POST /api/password/reset | Reusing a token after a successful reset returns 400 |
 | `test_reset_invalid_token` | POST /api/password/reset | Malformed token returns 400 |
-| `test_reset_short_password_rejected` | POST /api/password/reset | Password under 6 chars returns 400 |
+| `test_reset_seven_chars_rejected` | POST /api/password/reset | `pw12345` returns 400 with "vähintään 8" |
+| `test_reset_129_chars_rejected` | POST /api/password/reset | 129 chars returns 400 with "enintään 128" |
+| `test_reset_short_password_rejected` | POST /api/password/reset | `123` returns 400 |
 
 ### TestWriteOperationsRequireAuth
 

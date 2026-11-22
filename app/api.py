@@ -172,6 +172,10 @@ def api_login() -> Response:
 
 @app.route('/api/register', methods=['post'])
 def api_register() -> Response:
+    """
+    Register a user. Body: { "username", "password", "email"? }.
+    The password must be 8..128 characters (400 otherwise).
+    """
     options = login_options(request)
     if not options:
         err = ResponseType('Virheellinen rekisteröinti',
@@ -204,7 +208,8 @@ def api_password_forgot() -> Response:
 def api_password_reset() -> Response:
     """
     Set a new password from a reset token. Body:
-    { "token": <token>, "password": <new password> }.
+    { "token": <token>, "password": <new password> }. The password must
+    be 8..128 characters (400 otherwise).
     """
     try:
         options = {'token': request.json.get('token'),

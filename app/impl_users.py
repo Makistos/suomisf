@@ -1,7 +1,7 @@
 """ Functions related to users. """
 import json
 import hashlib
-from typing import Dict, List
+from typing import Dict, List, Optional
 from flask.wrappers import Response
 from flask import make_response, jsonify
 from flask_jwt_extended import (create_access_token, create_refresh_token,
@@ -22,6 +22,23 @@ from app.impl import ResponseType
 from app.impl_email import send_email
 from app.types import (HttpResponseCode)
 from app import app
+
+
+# One rule for every place a password is set (registration, reset).
+# The cap keeps hashing cost bounded for absurdly long inputs.
+PASSWORD_MIN_LENGTH = 8
+PASSWORD_MAX_LENGTH = 128
+
+
+def password_error(password: str) -> Optional[str]:
+    """Return why the password is not acceptable, or None if it is."""
+    if len(password) < PASSWORD_MIN_LENGTH:
+        return (f'Salasanan on oltava vähintään {PASSWORD_MIN_LENGTH} '
+                'merkkiä')
+    if len(password) > PASSWORD_MAX_LENGTH:
+        return (f'Salasana saa olla enintään {PASSWORD_MAX_LENGTH} '
+                'merkkiä')
+    return None
 
 
 def create_token(user: User, password: str) -> Response:
@@ -119,6 +136,12 @@ def register_user(options: Dict[str, str]) -> Response:
     password = options['password']
     email = (options.get('email') or '').strip() or None
 
+    error = password_error(password)
+    if error:
+        return make_response(
+            json.dumps({'msg': error}),
+            HttpResponseCode.BAD_REQUEST.value)
+
     user = session.query(User).filter(User.name == name).first()
     if user:
         return make_response(
@@ -209,7 +232,7 @@ def reset_password(options: Dict[str, str]) -> Response:
 
     Returns:
         Response: 200 on success; 400 for an invalid/expired token or a
-        password that is too short.
+        password outside PASSWORD_MIN_LENGTH..PASSWORD_MAX_LENGTH.
     """
     session = new_session()
     token = options.get('token')
@@ -220,9 +243,10 @@ def reset_password(options: Dict[str, str]) -> Response:
             json.dumps({'msg': 'Virheellinen pyyntö'}),
             HttpResponseCode.BAD_REQUEST.value)
 
-    if len(password) < 6:
+    error = password_error(password)
+    if error:
         return make_response(
-            json.dumps({'msg': 'Salasanan on oltava vähintään 6 merkkiä'}),
+            json.dumps({'msg': error}),
             HttpResponseCode.BAD_REQUEST.value)
 
     max_age = app.config.get('PASSWORD_RESET_MAX_AGE', 3600)

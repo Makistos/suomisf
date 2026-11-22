@@ -57,9 +57,15 @@ Register a new user account.
 ```json
 {
   "username": "string",
-  "password": "string"
+  "password": "string",
+  "email": "string (optional)"
 }
 ```
+
+The password must be 8 to 128 characters (the same rule applies to
+`POST /api/password/reset`). Errors: 400 with `{"msg": ...}` for a
+password outside that range; 401 for missing credentials, an existing
+username or an email already in use.
 
 #### POST /api/refresh
 Refresh an access token using a refresh token.
