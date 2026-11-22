@@ -19,7 +19,12 @@ import sys
 from pathlib import Path
 from typing import Any, Dict, List, Literal, Set, Tuple
 
-SnapshotClass = Literal['unchanged', 'data', 'structure', 'added', 'removed']
+SnapshotClass = Literal[
+    'unchanged', 'data', 'structure', 'added', 'removed', 'error'
+]
+# Classes that stop golden-accept unless --force: a changed API shape, or
+# an endpoint that failed to produce a snapshot on the candidate data.
+BLOCKING = ('structure', 'error')
 
 DB_USER = 'mep'
 MAIN_DB_NAME = 'suomisf'
@@ -164,6 +169,38 @@ def parse_failed(output: str) -> List[str]:
             if (m := _FAILED_RE.match(line))]
 
 
+def failed_from_run(output: str, returncode: int) -> List[str]:
+    """Failing ids; a pytest run that failed without naming any counts.
+
+    Exit 0 and 1 are pytest's "all passed" and "some failed"; anything
+    else (crash, internal error, interrupted, no tests) is a failure.
+    """
+    ids = parse_failed(output)
+    if returncode not in (0, 1) or (returncode == 1 and not ids):
+        ids.append(f'<pytest exit {returncode}>')
+    return ids
+
+
+def mark_generator_errors(
+    snapshots: Dict[str, SnapshotClass], results: Dict[str, Any]
+) -> Dict[str, SnapshotClass]:
+    """Endpoints the generator skipped or failed on are errors.
+
+    Their snapshot file is missing, which would otherwise read as
+    'removed' and be deleted on accept.
+    """
+    out = dict(snapshots)
+    for name, _ in list(results['failed']) + list(results['skipped']):
+        out[name] = 'error'
+    return out
+
+
+def dump_fingerprint(path: Path) -> Dict[str, int]:
+    """Identifies the dump a report was made for."""
+    st = path.stat()
+    return {'size': st.st_size, 'mtime_ns': st.st_mtime_ns}
+
+
 def run_tests_against(dump: Path, snapshots_dir: Path) -> List[str]:
     """Run the suite on the candidate data; return the failing test ids.
 
@@ -184,7 +221,7 @@ def run_tests_against(dump: Path, snapshots_dir: Path) -> List[str]:
         print(line, end='')
         lines.append(line)
     proc.wait()
-    return parse_failed(''.join(lines))
+    return failed_from_run(''.join(lines), proc.returncode)
 
 
 def _report(golden: Path) -> Dict[str, Any]:
@@ -207,6 +244,8 @@ def refresh() -> int:
 
     golden = golden_path()
     cand, cand_snaps, rep = candidate_paths(golden)
+    # A report left by an earlier refresh must never vouch for this dump.
+    rep.unlink(missing_ok=True)
     print(f'[golden] Dumping {MAIN_DB_NAME} -> {cand}')
     dump_database(MAIN_DB_NAME, cand)
     print(f'[golden] Restoring candidate into {TEST_DB_NAME}')
@@ -214,16 +253,21 @@ def refresh() -> int:
     apply_test_migrations()
     create_test_users()
     shutil.rmtree(cand_snaps, ignore_errors=True)
-    generate_snapshots(out_dir=str(cand_snaps))
-    snapshots = compare_snapshot_dirs(Path(SNAPSHOTS_DIR), cand_snaps)
+    results = generate_snapshots(out_dir=str(cand_snaps))
+    snapshots = mark_generator_errors(
+        compare_snapshot_dirs(Path(SNAPSHOTS_DIR), cand_snaps), results
+    )
     print('[golden] Running the test suite against the candidate')
     failed = run_tests_against(cand, cand_snaps)
-    rep.write_text(json.dumps(
-        {'snapshots': snapshots, 'failed_tests': failed}, indent=2,
-    ), encoding='utf-8')
+    rep.write_text(json.dumps({
+        'snapshots': snapshots,
+        'failed_tests': failed,
+        'dump': dump_fingerprint(cand),
+    }, indent=2), encoding='utf-8')
 
     print('\n[golden] Snapshots compared with tests/fixtures/snapshots:')
-    for cls in ('unchanged', 'data', 'structure', 'added', 'removed'):
+    for cls in ('unchanged', 'data', 'structure', 'added', 'removed',
+                'error'):
         names = [n for n, c in snapshots.items() if c == cls]
         shown = '' if cls == 'unchanged' else ' ' + ', '.join(names)
         print(f'  {cls:9} {len(names):3}{shown}')
@@ -237,7 +281,7 @@ def refresh() -> int:
     print('[golden] Next: optionally, in suomisf-ui: '
           f'SUOMISF_GOLDEN_DUMP={cand} npm run test:e2e')
     print('[golden] Then: pdm run golden-accept')
-    blocked = failed or any(c == 'structure' for c in snapshots.values())
+    blocked = failed or any(c in BLOCKING for c in snapshots.values())
     return 1 if blocked else 0
 
 
@@ -250,12 +294,16 @@ def promote_candidate(
         print('No candidate: run pdm run golden-refresh')
         return 1
     report = _report(golden)
-    structure = [n for n, c in report['snapshots'].items()
-                 if c == 'structure']
+    if report.get('dump') != dump_fingerprint(cand):
+        print('The candidate dump changed after its report was written '
+              '(interrupted refresh?): run pdm run golden-refresh')
+        return 1
+    blocking = [(n, c) for n, c in report['snapshots'].items()
+                if c in BLOCKING]
     failed = report['failed_tests']
-    if (structure or failed) and not force:
-        for name in structure:
-            print(f'structure change: {name}')
+    if (blocking or failed) and not force:
+        for name, cls in blocking:
+            print(f'{cls}: {name}')
         for test_id in failed:
             print(f'failing test: {test_id}')
         print('--force to accept anyway')

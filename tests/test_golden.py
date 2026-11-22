@@ -15,7 +15,10 @@ from tests.scripts.golden import (
     classify_snapshot,
     compare_snapshot_dirs,
     dump_database,
+    dump_fingerprint,
+    failed_from_run,
     golden_path,
+    mark_generator_errors,
     parse_failed,
     promote_candidate,
     restore_dump,
@@ -136,7 +139,8 @@ def make_candidate(tmp_path, report, failed=()):
     snaps = tmp_path / 'snaps'
     for name in ('keep', 'gone'):
         write(snaps / f'{name}.json', snap({'v': 'committed'}))
-    write(rep, {'snapshots': report, 'failed_tests': list(failed)})
+    write(rep, {'snapshots': report, 'failed_tests': list(failed),
+                'dump': dump_fingerprint(cand)})
     return g, snaps
 
 
@@ -185,3 +189,41 @@ def test_promote_success(tmp_path):
     kept = json.loads((snaps / 'keep.json').read_text(encoding='utf-8'))
     assert kept['response'] == {'v': 'candidate'}
     assert not any(p.exists() for p in candidate_paths(g))
+
+
+def test_promote_refuses_report_for_other_candidate(tmp_path):
+    # An interrupted second refresh replaced the dump but not the report.
+    g, snaps = make_candidate(tmp_path, report={'keep': 'data'})
+    cand = candidate_paths(g)[0]
+    cand.write_bytes(b'newer, unchecked')
+    assert promote_candidate(g, snaps) == 1
+    assert g.read_bytes() == b'old'
+
+
+def test_promote_refuses_error_without_force(tmp_path):
+    g, snaps = make_candidate(tmp_path, report={'keep': 'error'})
+    assert promote_candidate(g, snaps) == 2
+    assert g.read_bytes() == b'old'
+
+
+def test_failed_from_run_crash_without_ids():
+    assert failed_from_run('INTERNALERROR> boom\n', 3) == [
+        '<pytest exit 3>']
+
+
+def test_failed_from_run_exit1_without_ids():
+    assert failed_from_run('Killed\n', 1) == ['<pytest exit 1>']
+
+
+def test_failed_from_run_failures_and_clean():
+    out = 'FAILED tests/a.py::test_one - x\n1 failed\n'
+    assert failed_from_run(out, 1) == ['tests/a.py::test_one']
+    assert failed_from_run('10 passed\n', 0) == []
+
+
+def test_mark_generator_errors():
+    snapshots = {'a': 'removed', 'b': 'unchanged'}
+    results = {'success': ['b'], 'failed': [('a', 'boom')],
+               'skipped': [('c', 500)]}
+    assert mark_generator_errors(snapshots, results) == {
+        'a': 'error', 'b': 'unchanged', 'c': 'error'}

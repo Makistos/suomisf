@@ -153,7 +153,9 @@ database from production therefore cannot break them.
    - `structure`: a key appeared or disappeared in the API response. A
      code regression, or a migration that is in production but not in
      the code. Fix the code, then refresh again;
-   - `added` / `removed`: the snapshot list changed.
+   - `added` / `removed`: the snapshot list changed;
+   - `error`: the endpoint failed or returned non-200 on the candidate
+     data. A regression: fix it before accepting.
 
    Tests listed as failing depend on hard-coded data (snapshot tests
    pass by construction, because they read the candidate's own
@@ -165,8 +167,9 @@ database from production therefore cannot break them.
    `SUOMISF_GOLDEN_DUMP=<candidate> npm run test:e2e`.
 3. `pdm run golden-accept`: adopts the candidate, keeps the old dump as
    `golden.previous.dump` and updates `tests/fixtures/snapshots`. It
-   refuses while there are structure changes or failing tests
-   (`--force` overrides).
+   refuses while there are structure changes, errors or failing tests
+   (`--force` overrides), and when the candidate dump is not the one
+   the report was made for (an interrupted refresh).
 4. Run the tests and E2E, then commit `tests/fixtures/snapshots`.
 
 **Rollback:**
