@@ -23,6 +23,11 @@ both for API and tests and document the API.
 
 Always recreate test database and add test user before running tests.
 Never run tests against or modify the main database.
+Tests restore `suomisf_test` from the golden dump
+(`~/.local/share/suomisf/golden.dump`, outside the repo: it holds user
+data). After refreshing the dev DB from production, update test data
+with `pdm run golden-refresh` and `pdm run golden-accept`
+(tests/TEST_DOCUMENTATION.md, "Test data (golden dump)").
 
 When doing database refactoring do not update the snapshots until finished.
 

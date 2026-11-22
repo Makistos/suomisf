@@ -2,8 +2,8 @@
 SuomiSF API Test Configuration
 
 Pytest fixtures and configuration for comprehensive API testing.
-Automatically recreates the test database from the main database
-and creates test users before running tests.
+Automatically restores the test database from the pinned golden dump
+(tests/scripts/golden.py) and creates test users before running tests.
 
 Use --skip-db-setup to skip database recreation when iterating.
 Use --update-snapshots to also regenerate API response snapshots.
@@ -31,7 +31,6 @@ import pytest
 # -------------------------------------------------------------------
 
 DB_USER = 'mep'
-MAIN_DB_NAME = 'suomisf'
 TEST_DB_NAME = 'suomisf_test'
 TEST_DB_URL = (
     f'postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'
@@ -93,59 +92,21 @@ class TestConfig:
 # -------------------------------------------------------------------
 
 def clone_test_database():
-    """Clone main DB schema to test DB using pg_dump | psql.
+    """Restore the test DB from the pinned golden dump, then migrate.
 
-    Drops the suomisf schema in the test database and restores
-    it from the main database. Runs as the mep user (no sudo).
+    Tests never read the live dev DB, so refreshing it from production
+    cannot break them. Refresh the dump deliberately with
+    `pdm run golden-refresh` / `pdm run golden-accept`
+    (tests/scripts/golden.py). A missing dump raises GoldenMissingError.
     """
-    print("\n[setup] Cloning database "
-          f"'{MAIN_DB_NAME}' -> '{TEST_DB_NAME}'...")
+    from tests.scripts.golden import golden_path, restore_dump
+
+    dump = golden_path()
+    print(f"\n[setup] Restoring golden dump {dump} -> '{TEST_DB_NAME}'...")
     start = time.time()
-
-    # Drop existing schema
-    subprocess.run(
-        [
-            'psql', '-U', DB_USER, '-d', TEST_DB_NAME,
-            '-c', 'DROP SCHEMA IF EXISTS suomisf CASCADE;'
-        ],
-        capture_output=True, text=True, check=True
-    )
-
-    # Extensions live outside the suomisf schema, so `pg_dump -n suomisf`
-    # doesn't carry them over. pg_trgm (migration 038) is needed by the
-    # titles-only search's word_similarity().
-    subprocess.run(
-        [
-            'psql', '-U', DB_USER, '-d', TEST_DB_NAME,
-            '-c', 'CREATE EXTENSION IF NOT EXISTS pg_trgm;'
-        ],
-        capture_output=True, text=True, check=True
-    )
-
-    # Pipe pg_dump into psql for a clean restore
-    dump = subprocess.Popen(
-        ['pg_dump', '-U', DB_USER, '-n', 'suomisf',
-         MAIN_DB_NAME],
-        stdout=subprocess.PIPE
-    )
-    restore = subprocess.run(
-        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME],
-        stdin=dump.stdout,
-        capture_output=True, text=True
-    )
-    dump.wait()
-
-    if dump.returncode != 0:
-        raise RuntimeError(
-            f"pg_dump failed (exit {dump.returncode})"
-        )
-    if restore.returncode != 0:
-        raise RuntimeError(
-            f"psql restore failed: {restore.stderr[:200]}"
-        )
-
+    restore_dump(dump, TEST_DB_NAME)
     elapsed = time.time() - start
-    print(f"[setup] Database cloned in {elapsed:.1f}s")
+    print(f"[setup] Golden dump restored in {elapsed:.1f}s")
 
     # Apply migration 001 (EditionShortStory, StoryContributor)
     _apply_migration_001()

@@ -1758,10 +1758,12 @@ pdm run pytest tests/api/test_works.py::TestWorksCRUD -v
 pdm run pytest tests/api/ --cov=app --cov-report=html
 ```
 
-**Note:** The test runner automatically clones the main database
-to the test database, creates test users, and regenerates
-snapshots before running tests. Use `--skip-db-setup` to skip
-this when iterating on tests (faster, but snapshots may drift).
+**Note:** The test runner automatically restores the test database
+from the golden dump (`~/.local/share/suomisf/golden.dump`, see
+"Test data (golden dump)"), applies the test migrations and creates
+test users before running tests. It never reads the main database.
+`--update-snapshots` also regenerates snapshots. Use
+`--skip-db-setup` to skip all of this when iterating on tests.
 
 ---
 
