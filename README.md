@@ -139,22 +139,19 @@ pdm install -d
 
 ### Test Database Setup
 
-Create a dedicated test database with cloned data from the main database:
+First time on a machine, create the test database and the golden dump
+its data comes from:
 
 ```bash
-pdm run python tests/scripts/setup_test_db.py --clone
+pdm run python tests/scripts/setup_test_db.py
+pdm run golden-refresh && pdm run golden-accept
 ```
 
-Options:
-- `--clone` - Clone data from main database (recommended for first setup)
-- `--users-only` - Only create test users (skip database creation)
-
-This script:
-1. Fixes PostgreSQL collation version mismatches
-2. Creates the `suomisf_test` database
-3. Clones data from the main database
-4. Sets up the correct schema search path
-5. Creates test users (regular and admin)
+`setup_test_db.py` fixes PostgreSQL collation version mismatches,
+creates the `suomisf_test` database and sets its schema search path
+(`--users-only` only creates the test users). Every test run then
+restores `suomisf_test` from the golden dump and creates the test users;
+see "Test data (golden dump)" in `tests/TEST_DOCUMENTATION.md`.
 
 ### Running Tests
 
@@ -247,7 +244,7 @@ tests/
 │   ├── snapshots/              # API response snapshots (~35 files)
 │   └── test_parameters.json    # Parameterized test data
 ├── scripts/
-│   ├── setup_test_db.py        # Test database setup (create, clone, users)
+│   ├── setup_test_db.py        # Test database setup (create, users)
 │   ├── endpoint_coverage.py    # Generates API_COVERAGE.md from coverage.json
 │   └── update_snapshots.py     # Snapshot generator
 ├── benchmark/

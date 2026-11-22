@@ -2,15 +2,15 @@
 """
 SuomiSF Test Database Setup
 
-Creates and populates a test database for API tests.
-Handles PostgreSQL collation fixes, database creation, data cloning, and test
-user setup.
+Creates the test database for API tests (first-time setup on a machine):
+fixes PostgreSQL collation, creates suomisf_test and sets its search_path.
+Its data comes from the golden dump (tests/scripts/golden.py), which the
+test runner restores before every session.
 
 Usage:
-    pdm run python tests/scripts/setup_test_db.py [--clone] [--users-only]
+    pdm run python tests/scripts/setup_test_db.py [--users-only]
 
 Options:
-    --clone       Clone data from main database (default: just create empty db)
     --users-only  Only create test users (skip database creation)
 """
 
@@ -116,121 +116,6 @@ def create_database():
     return True
 
 
-def clone_data():
-    """Clone data from main database to test database."""
-    print(f"\n3. Cloning data from '{MAIN_DB_NAME}' to '{TEST_DB_NAME}'...")
-
-    # Use a path in /tmp that postgres can write to directly
-    dump_file = f'/tmp/suomisf_dump_{os.getpid()}.sql'
-
-    try:
-        # Remove if exists from previous failed run (may be owned by postgres)
-        if os.path.exists(dump_file):
-            subprocess.run(
-                ['sudo', 'rm', '-f', dump_file], capture_output=True
-            )
-
-        # Dump main database to file
-        print("   Dumping main database...")
-        dump_result = subprocess.run(
-            [
-                'sudo',
-                '-u',
-                'postgres',
-                'pg_dump',
-                '-f',
-                dump_file,
-                MAIN_DB_NAME,
-            ],
-            capture_output=True,
-            text=True,
-        )
-
-        if dump_result.returncode != 0:
-            print(f"   ERROR: pg_dump failed: {dump_result.stderr}")
-            return False
-
-        # Check dump file exists and has content
-        if not os.path.exists(dump_file):
-            print(f"   ERROR: Dump file was not created at {dump_file}")
-            return False
-
-        dump_size = os.path.getsize(dump_file)
-        print(f"   Dump file created: {dump_size / 1024 / 1024:.1f} MB")
-
-        if dump_size < 1000:
-            print("   ERROR: Dump file too small, something went wrong")
-            return False
-
-        # Restore from file
-        print("   Restoring to test database...")
-        restore_result = subprocess.run(
-            [
-                'sudo',
-                '-u',
-                'postgres',
-                'psql',
-                '-d',
-                TEST_DB_NAME,
-                '-f',
-                dump_file,
-            ],
-            capture_output=True,
-            text=True,
-        )
-
-        # Show restore output for debugging
-        if restore_result.stderr:
-            # Filter out common non-fatal warnings
-            errors = [
-                line
-                for line in restore_result.stderr.split('\n')
-                if line
-                and 'NOTICE:' not in line
-                and 'already exists' not in line
-            ]
-            if errors:
-                print("   Restore warnings/errors:")
-                for err in errors[:10]:  # Show first 10 errors
-                    print(f"      {err}")
-
-        # Clean up temp file (owned by postgres, so use sudo)
-        subprocess.run(['sudo', 'rm', '-f', dump_file], capture_output=True)
-
-        if restore_result.returncode != 0:
-            print(
-                "   ERROR: psql restore failed (exit code "
-                f"{restore_result.returncode})"
-            )
-            return False
-
-        # Set search_path to include suomisf schema (matches main database)
-        run_psql(
-            f"ALTER DATABASE {TEST_DB_NAME} SET search_path TO suomisf, "
-            "public;",
-            TEST_DB_NAME,
-        )
-        print("   Set search_path to suomisf, public")
-
-        # Verify data was actually copied (tables are in 'suomisf' schema)
-        success, output = run_psql(
-            "SELECT COUNT(*) FROM suomisf.work;", TEST_DB_NAME
-        )
-        if success and output:
-            print("   Data cloned successfully")
-            return True
-        else:
-            print("   WARNING: Clone may have failed - tables not found")
-            print(f"   psql output: {output}")
-            return False
-
-    except Exception as e:
-        print(f"   ERROR: {e}")
-        import traceback
-        traceback.print_exc()
-        return False
-
-
 def create_test_users():
     """Create test users in the database."""
     print("\n4. Creating test users...")
@@ -297,36 +182,8 @@ def create_test_users():
         return False
 
 
-def verify_setup():
-    """Verify the test database is properly set up."""
-    print("\n5. Verifying setup...")
-
-    # Use psql directly to verify, avoiding Flask app caching issues
-    # Tables are in the 'suomisf' schema
-    tables = ['work', 'edition', 'person', 'shortstory']
-    for table in tables:
-        success, output = run_psql(
-            f"SELECT COUNT(*) FROM suomisf.{table};", TEST_DB_NAME
-        )
-        if success and output:
-            # Parse count from output
-            lines = output.strip().split('\n')
-            for line in lines:
-                line = line.strip()
-                if line.isdigit():
-                    print(f"   {table}: {line} rows")
-                    break
-        else:
-            print(f"   {table}: NOT FOUND")
-
-    print("   Database verification complete")
-    return True
-
-
 def main():
     parser = argparse.ArgumentParser(description='Set up test database')
-    parser.add_argument('--clone', action='store_true',
-                        help='Clone data from main database')
     parser.add_argument('--users-only', action='store_true',
                         help='Only create test users')
     args = parser.parse_args()
@@ -351,14 +208,16 @@ def main():
     if not create_database():
         sys.exit(1)
 
-    if args.clone:
-        if not clone_data():
-            sys.exit(1)
-
-    if not create_test_users():
+    # Restored dumps keep the schema, not database-level settings.
+    success, _ = run_psql(
+        f"ALTER DATABASE {TEST_DB_NAME} SET search_path TO suomisf, "
+        "public;",
+        TEST_DB_NAME,
+    )
+    if not success:
+        print("   ERROR: Failed to set search_path")
         sys.exit(1)
-
-    verify_setup()
+    print("   Set search_path to suomisf, public")
 
     print("\n" + "=" * 60)
     print("Setup complete!")
@@ -367,12 +226,10 @@ def main():
     print("Test credentials:")
     print(f"  User:  {TEST_USER_EMAIL} / {TEST_USER_PASSWORD}")
     print(f"  Admin: {TEST_ADMIN_EMAIL} / {TEST_ADMIN_PASSWORD}")
-    print("\nTo run tests against this database:")
-    print(
-        f"  export DATABASE_URL='postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'"
-    )
-    print("  pdm run pytest tests/api/")
-
+    print("\nNext, first time on this machine (needs the dev DB):")
+    print("  pdm run golden-refresh && pdm run golden-accept")
+    print("Then run tests (they restore the golden dump themselves):")
+    print("  pdm run pytest tests -m 'not network'")
 
 if __name__ == '__main__':
     main()
