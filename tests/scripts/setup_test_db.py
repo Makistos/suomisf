@@ -120,6 +120,15 @@ def create_test_users():
     """Create test users in the database."""
     print("\n4. Creating test users...")
 
+    # app/__init__.py loads its dotenv with override=True: with the
+    # default .env, DATABASE_URL below is overwritten and the users land
+    # in the main database. Only .env.e2e points at suomisf_test.
+    if os.environ.get('SUOMISF_DOTENV') != '.env.e2e':
+        print("   ERROR: run with SUOMISF_DOTENV=.env.e2e, e.g.\n"
+              "   SUOMISF_DOTENV=.env.e2e pdm run python "
+              "tests/scripts/setup_test_db.py --users-only")
+        return False
+
     # Set environment to use test database BEFORE importing app
     os.environ['DATABASE_URL'] = (
         f'postgresql+psycopg2://{DB_USER}@127.0.0.1/{TEST_DB_NAME}'
