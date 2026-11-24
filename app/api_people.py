@@ -55,6 +55,8 @@ def api_createupdateperson() -> Response:
           'PUT'.
         - The request data should be a valid JSON string.
         - The JSON payload should conform to the PersonSchema.
+        - Link rows without an address ('link' empty) are not saved, on
+          create as well as on update.
         - The function logs any errors encountered during the process.
 
     Tests:

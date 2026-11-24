@@ -230,6 +230,30 @@ class TestPersonCRUD(BaseAPITest):
             if person_id:
                 admin_client.delete(f'/api/people/{person_id}')
 
+    def test_create_person_skips_empty_links(self, admin_client):
+        """POST /api/people saves no link for the form's empty link row."""
+        # The person form always sends one empty row ('' address); saving
+        # it left a link with no address on the person page.
+        person_data = {
+            'data': {
+                'name': 'Linkitön, Testi',
+                'nationality': {'id': 1},
+                'links': [
+                    {'link': '', 'description': ''},
+                    {'link': 'https://example.org/', 'description': 'Koti'},
+                ],
+            }
+        }
+        response = admin_client.post('/api/people', data=person_data)
+        assert response.status_code == 201
+        person_id = int(response.json)
+        try:
+            person = admin_client.get(f'/api/people/{person_id}').data
+            assert [x['link'] for x in person['links']] == [
+                'https://example.org/']
+        finally:
+            admin_client.delete(f'/api/people/{person_id}')
+
     def test_delete_nonexistent_person(self, admin_client):
         """DELETE /api/people/{id} for nonexistent person."""
         response = admin_client.delete('/api/people/999999999')

@@ -609,7 +609,9 @@ def person_add(params: Any) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     if 'links' in data:
-        for link in data['links']:
+        # The form always sends one empty row; skip rows without an
+        # address, as person_update does.
+        for link in [x for x in data['links'] if x.get('link')]:
             pl = PersonLink(
                 person_id=person.id, link=link['link'],
                 description=link['description']
