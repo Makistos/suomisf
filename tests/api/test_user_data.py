@@ -399,3 +399,49 @@ def test_work_edition_prices_for_owner(client, user_headers, user_id):
     resp = client.get(f'/api/user/{user_id}/work/{WORK_ID}/edition-prices',
                       headers=user_headers)
     assert resp.status_code == 200
+
+
+@pytest.fixture
+def edition_work_id(app):
+    """The work EDITION_ID belongs to (not WORK_ID)."""
+    session = new_session()
+    try:
+        return session.query(Edition).filter_by(id=EDITION_ID).one().work_id
+    finally:
+        session.close()
+
+
+def test_work_ownership_lists_conditions_of_owned_printings(
+        client, user_headers, user_id, clean_userbook, edition_work_id):
+    """One request gives the user's condition for every printing they own
+    in a work (the new work page asks once instead of once per printing).
+    """
+    url = f'/api/user/{user_id}/work/{edition_work_id}/ownership'
+    resp = client.get(url, headers=user_headers)
+    assert resp.status_code == 200
+    assert str(EDITION_ID) not in resp.get_json()
+
+    client.post('/api/editions/owner', headers=user_headers,
+                json={'editionid': EDITION_ID, 'userid': user_id,
+                      'condition': 2})
+    owned = client.get(url, headers=user_headers).get_json()
+    single = client.get(f'/api/editions/{EDITION_ID}/owner/{user_id}',
+                        headers=user_headers).get_json()
+    assert owned[str(EDITION_ID)]['condition'] == single['condition']
+    assert owned[str(EDITION_ID)]['description'] == single['description']
+
+
+def test_work_ownership_wishlist_is_not_ownership(
+        client, user_headers, user_id, clean_userbook, edition_work_id):
+    client.put(f'/api/editions/{EDITION_ID}/wishlist/{user_id}',
+                headers=user_headers)
+    owned = client.get(f'/api/user/{user_id}/work/{edition_work_id}/ownership',
+                       headers=user_headers).get_json()
+    assert str(EDITION_ID) not in owned
+
+
+def test_work_ownership_needs_the_user_or_an_admin(
+        client, user_id, admin_headers, edition_work_id):
+    url = f'/api/user/{user_id}/work/{edition_work_id}/ownership'
+    assert client.get(url).status_code == 401
+    assert client.get(url, headers=admin_headers).status_code == 200

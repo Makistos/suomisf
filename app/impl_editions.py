@@ -1645,6 +1645,28 @@ def editionwishlist_user(editionid: int, userid: int) -> ResponseType:
     )
 
 
+def work_edition_ownership(user_id: int, work_id: int) -> ResponseType:
+    """Return {edition_id: owner info} for the printings of a work the user
+    owns, in the same shape as editionowner_get gives for one printing.
+    """
+    session = new_session()
+    try:
+        books = session.query(UserBook)\
+            .join(Edition, Edition.id == UserBook.edition_id)\
+            .filter(Edition.work_id == work_id)\
+            .filter(UserBook.user_id == user_id)\
+            .filter(UserBook.condition_id > 0)\
+            .filter(UserBook.condition_id < 6)\
+            .all()
+        schema = UserBookSchema()
+        retval = {str(b.edition_id): schema.dump(b) for b in books}
+    except (SQLAlchemyError, exceptions.MarshmallowError) as exp:
+        app.logger.error(f"work_edition_ownership: {str(exp)}")
+        return ResponseType("work_edition_ownership: Tietokantavirhe.",
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType(retval, HttpResponseCode.OK.value)
+
+
 def work_edition_prices(user_id: int, work_id: int) -> ResponseType:
     """Return best price and match quality for editions in a work that the
     user owns or has wishlisted."""

@@ -15,7 +15,7 @@ from app.impl_editions import (
     editionowner_list, editionowner_get, editionowner_getowned,
     editionowner_remove, editionowner_add, editionowner_update, get_edition,
     get_latest_editions,
-    update_edition, work_edition_prices,
+    update_edition, work_edition_ownership, work_edition_prices,
 )
 from app import app
 from app.impl_logs import get_edition_changes
@@ -269,6 +269,19 @@ def api_work_edition_prices(user_id: int, work_id: int) -> Response:
     work.
     """
     return make_api_response(work_edition_prices(user_id, work_id))
+
+
+@app.route(
+    '/api/user/<int:user_id>/work/<int:work_id>/ownership',
+    methods=['GET'],
+)
+@jwt_self_or_admin_required('user_id')
+def api_work_ownership(user_id: int, work_id: int) -> Response:
+    """Return the user's condition for every printing they own in a work,
+    keyed by edition id, so a work page needs one request instead of one
+    per printing. Wishlisted printings are not included.
+    """
+    return make_api_response(work_edition_ownership(user_id, work_id))
 
 
 @app.route('/api/editions/<editionid>/owner/<personid>', methods=['delete'])

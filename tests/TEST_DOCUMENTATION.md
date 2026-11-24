@@ -3,7 +3,7 @@
 This document provides detailed descriptions of all API tests, including
 what they test, their parameter values, and expected behaviors.
 
-**Last Updated:** 2026-03-03
+**Last Updated:** 2026-11-24
 
 ---
 
@@ -1030,6 +1030,7 @@ Includes list, articles, chiefeditor, issue-contributions, tags, and CRUD.
 | Test | Description |
 |------|-------------|
 | `test_create_person` | POST /api/people creates person |
+| `test_create_person_skips_empty_links` | POST /api/people with the form's empty link row (`{'link': ''}`) and one real link saves only the real link (`person_add` skips rows without an address, as `person_update` does); the person is deleted afterwards |
 | `test_create_person_without_auth_fails` | No auth returns 401/403/422 |
 | `test_update_person_without_auth_fails` | No auth returns 401/403/422 |
 | `test_delete_person_without_auth_fails` | No auth returns 401/403/404/405 |
@@ -2492,3 +2493,25 @@ tag name) and removes the rows.
 | `test_work_without_list_gives_empty_list` | work 999999999 | 200 with `[]` |
 | `test_invalid_id_or_limit` (×3) | id `abc`, `limit=0`, `limit=x` | 400 |
 
+
+---
+
+## User Data Tests (`tests/api/test_user_data.py`)
+
+Users' own data: ownership, read status, wishlist and prices. Only the
+per-work ownership tests are described here so far.
+
+**Fixture:** `edition_work_id` — the work that `EDITION_ID` (86) belongs to
+(not `WORK_ID`).
+
+### Per-work ownership (3 tests)
+
+`GET /api/user/<user_id>/work/<work_id>/ownership` gives the user's
+condition for every printing they own in a work, keyed by edition id, so
+the new work page makes one request instead of one per printing.
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_work_ownership_lists_conditions_of_owned_printings` | Test User owns `EDITION_ID` (condition 2) | before: the edition isn't listed; after: its `condition` and `description` equal `GET /api/editions/<id>/owner/<user>` |
+| `test_work_ownership_wishlist_is_not_ownership` | the edition is on the wishlist | not listed |
+| `test_work_ownership_needs_the_user_or_an_admin` | no token; admin token | 401; 200 |
