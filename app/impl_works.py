@@ -14,7 +14,8 @@ from app.route_helpers import new_session
 from app.impl import (ResponseType, set_language, check_int,
                       get_join_changes)
 from app.orm_decl import (Awarded, AntikvaariWorkProduct, Edition,
-                          EditionContributor, EditionShortStory, Genre,
+                          EditionContributor, EditionImage,
+                          EditionShortStory, Genre,
                           Omnibus, Tag, Work, WorkContributor, WorkType,
                           WorkTag, WorkGenre, WorkLink, UserBook, UserWork,
                           WorkReview, Bookseries, ShortStory, Person)
@@ -823,6 +824,66 @@ def works_by_type(work_type: int) -> ResponseType:
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
 
     return ResponseType(retval, HttpResponseCode.OK.value)
+
+
+def _cover_label(session: Any, image_id: Union[int, None]) -> str:
+    """The change log's name for a cover: its printing, or "oletus"."""
+    if image_id is None:
+        return 'oletus'
+    image = session.query(EditionImage).filter(
+        EditionImage.id == image_id).first()
+    if not image or not image.edition:
+        return f'kuva {image_id}'
+    edition = image.edition
+    number = f'{edition.editionnum}. painos ' if edition.editionnum else ''
+    return f'{number}{edition.pubyear} (kuva {image_id})'
+
+
+def work_cover_set(work_id: int,
+                   image_id: Union[int, None]) -> ResponseType:
+    """
+    Sets the cover the work page shows (Work.cover_image_id).
+
+    Args:
+        work_id (int): The work.
+        image_id (int | None): A cover of one of the work's printings, or
+            None to let the page pick one itself.
+
+    Returns:
+        ResponseType: 200 on success, 400 if the image isn't a cover of
+        this work, 404 if the work doesn't exist.
+    """
+    session = new_session()
+    try:
+        work = session.query(Work).filter(Work.id == work_id).first()
+        if not work:
+            return ResponseType('Teosta ei löydy',
+                                HttpResponseCode.NOT_FOUND.value)
+        if image_id is not None:
+            owner = session.query(Edition.work_id).join(
+                EditionImage, EditionImage.edition_id == Edition.id).filter(
+                EditionImage.id == image_id).scalar()
+            if owner != work_id:
+                app.logger.error(
+                    f'work_cover_set: image {image_id} is not a cover of '
+                    f'work {work_id}.')
+                return ResponseType('Kuva ei ole tämän teoksen kansi',
+                                    HttpResponseCode.BAD_REQUEST.value)
+        if work.cover_image_id == image_id:
+            return ResponseType('OK', HttpResponseCode.OK.value)
+        old = _cover_label(session, work.cover_image_id)
+        work.cover_image_id = image_id  # type: ignore[assignment]
+        log_changes(session, obj=work, name_field='title',
+                    action='Päivitys', old_values={'Pääkuva': old})
+        session.commit()
+    except SQLAlchemyError as exp:
+        session.rollback()
+        app.logger.error(f'work_cover_set: {exp}')
+        return ResponseType(f'work_cover_set: Tietokantavirhe. id={work_id}',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    finally:
+        session.close()
+    return ResponseType('OK', HttpResponseCode.OK.value)
 
 
 def work_tag_add(work_id: int, tag_id: int) -> ResponseType:

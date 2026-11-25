@@ -593,6 +593,8 @@ class WorkSchema(ma.SQLAlchemyAutoSchema):  # type: ignore
     work_type = fields.Nested(WorkTypeBriefSchema)
     part_of = ma.List(fields.Nested(OmnibusSchema))
     consists_of = ma.List(fields.Nested(OmnibusSchema))
+    # The admin's choice of cover (migration 053), null = automatic.
+    cover_image_id = fields.Integer(allow_none=True)
     # part_of = ma.List(fields.Nested(WorkBriefSchema(
     #     only=('id', 'title', 'author_str', 'orig_title', 'pubyear'))))
     # consists_of = ma.List(fields.Nested(WorkBriefSchema(

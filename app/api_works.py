@@ -18,7 +18,8 @@ from app.impl_works import (get_author_works, get_latest_works, get_omnibus,
                             search_books, search_works_by_authorstr, work_add,
                             work_delete, work_read_list, work_read_remove,
                             work_read_set, work_tag_add, work_tag_remove,
-                            work_update, works_by_type, worktype_get_all)
+                            work_cover_set, work_update, works_by_type,
+                            worktype_get_all)
 from app.types import HttpResponseCode
 
 from app import app
@@ -399,6 +400,35 @@ def api_worktypes() -> Response:
     """
     retval = make_api_response(worktype_get_all())
     return retval
+
+
+@app.route('/api/works/<workid>/cover', methods=['put'])
+@jwt_admin_required()  # type: ignore
+def api_work_cover(workid: str) -> Response:
+    """
+    Set which cover the work page shows.
+
+    Body: {"image_id": <id of an edition image of this work> | null}.
+    null lets the page pick a cover itself.
+
+    Returns:
+        200 on success; 400 for a bad id or an image that isn't a cover
+        of this work; 404 if the work doesn't exist.
+    """
+    work_id, error = validate_positive_integer_id(workid, 'teoksen id')
+    if error:
+        return make_api_response(error)
+    body = request.get_json(silent=True)
+    image_id = body.get('image_id', 'missing') \
+        if isinstance(body, dict) else 'missing'
+    # bool is an int in Python; a cover id never is.
+    if image_id is not None and (not isinstance(image_id, int)
+                                 or isinstance(image_id, bool)
+                                 or image_id < 1):
+        return make_api_response(ResponseType(
+            'Virheellinen kuvan tunniste',
+            status=HttpResponseCode.BAD_REQUEST.value))
+    return make_api_response(work_cover_set(int(work_id), image_id))
 
 
 @app.route('/api/work/<workid>/tags/<tagid>', methods=['put', 'delete'])

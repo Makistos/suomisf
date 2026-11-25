@@ -1612,6 +1612,9 @@ class Work(Base):
     imported_string = Column(String(500))
     # Last time Kirjasampo tags were imported (NULL = never).
     kirjasampo_imported = Column(DateTime(timezone=True))
+    # The cover an admin picked for the work page (migration 053);
+    # NULL = the page picks one itself.
+    cover_image_id = Column(Integer, ForeignKey('editionimage.id'))
     authors = relationship(
         'Person',
         secondary='suomisf.workcontributor',

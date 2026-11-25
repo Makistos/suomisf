@@ -138,6 +138,8 @@ def apply_test_migrations():
     _apply_migration_012()
     # Apply migration 028 (user email column)
     _apply_migration_028()
+    # Apply migration 053 (work cover choice)
+    _apply_migration_053()
 
 
 MIGRATIONS_DIR = os.path.join(
@@ -195,6 +197,10 @@ MIGRATION_028_SQL = os.path.join(
     MIGRATIONS_DIR, '028_user_email.sql'
 )
 
+MIGRATION_053_SQL = os.path.join(
+    MIGRATIONS_DIR, '053_work_cover_image.sql'
+)
+
 
 def _apply_migration_028():
     """Apply migration 028 SQL (user email column) to the test database."""
@@ -212,6 +218,21 @@ def _apply_migration_028():
             f"Migration 028 failed: {result.stderr[:400]}"
         )
     print("[setup] Migration 028 applied")
+
+
+def _apply_migration_053():
+    """Apply migration 053 SQL (work cover choice) to the test database."""
+    print("[setup] Applying migration 053...")
+    result = subprocess.run(
+        ['psql', '-U', DB_USER, '-d', TEST_DB_NAME,
+         '-f', MIGRATION_053_SQL],
+        capture_output=True, text=True
+    )
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"Migration 053 failed: {result.stderr[:400]}"
+        )
+    print("[setup] Migration 053 applied")
 
 
 def _apply_migration_001():

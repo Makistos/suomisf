@@ -39,6 +39,7 @@ what they test, their parameter values, and expected behaviors.
 27. [Change Log Tests (test_change_log.py)](#change-log-tests)
 28. [Work Similarity Tests (test_work_similarity.py)](#work-similarity-tests)
 29. [Similar Works API Tests (test_work_similarity_api.py)](#similar-works-api-tests)
+30. [Work Cover Tests (test_work_cover.py)](#work-cover-tests)
 
 ---
 
@@ -72,6 +73,7 @@ what they test, their parameter values, and expected behaviors.
 | test_people_aliases.py | Person alias linking, work merge, filter endpoint | 4 |
 | test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 34 |
 | api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
+| api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
 
 ---
 
@@ -98,6 +100,9 @@ what they test, their parameter values, and expected behaviors.
     `migrations/004_edition_work_direct_link.sql` to the
     test DB after cloning (adds `edition.work_id` column,
     populates from Part rows with shortstory_id IS NULL)
+  - `_apply_migration_053()`: Applies
+    `migrations/053_work_cover_image.sql` (adds `work.cover_image_id`)
+    until the golden dump is refreshed from a database that has it
   - `app` fixture: Patches `route_helpers.db_url` and
     `orm_decl.db_url` to use the test DB URL, and replaces
     Flask-SQLAlchemy's cached engine. conftest.py sets
@@ -2515,3 +2520,28 @@ the new work page makes one request instead of one per printing.
 | `test_work_ownership_lists_conditions_of_owned_printings` | Test User owns `EDITION_ID` (condition 2) | before: the edition isn't listed; after: its `condition` and `description` equal `GET /api/editions/<id>/owner/<user>` |
 | `test_work_ownership_wishlist_is_not_ownership` | the edition is on the wishlist | not listed |
 | `test_work_ownership_needs_the_user_or_an_admin` | no token; admin token | 401; 200 |
+
+## Work Cover Tests
+
+**File:** `tests/api/test_work_cover.py`
+
+An admin picks which of the work's covers the work page shows
+(`PUT /api/works/<id>/cover`, body `{"image_id": <id> | null}`);
+`GET /api/works/<id>` returns it as `cover_image_id`.
+
+**Fixtures:** `admin_client` (logged in as Test Admin); `covers` — the
+first work in the test data with at least two edition images (its id and
+image ids) and an image of another work. Teardown sets the work's
+`cover_image_id` back to NULL.
+
+### TestWorkCover (7 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_default_is_null` | GET the work | `cover_image_id` is null |
+| `test_admin_sets_and_clears_the_cover` | PUT the second image, then null | 200 each; GET returns the image id, then null |
+| `test_change_is_logged` | PUT the second image | a `log` row for the work: action Päivitys, field Pääkuva, old value "oletus" |
+| `test_cover_of_another_work_is_rejected` | PUT another work's image | 400; the choice stays null |
+| `test_unknown_image_and_work` | image 999999999; work 999999999 | 400; 404 |
+| `test_bad_input` | `{}`, `"x"`, `true`, work id `abc` | 400 each |
+| `test_only_admins` | no token; Test User | 401; 401 or 403; the choice stays null |

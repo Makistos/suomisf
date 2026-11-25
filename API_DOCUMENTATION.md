@@ -123,6 +123,21 @@ Update an existing work. Requires admin authentication.
 #### DELETE /api/works/{workid}
 Delete a work. Requires admin authentication.
 
+#### PUT /api/works/{workid}/cover
+Set which cover the work page shows. Requires admin authentication.
+
+**Request Body:** `{"image_id": <id> | null}`: the id of an image of one of the
+work's printings (`editions[].images[].id`), or `null` to let the page show
+the first printing's cover.
+
+**Response:** 200 on success, also when nothing changes; 400 for a bad work or
+image id, or an image that isn't a cover of this work; 404 if the work
+doesn't exist. A change is logged in the work's change history as the field
+*Pääkuva* (old value: the previous cover's printing, or "oletus").
+
+`GET /api/works/{workid}` returns the choice as `cover_image_id` (null = the
+default). The column comes from migration 053; deleting the image clears it.
+
 #### GET /api/works/{workid}/awards
 Get awards associated with a work.
 
