@@ -79,7 +79,7 @@ what they test, their parameter values, and expected behaviors.
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
 | api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 24 |
 | api/test_publisherindex.py | GET /api/publisherindex (counts, years, magazines, order) | 5 |
-| api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, paging, filters, sorts, own marks) | 13 |
+| api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, genres, paging, filters, sorts, own marks) | 14 |
 
 ---
 
@@ -2636,12 +2636,13 @@ database. `WSOY` = 387, `HSFS` = 85 (Helsingin Science Fiction Seura ry), `AIKAK
 The new publisher page (`GET /api/publishers/<id>/summary`, `GET /api/publishers/<id>/editions`). Expected values come from SQL on the
 test database. `WSOY` = 387, `HSFS` = 85 (publishes Tähtivaeltaja), `LE_GUIN_FIRST` = 4573 (*Pimeyden vasen käsi*, WSOY 1976).
 
-### TestPublisherSummary (4 tests)
+### TestPublisherSummary (5 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
 | `test_facts` | WSOY | name, full name, edition and distinct work counts and year span = SQL; description and links present |
 | `test_series_with_counts_and_years` | WSOY | every series of the publisher, each with its edition count and years from SQL (0 and null without editions) |
+| `test_genres_count_works_not_editions` | WSOY | genres with distinct work counts = SQL, most first; the biggest genre's count is below its edition count (reprints count once) |
 | `test_magazines_with_years_and_issues` | HSFS; WSOY | Tähtivaeltaja's issue count and years = SQL, a type field; WSOY has none |
 | `test_unknown_and_bad_ids` | 999999; `x` | 404; 400 |
 

@@ -18,9 +18,9 @@ from app import app
 from app.impl import ResponseType
 from app.impl_bookindex import (BadParameter, _brief, _int, _named,
                                 _own_marks, _text_match, _translators)
-from app.orm_decl import (Edition, EditionContributor, Issue, Magazine,
+from app.orm_decl import (Edition, EditionContributor, Genre, Issue, Magazine,
                           Person, Publisher, Pubseries, Work,
-                          WorkContributor)
+                          WorkContributor, WorkGenre)
 from app.route_helpers import new_session
 from app.thumbnails import thumb_src
 from app.types import HttpResponseCode
@@ -50,7 +50,8 @@ def publisher_summary(pub_id: str) -> ResponseType:
         ResponseType: {id, name, fullname, description, links, editions,
         works, first_year, last_year, series: [{id, name, editions,
         first_year, last_year}], magazines: [{id, name, type, issues,
-        first_year, last_year}]}; 400 for a bad id, 404 for an unknown one.
+        first_year, last_year}], genres: [{abbr, name, works}] (distinct
+        works, most first)}; 400 for a bad id, 404 for an unknown one.
     """
     try:
         pid = _publisher_id(pub_id)
@@ -79,6 +80,17 @@ def publisher_summary(pub_id: str) -> ResponseType:
                   .group_by(Pubseries.id, Pubseries.name)
                   .order_by(Pubseries.name, Pubseries.id).all()]
         magazines = _magazines(session, pid)
+        # Works, not editions (owner, 2026-11-27): 28 reprints of
+        # Hobitti count once.
+        works_n = func.count(func.distinct(Edition.work_id))
+        genres = [{'abbr': g.abbr, 'name': g.name, 'works': g.n}
+                  for g in session.query(Genre.abbr, Genre.name,
+                                         works_n.label('n'))
+                  .join(WorkGenre, WorkGenre.genre_id == Genre.id)
+                  .join(Edition, Edition.work_id == WorkGenre.work_id)
+                  .filter(Edition.publisher_id == pid)
+                  .group_by(Genre.abbr, Genre.name)
+                  .order_by(works_n.desc(), Genre.name).all()]
         data = {
             'id': publisher.id, 'name': publisher.name,
             'fullname': publisher.fullname,
@@ -87,7 +99,7 @@ def publisher_summary(pub_id: str) -> ResponseType:
                       for li in publisher.links or []],
             'editions': n, 'works': works,
             'first_year': first, 'last_year': last,
-            'series': series, 'magazines': magazines,
+            'series': series, 'magazines': magazines, 'genres': genres,
         }
     except SQLAlchemyError as exp:
         app.logger.error(f'publisher_summary: {exp}')

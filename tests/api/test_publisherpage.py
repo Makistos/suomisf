@@ -73,6 +73,25 @@ class TestPublisherSummary:
             assert (s['editions'], s['first_year'], s['last_year']) == \
                 counts[s['id']], s['name']
 
+    def test_genres_count_works_not_editions(self, api_client):
+        """Owner, 2026-11-27: the breakdown counts works, not editions."""
+        data = _get(api_client, f'/api/publishers/{WSOY}/summary')
+        expected = [(r[0], r[1], r[2]) for r in _rows(
+            'SELECT g.abbr, g.name, count(DISTINCT e.work_id) AS n '
+            'FROM suomisf.edition e JOIN suomisf.workgenre wg '
+            'ON wg.work_id = e.work_id JOIN suomisf.genre g '
+            'ON g.id = wg.genre_id WHERE e.publisher_id = :p '
+            'GROUP BY g.abbr, g.name ORDER BY n DESC, g.name', p=WSOY)]
+        assert [(g['abbr'], g['name'], g['works']) for g in data['genres']] \
+            == expected
+        editions = _rows(
+            'SELECT count(*) FROM suomisf.edition e JOIN suomisf.workgenre '
+            'wg ON wg.work_id = e.work_id JOIN suomisf.genre g ON '
+            'g.id = wg.genre_id WHERE e.publisher_id = :p AND g.abbr = :a',
+            p=WSOY, a=expected[0][0])[0][0]
+        # Hobitti's 28 reprints count once
+        assert expected[0][2] < editions
+
     def test_magazines_with_years_and_issues(self, api_client):
         data = _get(api_client, f'/api/publishers/{HSFS}/summary')
         mag = next(m for m in data['magazines']

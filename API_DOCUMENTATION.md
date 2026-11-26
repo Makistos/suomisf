@@ -445,7 +445,8 @@ Update an existing publisher. Requires admin authentication.
 #### GET /api/publishers/{publisherid}/summary
 The new publisher page's header and tables: `id`, `name`, `fullname`, `description`, `links` (`link`, `description`), `editions`
 and `works` (counts), `first_year`, `last_year`, `series` (`id`, `name`, `editions`, `first_year`, `last_year`, by name) and
-`magazines` (`id`, `name`, `type`, `issues`, `first_year`, `last_year`). 400 for a non-numeric id, 404 for an unknown one.
+`magazines` (`id`, `name`, `type`, `issues`, `first_year`, `last_year`) and `genres` (`abbr`, `name`, `works`: distinct works the publisher
+has published in the genre, most first). 400 for a non-numeric id, 404 for an unknown one.
 
 #### GET /api/publishers/{publisherid}/editions
 One page of the publisher's editions for the new publisher page (a publisher publishes editions, so the page lists them, not works).
