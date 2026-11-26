@@ -144,8 +144,7 @@ Used by the new book index page; `POST /api/searchworks` stays as it is for the 
 fields), `translators` (of the first printing), `bookseries` (`id`, `name`, `partof` {`id`, `name`} or null; or null),
 `bookseriesnum`, `genres` (`id`, `abbr`, `name`), `printings` (count), `first_edition` (`id`, `pubyear`, `publisher` and
 `pubseries`, each {`id`, `name`} or null), `editions` (every printing, oldest first: `id`, `pubyear`, `editionnum`, `version`,
-`owned`, `wishlisted`) and `cover` (`image_src`, `thumb_src` of the first printing with a cover, or null). A page past the last
-is an empty list.
+`owned`, `wishlisted`). No covers: the list is text only. A page past the last is an empty list.
 
 `owned` and `wishlisted` are the logged-in user's own marks (from their `userbook` rows); for a visitor, or a missing, bad or
 expired token, they are false and the request still succeeds.

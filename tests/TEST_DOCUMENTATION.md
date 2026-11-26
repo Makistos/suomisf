@@ -2562,7 +2562,7 @@ test database, so the tests follow the data. `LE_GUIN_WORK` = 3984 (*Pimeyden va
 | `test_no_filters_lists_every_work_one_page_at_a_time` | no parameters; page 2 | total = every work; page 1, 50 rows; page 2 shares no ids with page 1 |
 | `test_rows_per_page` | rows 100, 200 | that many works |
 | `test_last_page_is_partial_and_past_it_is_empty` | last page; one past it | the remainder; an empty list |
-| `test_row_payload` | author Le Guin, title Pimeyden | title, original, year, type, 3 printings, first edition WSOY 1976, author, SF, Hain-sarja, cover and thumb |
+| `test_row_payload` | author Le Guin, title Pimeyden | title, original, year, type, 3 printings, first edition WSOY 1976, author, SF, Hain-sarja, no `cover` field |
 | `test_row_has_what_the_old_list_showed` | author Le Guin | translator Kalevi Nyytäjä; first edition id and its publisher's series Sci-fi -sarja; printings 1976, 1986, 1992 with editionnum 1–3, none owned or wishlisted for a visitor; subtitle; no real writers; series without a parent |
 | `test_real_writers_behind_a_shared_pen_name` | the first work whose writer has a `real_person` | `real_authors` lists them with id, name, alt_name |
 

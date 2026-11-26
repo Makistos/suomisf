@@ -77,8 +77,8 @@ class TestBookIndexPaging:
         assert row['authors'][0]['alt_name'] == 'Ursula K. Le Guin'
         assert {g['abbr'] for g in row['genres']} == {'SF'}
         assert row['bookseries']['name'] == 'Hain-sarja'
-        assert row['cover']['image_src']
-        assert row['cover']['thumb_src']
+        # The list is text only (owner, 2026-11-26): no cover to load.
+        assert 'cover' not in row
 
     def test_row_has_what_the_old_list_showed(self, api_client):
         """Translator, publisher's series, every printing, subtitle."""

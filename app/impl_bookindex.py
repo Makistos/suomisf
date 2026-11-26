@@ -17,7 +17,6 @@ from app.impl import ResponseType
 from app.orm_decl import (Bookseries, Edition, EditionContributor, Genre,
                           Person, UserBook, Work, WorkContributor, WorkGenre)
 from app.route_helpers import new_session
-from app.thumbnails import thumb_src
 from app.types import HttpResponseCode
 
 ROWS = (50, 100, 200)
@@ -144,8 +143,6 @@ def _row(work: Work, owned: Set[int], wished: Set[int]) -> Dict[str, Any]:
                       key=lambda e: (e.pubyear or 9999, e.version or 1,
                                      e.editionnum or 1, e.id))
     first = editions[0] if editions else None
-    image = next((i for e in editions for i in (e.images or [])
-                  if i.image_src), None)
     translators: List[Person] = []
     for c in (first.contributions or []) if first else []:
         if c.role_id == TRANSLATOR and c.person and \
@@ -192,9 +189,6 @@ def _row(work: Work, owned: Set[int], wished: Set[int]) -> Dict[str, Any]:
                       'editionnum': e.editionnum, 'version': e.version,
                       'owned': e.id in owned, 'wishlisted': e.id in wished}
                      for e in editions],
-        'cover': ({'image_src': image.image_src,
-                   'thumb_src': thumb_src(image.image_src)}
-                  if image else None),
     }
 
 
@@ -253,7 +247,6 @@ def book_index(params: Dict[str, str],
                 .selectinload(WorkContributor.real_person),
                 selectinload(Work.editions).selectinload(Edition.publisher),
                 selectinload(Work.editions).selectinload(Edition.pubseries),
-                selectinload(Work.editions).selectinload(Edition.images),
                 selectinload(Work.editions)
                 .selectinload(Edition.contributions)
                 .selectinload(EditionContributor.person),
