@@ -7,12 +7,17 @@ a light row payload. POST /api/searchworks stays as it is for the current
 page.
 """
 
+from datetime import timedelta
+
+from flask_jwt_extended import create_access_token
 from sqlalchemy import text
 
+from app import app
 from app.route_helpers import new_session
 
 LE_GUIN_WORK = 3984  # Pimeyden vasen käsi: 3 printings, first WSOY 1976
 LE_GUIN_FIRST = 4573  # its first printing
+STOKER_WORK = 1332  # Kammoittava kreivi: three laitos, three translations
 TEST_USER_NAME = 'Test User'
 TEST_USER_PASSWORD = 'testpassword123'
 
@@ -96,6 +101,28 @@ class TestBookIndexPaging:
         assert row['real_authors'] == []
         assert row['bookseries']['partof'] is None
 
+    def test_each_printing_has_its_own_translators_and_publisher(
+            self, api_client):
+        """Stoker's Dracula: each laitos was translated anew."""
+        row = next(w for w in _get(
+            api_client, '?author=Stoker&title=Kammoittava')['works']
+            if w['id'] == STOKER_WORK)
+        by_version = {}
+        for e in row['editions']:
+            by_version.setdefault(e['version'] or 1, e)
+        names = {v: [t['alt_name'] for t in e['translators']]
+                 for v, e in by_version.items()}
+        assert names[1] == ['Risto Kalliomaa']
+        assert names[2] == ['Jarkko Laine']
+        assert sorted(names[3]) == ['Ari Sainio', 'Johan Werkmäster']
+        assert by_version[2]['publisher']['name'] == 'Otava'
+        assert by_version[1]['title'] == 'Kammoittava kreivi'
+        # by laitos, then printing: the 2017 3. laitos comes last
+        assert [e['version'] or 1 for e in row['editions']] == \
+            sorted(e['version'] or 1 for e in row['editions'])
+        assert all({'title', 'translators', 'publisher', 'pubseries'}
+                   <= set(e) for e in row['editions'])
+
     def test_real_writers_behind_a_shared_pen_name(self, api_client):
         work_id = _scalar(
             'SELECT wc.work_id FROM suomisf.workcontributor wc '
@@ -149,6 +176,21 @@ class TestBookIndexOwnMarks:
             '/api/bookindex?author=Le+Guin',
             headers={'Authorization': 'Bearer not-a-token'})
         response.assert_status(200)
+
+    def test_an_expired_token_asks_for_a_new_one(self, api_client):
+        """
+        Access tokens last a minute. An expired one must answer 401 "Token
+        has expired", as every other endpoint does, so the frontend renews
+        it and asks again; answering as a visitor hid the user's marks.
+        """
+        with app.app_context():
+            token = create_access_token(
+                identity='1', expires_delta=timedelta(seconds=-10))
+        response = api_client.get(
+            '/api/bookindex?author=Le+Guin',
+            headers={'Authorization': f'Bearer {token}'})
+        response.assert_status(401)
+        assert 'Token has expired' in response.json['msg']
 
 
 class TestBookIndexFilters:

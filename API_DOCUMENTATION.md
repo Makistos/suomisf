@@ -143,11 +143,12 @@ Used by the new book index page; `POST /api/searchworks` stays as it is for the 
 `pubyear`, `author_str`, `type`, `authors` (`id`, `name`, `alt_name`), `real_authors` (the real writers behind a pen name, same
 fields), `translators` (of the first printing), `bookseries` (`id`, `name`, `partof` {`id`, `name`} or null; or null),
 `bookseriesnum`, `genres` (`id`, `abbr`, `name`), `printings` (count), `first_edition` (`id`, `pubyear`, `publisher` and
-`pubseries`, each {`id`, `name`} or null), `editions` (every printing, oldest first: `id`, `pubyear`, `editionnum`, `version`,
-`owned`, `wishlisted`). No covers: the list is text only. A page past the last is an empty list.
+`pubseries`, each {`id`, `name`} or null), `editions` (every printing, by laitos and then printing number: `id`, `title`, `pubyear`, `editionnum`, `version`,
+`translators` (`id`, `name`, `alt_name`), `publisher` and `pubseries` (each {`id`, `name`} or null), `owned`, `wishlisted`). No covers: the list is text only. A page past the last is an empty list.
 
-`owned` and `wishlisted` are the logged-in user's own marks (from their `userbook` rows); for a visitor, or a missing, bad or
-expired token, they are false and the request still succeeds.
+`owned` and `wishlisted` are the logged-in user's own marks (from their `userbook` rows); for a visitor, or a missing or
+malformed token, they are false and the request still succeeds. An expired token gets 401 `Token has expired`, as on other
+endpoints, so the frontend renews it and asks again (access tokens last a minute).
 400 for a parameter that can't be used (rows other than 50/100/200, page below 1, unknown sort, non-numeric years or ids,
 an initial longer than one letter).
 

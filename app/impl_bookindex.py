@@ -138,16 +138,25 @@ def _brief(p: Person) -> Dict[str, Any]:
     return {'id': p.id, 'name': p.name, 'alt_name': p.alt_name}
 
 
+def _named(item: Any) -> Optional[Dict[str, Any]]:
+    return {'id': item.id, 'name': item.name} if item else None
+
+
+def _translators(edition: Optional[Edition]) -> List[Person]:
+    found: List[Person] = []
+    for c in (edition.contributions or []) if edition else []:
+        if c.role_id == TRANSLATOR and c.person and c.person not in found:
+            found.append(c.person)
+    return found
+
+
 def _row(work: Work, owned: Set[int], wished: Set[int]) -> Dict[str, Any]:
+    # By laitos, then printing: each laitos's printings stay together.
     editions = sorted(work.editions or [],
-                      key=lambda e: (e.pubyear or 9999, e.version or 1,
-                                     e.editionnum or 1, e.id))
+                      key=lambda e: (e.version or 1, e.editionnum or 1,
+                                     e.pubyear or 9999, e.id))
     first = editions[0] if editions else None
-    translators: List[Person] = []
-    for c in (first.contributions or []) if first else []:
-        if c.role_id == TRANSLATOR and c.person and \
-                c.person not in translators:
-            translators.append(c.person)
+    translators = _translators(first)
     # The real writers behind a pen name several people share.
     real: List[Person] = []
     for c in work.contributions or []:
@@ -178,15 +187,16 @@ def _row(work: Work, owned: Set[int], wished: Set[int]) -> Dict[str, Any]:
         'first_edition': ({
             'id': first.id,
             'pubyear': first.pubyear,
-            'publisher': ({'id': first.publisher.id,
-                           'name': first.publisher.name}
-                          if first.publisher else None),
-            'pubseries': ({'id': first.pubseries.id,
-                           'name': first.pubseries.name}
-                          if first.pubseries else None),
+            'publisher': _named(first.publisher),
+            'pubseries': _named(first.pubseries),
         } if first else None),
-        'editions': [{'id': e.id, 'pubyear': e.pubyear,
+        # Each printing on its own line: a new laitos can have another
+        # title, translator and publisher.
+        'editions': [{'id': e.id, 'title': e.title, 'pubyear': e.pubyear,
                       'editionnum': e.editionnum, 'version': e.version,
+                      'translators': [_brief(p) for p in _translators(e)],
+                      'publisher': _named(e.publisher),
+                      'pubseries': _named(e.pubseries),
                       'owned': e.id in owned, 'wishlisted': e.id in wished}
                      for e in editions],
     }

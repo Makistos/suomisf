@@ -75,7 +75,7 @@ what they test, their parameter values, and expected behaviors.
 | test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 34 |
 | api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
-| api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 22 |
+| api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 24 |
 
 ---
 
@@ -2555,7 +2555,7 @@ image ids) and an image of another work. Teardown sets the work's
 The paged book index for the new book index page (`GET /api/bookindex`). Expected totals and orders come from SQL on the
 test database, so the tests follow the data. `LE_GUIN_WORK` = 3984 (*Pimeyden vasen käsi*).
 
-### TestBookIndexPaging (6 tests)
+### TestBookIndexPaging (7 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
@@ -2564,14 +2564,16 @@ test database, so the tests follow the data. `LE_GUIN_WORK` = 3984 (*Pimeyden va
 | `test_last_page_is_partial_and_past_it_is_empty` | last page; one past it | the remainder; an empty list |
 | `test_row_payload` | author Le Guin, title Pimeyden | title, original, year, type, 3 printings, first edition WSOY 1976, author, SF, Hain-sarja, no `cover` field |
 | `test_row_has_what_the_old_list_showed` | author Le Guin | translator Kalevi Nyytäjä; first edition id and its publisher's series Sci-fi -sarja; printings 1976, 1986, 1992 with editionnum 1–3, none owned or wishlisted for a visitor; subtitle; no real writers; series without a parent |
+| `test_each_printing_has_its_own_translators_and_publisher` | author Stoker, title Kammoittava (`STOKER_WORK` = 1332) | 1. laitos Risto Kalliomaa, 2. laitos Jarkko Laine (Otava), 3. laitos Ari Sainio and Johan Werkmäster; printings ordered by laitos (the 2017 3. laitos last); every printing has `title`, `translators`, `publisher`, `pubseries` |
 | `test_real_writers_behind_a_shared_pen_name` | the first work whose writer has a `real_person` | `real_authors` lists them with id, name, alt_name |
 
-### TestBookIndexOwnMarks (2 tests)
+### TestBookIndexOwnMarks (3 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
 | `test_owned_and_wishlisted_for_the_user_only` | Test User gets `userbook` rows: 1st printing condition 1, 2nd condition 6 (removed afterwards) | visitor: no marks; Test User: first owned, second wishlisted |
 | `test_a_bad_token_is_treated_as_a_visitor` | `Authorization: Bearer not-a-token` | 200 |
+| `test_an_expired_token_asks_for_a_new_one` | an access token that expired 10 s ago | 401 with "Token has expired", so the frontend renews it (a visitor's answer had hidden the user's marks) |
 
 ### TestBookIndexFilters (10 tests)
 
