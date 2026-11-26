@@ -6,6 +6,7 @@ import json
 from flask import Response, request
 from flask_jwt_extended import (get_jwt_identity, jwt_required,
                                 verify_jwt_in_request)
+from jwt.exceptions import ExpiredSignatureError
 from app.api_jwt import (jwt_admin_required, jwt_self_or_admin_required,
                          is_self_or_admin, forbidden_not_self)
 
@@ -418,13 +419,18 @@ def api_bookindex() -> Response:
         {"total": int, "page": int, "rows": int, "works": [...]}; 400 for a
         parameter that can't be used.
     """
-    # A logged-in user gets their own owned and wishlisted marks; a missing,
-    # bad or expired token is simply a visitor, never an error here.
+    # A logged-in user gets their own owned and wishlisted marks; a missing
+    # or malformed token is simply a visitor. An expired one (they last a
+    # minute) is re-raised: the 401 "Token has expired" makes the frontend
+    # renew it and ask again, as on every other endpoint. Answering as a
+    # visitor hid the user's marks.
     user_id = None
     try:
         verify_jwt_in_request(optional=True)
         identity = get_jwt_identity()
         user_id = int(identity) if identity is not None else None
+    except ExpiredSignatureError:
+        raise
     except Exception:  # pylint: disable=broad-exception-caught
         user_id = None
     return make_api_response(book_index(request.args.to_dict(), user_id))
