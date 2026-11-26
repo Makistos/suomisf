@@ -4,6 +4,7 @@ from functools import wraps
 from typing import Any, Optional
 from flask import make_response
 from flask_jwt_extended import verify_jwt_in_request, get_jwt, get_jwt_identity
+from jwt.exceptions import ExpiredSignatureError
 from app.types import HttpResponseCode
 from app import app
 
@@ -252,3 +253,22 @@ def jwt_self_or_admin_required(user_id_kwarg: str = 'userid') -> Any:
             return forbidden_not_self()
         return decorator
     return wrapper
+
+
+def optional_user_id() -> Optional[int]:
+    """
+    The logged-in user's id for an endpoint that also serves visitors, so it
+    can mark the user's own books; None for a missing or malformed token.
+
+    An expired token (they last a minute) is re-raised: the 401 "Token has
+    expired" makes the frontend renew it and ask again, as on every other
+    endpoint. Answering as a visitor hid the user's marks (2026-11-26).
+    """
+    try:
+        verify_jwt_in_request(optional=True)
+        identity = get_jwt_identity()
+        return int(identity) if identity is not None else None
+    except ExpiredSignatureError:
+        raise
+    except Exception:  # pylint: disable=broad-exception-caught
+        return None
