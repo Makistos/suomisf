@@ -446,7 +446,8 @@ Update an existing publisher. Requires admin authentication.
 The new publisher page's header and tables: `id`, `name`, `fullname`, `description`, `links` (`link`, `description`), `editions`
 and `works` (counts), `first_year`, `last_year`, `series` (`id`, `name`, `editions`, `first_year`, `last_year`, by name) and
 `magazines` (`id`, `name`, `type`, `issues`, `first_year`, `last_year`) and `genres` (`abbr`, `name`, `works`: distinct works the publisher
-has published in the genre, most first). 400 for a non-numeric id, 404 for an unknown one.
+has published in the genre, most first) and `own` (`editions`, `wishlisted`: how many of the publisher's editions the logged-in user owns
+and has on the wishlist; null for a visitor; an expired token gets 401). 400 for a non-numeric id, 404 for an unknown one.
 
 #### GET /api/publishers/{publisherid}/editions
 One page of the publisher's editions for the new publisher page (a publisher publishes editions, so the page lists them, not works).
@@ -457,7 +458,8 @@ title), `year_min`, `year_max` (the edition's year), `sort` (`oldest` default, `
 
 **Response:** `{"total": int, "page": int, "rows": int, "editions": [...]}`. Each edition: `id`, `title`, `subtitle`, `pubyear`,
 `version`, `editionnum`, `pubseries` ({`id`, `name`} or null), `pubseriesnum`, `translators` (`id`, `name`, `alt_name`), `work`
-(`id`, `title`, `orig_title`, `pubyear`, `author_str`, `type`, `authors`, `genres`), `cover` (`image_src`, `thumb_src` or null),
+(`id`, `title`, `orig_title`, `pubyear`, `author_str`, `type`, `authors`, `genres`, `bookseries` ({`id`, `name`, `partof`} or null),
+`bookseriesnum`), `cover` (`image_src`, `thumb_src` or null),
 `owned`, `wishlisted` (the logged-in user's own marks; an expired token gets 401 `Token has expired` so the frontend renews it).
 400 for a parameter that can't be used, 404 for an unknown publisher.
 

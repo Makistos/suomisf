@@ -79,7 +79,7 @@ what they test, their parameter values, and expected behaviors.
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
 | api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 24 |
 | api/test_publisherindex.py | GET /api/publisherindex (counts, years, magazines, order) | 5 |
-| api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, genres, paging, filters, sorts, own marks) | 14 |
+| api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, genres, own counts, paging, filters, sorts, own marks) | 16 |
 
 ---
 
@@ -2636,7 +2636,7 @@ database. `WSOY` = 387, `HSFS` = 85 (Helsingin Science Fiction Seura ry), `AIKAK
 The new publisher page (`GET /api/publishers/<id>/summary`, `GET /api/publishers/<id>/editions`). Expected values come from SQL on the
 test database. `WSOY` = 387, `HSFS` = 85 (publishes Tähtivaeltaja), `LE_GUIN_FIRST` = 4573 (*Pimeyden vasen käsi*, WSOY 1976).
 
-### TestPublisherSummary (5 tests)
+### TestPublisherSummary (7 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
@@ -2644,6 +2644,8 @@ test database. `WSOY` = 387, `HSFS` = 85 (publishes Tähtivaeltaja), `LE_GUIN_FI
 | `test_series_with_counts_and_years` | WSOY | every series of the publisher, each with its edition count and years from SQL (0 and null without editions) |
 | `test_genres_count_works_not_editions` | WSOY | genres with distinct work counts = SQL, most first; the biggest genre's count is below its edition count (reprints count once) |
 | `test_magazines_with_years_and_issues` | HSFS; WSOY | Tähtivaeltaja's issue count and years = SQL, a type field; WSOY has none |
+| `test_own_counts_for_the_logged_in_user` | Test User gets two WSOY printings owned, one wishlisted and one other publisher's printing (removed afterwards) | visitor: `own` null; Test User: WSOY editions owned (from SQL) and 1 wishlisted, the other publisher's not counted |
+| `test_summary_expired_token_asks_for_a_new_one` | a token that expired 10 s ago | 401 |
 | `test_unknown_and_bad_ids` | 999999; `x` | 404; 400 |
 
 ### TestPublisherEditions (9 tests)
@@ -2652,7 +2654,7 @@ test database. `WSOY` = 387, `HSFS` = 85 (publishes Tähtivaeltaja), `LE_GUIN_FI
 |------|-------|------------|
 | `test_first_page_oldest_first` | no parameters | total = SQL; page 1, 100 rows; years ascending from the publisher's first |
 | `test_pages_do_not_overlap_and_end_empty` | page 2; past the last page | no id twice; an empty list |
-| `test_row_payload` | 1976 | Le Guin's printing: title, year, version and number, original and its year, author, genre SF, translator Kalevi Nyytäjä, Sci-fi -sarja, cover or null, no marks for a visitor |
+| `test_row_payload` | 1976 | Le Guin's printing: title, year, version and number, original and its year, author, genre SF, translator Kalevi Nyytäjä, Sci-fi -sarja, the work's book series Hain-sarja (and *Maameren velho*'s Maameren tarinat 1), cover or null, no marks for a visitor |
 | `test_year_range` | 1976–1977 | total = SQL; every row in the range |
 | `test_text_matches_author_or_title` | `le guin`; `pimeyden`; `left hand` | finds the printing by author (all rows Le Guin's), title and original title |
 | `test_sorts` | newest; title; author | years descending; the first 50 ids = SQL `ORDER BY coalesce(nullif(trim(edition title), ''), work title), pubyear, id` (an empty edition title sorts by its work's) and `author_str, pubyear, title, id` |

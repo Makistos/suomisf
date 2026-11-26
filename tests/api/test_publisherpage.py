@@ -19,7 +19,8 @@ from app.route_helpers import new_session
 
 WSOY = 387
 HSFS = 85  # Helsingin Science Fiction Seura ry: publishes Tähtivaeltaja
-LE_GUIN_FIRST = 4573  # Pimeyden vasen käsi, WSOY 1976
+LE_GUIN_FIRST = 4573  # Pimeyden vasen käsi, WSOY 1976 (Hain-sarja)
+EARTHSEA_FIRST = 4565  # Maameren velho, WSOY 1976 (Maameren tarinat 1)
 TEST_USER_NAME = 'Test User'
 TEST_USER_PASSWORD = 'testpassword123'
 
@@ -105,6 +106,55 @@ class TestPublisherSummary:
         assert _get(api_client,
                     f'/api/publishers/{WSOY}/summary')['magazines'] == []
 
+    def test_own_counts_for_the_logged_in_user(self, api_client):
+        """Owner, 2026-11-27: a reader sees how many of the publisher's
+        printings they own (and have on the wishlist)."""
+        path = f'/api/publishers/{WSOY}/summary'
+        assert _get(api_client, path)['own'] is None
+        user_id = _scalar('SELECT id FROM suomisf.user WHERE name = :n',
+                          n=TEST_USER_NAME)
+        other = _scalar('SELECT id FROM suomisf.edition WHERE '
+                        'publisher_id <> :p LIMIT 1', p=WSOY)
+        rows = [(LE_GUIN_FIRST, 1), (EARTHSEA_FIRST, 3), (other, 2)]
+        wished = _scalar('SELECT id FROM suomisf.edition WHERE '
+                         'publisher_id = :p AND id NOT IN (:a, :b) LIMIT 1',
+                         p=WSOY, a=LE_GUIN_FIRST, b=EARTHSEA_FIRST)
+        rows.append((wished, 6))
+        session = new_session()
+        try:
+            for edition, condition in rows:
+                session.execute(text(
+                    'INSERT INTO suomisf.userbook (edition_id, user_id, '
+                    'condition_id) VALUES (:e, :u, :c)'),
+                    {'e': edition, 'u': user_id, 'c': condition})
+            session.commit()
+            api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+            own = _get(api_client, path)['own']
+            already = _scalar(
+                'SELECT count(*) FROM suomisf.userbook ub JOIN '
+                'suomisf.edition e ON e.id = ub.edition_id WHERE '
+                'ub.user_id = :u AND e.publisher_id = :p AND '
+                'ub.condition_id BETWEEN 1 AND 5', u=user_id, p=WSOY)
+            # the other publisher's printing doesn't count
+            assert own == {'editions': already, 'wishlisted': 1}
+            assert already >= 2
+        finally:
+            session.execute(text(
+                'DELETE FROM suomisf.userbook WHERE user_id = :u AND '
+                'edition_id IN :ids'),
+                {'u': user_id, 'ids': tuple(e for e, _ in rows)})
+            session.commit()
+            session.close()
+
+    def test_summary_expired_token_asks_for_a_new_one(self, api_client):
+        with app.app_context():
+            token = create_access_token(
+                identity='1', expires_delta=timedelta(seconds=-10))
+        response = api_client.get(
+            f'/api/publishers/{WSOY}/summary',
+            headers={'Authorization': f'Bearer {token}'})
+        response.assert_status(401)
+
     def test_unknown_and_bad_ids(self, api_client):
         api_client.get('/api/publishers/999999/summary').assert_status(404)
         api_client.get('/api/publishers/x/summary').assert_status(400)
@@ -144,6 +194,13 @@ class TestPublisherEditions:
         assert [t['alt_name'] for t in row['translators']] == \
             ['Kalevi Nyytäjä']
         assert row['pubseries']['name'] == 'Sci-fi -sarja'
+        # the work's book series (owner, 2026-11-27: the list lacked it)
+        assert row['work']['bookseries']['name'] == 'Hain-sarja'
+        assert row['work']['bookseries']['partof'] is None
+        earthsea = next(e for e in data['editions']
+                        if e['id'] == EARTHSEA_FIRST)
+        assert earthsea['work']['bookseries']['name'] == 'Maameren tarinat'
+        assert earthsea['work']['bookseriesnum'] == '1'
         assert 'pubseriesnum' in row
         assert row['cover'] is None or row['cover']['thumb_src']
         assert row['owned'] is False and row['wishlisted'] is False

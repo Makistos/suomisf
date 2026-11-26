@@ -16,11 +16,12 @@ from sqlalchemy.orm import selectinload
 
 from app import app
 from app.impl import ResponseType
-from app.impl_bookindex import (BadParameter, _brief, _int, _named,
-                                _own_marks, _text_match, _translators)
-from app.orm_decl import (Edition, EditionContributor, Genre, Issue, Magazine,
-                          Person, Publisher, Pubseries, Work,
-                          WorkContributor, WorkGenre)
+from app.impl_bookindex import (WISHLIST, BadParameter, _bookseries, _brief,
+                                _int, _named, _own_marks, _text_match,
+                                _translators)
+from app.orm_decl import (Bookseries, Edition, EditionContributor, Genre,
+                          Issue, Magazine, Person, Publisher, Pubseries,
+                          UserBook, Work, WorkContributor, WorkGenre)
 from app.route_helpers import new_session
 from app.thumbnails import thumb_src
 from app.types import HttpResponseCode
@@ -42,7 +43,23 @@ def _not_found() -> ResponseType:
                         HttpResponseCode.NOT_FOUND.value)
 
 
-def publisher_summary(pub_id: str) -> ResponseType:
+def _own_counts(session: Any, pid: int,
+                user_id: Optional[int]) -> Optional[Dict[str, int]]:
+    """How many of the publisher's printings the user owns and wishes for."""
+    if user_id is None:
+        return None
+    rows = session.query(UserBook.condition_id,
+                         func.count(func.distinct(UserBook.edition_id))) \
+        .join(Edition, Edition.id == UserBook.edition_id) \
+        .filter(UserBook.user_id == user_id, Edition.publisher_id == pid) \
+        .group_by(UserBook.condition_id).all()
+    owned = sum(n for c, n in rows if c is not None and 0 < c < WISHLIST)
+    wished = sum(n for c, n in rows if c == WISHLIST)
+    return {'editions': owned, 'wishlisted': wished}
+
+
+def publisher_summary(pub_id: str,
+                      user_id: Optional[int] = None) -> ResponseType:
     """
     The publisher's facts, series and magazines, counted in the database.
 
@@ -51,7 +68,9 @@ def publisher_summary(pub_id: str) -> ResponseType:
         works, first_year, last_year, series: [{id, name, editions,
         first_year, last_year}], magazines: [{id, name, type, issues,
         first_year, last_year}], genres: [{abbr, name, works}] (distinct
-        works, most first)}; 400 for a bad id, 404 for an unknown one.
+        works, most first), own: {editions, wishlisted} for the logged-in
+        user (null for a visitor)}; 400 for a bad id, 404 for an unknown
+        one.
     """
     try:
         pid = _publisher_id(pub_id)
@@ -100,6 +119,7 @@ def publisher_summary(pub_id: str) -> ResponseType:
             'editions': n, 'works': works,
             'first_year': first, 'last_year': last,
             'series': series, 'magazines': magazines, 'genres': genres,
+            'own': _own_counts(session, pid, user_id),
         }
     except SQLAlchemyError as exp:
         app.logger.error(f'publisher_summary: {exp}')
@@ -177,6 +197,8 @@ def _row(e: Edition, owned: set, wished: set) -> Dict[str, Any]:
             'id': work.id, 'title': work.title,
             'orig_title': work.orig_title, 'pubyear': work.pubyear,
             'author_str': work.author_str, 'type': work.type,
+            'bookseries': _bookseries(work.bookseries),
+            'bookseriesnum': work.bookseriesnum,
             'authors': [_brief(p) for p in work.authors or []],
             'genres': [{'id': g.id, 'abbr': g.abbr, 'name': g.name}
                        for g in work.genres or []],
@@ -228,6 +250,8 @@ def publisher_editions(pub_id: str, params: Dict[str, str],
                 .options(
                     selectinload(Edition.work).selectinload(Work.authors),
                     selectinload(Edition.work).selectinload(Work.genres),
+                    selectinload(Edition.work).selectinload(Work.bookseries)
+                    .selectinload(Bookseries.partof),
                     selectinload(Edition.pubseries),
                     selectinload(Edition.images),
                     selectinload(Edition.contributions)

@@ -138,6 +138,15 @@ def _brief(p: Person) -> Dict[str, Any]:
     return {'id': p.id, 'name': p.name, 'alt_name': p.alt_name}
 
 
+def _bookseries(series: Optional[Bookseries]) -> Optional[Dict[str, Any]]:
+    """A work's book series with the series it belongs to, or None."""
+    if series is None:
+        return None
+    return {'id': series.id, 'name': series.name,
+            'partof': ({'id': series.partof.id, 'name': series.partof.name}
+                       if series.partof else None)}
+
+
 def _named(item: Any) -> Optional[Dict[str, Any]]:
     return {'id': item.id, 'name': item.name} if item else None
 
@@ -175,11 +184,7 @@ def _row(work: Work, owned: Set[int], wished: Set[int]) -> Dict[str, Any]:
         'authors': [_brief(p) for p in work.authors or []],
         'real_authors': [_brief(p) for p in real],
         'translators': [_brief(p) for p in translators],
-        'bookseries': ({'id': series.id, 'name': series.name,
-                        'partof': ({'id': series.partof.id,
-                                    'name': series.partof.name}
-                                   if series.partof else None)}
-                       if series else None),
+        'bookseries': _bookseries(series),
         'bookseriesnum': work.bookseriesnum,
         'genres': [{'id': g.id, 'abbr': g.abbr, 'name': g.name}
                    for g in work.genres or []],
