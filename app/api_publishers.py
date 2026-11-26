@@ -3,7 +3,7 @@ import json
 import bleach
 from flask.wrappers import Response
 from flask import request
-from app.api_jwt import jwt_admin_required
+from app.api_jwt import jwt_admin_required, optional_user_id
 from app.impl import ResponseType
 from app.impl_publishers import (publisher_add, publisher_delete,
                                  publisher_update,
@@ -11,6 +11,7 @@ from app.impl_publishers import (publisher_add, publisher_delete,
                                  filter_publishers)
 from app.api_helpers import make_api_response
 from app.impl_publisherindex import publisher_index
+from app.impl_publisherpage import publisher_editions, publisher_summary
 from app.types import HttpResponseCode
 
 from app import app
@@ -85,6 +86,29 @@ def api_publisherindex() -> Response:
         {"total": int, "publishers": [...]}
     """
     return make_api_response(publisher_index())
+
+
+@app.route('/api/publishers/<publisherid>/summary', methods=['get'])
+def api_publishersummary(publisherid: str) -> Response:
+    """
+    The new publisher page's facts, series (with edition counts and years)
+    and magazines (with issue counts and years).
+    """
+    return make_api_response(publisher_summary(publisherid))
+
+
+@app.route('/api/publishers/<publisherid>/editions', methods=['get'])
+def api_publishereditions(publisherid: str) -> Response:
+    """
+    One page of the publisher's editions for the new publisher page.
+
+    Query parameters (all optional): q, year_min, year_max,
+    sort (oldest|newest|title|author), page, rows (50|100|200).
+    A logged-in user gets their own owned and wishlisted marks; an expired
+    token gets 401 so the frontend renews it.
+    """
+    return make_api_response(publisher_editions(
+        publisherid, request.args.to_dict(), optional_user_id()))
 
 
 @app.route('/api/publishers/<publisherid>', methods=['delete'])

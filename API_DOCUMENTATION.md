@@ -442,6 +442,24 @@ Create a new publisher. Requires admin authentication.
 #### PUT /api/publishers
 Update an existing publisher. Requires admin authentication.
 
+#### GET /api/publishers/{publisherid}/summary
+The new publisher page's header and tables: `id`, `name`, `fullname`, `description`, `links` (`link`, `description`), `editions`
+and `works` (counts), `first_year`, `last_year`, `series` (`id`, `name`, `editions`, `first_year`, `last_year`, by name) and
+`magazines` (`id`, `name`, `type`, `issues`, `first_year`, `last_year`). 400 for a non-numeric id, 404 for an unknown one.
+
+#### GET /api/publishers/{publisherid}/editions
+One page of the publisher's editions for the new publisher page (a publisher publishes editions, so the page lists them, not works).
+
+**Query parameters** (all optional): `q` (from the start of a word of the author's name, the edition's or work's title or the original
+title), `year_min`, `year_max` (the edition's year), `sort` (`oldest` default, `newest`, `title` (the title the row shows: the work's when the edition's is empty), `author`), `page` (from 1),
+`rows` (50, 100 or 200; default 100).
+
+**Response:** `{"total": int, "page": int, "rows": int, "editions": [...]}`. Each edition: `id`, `title`, `subtitle`, `pubyear`,
+`version`, `editionnum`, `pubseries` ({`id`, `name`} or null), `pubseriesnum`, `translators` (`id`, `name`, `alt_name`), `work`
+(`id`, `title`, `orig_title`, `pubyear`, `author_str`, `type`, `authors`, `genres`), `cover` (`image_src`, `thumb_src` or null),
+`owned`, `wishlisted` (the logged-in user's own marks; an expired token gets 401 `Token has expired` so the frontend renews it).
+400 for a parameter that can't be used, 404 for an unknown publisher.
+
 #### GET /api/publishers/{publisherid}
 Get detailed information about a specific publisher.
 
