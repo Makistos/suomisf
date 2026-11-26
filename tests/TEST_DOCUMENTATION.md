@@ -40,6 +40,7 @@ what they test, their parameter values, and expected behaviors.
 28. [Work Similarity Tests (test_work_similarity.py)](#work-similarity-tests)
 29. [Similar Works API Tests (test_work_similarity_api.py)](#similar-works-api-tests)
 30. [Work Cover Tests (test_work_cover.py)](#work-cover-tests)
+31. [Book Index Tests (test_bookindex.py)](#book-index-tests)
 
 ---
 
@@ -74,6 +75,7 @@ what they test, their parameter values, and expected behaviors.
 | test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 34 |
 | api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
+| api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 22 |
 
 ---
 
@@ -2545,3 +2547,57 @@ image ids) and an image of another work. Teardown sets the work's
 | `test_unknown_image_and_work` | image 999999999; work 999999999 | 400; 404 |
 | `test_bad_input` | `{}`, `"x"`, `true`, work id `abc` | 400 each |
 | `test_only_admins` | no token; Test User | 401; 401 or 403; the choice stays null |
+
+## Book Index Tests
+
+**File:** `tests/api/test_bookindex.py`
+
+The paged book index for the new book index page (`GET /api/bookindex`). Expected totals and orders come from SQL on the
+test database, so the tests follow the data. `LE_GUIN_WORK` = 3984 (*Pimeyden vasen käsi*).
+
+### TestBookIndexPaging (6 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_no_filters_lists_every_work_one_page_at_a_time` | no parameters; page 2 | total = every work; page 1, 50 rows; page 2 shares no ids with page 1 |
+| `test_rows_per_page` | rows 100, 200 | that many works |
+| `test_last_page_is_partial_and_past_it_is_empty` | last page; one past it | the remainder; an empty list |
+| `test_row_payload` | author Le Guin, title Pimeyden | title, original, year, type, 3 printings, first edition WSOY 1976, author, SF, Hain-sarja, cover and thumb |
+| `test_row_has_what_the_old_list_showed` | author Le Guin | translator Kalevi Nyytäjä; first edition id and its publisher's series Sci-fi -sarja; printings 1976, 1986, 1992 with editionnum 1–3, none owned or wishlisted for a visitor; subtitle; no real writers; series without a parent |
+| `test_real_writers_behind_a_shared_pen_name` | the first work whose writer has a `real_person` | `real_authors` lists them with id, name, alt_name |
+
+### TestBookIndexOwnMarks (2 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_owned_and_wishlisted_for_the_user_only` | Test User gets `userbook` rows: 1st printing condition 1, 2nd condition 6 (removed afterwards) | visitor: no marks; Test User: first owned, second wishlisted |
+| `test_a_bad_token_is_treated_as_a_visitor` | `Authorization: Bearer not-a-token` | 200 |
+
+### TestBookIndexFilters (10 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_author_prefix_on_name_or_alt_name` | author `Le Guin` | total = writers (or the real person) whose name or alt name starts with it |
+| `test_title_and_original_title` | title `vasen`; orig_title `Left Hand` | work 3984 found |
+| `test_author_initial` | initial `L` | total = works whose author string starts with L; every row does |
+| `test_finnish_initials` | initial `Ä` | every row's author starts with Ä |
+| `test_types_several` | type `2,6` | total = works of type 2 or 6 |
+| `test_genres_several_by_abbreviation` | genre `K,Utopia` | total = works in either; every row has one |
+| `test_original_year_range` | 1960–1969 | total and every row's year |
+| `test_printing_year_range_any_printing` | printyear_min 2020 | total = works with any printing from 2020 |
+| `test_nationality` | Le Guin's country; an unknown id | results; none |
+| `test_filters_combine` | Le Guin, type 1, SF | every row a novel with SF |
+
+### TestBookIndexSorting (3 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_default_is_author_then_title` | initial K | the first 50 ids equal `ORDER BY author_str, title, id` (the database's collation) |
+| `test_title` | Le Guin, sort title | first id equals SQL by title |
+| `test_year_oldest_and_newest_first_with_empty_years_last` | sort year; newest; the last page of newest | ascending; descending; a work without a year last |
+
+### TestBookIndexErrors (1 test)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_bad_parameters` | rows 7, page 0 or x, sort random, non-numeric years, type or nationality, initial LL | 400 each |

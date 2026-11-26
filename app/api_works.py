@@ -4,13 +4,15 @@
 
 import json
 from flask import Response, request
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import (get_jwt_identity, jwt_required,
+                                verify_jwt_in_request)
 from app.api_jwt import (jwt_admin_required, jwt_self_or_admin_required,
                          is_self_or_admin, forbidden_not_self)
 
 from app.api_helpers import make_api_response, validate_positive_integer_id
 from app.impl import ResponseType
 from app.impl_awards import get_awards_for_work
+from app.impl_bookindex import book_index
 from app.impl_work_similarity import DEFAULT_LIMIT, get_similar_works
 from app.impl_works import (get_author_works, get_latest_works, get_omnibus,
                             get_work, get_work_shorts, save_omnibus,
@@ -400,6 +402,32 @@ def api_worktypes() -> Response:
     """
     retval = make_api_response(worktype_get_all())
     return retval
+
+
+@app.route('/api/bookindex', methods=['get'])
+def api_bookindex() -> Response:
+    """
+    One page of the book index: every work, filtered, sorted and paged.
+
+    Query parameters (all optional): author, title, orig_title,
+    origyear_min, origyear_max, printyear_min, printyear_max, nationality,
+    type (comma-separated ids), genre (comma-separated abbreviations),
+    initial, sort (author|title|year|newest), page, rows (50|100|200).
+
+    Returns:
+        {"total": int, "page": int, "rows": int, "works": [...]}; 400 for a
+        parameter that can't be used.
+    """
+    # A logged-in user gets their own owned and wishlisted marks; a missing,
+    # bad or expired token is simply a visitor, never an error here.
+    user_id = None
+    try:
+        verify_jwt_in_request(optional=True)
+        identity = get_jwt_identity()
+        user_id = int(identity) if identity is not None else None
+    except Exception:  # pylint: disable=broad-exception-caught
+        user_id = None
+    return make_api_response(book_index(request.args.to_dict(), user_id))
 
 
 @app.route('/api/works/<workid>/cover', methods=['put'])

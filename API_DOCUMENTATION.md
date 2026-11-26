@@ -123,6 +123,35 @@ Update an existing work. Requires admin authentication.
 #### DELETE /api/works/{workid}
 Delete a work. Requires admin authentication.
 
+#### GET /api/bookindex
+One page of the book index: every work, filtered, sorted and paged on the server, with only what a list row shows. Public.
+Used by the new book index page; `POST /api/searchworks` stays as it is for the current page and the book suggestions.
+
+**Query parameters (all optional):**
+- `author`, `title`, `orig_title`: from the start of the text (author: name or alternative name of a writer or the real person
+  behind a pen name; titles: the start of any word too)
+- `origyear_min`, `origyear_max`: the original's publication year
+- `printyear_min`, `printyear_max`: any Finnish printing in the range
+- `nationality`: a writer's country id
+- `type`: comma-separated work type ids (any of them)
+- `genre`: comma-separated genre abbreviations (any of them), e.g. `SF,F`
+- `initial`: the first letter of the author string, e.g. `L` or `Ä`
+- `sort`: `author` (default; author string, title), `title`, `year` (oldest first), `newest`; empty years last
+- `page` (from 1, default 1), `rows` (50, 100 or 200; default 50)
+
+**Response:** `{"total": int, "page": int, "rows": int, "works": [...]}`. Each work: `id`, `title`, `subtitle`, `orig_title`,
+`pubyear`, `author_str`, `type`, `authors` (`id`, `name`, `alt_name`), `real_authors` (the real writers behind a pen name, same
+fields), `translators` (of the first printing), `bookseries` (`id`, `name`, `partof` {`id`, `name`} or null; or null),
+`bookseriesnum`, `genres` (`id`, `abbr`, `name`), `printings` (count), `first_edition` (`id`, `pubyear`, `publisher` and
+`pubseries`, each {`id`, `name`} or null), `editions` (every printing, oldest first: `id`, `pubyear`, `editionnum`, `version`,
+`owned`, `wishlisted`) and `cover` (`image_src`, `thumb_src` of the first printing with a cover, or null). A page past the last
+is an empty list.
+
+`owned` and `wishlisted` are the logged-in user's own marks (from their `userbook` rows); for a visitor, or a missing, bad or
+expired token, they are false and the request still succeeds.
+400 for a parameter that can't be used (rows other than 50/100/200, page below 1, unknown sort, non-numeric years or ids,
+an initial longer than one letter).
+
 #### PUT /api/works/{workid}/cover
 Set which cover the work page shows. Requires admin authentication.
 
