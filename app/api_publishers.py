@@ -10,6 +10,7 @@ from app.impl_publishers import (publisher_add, publisher_delete,
                                  list_publishers, get_publisher,
                                  filter_publishers)
 from app.api_helpers import make_api_response
+from app.impl_publisherindex import publisher_index
 from app.types import HttpResponseCode
 
 from app import app
@@ -71,6 +72,19 @@ def api_listpublishers() -> Response:
         publisher_list_all: Get all publishers
     """
     return make_api_response(list_publishers())
+
+
+@app.route('/api/publisherindex', methods=['get'])
+def api_publisherindex() -> Response:
+    """
+    The light publisher list for the new list page: every publisher with
+    its edition count, year span and magazines (with issue counts), not
+    every edition as GET /api/publishers returns.
+
+    Returns:
+        {"total": int, "publishers": [...]}
+    """
+    return make_api_response(publisher_index())
 
 
 @app.route('/api/publishers/<publisherid>', methods=['delete'])

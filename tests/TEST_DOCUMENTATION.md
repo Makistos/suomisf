@@ -41,6 +41,7 @@ what they test, their parameter values, and expected behaviors.
 29. [Similar Works API Tests (test_work_similarity_api.py)](#similar-works-api-tests)
 30. [Work Cover Tests (test_work_cover.py)](#work-cover-tests)
 31. [Book Index Tests (test_bookindex.py)](#book-index-tests)
+32. [Publisher Index Tests (test_publisherindex.py)](#publisher-index-tests)
 
 ---
 
@@ -76,6 +77,7 @@ what they test, their parameter values, and expected behaviors.
 | api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
 | api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 24 |
+| api/test_publisherindex.py | GET /api/publisherindex (counts, years, magazines, order) | 5 |
 
 ---
 
@@ -2603,3 +2605,22 @@ test database, so the tests follow the data. `LE_GUIN_WORK` = 3984 (*Pimeyden va
 | Test | Input | Assertions |
 |------|-------|------------|
 | `test_bad_parameters` | rows 7, page 0 or x, sort random, non-numeric years, type or nationality, initial LL | 400 each |
+
+---
+
+## Publisher Index Tests
+
+**File:** `tests/api/test_publisherindex.py`
+
+The light publisher list for the new publisher list page (`GET /api/publisherindex`). Expected values come from SQL on the test
+database. `WSOY` = 387, `HSFS` = 85 (Helsingin Science Fiction Seura ry), `AIKAKONE` = 6 (Aikakone ry, no books).
+
+### TestPublisherIndex (5 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_every_publisher_once` | no parameters | total = publishers in the table; as many rows, no id twice |
+| `test_counts_and_years_match_the_editions` | every row | edition count, first and last year = SQL `count`, `min`, `max` over `edition` (0, null, null without editions) |
+| `test_row_payload` | WSOY | name, full name Werner Söderström Oy, over 2,000 editions from before 1900, no magazines, no edition list |
+| `test_magazines_with_issue_counts` | HSFS; Aikakone ry | HSFS publishes Tähtivaeltaja; Aikakone ry has no editions and exactly Aikakone with its issue count from SQL |
+| `test_ordered_by_name` | no parameters | names in `ORDER BY name, id` (the database's collation) |

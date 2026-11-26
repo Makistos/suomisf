@@ -429,6 +429,13 @@ Create award assignment. Requires admin authentication.
 #### GET /api/publishers
 Get list of publishers.
 
+#### GET /api/publisherindex
+The light publisher list for the new list page: every publisher, ordered by name, without its editions (GET /api/publishers
+returns every edition of every publisher for the current page).
+
+**Response:** `{"total": int, "publishers": [...]}`. Each publisher: `id`, `name`, `fullname`, `editions` (count), `first_year`
+and `last_year` (null without editions), `magazines` (`id`, `name`, `issues`: the number of issues), ordered by name.
+
 #### POST /api/publishers
 Create a new publisher. Requires admin authentication.
 
