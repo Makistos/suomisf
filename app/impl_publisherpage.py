@@ -43,23 +43,26 @@ def _not_found() -> ResponseType:
                         HttpResponseCode.NOT_FOUND.value)
 
 
-def _own_counts(session: Any, pid: int,
+def _own_counts(session: Any, editions: Any,
                 user_id: Optional[int]) -> Optional[Dict[str, int]]:
-    """How many of the publisher's printings the user owns and wishes for."""
+    """
+    How many of the printings the filters select (every page, not only the
+    one shown) the user owns and wishes for; None for a visitor.
+    """
     if user_id is None:
         return None
+    ids = editions.order_by(None).subquery()
     rows = session.query(UserBook.condition_id,
                          func.count(func.distinct(UserBook.edition_id))) \
-        .join(Edition, Edition.id == UserBook.edition_id) \
-        .filter(UserBook.user_id == user_id, Edition.publisher_id == pid) \
+        .filter(UserBook.user_id == user_id,
+                UserBook.edition_id.in_(session.query(ids.c.id))) \
         .group_by(UserBook.condition_id).all()
     owned = sum(n for c, n in rows if c is not None and 0 < c < WISHLIST)
     wished = sum(n for c, n in rows if c == WISHLIST)
     return {'editions': owned, 'wishlisted': wished}
 
 
-def publisher_summary(pub_id: str,
-                      user_id: Optional[int] = None) -> ResponseType:
+def publisher_summary(pub_id: str) -> ResponseType:
     """
     The publisher's facts, series and magazines, counted in the database.
 
@@ -68,9 +71,7 @@ def publisher_summary(pub_id: str,
         works, first_year, last_year, series: [{id, name, editions,
         first_year, last_year}], magazines: [{id, name, type, issues,
         first_year, last_year}], genres: [{abbr, name, works}] (distinct
-        works, most first), own: {editions, wishlisted} for the logged-in
-        user (null for a visitor)}; 400 for a bad id, 404 for an unknown
-        one.
+        works, most first)}; 400 for a bad id, 404 for an unknown one.
     """
     try:
         pid = _publisher_id(pub_id)
@@ -119,7 +120,6 @@ def publisher_summary(pub_id: str,
             'editions': n, 'works': works,
             'first_year': first, 'last_year': last,
             'series': series, 'magazines': magazines, 'genres': genres,
-            'own': _own_counts(session, pid, user_id),
         }
     except SQLAlchemyError as exp:
         app.logger.error(f'publisher_summary: {exp}')
@@ -225,7 +225,9 @@ def publisher_editions(pub_id: str, params: Dict[str, str],
         user_id: the logged-in user, for their owned and wishlisted marks.
 
     Returns:
-        ResponseType: {total, page, rows, editions: [...]}; 400 for a
+        ResponseType: {total, page, rows, editions: [...], own: {editions,
+        wishlisted} of the whole filtered result for the logged-in user or
+        null}; 400 for a
         parameter that can't be used, 404 for an unknown publisher.
     """
     try:
@@ -258,6 +260,9 @@ def publisher_editions(pub_id: str, params: Dict[str, str],
                     .selectinload(EditionContributor.person),
             ).all() if ids else []
             owned, wished = _own_marks(session, user_id, ids)
+            # above the list, for the whole filtered result (owner,
+            # 2026-11-27)
+            own = _own_counts(session, query, user_id)
             by_id = {e.id: e for e in editions}
             result = [_row(by_id[i], owned, wished) for i in ids
                       if i in by_id]
@@ -271,4 +276,5 @@ def publisher_editions(pub_id: str, params: Dict[str, str],
         return ResponseType('publisher_editions: Tietokantavirhe.',
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType({'total': total, 'page': page, 'rows': rows,
-                         'editions': result}, HttpResponseCode.OK.value)
+                         'editions': result, 'own': own},
+                        HttpResponseCode.OK.value)

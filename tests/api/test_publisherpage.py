@@ -106,55 +106,6 @@ class TestPublisherSummary:
         assert _get(api_client,
                     f'/api/publishers/{WSOY}/summary')['magazines'] == []
 
-    def test_own_counts_for_the_logged_in_user(self, api_client):
-        """Owner, 2026-11-27: a reader sees how many of the publisher's
-        printings they own (and have on the wishlist)."""
-        path = f'/api/publishers/{WSOY}/summary'
-        assert _get(api_client, path)['own'] is None
-        user_id = _scalar('SELECT id FROM suomisf.user WHERE name = :n',
-                          n=TEST_USER_NAME)
-        other = _scalar('SELECT id FROM suomisf.edition WHERE '
-                        'publisher_id <> :p LIMIT 1', p=WSOY)
-        rows = [(LE_GUIN_FIRST, 1), (EARTHSEA_FIRST, 3), (other, 2)]
-        wished = _scalar('SELECT id FROM suomisf.edition WHERE '
-                         'publisher_id = :p AND id NOT IN (:a, :b) LIMIT 1',
-                         p=WSOY, a=LE_GUIN_FIRST, b=EARTHSEA_FIRST)
-        rows.append((wished, 6))
-        session = new_session()
-        try:
-            for edition, condition in rows:
-                session.execute(text(
-                    'INSERT INTO suomisf.userbook (edition_id, user_id, '
-                    'condition_id) VALUES (:e, :u, :c)'),
-                    {'e': edition, 'u': user_id, 'c': condition})
-            session.commit()
-            api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
-            own = _get(api_client, path)['own']
-            already = _scalar(
-                'SELECT count(*) FROM suomisf.userbook ub JOIN '
-                'suomisf.edition e ON e.id = ub.edition_id WHERE '
-                'ub.user_id = :u AND e.publisher_id = :p AND '
-                'ub.condition_id BETWEEN 1 AND 5', u=user_id, p=WSOY)
-            # the other publisher's printing doesn't count
-            assert own == {'editions': already, 'wishlisted': 1}
-            assert already >= 2
-        finally:
-            session.execute(text(
-                'DELETE FROM suomisf.userbook WHERE user_id = :u AND '
-                'edition_id IN :ids'),
-                {'u': user_id, 'ids': tuple(e for e, _ in rows)})
-            session.commit()
-            session.close()
-
-    def test_summary_expired_token_asks_for_a_new_one(self, api_client):
-        with app.app_context():
-            token = create_access_token(
-                identity='1', expires_delta=timedelta(seconds=-10))
-        response = api_client.get(
-            f'/api/publishers/{WSOY}/summary',
-            headers={'Authorization': f'Bearer {token}'})
-        response.assert_status(401)
-
     def test_unknown_and_bad_ids(self, api_client):
         api_client.get('/api/publishers/999999/summary').assert_status(404)
         api_client.get('/api/publishers/x/summary').assert_status(400)
@@ -265,6 +216,56 @@ class TestPublisherEditions:
             session.execute(text(
                 'DELETE FROM suomisf.userbook WHERE user_id = :u AND '
                 'edition_id = :e'), {'e': LE_GUIN_FIRST, 'u': user_id})
+            session.commit()
+            session.close()
+
+    def test_own_counts_follow_the_filters(self, api_client):
+        """Owner, 2026-11-27: above the list, how many of the printings the
+        filters select the reader owns and wishes for (all pages)."""
+        assert _editions(api_client)['own'] is None
+        assert 'own' not in _get(api_client,
+                                 f'/api/publishers/{WSOY}/summary')
+        user_id = _scalar('SELECT id FROM suomisf.user WHERE name = :n',
+                          n=TEST_USER_NAME)
+        other = _scalar('SELECT id FROM suomisf.edition WHERE '
+                        'publisher_id <> :p LIMIT 1', p=WSOY)
+        later = _scalar('SELECT id FROM suomisf.edition WHERE '
+                        'publisher_id = :p AND pubyear = 2002 LIMIT 1',
+                        p=WSOY)
+        rows = [(LE_GUIN_FIRST, 1), (EARTHSEA_FIRST, 6), (later, 3),
+                (other, 2)]
+        session = new_session()
+        try:
+            for edition, condition in rows:
+                session.execute(text(
+                    'INSERT INTO suomisf.userbook (edition_id, user_id, '
+                    'condition_id) VALUES (:e, :u, :c)'),
+                    {'e': edition, 'u': user_id, 'c': condition})
+            session.commit()
+            api_client.login(TEST_USER_NAME, TEST_USER_PASSWORD)
+
+            def owned(where: str) -> int:
+                return _scalar(
+                    'SELECT count(*) FROM suomisf.userbook ub JOIN '
+                    'suomisf.edition e ON e.id = ub.edition_id WHERE '
+                    'ub.user_id = :u AND e.publisher_id = :p AND '
+                    f'ub.condition_id BETWEEN 1 AND 5 {where}',
+                    u=user_id, p=WSOY)
+            # every printing, though page 1 holds only the oldest 100
+            assert _editions(api_client)['own'] == \
+                {'editions': owned(''), 'wishlisted': 1}
+            # the 1976 filter: Le Guin's printing owned, Earthsea wished;
+            # the 2002 one and the other publisher's don't count
+            assert _editions(api_client, '?year_min=1976&year_max=1976')[
+                'own'] == {'editions': owned('AND e.pubyear = 1976'),
+                           'wishlisted': 1}
+            assert _editions(api_client, '?q=pimeyden')['own'] == \
+                {'editions': 1, 'wishlisted': 0}
+        finally:
+            session.execute(text(
+                'DELETE FROM suomisf.userbook WHERE user_id = :u AND '
+                'edition_id IN :ids'),
+                {'u': user_id, 'ids': tuple(e for e, _ in rows)})
             session.commit()
             session.close()
 

@@ -94,10 +94,7 @@ def api_publishersummary(publisherid: str) -> Response:
     The new publisher page's facts, series (with edition counts and years)
     and magazines (with issue counts and years).
     """
-    # A logged-in user also gets how many of its printings they own; an
-    # expired token gets 401 so the frontend renews it.
-    return make_api_response(publisher_summary(publisherid,
-                                               optional_user_id()))
+    return make_api_response(publisher_summary(publisherid))
 
 
 @app.route('/api/publishers/<publisherid>/editions', methods=['get'])
