@@ -452,7 +452,7 @@ has published in the genre, most first). 400 for a non-numeric id, 404 for an un
 One page of the publisher's editions for the new publisher page (a publisher publishes editions, so the page lists them, not works).
 
 **Query parameters** (all optional): `q` (from the start of a word of the author's name, the edition's or work's title or the original
-title), `year_min`, `year_max` (the edition's year), `sort` (`oldest` default, `newest`, `title` (the title the row shows: the work's when the edition's is empty), `author`), `page` (from 1),
+title), `year_min`, `year_max` (the edition's year), `first=1` (only first editions: laitos 1 or none, printing 1), `sort` (`oldest` default, `newest`, `title` (the title the row shows: the work's when the edition's is empty), `author`), `page` (from 1),
 `rows` (50, 100 or 200; default 100).
 
 **Response:** `{"total": int, "page": int, "rows": int, "editions": [...], "own": {"editions": int, "wishlisted": int} | null}`.

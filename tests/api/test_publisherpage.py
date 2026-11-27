@@ -163,6 +163,24 @@ class TestPublisherEditions:
             'AND pubyear BETWEEN 1976 AND 1977', p=WSOY)
         assert all(1976 <= e['pubyear'] <= 1977 for e in data['editions'])
 
+    def test_first_editions_only(self, api_client):
+        """suomisf-ui#89: only the work's first Finnish edition, laitos 1 (or
+        none) and printing 1; a 2. laitos is left out too."""
+        data = _editions(api_client, '?first=1&year_min=1976&year_max=1976'
+                         '&rows=200')
+        assert data['total'] == _scalar(
+            'SELECT count(*) FROM suomisf.edition WHERE publisher_id = :p '
+            'AND pubyear = 1976 AND coalesce(version, 1) = 1 '
+            'AND editionnum = 1', p=WSOY)
+        assert all((e['version'] or 1) == 1 and e['editionnum'] == 1
+                   for e in data['editions'])
+        ids = [e['id'] for e in data['editions']]
+        assert LE_GUIN_FIRST in ids
+        every = _editions(api_client, '?year_min=1976&year_max=1976&rows=200')
+        assert data['total'] < every['total']
+        api_client.get(f'/api/publishers/{WSOY}/editions?first=x') \
+            .assert_status(400)
+
     def test_text_matches_author_or_title(self, api_client):
         by_author = _editions(api_client, '?q=le+guin&rows=200')
         assert LE_GUIN_FIRST in [e['id'] for e in by_author['editions']]

@@ -159,6 +159,14 @@ def _filtered(session: Any, pid: int, params: Dict[str, str]) -> Any:
         query = query.filter(or_(
             Work.id.in_(writers), _text_match(Edition.title, text),
             _text_match(Work.title, text), _text_match(Work.orig_title, text)))
+    first = (params.get('first') or '').strip()
+    if first not in ('', '0', '1'):
+        raise BadParameter('first')
+    if first == '1':
+        # The work's first Finnish edition: laitos 1 (or none), printing 1
+        # (owner, suomisf-ui#89).
+        query = query.filter(func.coalesce(Edition.version, 1) == 1,
+                             Edition.editionnum == 1)
     year_min = _int(params, 'year_min')
     year_max = _int(params, 'year_max')
     if year_min is not None:
@@ -219,7 +227,8 @@ def publisher_editions(pub_id: str, params: Dict[str, str],
         pub_id: the publisher.
         params: q (from the start of a word of the author's name, the
             edition's or work's title or the original title); year_min and
-            year_max (the edition's year); sort (oldest, newest, title,
+            year_max (the edition's year); first=1 (only first editions:
+            laitos 1 and printing 1); sort (oldest, newest, title,
             author; oldest first by default); page (from 1); rows (50, 100
             or 200; 100 by default).
         user_id: the logged-in user, for their owned and wishlisted marks.
