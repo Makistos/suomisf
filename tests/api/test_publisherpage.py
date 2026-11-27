@@ -181,6 +181,22 @@ class TestPublisherEditions:
         api_client.get(f'/api/publishers/{WSOY}/editions?first=x') \
             .assert_status(400)
 
+    def test_genre(self, api_client):
+        """suomisf-ui#90: the printings of works in one genre."""
+        data = _editions(api_client, '?genre=SF&rows=200')
+        assert data['total'] == _scalar(
+            'SELECT count(*) FROM suomisf.edition e WHERE e.publisher_id = :p '
+            'AND e.work_id IN (SELECT wg.work_id FROM suomisf.workgenre wg '
+            "JOIN suomisf.genre g ON g.id = wg.genre_id WHERE g.abbr = 'SF')",
+            p=WSOY)
+        assert all('SF' in {g['abbr'] for g in e['work']['genres']}
+                   for e in data['editions'])
+        # combines with the other filters
+        both = _editions(api_client, '?genre=SF&year_min=1976&year_max=1976')
+        assert LE_GUIN_FIRST in [e['id'] for e in both['editions']]
+        assert EARTHSEA_FIRST not in [e['id'] for e in both['editions']]
+        assert _editions(api_client, '?genre=nosuch')['total'] == 0
+
     def test_text_matches_author_or_title(self, api_client):
         by_author = _editions(api_client, '?q=le+guin&rows=200')
         assert LE_GUIN_FIRST in [e['id'] for e in by_author['editions']]

@@ -79,7 +79,7 @@ what they test, their parameter values, and expected behaviors.
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
 | api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 24 |
 | api/test_publisherindex.py | GET /api/publisherindex (counts, years, magazines, order) | 5 |
-| api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, genres, paging, filters, sorts, own marks and counts, first editions) | 16 |
+| api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, genres, paging, filters, sorts, own marks and counts, first editions, genre) | 17 |
 
 ---
 
@@ -2646,7 +2646,7 @@ test database. `WSOY` = 387, `HSFS` = 85 (publishes Tähtivaeltaja), `LE_GUIN_FI
 | `test_magazines_with_years_and_issues` | HSFS; WSOY | Tähtivaeltaja's issue count and years = SQL, a type field; WSOY has none |
 | `test_unknown_and_bad_ids` | 999999; `x` | 404; 400 |
 
-### TestPublisherEditions (11 tests)
+### TestPublisherEditions (12 tests)
 
 | Test | Input | Assertions |
 |------|-------|------------|
@@ -2654,6 +2654,7 @@ test database. `WSOY` = 387, `HSFS` = 85 (publishes Tähtivaeltaja), `LE_GUIN_FI
 | `test_pages_do_not_overlap_and_end_empty` | page 2; past the last page | no id twice; an empty list |
 | `test_row_payload` | 1976 | Le Guin's printing: title, year, version and number, original and its year, author, genre SF, translator Kalevi Nyytäjä, Sci-fi -sarja, the work's book series Hain-sarja (and *Maameren velho*'s Maameren tarinat 1), cover or null, no marks for a visitor |
 | `test_year_range` | 1976–1977 | total = SQL; every row in the range |
+| `test_genre` | `genre=SF`; with 1976; `genre=nosuch` | total = SQL over the works in SF, every row SF; Le Guin's 1976 SF printing in and *Maameren velho* (fantasy) out; none |
 | `test_first_editions_only` | `first=1`, 1976; `first=x` | total = SQL with laitos 1 (or none) and printing 1, every row so, Le Guin's printing in, fewer than all of 1976; 400 |
 | `test_text_matches_author_or_title` | `le guin`; `pimeyden`; `left hand` | finds the printing by author (all rows Le Guin's), title and original title |
 | `test_sorts` | newest; title; author | years descending; the first 50 ids = SQL `ORDER BY coalesce(nullif(trim(edition title), ''), work title), pubyear, id` (an empty edition title sorts by its work's) and `author_str, pubyear, title, id` |

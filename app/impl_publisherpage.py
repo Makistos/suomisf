@@ -159,6 +159,12 @@ def _filtered(session: Any, pid: int, params: Dict[str, str]) -> Any:
         query = query.filter(or_(
             Work.id.in_(writers), _text_match(Edition.title, text),
             _text_match(Work.title, text), _text_match(Work.orig_title, text)))
+    genre = (params.get('genre') or '').strip()
+    if genre:
+        # one genre at a time (owner, suomisf-ui#90)
+        in_genre = session.query(WorkGenre.work_id).join(
+            Genre, Genre.id == WorkGenre.genre_id).filter(Genre.abbr == genre)
+        query = query.filter(Edition.work_id.in_(in_genre))
     first = (params.get('first') or '').strip()
     if first not in ('', '0', '1'):
         raise BadParameter('first')
@@ -227,7 +233,8 @@ def publisher_editions(pub_id: str, params: Dict[str, str],
         pub_id: the publisher.
         params: q (from the start of a word of the author's name, the
             edition's or work's title or the original title); year_min and
-            year_max (the edition's year); first=1 (only first editions:
+            year_max (the edition's year); genre (a genre's abbreviation:
+            the printings of works in it); first=1 (only first editions:
             laitos 1 and printing 1); sort (oldest, newest, title,
             author; oldest first by default); page (from 1); rows (50, 100
             or 200; 100 by default).
