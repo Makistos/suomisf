@@ -77,7 +77,7 @@ what they test, their parameter values, and expected behaviors.
 | test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 34 |
 | api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
-| api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) | 24 |
+| api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) and /api/bookindex/stats | 30 |
 | api/test_publisherindex.py | GET /api/publisherindex (counts, years, magazines, order) | 5 |
 | api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, genres, paging, filters, sorts, own marks and counts, first editions, genre) | 17 |
 
@@ -2607,6 +2607,19 @@ test database, so the tests follow the data. `LE_GUIN_WORK` = 3984 (*Pimeyden va
 | Test | Input | Assertions |
 |------|-------|------------|
 | `test_bad_parameters` | rows 7, page 0 or x, sort random, non-numeric years, type or nationality, initial LL | 400 each |
+
+### TestBookIndexStats (6 tests)
+
+`GET /api/bookindex/stats`, the statistics for a whole search.
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_total_follows_the_filters` | none; Le Guin; type 4; genre K,Utopia; initial L with printyear_min 2000 | total equals `GET /api/bookindex`'s for the same filters |
+| `test_genres_count_works_most_first` | author Le Guin | SF's count = SQL count of Le Guin's works in SF; names present; counts descending |
+| `test_tags_count_works_most_first` | type 4 | the top tag's count = SQL; counts descending; `tag_count` = distinct tags of type-4 works |
+| `test_nothing_found` | author zzzzzz | total 0, empty lists, `tag_count` 0 |
+| `test_at_most_fifty_tags_and_how_many_in_all` | no filters | 50 tags; `tag_count` = distinct tags in `worktag` (> 50) |
+| `test_paging_and_sort_are_ignored_but_still_checked` | page 3, rows 200, sort title; type a, initial LL, origyear_min x | the unfiltered total; 400 for each bad filter |
 
 ---
 

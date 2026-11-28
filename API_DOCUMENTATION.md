@@ -152,6 +152,17 @@ endpoints, so the frontend renews it and asks again (access tokens last a minute
 400 for a parameter that can't be used (rows other than 50/100/200, page below 1, unknown sort, non-numeric years or ids,
 an initial longer than one letter).
 
+#### GET /api/bookindex/stats
+Statistics for a whole book index search, for the new page's "Tilastot tästä hausta" (the paged list no longer loads every
+result, so the old panel's counts are made here). Public.
+
+**Query parameters:** the filters of `GET /api/bookindex`; `page`, `rows` and `sort` are ignored.
+
+**Response:** `{"total": int, "genres": [{"abbr", "name", "works"}], "tags": [{"id", "name", "works"}], "tag_count": int}`.
+`works` counts the search's works in that genre or with that tag (a work can have several); both lists most works first, then
+by name. At most 50 tags; `tag_count` is how many different tags the search's works have in all. 400 for a filter that can't
+be used, as on `GET /api/bookindex`.
+
 #### PUT /api/works/{workid}/cover
 Set which cover the work page shows. Requires admin authentication.
 

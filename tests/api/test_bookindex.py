@@ -314,3 +314,69 @@ class TestBookIndexErrors:
                       '?type=a', '?nationality=x', '?initial=LL'):
             response = api_client.get(f'/api/bookindex{query}')
             assert response.status_code == 400, query
+
+
+def _stats(client, query=''):
+    response = client.get(f'/api/bookindex/stats{query}')
+    response.assert_status(200)
+    return response.data
+
+
+class TestBookIndexStats:
+    """Statistics for a whole search (GET /api/bookindex/stats)."""
+
+    def test_total_follows_the_filters(self, api_client):
+        assert _stats(api_client)['total'] == _get(api_client)['total']
+        for query in ('?author=Le+Guin', '?type=4', '?genre=K,Utopia',
+                      '?initial=L&printyear_min=2000'):
+            assert _stats(api_client, query)['total'] == \
+                _get(api_client, query)['total'], query
+
+    def test_genres_count_works_most_first(self, api_client):
+        genres = _stats(api_client, '?author=Le+Guin')['genres']
+        expected = _scalar(
+            "SELECT count(DISTINCT wg.work_id) FROM suomisf.workgenre wg "
+            "JOIN suomisf.genre g ON g.id = wg.genre_id WHERE g.abbr = 'SF' "
+            "AND wg.work_id IN (SELECT wc.work_id FROM "
+            "suomisf.workcontributor wc JOIN suomisf.person p ON p.id IN "
+            "(wc.person_id, wc.real_person_id) WHERE wc.role_id = 1 AND "
+            "(p.name ILIKE 'Le Guin%' OR p.alt_name ILIKE 'Le Guin%'))")
+        sf = next(g for g in genres if g['abbr'] == 'SF')
+        assert sf['works'] == expected > 0
+        assert sf['name']
+        counts = [g['works'] for g in genres]
+        assert counts == sorted(counts, reverse=True)
+
+    def test_tags_count_works_most_first(self, api_client):
+        tags = _stats(api_client, '?type=4')['tags']
+        assert tags, 'non-fiction has tags in the test data'
+        top = tags[0]
+        assert top['works'] == _scalar(
+            'SELECT count(*) FROM suomisf.worktag wt JOIN suomisf.work w '
+            'ON w.id = wt.work_id WHERE w.type = 4 AND wt.tag_id = :tag',
+            tag=top['id'])
+        assert top['name']
+        counts = [t['works'] for t in tags]
+        assert counts == sorted(counts, reverse=True)
+        assert _stats(api_client, '?type=4')['tag_count'] == _scalar(
+            'SELECT count(DISTINCT wt.tag_id) FROM suomisf.worktag wt JOIN '
+            'suomisf.work w ON w.id = wt.work_id WHERE w.type = 4')
+
+    def test_nothing_found(self, api_client):
+        data = _stats(api_client, '?author=zzzzzz')
+        assert data == {'total': 0, 'genres': [], 'tags': [],
+                        'tag_count': 0}
+
+    def test_at_most_fifty_tags_and_how_many_in_all(self, api_client):
+        data = _stats(api_client)
+        assert len(data['tags']) == 50
+        assert data['tag_count'] == _scalar(
+            'SELECT count(DISTINCT tag_id) FROM suomisf.worktag') > 50
+
+    def test_paging_and_sort_are_ignored_but_still_checked(
+            self, api_client):
+        assert _stats(api_client, '?page=3&rows=200&sort=title')['total'] \
+            == _get(api_client)['total']
+        for query in ('?type=a', '?initial=LL', '?origyear_min=x'):
+            response = api_client.get(f'/api/bookindex/stats{query}')
+            assert response.status_code == 400, query

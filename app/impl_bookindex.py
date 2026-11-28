@@ -15,11 +15,15 @@ from sqlalchemy.orm import selectinload
 from app import app
 from app.impl import ResponseType
 from app.orm_decl import (Bookseries, Edition, EditionContributor, Genre,
-                          Person, UserBook, Work, WorkContributor, WorkGenre)
+                          Person, Tag, UserBook, Work, WorkContributor,
+                          WorkGenre, WorkTag)
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
 ROWS = (50, 100, 200)
+# Unfiltered, the whole bibliography has ~4,000 tags (200 kB): send the
+# most common ones and how many there are.
+STATS_TAGS = 50
 SORTS = ('author', 'title', 'year', 'newest')
 WRITER = 1
 TRANSLATOR = 2
@@ -284,3 +288,57 @@ def book_index(params: Dict[str, str],
                             HttpResponseCode.INTERNAL_SERVER_ERROR.value)
     return ResponseType({'total': total, 'page': page, 'rows': rows,
                          'works': result}, HttpResponseCode.OK.value)
+
+
+def book_index_stats(params: Dict[str, str]) -> ResponseType:
+    """
+    Statistics for a whole book index search, for "Tilastot tästä hausta".
+
+    The paged list no longer loads every result, so what the old panel
+    counted in the browser is counted here.
+
+    Args:
+        params: the filters of book_index; page, rows and sort are ignored.
+
+    Returns:
+        ResponseType: {total, genres: [{abbr, name, works}], tags: [{id,
+        name, works}], tag_count}, each list most works first (a work can
+        have several genres and tags); at most STATS_TAGS tags, tag_count
+        is how many there are in all; 400 for a filter that can't be used.
+    """
+    try:
+        session = new_session()
+        try:
+            ids = _filtered(session, params).order_by(None).subquery()
+            total = session.query(func.count()).select_from(ids).scalar()
+            works = func.count(WorkGenre.work_id).label('works')
+            genres = session.query(Genre.abbr, Genre.name, works).join(
+                WorkGenre, WorkGenre.genre_id == Genre.id
+            ).filter(WorkGenre.work_id.in_(session.query(ids.c.id))
+                     ).group_by(Genre.id, Genre.abbr, Genre.name
+                                ).order_by(works.desc(), Genre.name).all()
+            tagged = func.count(WorkTag.work_id).label('works')
+            tags = session.query(Tag.id, Tag.name, tagged).join(
+                WorkTag, WorkTag.tag_id == Tag.id
+            ).filter(WorkTag.work_id.in_(session.query(ids.c.id))
+                     ).group_by(Tag.id, Tag.name
+                                ).order_by(tagged.desc(), Tag.name)
+            tag_count = tags.order_by(None).count()
+            tags = tags.limit(STATS_TAGS).all()
+        finally:
+            session.close()
+    except BadParameter as exp:
+        app.logger.info(f'book_index_stats: bad parameter {exp}.')
+        return ResponseType(f'Virheellinen parametri: {exp}',
+                            HttpResponseCode.BAD_REQUEST.value)
+    except SQLAlchemyError as exp:
+        app.logger.error(f'book_index_stats: {exp}')
+        return ResponseType('book_index_stats: Tietokantavirhe.',
+                            HttpResponseCode.INTERNAL_SERVER_ERROR.value)
+    return ResponseType({
+        'total': total,
+        'genres': [{'abbr': a, 'name': n, 'works': c}
+                   for a, n, c in genres],
+        'tags': [{'id': i, 'name': n, 'works': c} for i, n, c in tags],
+        'tag_count': tag_count,
+    }, HttpResponseCode.OK.value)

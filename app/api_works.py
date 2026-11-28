@@ -12,7 +12,7 @@ from app.api_jwt import (jwt_admin_required, jwt_self_or_admin_required,
 from app.api_helpers import make_api_response, validate_positive_integer_id
 from app.impl import ResponseType
 from app.impl_awards import get_awards_for_work
-from app.impl_bookindex import book_index
+from app.impl_bookindex import book_index, book_index_stats
 from app.impl_work_similarity import DEFAULT_LIMIT, get_similar_works
 from app.impl_works import (get_author_works, get_latest_works, get_omnibus,
                             get_work, get_work_shorts, save_omnibus,
@@ -422,6 +422,23 @@ def api_bookindex() -> Response:
     # token gets 401 so the frontend renews it (optional_user_id).
     user_id = optional_user_id()
     return make_api_response(book_index(request.args.to_dict(), user_id))
+
+
+@app.route('/api/bookindex/stats', methods=['get'])
+def api_bookindex_stats() -> Response:
+    """
+    Statistics for a whole book index search ("Tilastot tästä hausta").
+
+    Query parameters: the filters of /api/bookindex; page, rows and sort
+    are ignored.
+
+    Returns:
+        {"total": int, "genres": [{"abbr", "name", "works"}],
+        "tags": [{"id", "name", "works"}], "tag_count": int}, most works
+        first, at most 50 tags (tag_count is how many in all); 400 for a
+        filter that can't be used.
+    """
+    return make_api_response(book_index_stats(request.args.to_dict()))
 
 
 @app.route('/api/works/<workid>/cover', methods=['put'])
