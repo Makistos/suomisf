@@ -43,6 +43,7 @@ what they test, their parameter values, and expected behaviors.
 31. [Book Index Tests (test_bookindex.py)](#book-index-tests)
 32. [Publisher Index Tests (test_publisherindex.py)](#publisher-index-tests)
 33. [Publisher Page Tests (test_publisherpage.py)](#publisher-page-tests)
+34. [Tag Index Tests (test_tagindex.py)](#tag-index-tests)
 
 ---
 
@@ -77,8 +78,9 @@ what they test, their parameter values, and expected behaviors.
 | test_work_similarity.py | Similar works job (scripts/work_similarity.py) | 34 |
 | api/test_work_similarity_api.py | GET /api/works/{id}/similar | 6 |
 | api/test_work_cover.py | PUT /api/works/{id}/cover, `cover_image_id` | 7 |
-| api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks) and /api/bookindex/stats | 30 |
+| api/test_bookindex.py | GET /api/bookindex (paging, filters, sorting, own marks, tag) and /api/bookindex/stats | 33 |
 | api/test_publisherindex.py | GET /api/publisherindex (counts, years, magazines, order) | 5 |
+| api/test_tagindex.py | GET /api/tagindex (groups, letters, search, sort, unused tags) | 9 |
 | api/test_publisherpage.py | GET /api/publishers/:id/summary and /editions (facts, series, magazines, genres, paging, filters, sorts, own marks and counts, first editions, genre) | 17 |
 
 ---
@@ -2608,6 +2610,16 @@ test database, so the tests follow the data. `LE_GUIN_WORK` = 3984 (*Pimeyden va
 |------|-------|------------|
 | `test_bad_parameters` | rows 7, page 0 or x, sort random, non-numeric years, type or nationality, initial LL | 400 each |
 
+### TestBookIndexTag (3 tests)
+
+The tag page's works list. `KYBERPUNK` = 303.
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_tag` | tag 303, rows 200 | total and ids = the tag's `worktag` rows; no `matched_tags`; the stats total agrees |
+| `test_with_similar_tags_each_row_says_which` | tag 303, tag_similar 1 | total = works with the tag or a similar one (`tag_similar` status new); each row's `matched_tags` are among them, the tag first when present; some work comes only from a similar tag |
+| `test_bad_tag` | tag x | 400 |
+
 ### TestBookIndexStats (6 tests)
 
 `GET /api/bookindex/stats`, the statistics for a whole search.
@@ -2675,3 +2687,26 @@ test database. `WSOY` = 387, `HSFS` = 85 (publishes Tähtivaeltaja), `LE_GUIN_FI
 | `test_own_counts_follow_the_filters` | Test User owns Le Guin's 1976 printing and a 2002 one, wishes for *Maameren velho* 1976, owns another publisher's printing (removed afterwards) | visitor and summary: no counts; all printings: owned = SQL, 1 wished (page 1 holds only 100); 1976: owned = SQL for 1976, 1 wished; `pimeyden`: 1 owned, 0 wished |
 | `test_an_expired_token_asks_for_a_new_one` | a token that expired 10 s ago | 401 "Token has expired" |
 | `test_bad_parameters` | rows 7, page 0, sort x, year_min x; publisher 999999 | 400 each; 404 |
+
+---
+
+## Tag Index Tests
+
+**File:** `tests/api/test_tagindex.py`
+
+The light tag list for the new tag list page (`GET /api/tagindex`). Expected values come from SQL on the test database; a tag's
+count is its `worktag`, `storytag` and `articletag` rows together.
+
+### TestTagIndex (9 tests)
+
+| Test | Input | Assertions |
+|------|-------|------------|
+| `test_a_group_lists_its_used_tags_by_name_with_counts` | type 2 | ids and counts equal SQL for used Alagenre tags by name; each tag has only id, name, count |
+| `test_group_counts_for_the_tabs` | none | groups in tab order 2, 3, 1, 4, 5, 6, 7; Aihe's count includes tags without a type |
+| `test_default_group_is_alagenre` | none; type 2 | the same tags |
+| `test_letter` | type 1, letter a; Ä | every name starts with that letter |
+| `test_other_initials` | type 6, letter 0 | every name starts with something other than A–Ö |
+| `test_search_ignores_the_letter_and_counts_per_group` | type 1, letter B, q aika | every name contains "aika"; group counts equal SQL per group |
+| `test_sort_by_count` | type 1, letter A, sort count | counts descending |
+| `test_unused_tags_only_when_asked` | an unused tag's group; with unused 1 | not listed; listed with count 0 |
+| `test_bad_parameters` | type x or 99, letter ab, sort random | 400 each |

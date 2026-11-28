@@ -136,6 +136,8 @@ Used by the new book index page; `POST /api/searchworks` stays as it is for the 
 - `type`: comma-separated work type ids (any of them)
 - `genre`: comma-separated genre abbreviations (any of them), e.g. `SF,F`
 - `initial`: the first letter of the author string, e.g. `L` or `Ä`
+- `tag`: a tag id; `tag_similar=1` adds the tags suggested as similar to it (as `GET /api/tags/{id}/similar` lists them), and
+  each row then has `matched_tags` (`[{id, name}]`, the tag itself first, then the similar ones best first)
 - `sort`: `author` (default; author string, title), `title`, `year` (oldest first), `newest`; empty years last
 - `page` (from 1, default 1), `rows` (50, 100 or 200; default 50)
 
@@ -528,6 +530,19 @@ Get list of all tags.
 
 #### GET /api/tagsquick
 Get a quick list of tags.
+
+#### GET /api/tagindex
+One group of the tag list for the new tag list page, with counts and no works. Public.
+
+**Query parameters (all optional):** `type` (tag type id, default 2 Alagenre; a tag without a type counts as Aihe, 1),
+`letter` (initial A–Ö, or `0` for any other first character, e.g. "1800-luku"), `q` (part of the name, any case; overrides
+`letter`), `sort` (`name`, default, or `count`, most first), `unused` (`1` includes tags with nothing linked; the page asks for
+them for admins only).
+
+**Response:** `{"types": [{"id", "name", "count"}], "tags": [{"id", "name", "count"}]}`. `types` lists every group in tab order
+(2, 3, 1, 4, 5, 6, 7) with how many tags it has for this `q` and `unused` (not the letter). A tag's `count` is its works, stories
+and magazine articles together, as on the current list. 400 for an unknown type, a letter that isn't one character of A–Ö or `0`,
+or an unknown sort.
 
 #### POST /api/tags
 Create a new tag. Requires admin authentication.

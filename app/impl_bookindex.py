@@ -8,7 +8,7 @@ book suggestions unchanged.
 
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from sqlalchemy import func, or_
+from sqlalchemy import func, or_, text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import selectinload
 
@@ -17,6 +17,7 @@ from app.impl import ResponseType
 from app.orm_decl import (Bookseries, Edition, EditionContributor, Genre,
                           Person, Tag, UserBook, Work, WorkContributor,
                           WorkGenre, WorkTag)
+from app.impl_tags import TAG_SIMILAR_STMT
 from app.route_helpers import new_session
 from app.types import HttpResponseCode
 
@@ -62,8 +63,25 @@ def _text_match(column: Any, value: str) -> Any:
     return or_(column.ilike(f'{value}%'), column.ilike(f'% {value}%'))
 
 
+def _tag_ids(session: Any, params: Dict[str, str]) -> List[int]:
+    """The tag, and with tag_similar=1 the tags suggested as similar to
+    it (as on the tag page); [] without a tag."""
+    tag = _int(params, 'tag')
+    if tag is None:
+        return []
+    if params.get('tag_similar') != '1':
+        return [tag]
+    return [tag] + [r.id for r in session.execute(
+        text(TAG_SIMILAR_STMT), {'id': tag})]
+
+
 def _filtered(session: Any, params: Dict[str, str]) -> Any:
     query = session.query(Work.id)
+
+    tags = _tag_ids(session, params)
+    if tags:
+        query = query.filter(Work.id.in_(
+            session.query(WorkTag.work_id).filter(WorkTag.tag_id.in_(tags))))
 
     author = (params.get('author') or '').strip()
     if author:
@@ -163,6 +181,20 @@ def _translators(edition: Optional[Edition]) -> List[Person]:
     return found
 
 
+def _matched_tags(session: Any, tags: List[int],
+                  work_ids: List[int]) -> Dict[int, List[Dict[str, Any]]]:
+    """For each work, which of these tags it has, in their order (the
+    tag itself first, then the similar ones best first)."""
+    order = {t: i for i, t in enumerate(tags)}
+    found: Dict[int, List[Dict[str, Any]]] = {}
+    rows = session.query(WorkTag.work_id, Tag.id, Tag.name).join(
+        Tag, Tag.id == WorkTag.tag_id).filter(
+        WorkTag.tag_id.in_(tags), WorkTag.work_id.in_(work_ids)).all()
+    for work_id, tag_id, name in sorted(rows, key=lambda r: order[r[1]]):
+        found.setdefault(work_id, []).append({'id': tag_id, 'name': name})
+    return found
+
+
 def _row(work: Work, owned: Set[int], wished: Set[int]) -> Dict[str, Any]:
     # By laitos, then printing: each laitos's printings stay together.
     editions = sorted(work.editions or [],
@@ -235,7 +267,10 @@ def book_index(params: Dict[str, str],
             Finnish printing); nationality (writer's country id); type
             (comma-separated work type ids); genre (comma-separated genre
             abbreviations, any of them); initial (first letter of the
-            author string); sort (author, title, year, newest); page
+            author string); tag (a tag id; with tag_similar=1 also the
+            tags suggested as similar to it, and each row then has
+            matched_tags: [{id, name}], the tag first); sort (author,
+            title, year, newest); page
             (from 1); rows (50, 100 or 200).
         user_id: the logged-in user, for their own owned and wishlisted
             marks on the printings; None for a visitor.
@@ -276,6 +311,11 @@ def book_index(params: Dict[str, str],
             by_id = {w.id: w for w in works}
             result = [_row(by_id[i], owned, wished) for i in ids
                       if i in by_id]
+            if params.get('tag_similar') == '1' and result:
+                matched = _matched_tags(session, _tag_ids(session, params),
+                                        ids)
+                for row in result:
+                    row['matched_tags'] = matched.get(row['id'], [])
         finally:
             session.close()
     except BadParameter as exp:

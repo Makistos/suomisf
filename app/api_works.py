@@ -412,7 +412,9 @@ def api_bookindex() -> Response:
     Query parameters (all optional): author, title, orig_title,
     origyear_min, origyear_max, printyear_min, printyear_max, nationality,
     type (comma-separated ids), genre (comma-separated abbreviations),
-    initial, sort (author|title|year|newest), page, rows (50|100|200).
+    initial, tag (a tag id), tag_similar (1: also the tags similar to it;
+    rows then have matched_tags), sort (author|title|year|newest), page,
+    rows (50|100|200).
 
     Returns:
         {"total": int, "page": int, "rows": int, "works": [...]}; 400 for a

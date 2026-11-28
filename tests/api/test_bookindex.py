@@ -268,6 +268,46 @@ class TestBookIndexFilters:
             assert 'SF' in {g['abbr'] for g in w['genres']}
 
 
+class TestBookIndexTag:
+    """The tag page's works list: one tag, or with its similar tags."""
+
+    KYBERPUNK = 303
+
+    def test_tag(self, api_client):
+        data = _get(api_client, f'?tag={self.KYBERPUNK}&rows=200')
+        expected = set(_ids('SELECT work_id FROM suomisf.worktag '
+                            'WHERE tag_id = :t', t=self.KYBERPUNK))
+        assert data['total'] == len(expected) > 0
+        assert {w['id'] for w in data['works']} == expected
+        assert 'matched_tags' not in data['works'][0]
+        assert _stats(api_client, f'?tag={self.KYBERPUNK}')['total'] == \
+            len(expected)
+
+    def test_with_similar_tags_each_row_says_which(self, api_client):
+        similar = _ids(
+            "SELECT CASE WHEN tag_a = :t THEN tag_b ELSE tag_a END FROM "
+            "suomisf.tag_similarity WHERE (tag_a = :t OR tag_b = :t) "
+            "AND status = 'new'", t=self.KYBERPUNK)
+        tags = [self.KYBERPUNK] + similar
+        expected = set(_ids('SELECT work_id FROM suomisf.worktag '
+                            'WHERE tag_id = ANY(:t)', t=tags))
+        data = _get(api_client,
+                    f'?tag={self.KYBERPUNK}&tag_similar=1&rows=200')
+        assert data['total'] == len(expected)
+        for w in data['works']:
+            ids = [t['id'] for t in w['matched_tags']]
+            assert ids and set(ids) <= set(tags)
+            if self.KYBERPUNK in ids:
+                assert ids[0] == self.KYBERPUNK
+        if similar:
+            assert any(self.KYBERPUNK not in
+                       [t['id'] for t in w['matched_tags']]
+                       for w in data['works'])
+
+    def test_bad_tag(self, api_client):
+        assert api_client.get('/api/bookindex?tag=x').status_code == 400
+
+
 class TestBookIndexSorting:
     """Sort orders, empty values last."""
 

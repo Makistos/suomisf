@@ -10,6 +10,7 @@ from flask_jwt_extended import get_jwt_identity
 from app import app
 from app.api_helpers import make_api_response
 from app.impl import ResponseType
+from app.impl_tagindex import tag_index
 from app.impl_tags import (tag_create, tag_delete, tag_filter, tag_forminfo,
                            tag_info, tag_list, tag_list_quick, tag_merge,
                            tag_search, tag_similar, tag_similar_decide,
@@ -41,6 +42,24 @@ def api_tags() -> Response:
         return make_api_response(response)
 
     return make_api_response(tag_list())
+
+
+@app.route('/api/tagindex', methods=['get'])
+def api_tagindex() -> Response:
+    """
+    One group of the tag list for the new tag list page, with counts and
+    no works.
+
+    Query parameters (all optional): type (tag type id, default 2,
+    Alagenre), letter (A-Ö, or 0 for other initials), q (part of the
+    name; overrides the letter), sort (name|count), unused (1 includes
+    tags with nothing linked).
+
+    Returns:
+        {"types": [{"id", "name", "count"}], "tags": [{"id", "name",
+        "count"}]}; 400 for a parameter that can't be used.
+    """
+    return make_api_response(tag_index(request.args.to_dict()))
 
 
 @app.route('/api/tagsquick', methods=['get'])
